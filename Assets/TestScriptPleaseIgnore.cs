@@ -15,6 +15,23 @@ public class TestScriptPleaseIgnore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        bool wDown = Input.GetKey(KeyCode.W);
+        if (wDown)
+        {
+            Debug.Log(animator);
+            animator.SetBool("IsWalking", true);
+        }
+        if (!wDown)
+        {
+            Debug.Log(animator);
+            animator.SetBool("IsWalking", false);
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            animator.SetTrigger("Punch");
+        }
+
+
     }
 }
