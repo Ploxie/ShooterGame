@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
         
         Vector3 newPosition = transform.position + directionOfPlayer;
         agent.SetDestination(newPosition);
+
         if (agent.isStopped == true)
         {
             agent.Resume();
@@ -41,5 +43,30 @@ public class Enemy : MonoBehaviour
         //    agent.SetDestination(patrol);
         }
         //needs destinations given to it for it to work
+    }
+    public bool RayCastForVisual(movePlayer player)
+    {
+
+        bool seePlayer = false;
+        var rayDirection = player.transform.position - transform.position;
+        RaycastHit hit = new RaycastHit();
+
+        if(Physics.Raycast(transform.position, rayDirection, out hit))
+        {
+            if(hit.transform.gameObject.tag == player.gameObject.tag)
+            {
+                seePlayer = true;
+            }
+        }
+        print(this.transform.position - player.transform.position);
+        print(seePlayer);
+        return seePlayer;
+    }
+    private void rotateToPlayer(movePlayer player)
+    {
+        Vector3 targetDelta = transform.position - player.transform.position;
+        float angleToTarget = Vector3.Angle(transform.forward, targetDelta);
+        Vector3 turnAxis = Vector3.Cross(transform.forward, targetDelta);
+        transform.RotateAround(transform.position, turnAxis, Time.deltaTime * 2f * angleToTarget);
     }
 }

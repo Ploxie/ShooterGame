@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class FSMRanged : MonoBehaviour
@@ -41,21 +42,29 @@ public class FSMRanged : MonoBehaviour
     {
         float distBetweenEnemyPlayer = Vector3.Distance(transform.position, player.transform.position);
         print(status);
-        switch (status)//switch no work we will try the object oriented way.
+        bool seen = enemy.RayCastForVisual(player);
+        switch (status)//switch no work we will try the object oriented way. maybe done points on the map where we show where the enemy should be
         {               
             case states.STATE_PATROL:
-                //should have a view and be able to shange to shooting from this state
-                //enemy.Patrol(paths[0]);
                     status = states.STATE_SHOOTING;
                 break;
+            
+            
             case states.STATE_SHOOTING:
-                if(10f > distBetweenEnemyPlayer && 30f > distBetweenEnemyPlayer)//move from player
+                
+                if(10f >= distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//move from player
                 {
-                    status = states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING;
+                    if (seen == true)
+                    {
+                        status = states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING;
+                    }
                 }
-                else if(30f > distBetweenEnemyPlayer)//move to player
+                else if(25f < distBetweenEnemyPlayer)//move to player
                 {
-                    status = states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING;
+                    if (seen == true)
+                    {
+                        status = states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING;
+                    }
                 }
                 else 
                 {
@@ -65,18 +74,32 @@ public class FSMRanged : MonoBehaviour
                 break;
             case states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING:
                 enemy.MoveToEnemy(player);
-                if (10f > Vector3.Distance(transform.position, player.transform.position) && 30f > distBetweenEnemyPlayer)//move to player
+                if(seen == true)
                 {
-                    status = states.STATE_SHOOTING;
+                    if (10f < distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//move to player
+                    {
+                        status = states.STATE_SHOOTING;
+                    }
+                }
+                else
+                {
+                    status = states.STATE_PATROL;
                 }
                 print(status);
                 //some form of pathfinding with shooting action
                 break;
             case states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING:
                 enemy.MoveAwayFromEnemy(player);
-                if (30f < distBetweenEnemyPlayer)//move from player
+                if (seen == true)
                 {
-                    status = states.STATE_SHOOTING;
+                    if (25f <= distBetweenEnemyPlayer)//move from player
+                    {
+                        status = states.STATE_SHOOTING;
+                    }
+                }
+                else
+                {
+                    status = states.STATE_PATROL;
                 }
                 print(status);
                 //some form of pathfinding with shooting action
