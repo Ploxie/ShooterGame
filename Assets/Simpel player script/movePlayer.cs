@@ -5,14 +5,8 @@ using UnityEngine;
 
 public class movePlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //[SerializeField]
-    //GameObject go;
-    private void Start()
-    {
-        //go = GetComponent<GameObject>();
-    }
-    // Update is called once per frame
+   
+    //not worth looking at
     void Update()
     {
         var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

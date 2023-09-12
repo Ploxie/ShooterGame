@@ -40,7 +40,7 @@ public class FSMRanged : MonoBehaviour
     }
     private void Update()
     {
-        HandelState();
+        HandelState();//the whole of the switch based state machine
     }
     private void HandelState()
     {
@@ -49,7 +49,8 @@ public class FSMRanged : MonoBehaviour
         bool seen = enemy.RayCastForVisual(player);
         switch (status)//switch no work we will try the object oriented way. maybe done points on the map where we show where the enemy should be
         {               
-            case states.STATE_PATROL://go to last place of enemy and go back to original place.
+            case states.STATE_PATROL://go to last place of enemy and go back to original place. It uses a bool check to keep the patrol state at either look for enemy at a place
+                                     //and will return to the original place of the enemy. Will change to shoot state when seeing player with raycast.   
                 if (seen != true)
                 {
                     if (movetolastPos == false)
@@ -73,7 +74,7 @@ public class FSMRanged : MonoBehaviour
             
             case states.STATE_SHOOTING:
                 
-                if(10f >= distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//move from player
+                if(10f >= distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//moves away from player if to close.
                 {
                     if (seen == true)
                     {
@@ -85,7 +86,7 @@ public class FSMRanged : MonoBehaviour
                         lastSeenPos = player.transform.position;
                     }
                 }
-                else if(25f < distBetweenEnemyPlayer)//move to player
+                else if(25f < distBetweenEnemyPlayer)//move to player if to far away.
                 {
                     if (seen == true)
                     {
@@ -109,9 +110,8 @@ public class FSMRanged : MonoBehaviour
                         lastSeenPos = player.transform.position;
                     }
                 }
-                //shoot at the enemy from standing point and be able to transition to running to/from using enemys movement.
                 break;
-            case states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING:
+            case states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING://running towards enemy in this state.
                 enemy.MoveToEnemy(player);
                 if(seen == true)
                 {
@@ -128,7 +128,7 @@ public class FSMRanged : MonoBehaviour
                 print(status);
                 //some form of pathfinding with shooting action
                 break;
-            case states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING:
+            case states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING://running from enemy in this state.
                 enemy.MoveAwayFromEnemy(player);
                 if (seen == true)
                 {

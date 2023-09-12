@@ -7,21 +7,17 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-public class Enemy : MonoBehaviour
-{
-    // Start is called before the first frame update
-    // Update is called once per frame
+public class Enemy : MonoBehaviour //a script that utilizes the navmeshagent for pathfinding
+ {
     public NavMeshAgent agent;
-    NavMeshSurface NMS;
     Vector3 rubberPosition;
 
     public void Start()
     {
-        this.NMS = FindObjectOfType<NavMeshSurface>();
         rubberPosition = transform.position;
     }
 
-    public void MoveToEnemy(movePlayer placeOfPlayer)
+    public void MoveToEnemy(movePlayer placeOfPlayer)//a function to move towards enemy
     {
         rotateToPlayer(placeOfPlayer);
         agent.SetDestination(placeOfPlayer.transform.position);
@@ -31,7 +27,7 @@ public class Enemy : MonoBehaviour
         }
         //transform.Translate(dir * 1f * Time.deltaTime);
     }
-    public void MoveAwayFromEnemy(movePlayer player)
+    public void MoveAwayFromEnemy(movePlayer player)//a function to move away from the enemy
     {
         Vector3 directionOfPlayer = transform.position - player.transform.position;
         
@@ -44,22 +40,21 @@ public class Enemy : MonoBehaviour
             agent.Resume();
         }
     }
-    public void Shoot(movePlayer player)
+    public void Shoot(movePlayer player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
     {
-        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
+        rotateToPlayer(player);
         agent.Stop();
     }
-    public void Patrol(Vector3 pos)
+    public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
         lookAtLastPos(pos);
     }
-    public void lookAtLastPos(Vector3 moveToPos)
+    public void lookAtLastPos(Vector3 moveToPos)//set destination for last position
     {
         agent.SetDestination(moveToPos);
         agent.Resume();
     }
-    public bool RayCastForVisual(movePlayer player)
+    public bool RayCastForVisual(movePlayer player)//a raycast to see if the player is indeed seeing the player
     {
 
         bool seePlayer = false;
@@ -77,12 +72,12 @@ public class Enemy : MonoBehaviour
         print(seePlayer);
         return seePlayer;
     }
-    private void rotateToPlayer(movePlayer player)
+    private void rotateToPlayer(movePlayer player)//the enemy rotates to the player 
     {
         Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
     }
-    public void SimpleLeash()
+    public void SimpleLeash()// uses a leach function that mean that the enemy goes back to its original position and makes it idle
     {
         if(agent.isStopped == true)
         {
