@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
+using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -9,7 +12,14 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     // Update is called once per frame
     public NavMeshAgent agent;
-     
+    NavMeshSurface NMS;
+    Vector3 rubberPosition;
+
+    public void Start()
+    {
+        this.NMS = FindObjectOfType<NavMeshSurface>();
+        rubberPosition = transform.position;
+    }
 
     public void MoveToEnemy(movePlayer placeOfPlayer)
     {
@@ -40,13 +50,14 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
         agent.Stop();
     }
-    public void Patrol(Vector3 patrol)
+    public void Patrol(Vector3 pos)
     {
-        if (agent.destination != patrol)
-        {
-        //    agent.SetDestination(patrol);
-        }
-        //needs destinations given to it for it to work
+        lookAtLastPos(pos);
+    }
+    public void lookAtLastPos(Vector3 moveToPos)
+    {
+        agent.SetDestination(moveToPos);
+        agent.Resume();
     }
     public bool RayCastForVisual(movePlayer player)
     {
@@ -71,4 +82,13 @@ public class Enemy : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
     }
+    public void SimpleLeash()
+    {
+        if(agent.isStopped == true)
+        {
+            agent.Resume();
+        }
+        agent.SetDestination(rubberPosition);
+    }
+    
 }

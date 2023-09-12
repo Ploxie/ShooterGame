@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class FSMRanged : MonoBehaviour
@@ -21,11 +22,13 @@ public class FSMRanged : MonoBehaviour
     Vector3[] paths;
     float distanceShort;
     float distanceLong;
-
+    Vector3 lastSeenPos;
+    bool movetolastPos;
     public FSMRanged(Enemy enemy)
     {
         this.enemy = enemy;
         this.player = FindObjectOfType<movePlayer>();
+        
         status = states.STATE_PATROL;
         
     }
@@ -33,6 +36,7 @@ public class FSMRanged : MonoBehaviour
     {
         distanceShort = 10f;
         distanceLong = 30f;
+        movetolastPos = true;
     }
     private void Update()
     {
@@ -45,8 +49,25 @@ public class FSMRanged : MonoBehaviour
         bool seen = enemy.RayCastForVisual(player);
         switch (status)//switch no work we will try the object oriented way. maybe done points on the map where we show where the enemy should be
         {               
-            case states.STATE_PATROL:
+            case states.STATE_PATROL://go to last place of enemy and go back to original place.
+                if (seen != true)
+                {
+                    if (movetolastPos == false)
+                    {
+                        lastSeenPos = player.transform.position;
+                        enemy.Patrol(lastSeenPos);
+                        movetolastPos=true;
+                    }
+                    else if(lastSeenPos == enemy.transform.position && movetolastPos == true)
+                    {
+                        enemy.SimpleLeash();
+                    }
+                }
+                else
+                {
                     status = states.STATE_SHOOTING;
+                    movetolastPos = false;
+                }
                 break;
             
             
@@ -58,6 +79,11 @@ public class FSMRanged : MonoBehaviour
                     {
                         status = states.STATE_RUNNING_FROM_ENEMY_WHILE_SHOOTING;
                     }
+                    else
+                    {
+                        status = states.STATE_PATROL;
+                        lastSeenPos = player.transform.position;
+                    }
                 }
                 else if(25f < distBetweenEnemyPlayer)//move to player
                 {
@@ -65,12 +91,22 @@ public class FSMRanged : MonoBehaviour
                     {
                         status = states.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING;
                     }
+                    else
+                    {
+                        status = states.STATE_PATROL;
+                        lastSeenPos = player.transform.position;
+                    }
                 }
                 else 
                 {
                     if (seen == true)
                     {
                         enemy.Shoot(player);
+                    }
+                    else
+                    {
+                        status = states.STATE_PATROL;
+                        lastSeenPos = player.transform.position;
                     }
                 }
                 //shoot at the enemy from standing point and be able to transition to running to/from using enemys movement.
@@ -87,6 +123,7 @@ public class FSMRanged : MonoBehaviour
                 else
                 {
                     status = states.STATE_PATROL;
+                    lastSeenPos = player.transform.position;
                 }
                 print(status);
                 //some form of pathfinding with shooting action
@@ -103,6 +140,7 @@ public class FSMRanged : MonoBehaviour
                 else
                 {
                     status = states.STATE_PATROL;
+                    lastSeenPos = player.transform.position;
                 }
                 print(status);
                 //some form of pathfinding with shooting action
