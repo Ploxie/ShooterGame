@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     public void MoveToEnemy(movePlayer placeOfPlayer)
     {
+        rotateToPlayer(placeOfPlayer);
         agent.SetDestination(placeOfPlayer.transform.position);
         if (agent.isStopped == true)
         {
@@ -25,15 +26,18 @@ public class Enemy : MonoBehaviour
         Vector3 directionOfPlayer = transform.position - player.transform.position;
         
         Vector3 newPosition = transform.position + directionOfPlayer;
+        rotateToPlayer(player);
+        agent.updateRotation = false;
         agent.SetDestination(newPosition);
-
         if (agent.isStopped == true)
         {
             agent.Resume();
         }
     }
-    public void Shoot()
+    public void Shoot(movePlayer player)
     {
+        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
         agent.Stop();
     }
     public void Patrol(Vector3 patrol)
@@ -64,9 +68,7 @@ public class Enemy : MonoBehaviour
     }
     private void rotateToPlayer(movePlayer player)
     {
-        Vector3 targetDelta = transform.position - player.transform.position;
-        float angleToTarget = Vector3.Angle(transform.forward, targetDelta);
-        Vector3 turnAxis = Vector3.Cross(transform.forward, targetDelta);
-        transform.RotateAround(transform.position, turnAxis, Time.deltaTime * 2f * angleToTarget);
+        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 30f * Time.deltaTime);
     }
 }

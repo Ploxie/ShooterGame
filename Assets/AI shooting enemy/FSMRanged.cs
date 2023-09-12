@@ -68,7 +68,10 @@ public class FSMRanged : MonoBehaviour
                 }
                 else 
                 {
-                    enemy.Shoot();
+                    if (seen == true)
+                    {
+                        enemy.Shoot(player);
+                    }
                 }
                 //shoot at the enemy from standing point and be able to transition to running to/from using enemys movement.
                 break;
