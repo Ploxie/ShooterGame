@@ -95719,7 +95719,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.6666666
-    functionName: PlaceEffect
+    functionName: ToggleJumpDamage
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 046e0173d7529fa489060ed5e59856d3, type: 3}
+    floatParameter: 0
+    intParameter: 1
+    messageOptions: 0
+  - time: 2.3333333
+    functionName: ToggleJumpDamage
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 046e0173d7529fa489060ed5e59856d3, type: 3}
     floatParameter: 0
