@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class HealthBarManager : MonoBehaviour
@@ -21,6 +22,10 @@ public class HealthBarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             TakeDamage(20);
