@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2766110088432818548}
   - component: {fileID: 8694570619523848058}
   m_Layer: 0
-  m_Name: EnemyMelee
+  m_Name: EnemyMelee - Axel
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
