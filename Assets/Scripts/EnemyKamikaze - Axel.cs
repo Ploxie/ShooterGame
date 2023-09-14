@@ -28,6 +28,10 @@ public class EnemyKamikaze : MonoBehaviour
     GameObject player;
 
     [SerializeField]
+    GameObject model;
+
+
+    [SerializeField]
     State state;
     enum State
     {
@@ -165,6 +169,8 @@ public class EnemyKamikaze : MonoBehaviour
     void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
+        model.gameObject.SetActive(false);
+        state = State.Die;
     }
 
     public void EndRoar()

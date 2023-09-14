@@ -1369,7 +1369,7 @@ GameObject:
   - component: {fileID: 8279193036526476926}
   - component: {fileID: 6784032201294740920}
   m_Layer: 0
-  m_Name: EnemyKamikaze
+  m_Name: EnemyKamikaze - Axel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1501,6 +1501,7 @@ MonoBehaviour:
   detectionRange: 10
   diveRange: 2
   player: {fileID: 0}
+  model: {fileID: -3168422337102530296}
   state: 0
 --- !u!1 &919132149155446097
 GameObject:
