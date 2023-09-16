@@ -6,30 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuPhilip : MonoBehaviour
 {
-    public GameObject pauseMenuUI;
-    bool isPaused = false;
-    private void Update()
+    //Only for Play scene
+    public GameObject pauseMenuUI; 
+    public GameObject deathMenuUI; 
+    bool isPaused = false; 
+    bool canPause = true;
+
+    private void Start()
     {
-        //Debug.Log(SceneManager.GetActiveScene().name);
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "PlayAreaTestMenu")
         {
-            
-            if (Input.GetKeyDown(KeyCode.Escape))
+            isPaused = false;
+            pauseMenuUI.SetActive(false);
+            deathMenuUI.SetActive(false);
+        }
+    }
+    private void Update()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "PlayAreaTestMenu")
+        {
+            if (canPause == true) // So you can't pause while in death screen
             {
-                //SceneManager.LoadScene("MainMenu");
-                if (isPaused == false)
-                {
-                    pauseMenuUI.SetActive(true);
-                    isPaused = true;
-                }
-                else if (isPaused == true) 
-                {
-                    pauseMenuUI.SetActive(false);
-                    isPaused = false;
-                }
-                
+                PauseGame();
             }
+            Die();
         }
     }
 
@@ -39,7 +41,38 @@ public class MainMenuPhilip : MonoBehaviour
     }
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu"); 
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Reloads current scene .. should work with PCG
+    }
+    private void Die()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("you died");
+            canPause = false;
+            pauseMenuUI.SetActive(false); //If we have the feature where pause = game still continues
+            isPaused = false;
+            deathMenuUI.SetActive(true);
+        }
+    }
+    private void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused == false)
+            {
+                pauseMenuUI.SetActive(true);
+                isPaused = true;
+            }
+            else if (isPaused == true)
+            {
+                pauseMenuUI.SetActive(false);
+                isPaused = false;
+            }
+        }
     }
     public void QuitGame()
     {
