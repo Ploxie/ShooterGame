@@ -104,8 +104,6 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
                 enemyInTheWay = true;
             }
         }
-        //print(this.transform.position - player.transform.position);
-        //print(seePlayer);
         return enemyInTheWay;
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
@@ -116,12 +114,9 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
     }
     public void SimpleLeash()// uses a leach function that mean that the enemy goes back to its original position and makes it idle
     {
-        if (agent.isStopped == true)
-        {
-            agent.Resume();
-        }
+        agent.Stop();
         agent.SetDestination(rubberPosition);
-
+        agent.Resume();
     }
     public void ClearLineOfSight(movePlayer player)
     {

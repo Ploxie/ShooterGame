@@ -61,16 +61,16 @@ public class FSMRanged : MonoBehaviour
                     }
                     else if(lastSeenPos == enemy.transform.position && movetolastPos == true)
                     {
-                        enemy.SimpleLeash();
-                        
+                        enemy.SimpleLeash();   
                     }
-                    enemy.rotateToPlayer(transform.position);
+                    enemy.rotateToPlayer(lastSeenPos);
                 }
                 else
                 {
                     status = states.STATE_SHOOTING;
                     movetolastPos = false;
                 }
+                print(movetolastPos);
                 break;
             
             
