@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class movePlayer : MonoBehaviour
 {
-   
+    public Vector3 dir;
     //not worth looking at
     void Update()
     {
-        var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(dir * 7f * Time.deltaTime);
-        //go.transform.position = transform.position;
     }
 }

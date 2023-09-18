@@ -16,7 +16,7 @@ public class FSMRanged : MonoBehaviour
 
     states status;
     [SerializeField]
-    Enemy enemy;
+    EnemyRanged enemy;
     [SerializeField]
     movePlayer player;
     Vector3[] paths;
@@ -24,7 +24,7 @@ public class FSMRanged : MonoBehaviour
     float distanceLong;
     Vector3 lastSeenPos;
     bool movetolastPos;
-    public FSMRanged(Enemy enemy)
+    public FSMRanged(EnemyRanged enemy)
     {
         this.enemy = enemy;
         this.player = FindObjectOfType<movePlayer>();
@@ -62,7 +62,9 @@ public class FSMRanged : MonoBehaviour
                     else if(lastSeenPos == enemy.transform.position && movetolastPos == true)
                     {
                         enemy.SimpleLeash();
+                        
                     }
+                    enemy.rotateToPlayer(transform.position);
                 }
                 else
                 {
