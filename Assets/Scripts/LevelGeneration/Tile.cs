@@ -1,129 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
-
-public class Tile
+namespace Assets.Scripts.LevelGeneration.Test2
 {
-    public static readonly int NORTH_MASK = 0x1;
-    public static readonly int SOUTH_MASK = 0x2;
-    public static readonly int EAST_MASK = 0x4;
-    public static readonly int WEST_MASK = 0x8;
 
-    public static readonly int NORTH_EAST_MASK = NORTH_MASK | EAST_MASK;
-    public static readonly int NORTH_WEST_MASK = NORTH_MASK | WEST_MASK;
-    public static readonly int SOUTH_EAST_MASK = SOUTH_MASK | EAST_MASK;
-    public static readonly int SOUTH_WEST_MASK = SOUTH_MASK | WEST_MASK;
-
-    public Tile(Vector2 position, float tileSize)
+    [Serializable]
+    public class Tile
     {
-        Position = position;
-        TileSize = tileSize;
-    }
-
-    public Vector2 Position
-    {
-        get;
-        private set;
-    }
-
-    public Tile Parent // Represents the previous tile in the level generation
-    {
-        get;
-        set;
-    }
-
-    public float TileSize
-    {
-        get;
-        private set;
-    }
-
-    public int DistanceFromStart
-    {
-        get;
-        set;
-    }
-
-    public bool IsMainBranch
-    {
-        get;
-        set;
-    }
-
-    public int NeighbourMask
-    {
-        get;
-        private set;
-    }
-
-    public int DoorMask
-    {
-        get;
-        set;
-    }
-
-    public int NeighbourCount
-    {
-        get
+        public static class Wall // Venne var jag ska lägga denna skiten
         {
-            return ((NeighbourMask & Tile.WEST_MASK) >> 0x3) + ((NeighbourMask & Tile.EAST_MASK) >> 0x2) + ((NeighbourMask & Tile.SOUTH_MASK) >> 0x1) + (NeighbourMask & Tile.NORTH_MASK);
+            public static readonly int NORTH = 0x1;
+            public static readonly int SOUTH = 0x2;
+            public static readonly int EAST = 0x4;
+            public static readonly int WEST = 0x8;
+            public static readonly int NORTH_DOOR = 0x10;
+            public static readonly int SOUTH_DOOR = 0x20;
+            public static readonly int EAST_DOOR = 0x40;
+            public static readonly int WEST_DOOR = 0x80;
+
+            public static int FromDirection(Vector2Int direction)
+            {
+                if (direction.x == 0 && direction.y == 1)
+                    return NORTH;
+                if (direction.x == 0 && direction.y == -1)
+                    return SOUTH;
+                if (direction.x == 1 && direction.y == 0)
+                    return EAST;
+                if (direction.x == -1 && direction.y == 0)
+                    return WEST;
+
+                return 0;
+            }
+        }
+
+        [SerializeField] public Vector2Int Position;
+
+        private bool isCorridor;
+        private bool isModule;
+        private int walls;
+
+        public Tile(Vector2Int position)
+        {
+            Position = position;
+        }
+
+        public Tile(int x, int y)
+        {
+            Position = new Vector2Int(x, y);
+        }
+
+        public bool IsCorridor
+        {
+            get { return isCorridor; }
+            set { isCorridor = value; }
+        }
+
+        public bool IsModule
+        {
+            get { return isModule; }
+            set { isModule = value; }
+        }
+
+        public int Walls
+        {
+            get { return walls; }
+            set { walls = value; }
+        }
+
+        public static implicit operator Vector2Int(Tile tile) => tile.Position;
+        public static explicit operator Tile(Vector2Int position) => new Tile(position);
+        public static implicit operator Vector3(Tile tile) => new Vector3(tile.Position.x, 0, tile.Position.y);
+
+        public int WallCount
+        {
+            get
+            {
+                return ((Walls & Wall.WEST) >> 0x3) + ((Walls & Wall.EAST) >> 0x2) + ((Walls & Wall.SOUTH) >> 0x1) + (Walls & Wall.NORTH);
+            }
+        }
+
+        public bool HasWall(int mask)
+        {
+            return ((Walls & mask) == mask);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(Tile))
+                return ((Tile)obj).Position == Position;
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Position.GetHashCode();
         }
     }
-    public bool IsCorner
-    {
-        get
-        {
-            return HasNeighbours(NORTH_EAST_MASK) || HasNeighbours(NORTH_WEST_MASK) || HasNeighbours(SOUTH_EAST_MASK) || HasNeighbours(SOUTH_WEST_MASK);
-        }
-    }
-
-    public bool IsCorridor
-    {
-        get
-        {
-            return (HasNeighbours(NORTH_MASK | SOUTH_MASK) && !HasNeighbours(EAST_MASK) && !HasNeighbours(WEST_MASK)) || (HasNeighbours(EAST_MASK | WEST_MASK) && !HasNeighbours(NORTH_MASK) && !HasNeighbours(SOUTH_MASK));
-        }
-    }
-
-    public void AddNeighbour(Tile neighbour)
-    {
-        Vector2 distance = neighbour.Position - Position;      
-
-        if(distance.x > 0)
-            NeighbourMask |= EAST_MASK;
-        else if(distance.x < 0)
-            NeighbourMask |= WEST_MASK;
-        else if(distance.y > 0)
-            NeighbourMask |= NORTH_MASK;
-        else if(distance.y < 0)
-            NeighbourMask |= SOUTH_MASK;
-    }  
-
-
-    public bool HasNeighbours(int neighbourMask)
-    {
-        return (NeighbourMask & neighbourMask) == neighbourMask;
-    }
-
-    public bool HasNeighbour(Vector2 neighbourPosition)
-    {
-        Vector2 distance = neighbourPosition - Position;
-        if (distance.x > 0)
-            return HasNeighbours(EAST_MASK);
-        else if (distance.x < 0)
-            return HasNeighbours(WEST_MASK);
-        else if (distance.y > 0)
-            return HasNeighbours(NORTH_MASK);
-        else if (distance.y < 0)
-            return HasNeighbours(SOUTH_MASK);
-
-        return false;
-    }
-
-    public bool HasDoors(int doorMask)
-    {
-        return (DoorMask & doorMask) == doorMask;
-    }
-
-    
 }
