@@ -15,14 +15,19 @@ public class ModuleController : MonoBehaviour
     private EffectModule effectModule;
     private BulletModule bulletModule;
 
+    [SerializeField]
+    private GunVisual gunVisual;
+
     public void Awake()
     {
         EffectStats stats = new EffectStats();
         stats.Duration = 10000;
         stats.Interval = 1000;
-        weaponModule = ModuleGenerator.CreateWeaponModule<AutomaticModule>();
+        weaponModule = ModuleGenerator.CreateWeaponModule<SMGModule>();
         effectModule = ModuleGenerator.CreateEffectModule<RadiationModule>(stats);
         bulletModule = ModuleGenerator.CreateBulletModule<CrystalModule>();
+
+        gunVisual.UpdateVisuals(weaponModule);
     }
 
     public void LoadModule(ModuleType type, Module module)
@@ -54,6 +59,11 @@ public class ModuleController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    private void FixedUpdate()
     {
         
     }
