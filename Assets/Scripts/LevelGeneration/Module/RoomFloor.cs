@@ -17,13 +17,21 @@ namespace Assets.Scripts.LevelGeneration.Test2
         public HashSet<Tile> Tiles;
         private Transform mesh;
 
+        public bool exclude = false;
+
         public void GenerateTiles()
         {
-            mesh = null;
-            AddMesh();
+            if(!exclude)
+            {
+                mesh = null;
+                AddMesh();
+                mesh.localScale = new Vector3(size.x, 0.25f, size.y);
+                mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f) + offset.x, 0, size.y - (size.y * 0.5f) + offset.y);
+            }
 
-            mesh.localScale = new Vector3(size.x, 0.25f, size.y);
-            mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f) + offset.x, 0, size.y - (size.y * 0.5f) + offset.y);
+
+
+
 
             Tiles = new HashSet<Tile>();
             CalculateTiles();

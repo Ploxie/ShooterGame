@@ -23,6 +23,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
         [SerializeField] private WallGenerator wallGenerator;
 
         private HashSet<Tile> tiles;
+        private HashSet<Tile> forbidden;
         private HashSet<Tile> corridors;
         private List<BoundsInt> roomsList;
 
@@ -35,6 +36,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             tiles = new HashSet<Tile>();
 
+            forbidden = new HashSet<Tile>();
+
             // Create Room Bounds
             {
                 Vector2Int levelPosition = Vector2Int.zero;
@@ -46,6 +49,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
 
             tiles = CreateRoomsFromModules(roomsList);
+            
 
 
             List<Vector2Int> roomCenters = new List<Vector2Int>();
@@ -76,6 +80,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     tiles.Add(new Tile(position) { IsModule = false });
                 }
             }
+
+            tiles.ExceptWith(forbidden);
 
             // Remove DeadEnds
             {
@@ -180,6 +186,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     var position = roomCenter + moduleTile.Position;
                     floor.Add(new Tile(position) { IsModule = true});
                 }
+                foreach (var moduleTile in module.Forbidden)
+                {
+                    var position = roomCenter + moduleTile.Position;
+                    forbidden.Add(new Tile(position) { IsModule = true });
+                }
             }
             return floor;
         }
@@ -198,6 +209,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 currentRoomCenter = closest;
                 corridors.UnionWith(newCorridor);
             }
+            corridors.ExceptWith(forbidden);
             return corridors;
         }
 

@@ -12,6 +12,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
     public class RoomModule : MonoBehaviour
     {
         public HashSet<Tile> Tiles;
+        public HashSet<Tile> Forbidden;
 
         private RoomFloor[] floors;
         public float tileSize = 1.0f;
@@ -25,11 +26,20 @@ namespace Assets.Scripts.LevelGeneration.Test2
         public void GenerateTiles()
         {
             Tiles = new HashSet<Tile>();
+            Forbidden = new HashSet<Tile>();
             floors = GetComponentsInChildren<RoomFloor>();
             foreach(RoomFloor floor in floors)
             {
                 floor.GenerateTiles();
-                Tiles.UnionWith(floor.Tiles);
+                if (!floor.exclude)
+                {                   
+                    Tiles.UnionWith(floor.Tiles);
+                }
+                else
+                {
+                    Forbidden.UnionWith(floor.Tiles);
+                }
+                
             }
         }
 
