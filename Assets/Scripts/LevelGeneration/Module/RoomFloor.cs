@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.LevelGeneration.Test2
 {
-    [ExecuteInEditMode]
+    [ExecuteInEditMode, SelectionBase]
     public class RoomFloor : MonoBehaviour
     {
 

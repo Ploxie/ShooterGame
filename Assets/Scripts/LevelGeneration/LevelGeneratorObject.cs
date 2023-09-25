@@ -35,7 +35,14 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             tiles = new HashSet<Tile>();
 
-            roomsList = BinarySpacePartitioning.Generate(new BoundsInt((Vector3Int)Vector2Int.zero, new Vector3Int(100, 100, 0)), 20, 20);
+            // Create Room Bounds
+            {
+                Vector2Int levelPosition = Vector2Int.zero;
+                Vector2Int levelSize = new Vector2Int(100, 100);
+                int roomMinWidth = 20;
+                int roomMinHeight = 20;
+                roomsList = BinarySpacePartitioning.Generate(levelPosition, levelSize, roomMinWidth, roomMinHeight);
+            }           
 
 
             tiles = CreateRoomsFromModules(roomsList);
@@ -44,7 +51,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
             List<Vector2Int> roomCenters = new List<Vector2Int>();
             foreach (var room in roomsList)
             {
-                roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(room.center));
+                roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(new Vector3(room.center.x, room.center.z, room.center.y)));
             }
 
             corridors = ConnectRooms(roomCenters);
@@ -162,7 +169,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             for (int i = 0; i < roomsList.Count; i++)
             {
-                var roomCenter = new Vector2Int(Mathf.RoundToInt(roomsList[i].center.x), Mathf.RoundToInt(roomsList[i].center.y));
+                var roomCenter = new Vector2Int(Mathf.RoundToInt(roomsList[i].center.x), Mathf.RoundToInt(roomsList[i].center.z));
 
                 RoomModule module = Instantiate(roomModules[Random.Range(1,3)], new Vector3(roomCenter.x - 0.5f, 0, roomCenter.y - 0.5f), Quaternion.identity);
                 module.transform.SetParent(transform, true);
@@ -290,7 +297,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
             {
                 Random.InitState(room.GetHashCode());
                 Gizmos.color = Random.ColorHSV();             
-                Gizmos.DrawWireCube(new Vector3(room.center.x-0.5f, room.center.z, room.center.y-0.5f), new Vector3(room.size.x - 0.1f, room.size.z, room.size.y - 0.1f));
+                Gizmos.DrawWireCube(new Vector3(room.center.x-0.5f, room.center.y, room.center.z-0.5f), new Vector3(room.size.x - 0.1f, room.size.y, room.size.z - 0.1f));
             }
         }
 

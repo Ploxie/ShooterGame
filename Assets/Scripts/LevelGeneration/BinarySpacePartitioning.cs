@@ -11,6 +11,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
 {
     public static class BinarySpacePartitioning // Tagen direkt från Youtube lol, pallade inte fixa något ordentligt (får gärna konfigureras)
     {
+        public static List<BoundsInt> Generate(Vector2Int start, Vector2Int size, int minWidth, int minHeight)
+        {
+            return Generate(new BoundsInt(new Vector3Int(start.x, 0, start.y), new Vector3Int(size.x, 0, size.y)), minWidth, minHeight);
+        }
+
         public static List<BoundsInt> Generate(BoundsInt spaceToSplit, int minWidth, int minHeight)
         {
             Queue<BoundsInt> roomsQueue = new Queue<BoundsInt>();
@@ -19,11 +24,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
             while (roomsQueue.Count > 0)
             {
                 var room = roomsQueue.Dequeue();
-                if (room.size.y >= minHeight && room.size.x >= minWidth)
+                if (room.size.z >= minHeight && room.size.x >= minWidth)
                 {
                     if (Random.value < 0.5f)
                     {
-                        if (room.size.y >= minHeight * 2)
+                        if (room.size.z >= minHeight * 2)
                         {
                             SplitHorizontally(minHeight, roomsQueue, room);
                         }
@@ -31,7 +36,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
                         {
                             SplitVertically(minWidth, roomsQueue, room);
                         }
-                        else if (room.size.x >= minWidth && room.size.y >= minHeight)
+                        else if (room.size.x >= minWidth && room.size.z >= minHeight)
                         {
                             roomsList.Add(room);
                         }
@@ -42,11 +47,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
                         {
                             SplitVertically(minWidth, roomsQueue, room);
                         }
-                        else if (room.size.y >= minHeight * 2)
+                        else if (room.size.z >= minHeight * 2)
                         {
                             SplitHorizontally(minHeight, roomsQueue, room);
                         }
-                        else if (room.size.x >= minWidth && room.size.y >= minHeight)
+                        else if (room.size.x >= minWidth && room.size.z >= minHeight)
                         {
                             roomsList.Add(room);
                         }
@@ -68,10 +73,10 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
         private static void SplitHorizontally(int minHeight, Queue<BoundsInt> roomsQueue, BoundsInt room)
         {
-            var ySplit = Random.Range(1, room.size.y);
-            BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z));
-            BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z),
-                new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));
+            var ySplit = Random.Range(1, room.size.z);
+            BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, room.size.y, ySplit));
+            BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y, room.min.z + ySplit),
+                new Vector3Int(room.size.x, room.size.y, room.size.z - ySplit));
             roomsQueue.Enqueue(room1);
             roomsQueue.Enqueue(room2);
         }
