@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - player
+  - EnemyJumpAttack
+  - Enemy
+  - EnemyMeleeAttack
+  - DummyEnemy
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -37,7 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Floor
   m_SortingLayers:
   - name: Default
     uniqueID: 0

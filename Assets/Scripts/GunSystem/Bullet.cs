@@ -31,10 +31,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.TryGetComponent<UnitHealth>(out var x))
-        //{
-        //    x.TakeDamage(Damage);
-        //    Destroy(this.gameObject);
-        //}
+        if (other.gameObject.TryGetComponent<UnitHealth>(out var x))
+        {
+            x.TakeDamage(Damage);
+            Destroy(this.gameObject);
+        }
     }
 }
