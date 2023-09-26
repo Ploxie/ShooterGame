@@ -4,7 +4,7 @@ using UnityEngine;
 public class Cluster : BulletEffect
 {
     public const int DISTANCE_FROM_CENTER = 1;
-    public const int PROJECTILE_COUNT = 16;
+    public const int PROJECTILE_COUNT = 8;
 
     private GameObject bulletPrefab;
 
