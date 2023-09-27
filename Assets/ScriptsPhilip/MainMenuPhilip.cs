@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuPhilip : MonoBehaviour
 {
-    //Only for Play scene
+    // Only for play scene
     public GameObject pauseMenuUI; 
-    public GameObject deathMenuUI; 
+    public GameObject deathMenuUI;
+    public GameObject settingsMenuUI;
+
     bool isPaused = false; 
     bool canPause = true;
 
@@ -28,10 +30,14 @@ public class MainMenuPhilip : MonoBehaviour
         if (currentScene.name == "PlayAreaTestMenu")
         {
             if (canPause == true) // So you can't pause while in death screen
-            {
                 PauseGame();
-            }
+
             Die();
+
+            if (settingsMenuUI.activeSelf || deathMenuUI.activeSelf) //So that you cant pause when in setting and while in death menu
+                canPause = false; //Else it would look weird with 2 canvas active same time
+            else 
+                canPause = true;
         }
     }
 
