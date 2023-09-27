@@ -54,6 +54,16 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 Gizmos.color = tile.IsCorridor ? Color.red : Color.green;
                 Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
             }
+
+            if (Forbidden == null || Forbidden.Count <= 0)
+                return;
+
+            foreach (var tile in Forbidden)
+            {
+                Vector3 worldPosition = ((Vector3)tile) + new Vector3(0.5f, 0.1f, 0.5f);
+                Gizmos.color = Color.black;
+                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+            }
         }
     }
 }
