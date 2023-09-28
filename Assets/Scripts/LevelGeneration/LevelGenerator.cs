@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using static Assets.Scripts.LevelGeneration.Test2.LevelGenerator;
 using Random = UnityEngine.Random;
@@ -44,10 +45,16 @@ namespace Assets.Scripts.LevelGeneration.Test2
         private Room start;
         private Room end;
 
-        private void Awake()
+        private void OnValidate()
+        {
+            Generate();
+        }
+
+        private void Generate()
         {
             Random.InitState(seed);
 
+            ClearTiles();
             tiles = new HashSet<Tile>();
             boundsTest = new List<BoundsInt>();
 
@@ -83,8 +90,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             // Generate Walls
             if(true){
-                WallGenerator.Result walls = new WallGenerator().Generate(tiles);
-                tiles.UnionWith(walls.Positions);
+                var walls = WallGenerator.Generate(tiles);
+                tiles.UnionWith(walls);
 
                 GenerateWalls(1.0f); 
             }
@@ -367,6 +374,18 @@ namespace Assets.Scripts.LevelGeneration.Test2
             while (attempts.Count > 0);
 
             return Vector2Int.zero;
+        }
+        private void ClearTiles()
+        {
+            var existing = GameObject.FindGameObjectsWithTag("Tile");
+
+            if (existing == null)
+                return;
+
+
+            Array.ForEach(existing, child => {
+                EditorApplication.delayCall += () => { DestroyImmediate(child); };
+            });
         }
 
         private void OnDrawGizmos()

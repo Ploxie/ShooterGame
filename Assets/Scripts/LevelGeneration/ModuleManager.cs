@@ -14,14 +14,13 @@ namespace Assets.Scripts.LevelGeneration
 {
     public class ModuleManager : MonoBehaviour
     {
-
         [SerializeField] public RoomModule CorridorModule;
         [SerializeField] public bool Randomize;
         [SerializeField] public RoomModule[] Modules;
 
-
         private void OnValidate()
         {
+            // This should be made more interesting, this was mainly to give the option to create a predefined level with certain modules in order
             if(Randomize)
             {
                 Modules = new RoomModule[Modules.Length];
@@ -40,15 +39,7 @@ namespace Assets.Scripts.LevelGeneration
 
                 for (int i = 0; i < Modules.Length;i++)
                 {
-                    /*if(available.Count <= 0)
-                    {
-                        
-                        continue;
-                    }
-                    int index = 0;// Random.Range(0, available.Count);
-                    Modules[i] = available[index];
-                    available.RemoveAt(index);*/
-                        Modules[i] = prefabs[Random.Range(0, prefabs.Count)];
+                    Modules[i] = prefabs[Random.Range(0, prefabs.Count)];
                 }               
                 
             }

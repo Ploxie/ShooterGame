@@ -9,16 +9,9 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.LevelGeneration.Test2
 {
-    [Serializable]
-    public class WallGenerator
+    public static class WallGenerator
     {
-        public struct Result
-        {
-            public IEnumerable<Tile> Positions;
-        }
-
-
-        public Result Generate(IEnumerable<Tile> tiles)
+        public static IEnumerable<Tile> Generate(IEnumerable<Tile> tiles)
         {
             HashSet<Tile> tileSet = tiles.ToHashSet();
             foreach(Tile tile in tileSet)
@@ -46,12 +39,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 }
             }
 
-            Result result = new Result()
-            {
-                Positions = tileSet
-            };
-
-            return result;
+            return tileSet;
         }
 
     }

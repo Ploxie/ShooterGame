@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using UnityEditor.Overlays;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using static Wall;
 
 namespace Assets.Scripts.LevelGeneration.Test2
 {
