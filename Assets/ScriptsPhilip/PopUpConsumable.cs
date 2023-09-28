@@ -10,7 +10,7 @@ public class PopUpConsumable : MonoBehaviour
 
     private void Start()
     {
-        floatingTextInstance = Instantiate(floatingTextPrefab);
+        floatingTextInstance = Instantiate(floatingTextPrefab/*, transform.position, Quaternion.identity, transform*/);
         floatingTextInstance.SetActive(false);
     }
 
