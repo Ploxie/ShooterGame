@@ -22,8 +22,15 @@ namespace Assets.Scripts.LevelGeneration.Test2
             mesh = null;
             AddMesh();
 
-            mesh.localScale = new Vector3(size.x, 0.25f, size.y);
-            mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f) + offset.x, 0, size.y - (size.y * 0.5f) + offset.y);
+            transform.position = new Vector3((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+            transform.localScale = new Vector3((int)transform.localScale.x, (int)transform.localScale.y, (int)transform.localScale.z);
+
+            offset = new Vector2Int((int)transform.position.x, (int)transform.position.z);
+            size = new Vector2Int((int)transform.localScale.x, (int)transform.localScale.z);
+
+            mesh.localScale = new Vector3(size.x * (1.0f / transform.localScale.x), 0.25f, size.y * (1.0f / transform.localScale.z));
+            mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f), 0, size.y - (size.y * 0.5f));
+
 
             Tiles = new HashSet<Tile>();
             CalculateTiles();
@@ -37,7 +44,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
             {
                 for (int x = offset.x; x < width + offset.x; x++)
                 {
-                    Tiles.Add(new Tile(x,  z));
+                    Tiles.Add(new Tile(x, z) { IsModule = true});
                 }
             }
         }

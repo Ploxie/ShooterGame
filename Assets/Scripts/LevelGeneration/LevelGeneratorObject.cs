@@ -11,8 +11,19 @@ using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 
+
 namespace Assets.Scripts.LevelGeneration.Test2
 {
+
+    public class RoomLocation
+    {
+        public Vector2Int center;
+        public Vector2Int direction;
+        public int moduleIndex;
+        public RoomLocation parent;
+        public Vector2Int bounds;
+    }
+
     [ExecuteInEditMode]
     public class LevelGeneratorObject : MonoBehaviour
     {
@@ -36,26 +47,41 @@ namespace Assets.Scripts.LevelGeneration.Test2
             tiles = new HashSet<Tile>();
 
             // Create Room Bounds
-            {
+            /*{
                 Vector2Int levelPosition = Vector2Int.zero;
-                Vector2Int levelSize = new Vector2Int(100, 100);
-                int roomMinWidth = 20;
-                int roomMinHeight = 20;
+                Vector2Int levelSize = new Vector2Int(70, 70);
+                int roomMinWidth = 10;
+                int roomMinHeight = 10;
                 roomsList = BinarySpacePartitioning.Generate(levelPosition, levelSize, roomMinWidth, roomMinHeight);
-            }           
+            }*/
 
 
-            tiles = CreateRoomsFromModules(roomsList);
+            // Create Room Locations
+            List<RoomLocation> roomLocations;
+            {
+                int roomCount = 5;
+                roomLocations = RandomWalkRooms(new Vector2Int(0, 0), roomCount);
+            }
+
+            // Create Rooms
+            IEnumerable<Tile> roomTiles;
+            {
+                roomTiles = CreateRooms(roomLocations);
+            }
+
+            tiles.UnionWith(roomTiles);
+
+            //tiles = CreateRoomsFromModules(roomsList);
 
 
-            List<Vector2Int> roomCenters = new List<Vector2Int>();
+            /*List<Vector2Int> roomCenters = new List<Vector2Int>();
             foreach (var room in roomsList)
             {
                 roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(new Vector3(room.center.x, room.center.z, room.center.y)));
-            }
+            }*/
 
-            corridors = ConnectRooms(roomCenters);
-            tiles.UnionWith(corridors);
+            //corridors = ConnectRooms(roomCenters);
+            //tiles.UnionWith(corridors);
 
 
             // Generate Walls
@@ -64,7 +90,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 tiles.UnionWith(walls.Positions);
             }
 
-            foreach(Tile tile in corridors)
+            /*foreach(Tile tile in corridors)
             {
                 RoomModule module = Instantiate(roomModules[0], new Vector3(tile.Position.x - 0.5f, 0, tile.Position.y - 0.5f), Quaternion.identity);
                 module.transform.SetParent(transform, true);
@@ -75,7 +101,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     var position = tile + moduleTile.Position;
                     tiles.Add(new Tile(position) { IsModule = false });
                 }
-            }
+            }*/
 
             // Remove DeadEnds
             {
@@ -101,6 +127,98 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 RoomGenerator.Result room = roomGenerator.Generate(roomPosition);
                 tiles.UnionWith(room.Positions);
             }*/
+        }
+
+        private List<RoomLocation> RandomWalkRooms(Vector2Int startPosition, int roomCount)
+        {
+            RoomLocation start = new RoomLocation()
+            {
+                center = startPosition,
+                moduleIndex = 0,
+            };
+
+            List<RoomLocation> result = new List<RoomLocation>();
+            HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
+
+            result.Add(start);
+            positions.Add(startPosition);
+            RoomLocation previous = start;
+
+            for (int i = 0; i < roomCount - 1; i++)
+            {
+                Vector2Int direction = GetValidRandomDirection(previous.center, positions);
+                Vector2Int current = previous.center + direction;// previous.center + Direction2D.GetRandomCardinalDirection();
+
+                if(current == null)
+                {
+                    i--;
+                    previous = previous.parent;
+                    continue;
+                }
+
+                RoomLocation room = new RoomLocation()
+                {
+                    center = current,
+                    moduleIndex = Random.Range(1, roomModules.Length),
+                    parent = previous,
+                    direction = -direction,
+                };
+
+                result.Add(room);
+                positions.Add(current);
+                previous = room;
+            }
+
+            return result;
+        }
+
+        private Vector2Int GetValidRandomDirection(Vector2Int from, IEnumerable<Vector2Int> invalidPositions)
+        {
+            List<Vector2Int> attempts = new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0) };
+            do
+            {
+                int index = Random.Range(0, attempts.Count);
+
+                Vector2Int direction = attempts[index];
+                attempts.RemoveAt(index);
+
+                Vector2Int position = from + direction;
+                if (invalidPositions.Contains(position))
+                    continue;
+
+                return direction;
+            }
+            while (attempts.Count > 0);
+
+            return Vector2Int.zero;
+        }
+
+        private IEnumerable<Tile> CreateRooms(IEnumerable<RoomLocation> roomLocations)
+        {
+            HashSet<Tile> tiles = new HashSet<Tile>();
+            Vector2Int currentPosition = roomLocations.First().center;
+
+            foreach(RoomLocation room in roomLocations)
+            {              
+                RoomModule module = Instantiate(roomModules[room.moduleIndex], Vector3.zero, Quaternion.identity);
+                module.GenerateTiles();
+                //Vector2Int bounds = module.GetBounds();
+                Vector2Int offsetRange = new Vector2Int(5, 5);
+                Vector2Int offset = new Vector2Int(Random.Range(0, offsetRange.x), Random.Range(0, offsetRange.y));
+                //Vector2Int roomCenter = currentPosition + (-room.direction * (bounds + offset));
+
+                //module.transform.position = new Vector3(roomCenter.x - 0.5f, 0, roomCenter.y - 0.5f);
+                module.transform.SetParent(transform, true);
+                
+
+                /*foreach (var moduleTile in module.Tiles)
+                {
+                    var position = roomCenter + moduleTile.Position;
+                    tiles.Add(new Tile(position) { IsModule = true });
+                }
+                currentPosition = roomCenter;*/
+            }
+            return tiles;
         }
 
         private HashSet<Tile> CreateRooms(List<BoundsInt> rooms)
