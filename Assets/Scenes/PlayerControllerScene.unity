@@ -472,7 +472,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fd8e0fc892e62d49bcef0b2fd384cbc, type: 2}
+  - {fileID: 2100000, guid: 3ed99705e3254484aabe90c770dd6ab5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -771,8 +771,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 838867827}
-  velocity: 10
   gun: {fileID: 971666348}
+  velocity: 10
   floorLayerMaskIndex: 0
 --- !u!136 &838867829
 CapsuleCollider:
