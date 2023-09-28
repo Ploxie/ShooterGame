@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GunController : MonoBehaviour
@@ -33,7 +30,7 @@ public class GunController : MonoBehaviour
     {
         parentRb = GetComponentInParent<Rigidbody>();
         readyToShoot = true;
-        remainingBullets = 1;
+        remainingBullets = 10;
     }
 
     private void Update()
@@ -66,6 +63,11 @@ public class GunController : MonoBehaviour
         }
     }
 
+    private void ResetShot()
+    {
+        readyToShoot = true;
+    }
+
     public void Reload()
     {
         reloading = true;
@@ -76,10 +78,5 @@ public class GunController : MonoBehaviour
     {
         remainingBullets = magazineSize;
         reloading = false;
-    }
-
-    private void ResetShot()
-    {
-        readyToShoot = true;
     }
 }

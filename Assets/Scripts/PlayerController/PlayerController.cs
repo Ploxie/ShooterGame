@@ -1,13 +1,10 @@
 using UnityEngine;
 
-/// <summary>
-/// Handles player movement and rotation.
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float velocity;
     [SerializeField] private GameObject gun;
+    [SerializeField] private float velocity;
     [SerializeField] private int floorLayerMaskIndex;
 
     private int layerMask;
@@ -30,9 +27,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) gunController.Reload();
     }
 
-    /// <summary>
-    /// Rotates the player
-    /// </summary>
     private void HandleRotationInput()
     {
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,9 +40,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Moves the player.
-    /// </summary>
     private void HandleMovementInput()
     {
         float x = Input.GetAxisRaw("Horizontal");
