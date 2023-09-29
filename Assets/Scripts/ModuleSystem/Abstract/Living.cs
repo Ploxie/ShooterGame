@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
+//using NaughtyAttributes;
 using System;
 using System.Collections;
 
@@ -8,50 +8,50 @@ public abstract class Living : MonoBehaviour
 {
     public static int NextIDPointer = 0;
 
-    [BoxGroup("Parameters")]
+    //[BoxGroup("Parameters")]
     public float MaxHealth;
-    [BoxGroup("Parameters")]
+    //[BoxGroup("Parameters")]
     public float DefaultMovementSpeed;
-    [BoxGroup("Parameters")]
+   // [BoxGroup("Parameters")]
     public float DefaultDamage;
 
-    [BoxGroup("Toggles")]
+    //[BoxGroup("Toggles")]
     public bool RegenHealth;
-    [BoxGroup("Toggles")]
+    //[BoxGroup("Toggles")]
     public bool Slowable;
-    [BoxGroup("Toggles")]
+    //[BoxGroup("Toggles")]
     public bool Nerfable;
-    [BoxGroup("Toggles")]
+   // [BoxGroup("Toggles")]
     public bool Stunnable;
     
-    [ReadOnly]
-    [BoxGroup("Debug")]
+   // [ReadOnly]
+   // [BoxGroup("Debug")]
     public int LivingID;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    //[ReadOnly]
+    //[BoxGroup("Debug")]
     public float Health;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    //[ReadOnly]
+    // [BoxGroup("Debug")]
     public float MovementSpeed;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    //[ReadOnly]
+    // [BoxGroup("Debug")]
     public float Damage;
-    [HorizontalLine(2, EColor.Gray)]
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    // [HorizontalLine(2, EColor.Gray)]
+    //[ReadOnly]
+    //[BoxGroup("Debug")]
     public float DamageTakenMultiplier = 1;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    // [ReadOnly]
+    //[BoxGroup("Debug")]
     public float DamageDealtMultiplier = 1;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    // [ReadOnly]
+    //[BoxGroup("Debug")]
     public float MovementSpeedMultiplier = 1;
-    [HorizontalLine(2, EColor.Gray)]
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    //[HorizontalLine(2, EColor.Gray)]
+    //[ReadOnly]
+    //[BoxGroup("Debug")]
     public bool Stunned;
-    [ReadOnly]
-    [BoxGroup("Debug")]
+    // [ReadOnly]
+    // [BoxGroup("Debug")]
     public int StunDuration;
     
     public Dictionary<StatusEffectID, StatusEffect> StatusEffects;
