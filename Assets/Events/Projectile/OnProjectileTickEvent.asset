@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58ec91e8524362449bb004a76a4be3d1, type: 3}
-  m_Name: OnEnemyDeath
+  m_Name: OnProjectileTickEvent
   m_EditorClassIdentifier: 
   Listeners: []

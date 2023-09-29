@@ -4,16 +4,19 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject gun;
-    [SerializeField] private float velocity;
     [SerializeField] private int floorLayerMaskIndex;
 
     private int layerMask;
     private GunController gunController;
 
+    private Player player;
+
     private void Start()
     {
         if (rb == null) rb = GetComponent<Rigidbody>();
         if(gunController == null) gunController = gun.GetComponent<GunController>();
+
+        player = GetComponent<Player>();
 
         layerMask = 1 << floorLayerMaskIndex;
     }
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour
         HandleMovementInput();
 
         if (Input.GetKey(KeyCode.Mouse0)) gunController.Shoot();
-        if (Input.GetKeyDown(KeyCode.R)) gunController.Reload();
+        //if (Input.GetKeyDown(KeyCode.R)) gunController.Reload();
     }
 
     private void HandleRotationInput()
@@ -47,6 +50,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(x, 0.0f, z).normalized;
 
-        rb.transform.Translate(moveDirection * Time.deltaTime * velocity, Space.World);
+        rb.transform.Translate(moveDirection * Time.deltaTime * player.MovementSpeed, Space.World);
     }
 }

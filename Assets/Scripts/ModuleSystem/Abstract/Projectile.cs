@@ -18,6 +18,10 @@ public abstract class Projectile : MonoBehaviour
 
     public EnemyManager EnemyManager;
 
+    public GameEvent OnTickEvent;
+    public GameEvent OnHitEvent;
+    public GameEvent OnDeleteEvent;
+
     public void Awake()
     {
         StatusEffects = new List<StatusEffect>();

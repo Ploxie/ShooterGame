@@ -14,9 +14,6 @@ public class EnemyManager : MonoBehaviour
 
     public void RegisterEnemy(Living enemy)
     {
-        if (enemies == null)
-            Debug.Log("lol");
-
         enemies.Add(enemy.LivingID, enemy);
     }
 
