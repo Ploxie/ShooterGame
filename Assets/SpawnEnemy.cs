@@ -14,46 +14,73 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject EK;
     bool isAlive = false;
     int numberAlive = 0;
+    List<GameObject> fb;
+    private void Awake()
+    {
+        fb = new List<GameObject>();
+        CreateRandomEnemy();
+        //GameObject gb = Instantiate(ER, transform.position, Quaternion.identity);
+    }
     void Update()
     {
-        CreateRandomEnemy();
-    }
+        
+    }    
     void CreateRandomEnemy()
     {
-        int numb = Random.Range(0,2);
+        int numb = 0;
         numberAlive = numb;
-        if (isAlive == false)
-        {
-            if (numb == 0)
-            {
-                Instantiate(ER, transform.position, Quaternion.identity);
-                isAlive = true;
-            }
-            else if(numb == 1)
-            {
-                Instantiate(EM, transform.position, Quaternion.identity);
-                isAlive = true;
-            }
-            else {
-                Instantiate(EK, transform.position, Quaternion.identity);
-                isAlive = true;
-            }
-        }
+        GameObject gb = Instantiate(ER, transform.position, Quaternion.identity);
+        //gb.SetActive(true);
+        //if (isAlive == false)
+        //{
+        //    if (numb == 0)
+        //    {
+        //        GameObject gb = Instantiate(ER, transform.position, Quaternion.identity);
+        //        gb.active = true;
+        //        fb.Add(gb);
+        //        isAlive = true;
+        //    }
+        //    else if (numb == 1)
+        //    {
+        //        GameObject gb = Instantiate(EM, transform.position, Quaternion.identity);
+        //        gb.active = true;
+        //        isAlive = true;
+        //        fb.Add(gb);
+        //    }
+        //    else
+        //    {
+        //        GameObject gb = Instantiate(EK, transform.position, Quaternion.identity);
+        //        gb.active = true;
+        //        isAlive = true;
+        //        fb.Add(gb);
+        //    }
+        //}
+        //checkIfAlive();
 
     }
     void checkIfAlive()
     {
-        if (numberAlive == 0 && ER.active == false)
+        for (int i = 0; i < fb.Count; i++)
         {
-            isAlive = false;
+            if (numberAlive == 0 && ER.active == false)
+            {
+                Destroy(fb[i].gameObject);
+                fb.RemoveAt(i);
+                isAlive = false;
+            }
+            if (numberAlive == 1 && EM.active == false)
+            {
+                Destroy(fb[i].gameObject);
+                fb.RemoveAt(i);
+                isAlive = false;
+            }
+            if (numberAlive == 2 && EK.active == false)
+            {
+                Destroy(fb[i].gameObject);
+                fb.RemoveAt(i);
+                isAlive = false;
+            }
         }
-        else if (numberAlive == 1 && EM.active == false)
-        {
-            isAlive = false;
-        }
-        else if(numberAlive == 2 && EK.active == false)
-        {
-            isAlive = false;
-        }
+        
     }
 }
