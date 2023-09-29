@@ -19,10 +19,11 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
     public override void Awake()
     {
+        base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        base.Awake();
+
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();

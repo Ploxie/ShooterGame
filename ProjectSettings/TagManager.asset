@@ -12,6 +12,8 @@ TagManager:
   - HealthPack
   - DummyEnemy
   - UI
+  - Tile
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX

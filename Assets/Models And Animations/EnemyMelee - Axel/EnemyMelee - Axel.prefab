@@ -183,7 +183,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 171447888512594422}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -193,7 +193,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8694570619523848058
@@ -232,7 +232,7 @@ MonoBehaviour:
   detectionRange: 200
   meleeRange: 5
   jumpAttackRange: 10
-  visualCracks: {fileID: 0}
+  visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
   player: {fileID: 0}
   state: 0
 --- !u!1 &209478826304596385

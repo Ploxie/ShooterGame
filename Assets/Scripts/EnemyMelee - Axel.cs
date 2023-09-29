@@ -67,8 +67,6 @@ public class EnemyMelee : Living
     void Update()
     {
         base.Update();
-        Vector3 fwrd = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position, fwrd * 1000, Color.red);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -159,7 +157,7 @@ public class EnemyMelee : Living
         
         if (distance < detectionRange)
         {
-            Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
+            //Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
 
             if (distance <= meleeRange)
             {
@@ -172,7 +170,7 @@ public class EnemyMelee : Living
 
                 state = State.Attack;
             }
-            else if (distance <= jumpAttackRange && distance > jumpAttackRange / 2 && hitInfo.transform.CompareTag("Player"))
+            else if (distance <= jumpAttackRange && distance > jumpAttackRange / 2/* && hitInfo.transform.CompareTag("Player")*/)
             {
                 agent.isStopped = false;
                 isWalking = false;

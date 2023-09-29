@@ -15,10 +15,11 @@ public class Turret : Living
     private bool seen = false;
     public override void Awake()
     {
+        base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        base.Awake();
+        
         player = FindObjectOfType<movePlayer>();
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
