@@ -1497,6 +1497,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a3b10ec2ef0184abdae84a8f31de07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 0
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
+  Health: 0
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
   explosionDamageHitBox: {fileID: 6981675018335404132}
   detectionRange: 10
   diveRange: 2
@@ -2375,7 +2391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &923245816954247015
 Transform:
   m_ObjectHideFlags: 0
@@ -2410,10 +2426,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 200
-  m_Height: 300
+  m_Radius: 1.9
+  m_Height: 10
   m_Direction: 1
-  m_Center: {x: 0, y: 91.69, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6981675018335404132
 MonoBehaviour:
   m_ObjectHideFlags: 0

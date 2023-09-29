@@ -27,16 +27,14 @@ public class FSMRanged : MonoBehaviour
     public FSMRanged(EnemyRanged enemy)
     {
         this.enemy = enemy;
-        this.player = FindObjectOfType<movePlayer>();
-        
         status = states.STATE_PATROL;
-        
     }
     private void Start()
     {
         distanceShort = 10f;
         distanceLong = 30f;
         movetolastPos = true;
+        this.player = FindObjectOfType<movePlayer>();
     }
     private void Update()
     {
