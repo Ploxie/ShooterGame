@@ -90,7 +90,7 @@ public abstract class Living : MonoBehaviour
             OnUpdate();
 
         if (Health <= 0)
-            OnDeathEvent.Raise(this, 0);
+            OnDeathEvent?.Raise(this, 0);
     }
 
     protected virtual void OnUpdate() {}

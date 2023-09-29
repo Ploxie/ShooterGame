@@ -1497,16 +1497,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a3b10ec2ef0184abdae84a8f31de07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 30
   DefaultMovementSpeed: 0
   DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
   RegenHealth: 0
   Slowable: 0
   Nerfable: 0
   Stunnable: 0
   LivingID: 0
-  Health: 0
-  MovementSpeed: 0
+  Health: 3
+  MovementSpeed: 0.5
   Damage: 0
   DamageTakenMultiplier: 1
   DamageDealtMultiplier: 1

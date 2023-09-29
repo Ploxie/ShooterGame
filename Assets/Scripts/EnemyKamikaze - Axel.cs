@@ -25,7 +25,7 @@ public class EnemyKamikaze : Living
     bool playerDetected = false;
 
     [SerializeField]
-    GameObject player;
+    movePlayer player;
 
     [SerializeField]
     GameObject model;
@@ -48,7 +48,7 @@ public class EnemyKamikaze : Living
     {
         base.Awake();
         //loop through hitboxes, set effect
-
+        player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         explosionDamageHitBox.gameObject.SetActive(false);
