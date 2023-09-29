@@ -7,22 +7,28 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     public float damage = 1f;
+    protected HashSet<int> LivingHit;
 
-    //public EffectModule effectModule;
+    public StatusEffect effect;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            //Player player = other.GetComponent<Player>();
-            //player.DealDamage(damage);
-            //player.ApplyEffect(effectModule);
-        }
-        else if(other.CompareTag("Object"))
-        {
-            //other.GetComponent<Object>.DealDamage(damage);
-        }
-    }
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Barrel")
+            return;
 
+        Living living = other.gameObject.GetComponent<Living>();
+
+        if (living != null)
+        {
+            if (LivingHit.Contains(living.LivingID))
+                return;
+
+            living.AddEffect(effect);
+
+            living.TakeDamage(damage);
+            LivingHit.Add(living.LivingID);
+        }
+
+    }
 
 }

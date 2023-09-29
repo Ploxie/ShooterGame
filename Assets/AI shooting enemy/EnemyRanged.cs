@@ -8,16 +8,16 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshagent for pathfinding
+public class EnemyRanged : Living //a script that utilizes the navmeshagent for pathfinding
  {
     public NavMeshAgent agent;
     Vector3 rubberPosition;
-    int Health = 100;
     ShootingLogic SL;
     private EnemyRanged[] enemies;
 
-    public void Start()
+    public override void Awake()
     {
+        base.Awake();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();
@@ -31,11 +31,6 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         {
             agent.Resume();
         }
-        //transform.Translate(dir * 1f * Time.deltaTime);
-    }
-    public void looseHealth()
-    {
-        Health = Health - 10;
     }
     public void MoveAwayFromEnemy(movePlayer player)//a function to move away from the enemy
     {
@@ -61,6 +56,7 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         dir = dir - dir*2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
+        //add weapon
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
@@ -110,7 +106,7 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
     {
         Quaternion rotation = Quaternion.LookRotation(pos - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
-        print(transform.rotation);
+        //print(transform.rotation);
     }
     public void SimpleLeash()// uses a leach function that mean that the enemy goes back to its original position and makes it idle
     {
@@ -118,7 +114,7 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         agent.SetDestination(rubberPosition);
         agent.Resume();
     }
-    public void ClearLineOfSight(movePlayer player)
+    public void ClearLineOfSight(movePlayer player)//looks to see if the a enemy is on the way of its gun arc
     {
         foreach (EnemyRanged m in enemies)
         {
@@ -135,7 +131,7 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
             }
         }
     }
-    private Vector3 calulatePath(EnemyRanged enemy, movePlayer player)
+    private Vector3 calulatePath(EnemyRanged enemy, movePlayer player)//find the path if left or right is the closer option
     {
         var distans = player.transform.position - enemy.transform.position;
         var left = enemy.transform.position + Vector3.left*15;
@@ -159,4 +155,5 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         }
         return returnedValue;
     }
+   
 }
