@@ -391,6 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
+  deathMenuUI: {fileID: 0}
+  settingsMenuUI: {fileID: 0}
 --- !u!4 &169704340
 Transform:
   m_ObjectHideFlags: 0
