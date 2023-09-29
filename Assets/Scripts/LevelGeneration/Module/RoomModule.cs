@@ -13,6 +13,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
     public class RoomModule : MonoBehaviour
     {
         public HashSet<Tile> Tiles;
+        public HashSet<Tile> Excluded;
 
         private RoomFloor[] floors;
         public float tileSize = 1.0f;
@@ -33,12 +34,23 @@ namespace Assets.Scripts.LevelGeneration.Test2
         public void GenerateTiles()
         {
             Tiles = new HashSet<Tile>();
+            Excluded = new HashSet<Tile>();
             floors = GetComponentsInChildren<RoomFloor>();
+
             foreach(RoomFloor floor in floors)
             {
                 floor.GenerateTiles();
-                Tiles.UnionWith(floor.Tiles);
+
+                if(floor.Exclude)
+                {
+                    Excluded.UnionWith(floor.Tiles);
+                }
+                else
+                {                    
+                    Tiles.UnionWith(floor.Tiles);
+                }
             }
+
             Bounds = GetBounds();
         }
 
@@ -69,11 +81,9 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 return;
             }
 
-                if (Tiles == null || Tiles.Count <= 0)
-                return;
-
+            if (Tiles == null)
+            return;
             
-
             foreach (var tile in Tiles)
             {
                 Vector3 worldPosition = ((Vector3)tile) + new Vector3(0.5f, 0.1f, 0.5f);
@@ -86,6 +96,16 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             Gizmos.color = Color.cyan;
             Gizmos.DrawCube(new Vector3(0.5f, 0.1f, 0.5f), new Vector3(1, 0.25f, 1));
+
+            if (Excluded == null)
+                return;
+
+            foreach (var tile in Excluded)
+            {
+                Vector3 worldPosition = ((Vector3)tile) + new Vector3(0.5f, 0.1f, 0.5f);
+                Gizmos.color = Color.black;
+                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+            }
         }
     }
 }

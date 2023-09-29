@@ -13,6 +13,9 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
         [SerializeField] private Vector2Int size;
         [SerializeField] private Vector2Int offset;
+        [SerializeField] public bool Exclude;
+        
+        
         
         public HashSet<Tile> Tiles;
         private Transform mesh;
@@ -28,8 +31,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
             offset = new Vector2Int((int)transform.position.x, (int)transform.position.z);
             size = new Vector2Int((int)transform.localScale.x, (int)transform.localScale.z);
 
-            mesh.localScale = new Vector3(size.x * (1.0f / transform.localScale.x), 0.25f, size.y * (1.0f / transform.localScale.z));
-            mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f), 0, size.y - (size.y * 0.5f));
+            if(mesh != null)
+            {
+                mesh.localScale = new Vector3(size.x * (1.0f / transform.localScale.x), 0.25f, size.y * (1.0f / transform.localScale.z));
+                mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f), 0, size.y - (size.y * 0.5f));
+            }
 
 
             Tiles = new HashSet<Tile>();
@@ -52,6 +58,15 @@ namespace Assets.Scripts.LevelGeneration.Test2
         private void AddMesh()
         {
             if (mesh != null)
+            {
+                if(Exclude)
+                {
+                    Destroy(mesh.gameObject);
+                }
+                return;
+            }
+
+            if (Exclude)
                 return;
 
             var child = GetComponentInChildren<MeshRenderer>();

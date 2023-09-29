@@ -32,8 +32,7 @@ namespace Assets.Scripts.LevelGeneration
                     var prefab = modules[i];
                     if(prefab.IsPrefabDefinition())
                         prefabs.Add(prefab);
-                }
-                
+                }                
 
                 List<RoomModule> available = new List<RoomModule>(prefabs);
 

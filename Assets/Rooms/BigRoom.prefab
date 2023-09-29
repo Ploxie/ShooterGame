@@ -920,6 +920,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
+  Bounds:
+    m_Position: {x: -11, y: 0, z: -11}
+    m_Size: {x: 23, y: 0, z: 24}
 --- !u!1 &5526310843534779670
 GameObject:
   m_ObjectHideFlags: 0

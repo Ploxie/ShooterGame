@@ -35,11 +35,13 @@ namespace Assets.Scripts.LevelGeneration.Test2
             }
         }
 
+
         [SerializeField] private int seed;
         [SerializeField] private ModuleManager moduleManager;
 
         private List<Room> rooms;
         private HashSet<Tile> tiles;
+        private HashSet<Tile> excluded;
         private List<BoundsInt> boundsTest;
 
         private Room start;
@@ -52,10 +54,13 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
         private void Generate()
         {
+            // TODO: Add Walls in middle of rooms
+
             Random.InitState(seed);
 
             ClearTiles();
             tiles = new HashSet<Tile>();
+            excluded = new HashSet<Tile>();
             boundsTest = new List<BoundsInt>();
 
             // Find Module Manager in child
@@ -86,6 +91,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     };
                     tiles.UnionWith(SpawnRoomModule(room));
                 }
+
+                tiles.ExceptWith(excluded);
             }
 
             // Generate Walls
@@ -175,6 +182,11 @@ namespace Assets.Scripts.LevelGeneration.Test2
             {
                 var position = roomCenter + moduleTile.Position;
                 tiles.Add(new Tile(position) { IsModule = true });
+            }
+            foreach (var moduleTile in module.Excluded)
+            {
+                var position = roomCenter + moduleTile.Position;
+                excluded.Add(new Tile(position) { IsModule = true });
             }
 
             return tiles;

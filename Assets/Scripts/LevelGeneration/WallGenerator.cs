@@ -11,6 +11,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
 {
     public static class WallGenerator
     {
+
         public static IEnumerable<Tile> Generate(IEnumerable<Tile> tiles)
         {
             HashSet<Tile> tileSet = tiles.ToHashSet();
