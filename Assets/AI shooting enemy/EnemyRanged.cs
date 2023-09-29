@@ -17,12 +17,15 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     ShootingLogic SL;
     private EnemyRanged[] enemies;
 
-    public override void Awake()
+    private void Start()
     {
         base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+    }
 
+    public override void Awake()
+    {
 
         SL = new ShootingLogic();
         rubberPosition = transform.position;

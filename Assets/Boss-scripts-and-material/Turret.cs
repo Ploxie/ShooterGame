@@ -13,11 +13,15 @@ public class Turret : Living
     private movePlayer player;
     public bool alive = true;
     private bool seen = false;
-    public override void Awake()
+
+    private void Start()
     {
         base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+    }
+    public override void Awake()
+    {
 
         
         player = FindObjectOfType<movePlayer>();

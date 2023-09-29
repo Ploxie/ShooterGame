@@ -5,19 +5,21 @@ using UnityEngine.AI;
 
 public class EnemyKamikaze : Living
 {
+    EnemyManager enemyManager;
+
     Animator animator;
     NavMeshAgent agent;
     [SerializeField]
     Hitbox explosionDamageHitBox;
 
     [SerializeField]
-    float detectionRange = 10;
+    float detectionRange = 50;
     [SerializeField]
     static float staggerDurationMax = 0.5f;
     float staggerDuration = staggerDurationMax;
 
     [SerializeField]
-    float diveRange = 10;
+    float diveRange = 4;
 
     float distance;
     bool isWalking = false;
@@ -44,9 +46,15 @@ public class EnemyKamikaze : Living
         Roar,
         Dive
     }
-    public override void Awake()
+
+    private void Start()
     {
         base.Awake();
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(this);
+    }
+    public override void Awake()
+    {   
         //loop through hitboxes, set effect
         player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
@@ -138,8 +146,9 @@ public class EnemyKamikaze : Living
         }
         if (distance < detectionRange)
         {
+            Debug.Log($"Distance is {distance}, needs to be below {diveRange}");
             Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
-            if (distance <= diveRange && hitInfo.transform.CompareTag("Player") && state == State.Move)
+            if (distance <= diveRange/* && hitInfo.transform.CompareTag("Player") && state == State.Move*/)
             {
                 agent.isStopped = false;
                 isWalking = false;

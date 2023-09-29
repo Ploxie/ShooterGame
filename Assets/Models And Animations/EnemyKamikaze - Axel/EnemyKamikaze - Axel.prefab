@@ -1428,7 +1428,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1516,8 +1516,8 @@ MonoBehaviour:
   Stunned: 0
   StunDuration: 0
   explosionDamageHitBox: {fileID: 6981675018335404132}
-  detectionRange: 10
-  diveRange: 2
+  detectionRange: 50
+  diveRange: 10
   player: {fileID: 0}
   model: {fileID: -3168422337102530296}
   state: 0

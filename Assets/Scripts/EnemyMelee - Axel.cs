@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyMelee : Living
 {
+    EnemyManager enemyManager;
     // Start is called before the first frame update
     Animator animator;
     NavMeshAgent agent;
@@ -51,9 +52,15 @@ public class EnemyMelee : Living
         Die,
         Staggered
     }
-    public override void Awake()
+
+    private void Start()
     {
         base.Awake();
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(this);
+    }
+    public override void Awake()
+    {
         //loop through hitboxes, set effect
         player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
