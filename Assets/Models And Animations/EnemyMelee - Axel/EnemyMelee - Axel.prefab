@@ -208,16 +208,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046e0173d7529fa489060ed5e59856d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 0
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
+  Health: 0
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
   jumpDamageHitBox: {fileID: 4039868517719813285}
   meleeDamageHitBox: {fileID: 1770775939236767396}
   jumpSpeedModifier: 7
-  health: 10
   detectionRange: 200
   meleeRange: 5
   jumpAttackRange: 10
-  effect: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
+  visualCracks: {fileID: 0}
   player: {fileID: 0}
-  cam: {fileID: 0}
   state: 0
 --- !u!1 &209478826304596385
 GameObject:
@@ -520,7 +536,7 @@ GameObject:
   - component: {fileID: 5221591620209362027}
   m_Layer: 0
   m_Name: JumpDamageHitbox
-  m_TagString: EnemyJumpAttack
+  m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1060,7 +1076,7 @@ GameObject:
   - component: {fileID: 3728922843400057185}
   m_Layer: 0
   m_Name: MeleeDamageHitbox
-  m_TagString: EnemyMeleeAttack
+  m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

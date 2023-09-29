@@ -1500,6 +1500,8 @@ MonoBehaviour:
   MaxHealth: 0
   DefaultMovementSpeed: 0
   DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
   RegenHealth: 0
   Slowable: 0
   Nerfable: 0
@@ -2387,7 +2389,7 @@ GameObject:
   - component: {fileID: 6981675018335404132}
   m_Layer: 0
   m_Name: ExplosionDamageHitbox
-  m_TagString: EnemyJumpAttack
+  m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

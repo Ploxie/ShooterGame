@@ -7,12 +7,17 @@ public class Turret : Living
     // Start is called before the first frame update
     //need rotation and 
 
+    private EnemyManager enemyManager;
+
     public int HealthTurret = 100;
     private movePlayer player;
     public bool alive = true;
     private bool seen = false;
     public override void Awake()
     {
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(this);
+
         base.Awake();
         player = FindObjectOfType<movePlayer>();
     }

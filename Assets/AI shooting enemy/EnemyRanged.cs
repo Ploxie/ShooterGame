@@ -10,6 +10,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyRanged : Living //a script that utilizes the navmeshagent for pathfinding
  {
+    private EnemyManager enemyManager;
+
     public NavMeshAgent agent;
     Vector3 rubberPosition;
     ShootingLogic SL;
@@ -17,6 +19,9 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
     public override void Awake()
     {
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(this);
+
         base.Awake();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
