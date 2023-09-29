@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMelee : MonoBehaviour
+public class EnemyMelee : Living
 {
     // Start is called before the first frame update
     Animator animator;
@@ -14,8 +14,6 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField]
     float jumpSpeedModifier = 7;
     float walkSpeed = 3.5f;
-    [SerializeField]
-    float health = 10;
 
     [SerializeField]
     float detectionRange = 10;
@@ -35,13 +33,15 @@ public class EnemyMelee : MonoBehaviour
     bool isDead = false;
 
     [SerializeField]
-    GameObject effect;
+    GameObject visualCracks;
     [SerializeField]
     GameObject player;
-    
+
+    public StatusEffect effect;    
 
     [SerializeField]
     State state;
+
     enum State
     {
         Idle,
@@ -51,8 +51,11 @@ public class EnemyMelee : MonoBehaviour
         Die,
         Staggered
     }
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
+        //loop through hitboxes, set effect
+
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         jumpDamageHitBox.gameObject.SetActive(false);
@@ -64,16 +67,20 @@ public class EnemyMelee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        base.Update();
+
         Vector3 fwrd = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position, fwrd * 1000, Color.red);
+
         if (Input.GetMouseButtonDown(0))
         {
             Die();
         }
+
         distance = Vector3.Distance(transform.position, player.transform.position);
+
         if (state != State.Die)
         {
-
             if (distance >= detectionRange)
             {
                 if (isWalking)
@@ -86,22 +93,8 @@ public class EnemyMelee : MonoBehaviour
             else
             {
                 SetState();
-
-                //Die();
-
-
-
-                if (Input.GetMouseButtonDown(1))
-                {
-                    TakeDamage(5);
-
-
-
-                }
             }
-
         }
-
     }
 
     private void Die()
@@ -139,7 +132,6 @@ public class EnemyMelee : MonoBehaviour
             case State.Attack:
                 break;
             case State.Die:
-
                 break;
             case State.Staggered:
                 if (isWalking)
@@ -165,12 +157,12 @@ public class EnemyMelee : MonoBehaviour
 
     private void HandleMovement()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        
+        float distance = Vector3.Distance(transform.position, player.transform.position);        
         
         if (distance < detectionRange)
         {
             Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
+
             if (distance <= meleeRange)
             {
                 isWalking = false;
@@ -179,6 +171,7 @@ public class EnemyMelee : MonoBehaviour
                     animator.SetTrigger("Punch");
                 else
                     animator.SetTrigger("Swipe");
+
                 state = State.Attack;
             }
             else if (distance <= jumpAttackRange && distance > jumpAttackRange / 2 && hitInfo.transform.CompareTag("Player"))
@@ -192,7 +185,6 @@ public class EnemyMelee : MonoBehaviour
             }
             else
             {
-
                 agent.isStopped = false;
                 isWalking = true;
                 animator.SetBool("IsWalking", isWalking);
@@ -201,13 +193,11 @@ public class EnemyMelee : MonoBehaviour
                 state = State.Move;
             }
         }
-
-
     }
 
     public void PlaceEffect()
     {
-        GameObject temp = Instantiate(effect);
+        GameObject temp = Instantiate(visualCracks);
         temp.transform.position = transform.position;
         temp.transform.Rotate(0, UnityEngine.Random.Range(0, 360f), 0);
     }
@@ -230,12 +220,10 @@ public class EnemyMelee : MonoBehaviour
                 state = State.Idle;
             }
         }
-
     }
 
     public void ToggleJumpDamage(int value)
     {
-
         if (state != State.Die)
         {
             if (value != 0)
@@ -269,23 +257,7 @@ public class EnemyMelee : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Die();
-        }
-        else if (state != State.Die && state != State.Jump && !canInflictJumpDamage && !canInflictMeleeDamage)
-        {
-            {
-                animator.SetTrigger("Stagger");
-                state = State.Staggered;
-            }
-        }
-    }
+    }    
 }
 
 
