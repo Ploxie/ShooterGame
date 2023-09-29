@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyKamikaze : Living
 {
-    private EnemyManager enemyManager;
-
     Animator animator;
     NavMeshAgent agent;
     [SerializeField]
@@ -27,7 +25,7 @@ public class EnemyKamikaze : Living
     bool playerDetected = false;
 
     [SerializeField]
-    GameObject player;
+    movePlayer player;
 
     [SerializeField]
     GameObject model;
@@ -48,22 +46,9 @@ public class EnemyKamikaze : Living
     }
     public override void Awake()
     {
-        enemyManager = FindObjectOfType<EnemyManager>();
-        enemyManager.RegisterEnemy(this);
         base.Awake();
         //loop through hitboxes, set effect
-
-        if (effect != null)
-        {
-            foreach (Transform t in transform)
-            {
-                if (t.CompareTag("HitBox"))
-                {
-                    t.GetComponent<Hitbox>().effect = effect;
-                }
-            }
-        }
-
+        player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         explosionDamageHitBox.gameObject.SetActive(false);

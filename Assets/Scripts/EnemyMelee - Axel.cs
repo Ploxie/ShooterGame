@@ -4,9 +4,6 @@ using UnityEngine.AI;
 public class EnemyMelee : Living
 {
     // Start is called before the first frame update
-
-    private EnemyManager enemyManager;
-
     Animator animator;
     NavMeshAgent agent;
     [SerializeField]
@@ -38,7 +35,7 @@ public class EnemyMelee : Living
     [SerializeField]
     GameObject visualCracks;
     [SerializeField]
-    GameObject player;
+    movePlayer player;
 
     public StatusEffect effect;    
 
@@ -56,27 +53,13 @@ public class EnemyMelee : Living
     }
     public override void Awake()
     {
-        enemyManager = FindObjectOfType<EnemyManager>();
-        enemyManager.RegisterEnemy(this);
         base.Awake();
         //loop through hitboxes, set effect
-
-        if (effect != null)
-        {
-            foreach (Transform t in transform)
-            {
-                if (t.CompareTag("EnemyHitBox"))
-                {
-                    t.GetComponent<Hitbox>().effect = effect;
-                }
-            }
-        }
-
+        player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         jumpDamageHitBox.gameObject.SetActive(false);
         meleeDamageHitBox.gameObject.SetActive(false);
-
         state = State.Idle;
     }
 
@@ -84,7 +67,6 @@ public class EnemyMelee : Living
     void Update()
     {
         base.Update();
-
         Vector3 fwrd = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position, fwrd * 1000, Color.red);
 
@@ -257,23 +239,6 @@ public class EnemyMelee : Living
             }
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //alternativt, eftersom meleeenemy redan har playerobjektet, applicera skada direkt. mindre intressant utan hitboxar, men betydligt enklare.
-
-        //alternativt alternativt, ha en bool som togglas av animationevents. förmodligen det bättre alternativet
-        switch (state)
-        {
-
-            case State.Jump:
-                break;
-            case State.Attack:
-                break;
-            default:
-                break;
-        }
-    }    
 }
 
 

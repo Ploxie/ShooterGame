@@ -145,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966608543684174976, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.35
+      value: 2.21
       objectReference: {fileID: 0}
     - target: {fileID: 4966608543684174976, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.34
+      value: -20.51
       objectReference: {fileID: 0}
     - target: {fileID: 4966608543684174976, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: m_LocalRotation.w
@@ -722,6 +722,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd31557929770e4faac54c284d185b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 0
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
+  Health: 0
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
   HealthTurret: 100
   alive: 1
 --- !u!1 &1266418440
@@ -1056,8 +1074,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1456411626}
+  MaxHealth: 0
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
   Health: 100
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
+  agent: {fileID: 1456411626}
 --- !u!114 &1456411625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1292,8 +1327,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1692475089}
+  MaxHealth: 0
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
   Health: 100
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
+  agent: {fileID: 1692475089}
 --- !u!114 &1692475088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,13 +1481,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712504457}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19331512, y: -0, z: -0, w: 0.9811367}
-  m_LocalPosition: {x: 0, y: 12.89, z: -28.09}
+  m_LocalRotation: {x: 0.30346465, y: -0, z: -0, w: 0.9528427}
+  m_LocalPosition: {x: 0, y: 19.21, z: -40.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 22.293, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.332, y: 0, z: 0}
 --- !u!1 &1832251339
 GameObject:
   m_ObjectHideFlags: 0
