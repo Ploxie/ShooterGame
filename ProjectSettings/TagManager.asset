@@ -8,8 +8,8 @@ TagManager:
   - Wall
   - player
   - EnemyJumpAttack
-  - Enemy
   - EnemyMeleeAttack
+  - HealthPack
   - DummyEnemy
   - UI
   layers:
