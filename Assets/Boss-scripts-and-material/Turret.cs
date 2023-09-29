@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : Living
 {
     // Start is called before the first frame update
     //need rotation and 
@@ -11,8 +11,9 @@ public class Turret : MonoBehaviour
     private movePlayer player;
     public bool alive = true;
     private bool seen = false;
-    public void Start()
+    public override void Awake()
     {
+        base.Awake();
         player = FindObjectOfType<movePlayer>();
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
@@ -47,10 +48,6 @@ public class Turret : MonoBehaviour
         rotateToPlayer(dir);//player.transform.position);
         //add weapon
     }
-    public void RemoveHealth()
-    {
-        HealthTurret -= 10;
-    }
     public void isAlive()
     {
         if (HealthTurret <= 0)
@@ -65,20 +62,6 @@ public class Turret : MonoBehaviour
         if (seen == true)
         {
             Shoot(player);
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            if (HealthTurret <= 0)
-            {
-                isAlive();
-            }
-            else
-            {
-                RemoveHealth();
-            }
         }
     }
 }

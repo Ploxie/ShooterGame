@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyKamikaze : MonoBehaviour
+public class EnemyKamikaze : Living
 {
     Animator animator;
     NavMeshAgent agent;
@@ -30,6 +30,8 @@ public class EnemyKamikaze : MonoBehaviour
     [SerializeField]
     GameObject model;
 
+    public StatusEffect effect;
+
 
     [SerializeField]
     State state;
@@ -42,8 +44,11 @@ public class EnemyKamikaze : MonoBehaviour
         Roar,
         Dive
     }
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
+        //loop through hitboxes, set effect
+
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         explosionDamageHitBox.gameObject.SetActive(false);
@@ -54,6 +59,7 @@ public class EnemyKamikaze : MonoBehaviour
 
     void Update()
     {
+        base.Update();
         if (state != State.Die)
         {
 
@@ -70,17 +76,6 @@ public class EnemyKamikaze : MonoBehaviour
             {
                 SetState();
 
-                //Die();
-
-
-
-                if (Input.GetMouseButtonDown(1))
-                {
-                    //TakeDamage(5);
-
-
-
-                }
             }
 
         }

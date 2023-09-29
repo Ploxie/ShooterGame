@@ -8,16 +8,16 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshagent for pathfinding
+public class EnemyRanged : Living //a script that utilizes the navmeshagent for pathfinding
  {
     public NavMeshAgent agent;
     Vector3 rubberPosition;
-    public int Health = 100;
     ShootingLogic SL;
     private EnemyRanged[] enemies;
 
-    public void Start()
+    public override void Awake()
     {
+        base.Awake();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();
@@ -31,10 +31,6 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         {
             agent.Resume();
         }
-    }
-    public void looseHealth()
-    {
-        Health = Health - 10;
     }
     public void MoveAwayFromEnemy(movePlayer player)//a function to move away from the enemy
     {
@@ -159,18 +155,5 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
         }
         return returnedValue;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            if (Health <= 0)
-            {
-                gameObject.active = false;
-            }
-            else
-            {
-                looseHealth();
-            }
-        }
-    }
+   
 }

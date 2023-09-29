@@ -30,7 +30,7 @@ public class BossFunctionality : MonoBehaviour
         be = FindObjectsOfType<BossEnemy>();
         foreach (BossEnemy b in be)
         {
-            b.gameObject.active = false;
+            //b.gameObject.active = false;
         }
         //mainComputer.Health = mainComputer.Health / 2;
     }

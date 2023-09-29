@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMelee : MonoBehaviour
+public class EnemyMelee : Living
 {
     // Start is called before the first frame update
     Animator animator;
@@ -14,8 +14,6 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField]
     float jumpSpeedModifier = 7;
     float walkSpeed = 3.5f;
-    [SerializeField]
-    float health = 10;
 
     [SerializeField]
     float detectionRange = 10;
@@ -35,9 +33,11 @@ public class EnemyMelee : MonoBehaviour
     bool isDead = false;
 
     [SerializeField]
-    GameObject effect;
+    GameObject visualCracks;
     [SerializeField]
     GameObject player;
+
+    public StatusEffect effect;
     
 
     [SerializeField]
@@ -51,8 +51,11 @@ public class EnemyMelee : MonoBehaviour
         Die,
         Staggered
     }
-    void Start()
+    public override void Awake()
     {
+        base.Awake();
+        //loop through hitboxes, set effect
+
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         jumpDamageHitBox.gameObject.SetActive(false);
@@ -64,6 +67,7 @@ public class EnemyMelee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         Vector3 fwrd = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position, fwrd * 1000, Color.red);
         if (Input.GetMouseButtonDown(0))
