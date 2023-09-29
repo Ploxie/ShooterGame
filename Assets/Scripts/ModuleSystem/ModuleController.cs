@@ -15,7 +15,6 @@ public class ModuleController : MonoBehaviour
     private EffectModule effectModule;
     private BulletModule bulletModule;
 
-    [SerializeField]
     private GunVisual gunVisual;
 
     public void Awake()
@@ -23,10 +22,11 @@ public class ModuleController : MonoBehaviour
         EffectStats stats = new EffectStats();
         stats.Duration = 10000;
         stats.Interval = 1000;
-        weaponModule = ModuleGenerator.CreateWeaponModule<SMGModule>();
+        weaponModule = ModuleGenerator.CreateWeaponModule<AutomaticModule>();
         effectModule = ModuleGenerator.CreateEffectModule<RadiationModule>(stats);
         bulletModule = ModuleGenerator.CreateBulletModule<CrystalModule>();
 
+        gunVisual = GetComponent<GunVisual>();
         gunVisual.UpdateVisuals(weaponModule);
     }
 

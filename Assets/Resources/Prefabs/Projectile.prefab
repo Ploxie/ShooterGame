@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4284606596605501716}
   - component: {fileID: 1678183699388825054}
   - component: {fileID: 4321066081527214117}
+  - component: {fileID: 7025676576208851590}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -123,6 +124,9 @@ MonoBehaviour:
   ShouldPierce: 0
   Lifetime: 5000
   EnemyManager: {fileID: 0}
+  OnTickEvent: {fileID: 11400000, guid: d3db43b580c9e21419f889465def7096, type: 2}
+  OnHitEvent: {fileID: 11400000, guid: ac61c3c810fe6e4499760901ceb2117e, type: 2}
+  OnDeleteEvent: {fileID: 11400000, guid: 0f541c5e6cd86be4c8bcac2ea60b01bd, type: 2}
 --- !u!54 &4321066081527214117
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,3 +154,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7025676576208851590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091662491241658815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fe1dd176afdcd40abeaae3335c86cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

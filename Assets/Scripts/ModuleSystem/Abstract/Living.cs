@@ -8,51 +8,33 @@ public abstract class Living : MonoBehaviour
 {
     public static int NextIDPointer = 0;
 
-    [BoxGroup("Parameters")]
-    public float MaxHealth;
-    [BoxGroup("Parameters")]
-    public float DefaultMovementSpeed;
-    [BoxGroup("Parameters")]
-    public float DefaultDamage;
+    [BoxGroup("Parameters")] public float MaxHealth;
+    [BoxGroup("Parameters")] public float DefaultMovementSpeed;
+    [BoxGroup("Parameters")] public float DefaultDamage;
 
-    [BoxGroup("Toggles")]
-    public bool RegenHealth;
-    [BoxGroup("Toggles")]
-    public bool Slowable;
-    [BoxGroup("Toggles")]
-    public bool Nerfable;
-    [BoxGroup("Toggles")]
-    public bool Stunnable;
+    [BoxGroup("Events")] public GameEvent OnHealthChangedEvent;
+    [BoxGroup("Events")] public GameEvent OnDeathEvent;
+
+    [BoxGroup("Toggles")] public bool RegenHealth;
+    [BoxGroup("Toggles")] public bool Slowable;
+    [BoxGroup("Toggles")] public bool Nerfable;
+    [BoxGroup("Toggles")] public bool Stunnable;
     
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public int LivingID;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float Health;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float MovementSpeed;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float Damage;
+    [ReadOnly] [BoxGroup("Debug")] public int LivingID;
+    [ReadOnly] [BoxGroup("Debug")] public float Health;
+    [ReadOnly] [BoxGroup("Debug")] public float MovementSpeed;
+    [ReadOnly] [BoxGroup("Debug")] public float Damage;
+
     [HorizontalLine(2, EColor.Gray)]
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float DamageTakenMultiplier = 1;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float DamageDealtMultiplier = 1;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public float MovementSpeedMultiplier = 1;
+
+    [ReadOnly] [BoxGroup("Debug")] public float DamageTakenMultiplier = 1;
+    [ReadOnly] [BoxGroup("Debug")] public float DamageDealtMultiplier = 1;
+    [ReadOnly] [BoxGroup("Debug")] public float MovementSpeedMultiplier = 1;
+
     [HorizontalLine(2, EColor.Gray)]
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public bool Stunned;
-    [ReadOnly]
-    [BoxGroup("Debug")]
-    public int StunDuration;
+
+    [ReadOnly] [BoxGroup("Debug")] public bool Stunned;
+    [ReadOnly] [BoxGroup("Debug")] public int StunDuration;
     
     public Dictionary<StatusEffectID, StatusEffect> StatusEffects;
     protected double stunStarted;
@@ -67,6 +49,7 @@ public abstract class Living : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         Health -= damage * DamageTakenMultiplier;
+        OnHealthChangedEvent.Raise(this, Health);
         OnDamage();
     }
 
@@ -110,6 +93,9 @@ public abstract class Living : MonoBehaviour
 
         if (!Stunned)
             OnUpdate();
+
+        if (Health <= 0)
+            OnDeathEvent.Raise(this, 0);
     }
 
     protected virtual void OnUpdate() {}

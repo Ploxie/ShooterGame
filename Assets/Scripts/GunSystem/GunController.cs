@@ -2,81 +2,44 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    [SerializeField] public GameObject bullet;
+    private ModuleController controller;
 
-    [Header("Gun Stats")]
-    [SerializeField] private int damage;
-    [SerializeField] private int bulletsPerShot;
-    //[SerializeField] private float range;
-    [SerializeField] private float spread;
-    [SerializeField] private float cooldown;
-    [SerializeField] private float reloadTime;
-    //[SerializeField] private Vector3 bulletVelocity;
+    //Cached to avoid unnecessary reallocations
+    private WeaponData data;
+    private double lastFired;
+    private GameObject baseProjectile;
 
-    [Header("Magazine Info")]
-    [SerializeField] private int bulletsShot;
-    [SerializeField] private int magazineSize;
-    [SerializeField] private int remainingBullets;
+    private GunVisual gunVisual;
 
-    [Header("Status")]
-    [SerializeField] private bool shooting;
-    [SerializeField] private bool reloading;
-    [SerializeField] private bool readyToShoot;
-    //[SerializeField] private bool continuousFire;
-
-    private Rigidbody parentRb;
-
-    private void Awake()
+    private void Start()
     {
-        parentRb = GetComponentInParent<Rigidbody>();
-        readyToShoot = true;
-        remainingBullets = 10;
-    }
-
-    private void Update()
-    {
-        if (remainingBullets <= 0)
-        {
-            readyToShoot = false;
-            Reload();
-        }
+        controller = GetComponent<ModuleController>();
+        lastFired = Utils.GetUnixMillis();
+        baseProjectile = Resources.Load<GameObject>("Prefabs/Projectile");
+        gunVisual = GetComponent<GunVisual>();
     }
 
     public void Shoot()
     {
-        if (readyToShoot && !reloading && remainingBullets > 0)
+        if (Utils.GetUnixMillis() - lastFired < data.FireRate)
+            return;
+
+        Vector3 fireDirection = transform.rotation * Vector3.forward;
+        data = controller.GetWeaponData();
+        foreach (float angle in data.LaunchAngles)
         {
-            readyToShoot = false;
+            float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);
+            Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * fireDirection;
 
-            for (int i = 0; i < bulletsPerShot; i++)
-            {
-                float x = Random.Range(-spread, spread) / 100.0f;
-                float z = Random.Range(-spread, spread) / 100.0f;
+            GameObject bullet = Instantiate(baseProjectile);
+            bullet.transform.position = gunVisual.GetBarrelPosition();
+            bullet.GetComponent<Rigidbody>().AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
 
-                Bullet bulletComponent = bullet.GetComponent<Bullet>();
-                bulletComponent.Damage = damage;
-                bulletComponent.Direction = (parentRb.transform.forward + new Vector3(x, 0f, z)).normalized;
-                Instantiate(bullet, this.transform.position, parentRb.transform.rotation);
-            }
-
-            Invoke("ResetShot", cooldown);
+            Projectile projectile = bullet.GetComponent<Projectile>();
+            projectile.Damage = data.Damage;
+            controller.ApplyEffects(projectile);
         }
-    }
 
-    private void ResetShot()
-    {
-        readyToShoot = true;
-    }
-
-    public void Reload()
-    {
-        reloading = true;
-        Invoke("ReloadFinished", reloadTime);
-    }
-
-    private void ReloadFinished()
-    {
-        remainingBullets = magazineSize;
-        reloading = false;
+        lastFired = Utils.GetUnixMillis();
     }
 }
