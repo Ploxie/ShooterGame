@@ -37,11 +37,11 @@ public class EnemyMelee : Living
     [SerializeField]
     GameObject player;
 
-    public StatusEffect effect;
-    
+    public StatusEffect effect;    
 
     [SerializeField]
     State state;
+
     enum State
     {
         Idle,
@@ -68,16 +68,19 @@ public class EnemyMelee : Living
     void Update()
     {
         base.Update();
+
         Vector3 fwrd = transform.TransformDirection(Vector3.forward);
         Debug.DrawRay(transform.position, fwrd * 1000, Color.red);
+
         if (Input.GetMouseButtonDown(0))
         {
             Die();
         }
+
         distance = Vector3.Distance(transform.position, player.transform.position);
+
         if (state != State.Die)
         {
-
             if (distance >= detectionRange)
             {
                 if (isWalking)
@@ -90,22 +93,8 @@ public class EnemyMelee : Living
             else
             {
                 SetState();
-
-                //Die();
-
-
-
-                if (Input.GetMouseButtonDown(1))
-                {
-                    TakeDamage(5);
-
-
-
-                }
             }
-
         }
-
     }
 
     private void Die()
@@ -143,7 +132,6 @@ public class EnemyMelee : Living
             case State.Attack:
                 break;
             case State.Die:
-
                 break;
             case State.Staggered:
                 if (isWalking)
@@ -169,12 +157,12 @@ public class EnemyMelee : Living
 
     private void HandleMovement()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        
+        float distance = Vector3.Distance(transform.position, player.transform.position);        
         
         if (distance < detectionRange)
         {
             Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
+
             if (distance <= meleeRange)
             {
                 isWalking = false;
@@ -183,6 +171,7 @@ public class EnemyMelee : Living
                     animator.SetTrigger("Punch");
                 else
                     animator.SetTrigger("Swipe");
+
                 state = State.Attack;
             }
             else if (distance <= jumpAttackRange && distance > jumpAttackRange / 2 && hitInfo.transform.CompareTag("Player"))
@@ -196,7 +185,6 @@ public class EnemyMelee : Living
             }
             else
             {
-
                 agent.isStopped = false;
                 isWalking = true;
                 animator.SetBool("IsWalking", isWalking);
@@ -205,13 +193,11 @@ public class EnemyMelee : Living
                 state = State.Move;
             }
         }
-
-
     }
 
     public void PlaceEffect()
     {
-        GameObject temp = Instantiate(effect);
+        GameObject temp = Instantiate(visualCracks);
         temp.transform.position = transform.position;
         temp.transform.Rotate(0, UnityEngine.Random.Range(0, 360f), 0);
     }
@@ -234,12 +220,10 @@ public class EnemyMelee : Living
                 state = State.Idle;
             }
         }
-
     }
 
     public void ToggleJumpDamage(int value)
     {
-
         if (state != State.Die)
         {
             if (value != 0)
@@ -273,23 +257,7 @@ public class EnemyMelee : Living
             default:
                 break;
         }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Die();
-        }
-        else if (state != State.Die && state != State.Jump && !canInflictJumpDamage && !canInflictMeleeDamage)
-        {
-            {
-                animator.SetTrigger("Stagger");
-                state = State.Staggered;
-            }
-        }
-    }
+    }    
 }
 
 
