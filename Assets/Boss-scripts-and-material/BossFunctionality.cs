@@ -112,4 +112,8 @@ public class BossFunctionality : MonoBehaviour
             enemy.gameObject.active = true;
         }
     }
+    void SlowMove()
+    {
+
+    }
 }
