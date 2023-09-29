@@ -32,7 +32,7 @@ public class BossFunctionality : MonoBehaviour
         {
             b.gameObject.active = false;
         }
-        mainComputer.Health = mainComputer.Health / 2;
+        //mainComputer.Health = mainComputer.Health / 2;
     }
     private void Update()
     {
@@ -42,7 +42,7 @@ public class BossFunctionality : MonoBehaviour
     {
         switch (state)
         {
-            case currentStateOfCombat.TwoTurrets:
+            case currentStateOfCombat.TwoTurrets://when two turrets are up.
                 if (turret2.alive == true && turret1.alive == true)
                 {
                     turret1.ClearToShoot();
@@ -53,7 +53,7 @@ public class BossFunctionality : MonoBehaviour
                     state = currentStateOfCombat.MiddleFight;
                 }
                 break;
-            case currentStateOfCombat.MiddleFight:
+            case currentStateOfCombat.MiddleFight://fight inbetween one turret destroyed
                 if (mainComputer.Health <= computerHealth/2)
                 {
                     state = currentStateOfCombat.OneTurret;
@@ -64,7 +64,7 @@ public class BossFunctionality : MonoBehaviour
                     MiddleFightSequence();
                 }
                 break;
-            case currentStateOfCombat.OneTurret:
+            case currentStateOfCombat.OneTurret: //when only one turret is left
                 if (turret1.alive == false)
                 {
                     state = currentStateOfCombat.OnlyComputer;
@@ -74,12 +74,20 @@ public class BossFunctionality : MonoBehaviour
                     turret1.ClearToShoot();
                     if (releaseEnemies = false)
                     {
+                        foreach(BossEnemy boss in be)
+                        {
+                            if (boss.gameObject.active == false)
+                            {
+                                boss.ER.Health = 100;
+                                boss.transform.position = boss.posOfStart;
+                            }
+                        }
                         SpawnEnemy();
                         releaseEnemies = true;
                     }
                 }
                 break;
-            case currentStateOfCombat.OnlyComputer:
+            case currentStateOfCombat.OnlyComputer://when only main computer is up
                 shield.active = false;
                 if (mainComputer.Health <= 0)
                 {

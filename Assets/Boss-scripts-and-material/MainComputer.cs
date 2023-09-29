@@ -6,15 +6,4 @@ public class MainComputer : MonoBehaviour
 {
     [SerializeField]
     public int Health;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

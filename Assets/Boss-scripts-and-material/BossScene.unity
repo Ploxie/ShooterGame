@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthTurret: 0
+  alive: 1
 --- !u!1 &517825668
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 517825675}
+  Health: 100
 --- !u!114 &517825674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee82405de240052478c41c0230c31b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ER: {fileID: 517825673}
 --- !u!195 &517825675
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -940,6 +943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthTurret: 100
+  alive: 1
 --- !u!1 &1266418440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1456411626}
+  Health: 100
 --- !u!114 &1456411625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1285,6 +1290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee82405de240052478c41c0230c31b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ER: {fileID: 1456411624}
 --- !u!195 &1456411626
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1506,6 +1512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1692475089}
+  Health: 100
 --- !u!114 &1692475088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,6 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee82405de240052478c41c0230c31b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ER: {fileID: 1692475087}
 --- !u!195 &1692475089
 NavMeshAgent:
   m_ObjectHideFlags: 0

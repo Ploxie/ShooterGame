@@ -45,8 +45,9 @@ public class Turret : MonoBehaviour
         dir = dir - dir * 2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
+        //add weapon
     }
-    void RemoveHealth()
+    public void RemoveHealth()
     {
         HealthTurret -= 10;
     }
@@ -64,6 +65,20 @@ public class Turret : MonoBehaviour
         if (seen == true)
         {
             Shoot(player);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            if (HealthTurret <= 0)
+            {
+                isAlive();
+            }
+            else
+            {
+                RemoveHealth();
+            }
         }
     }
 }
