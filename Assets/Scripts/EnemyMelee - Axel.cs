@@ -62,6 +62,15 @@ public class EnemyMelee : Living
     public override void Awake()
     {
         //loop through hitboxes, set effect
+        if (effect != null)
+        {
+            Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
+            foreach (Hitbox hitbox in hitboxes)
+            {
+                hitbox.effect = effect;
+            }
+        }
+
         player = FindObjectOfType<movePlayer>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
