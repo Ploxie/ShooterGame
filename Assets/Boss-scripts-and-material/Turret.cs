@@ -36,7 +36,7 @@ public class Turret : MonoBehaviour
             }
         }
         //print(this.transform.position - player.transform.position);
-        print(seePlayer);
+        //print(seePlayer);
         return seePlayer;
     }
     public void Shoot(movePlayer player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate

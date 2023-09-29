@@ -110,7 +110,7 @@ public class EnemyRanged : MonoBehaviour //a script that utilizes the navmeshage
     {
         Quaternion rotation = Quaternion.LookRotation(pos - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
-        print(transform.rotation);
+        //print(transform.rotation);
     }
     public void SimpleLeash()// uses a leach function that mean that the enemy goes back to its original position and makes it idle
     {
