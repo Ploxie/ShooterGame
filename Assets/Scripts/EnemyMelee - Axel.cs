@@ -22,9 +22,9 @@ public class EnemyMelee : Living
     static float staggerDurationMax = 0.5f;
     float staggerDuration = staggerDurationMax;
     [SerializeField]
-    float meleeRange = 220*0.02f;
+    float meleeRange = 5;
     [SerializeField]
-    float jumpAttackRange = 5;
+    float jumpAttackRange = 10;
 
     private bool canInflictMeleeDamage = false;
     private bool canInflictJumpDamage = false;
