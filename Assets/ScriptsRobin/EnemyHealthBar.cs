@@ -9,12 +9,13 @@ public class EnemyHealthBar : MonoBehaviour
     // Start is called before the first frame update
     public Image enemyHealthBar;
     public Image enemyHealthBarBorder;
-    public float enemyHealthAmount = 100;
+    private float enemyHealthAmount;
     public Transform target;
 
     Living living;
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("MainCamera").transform;
         living = GetComponentInParent<Living>();
         enemyHealthAmount = living.MaxHealth;
     }
@@ -22,10 +23,7 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20);
-        }
+        
 
         enemyHealthBarBorder.transform.LookAt(target);
     }
@@ -33,7 +31,7 @@ public class EnemyHealthBar : MonoBehaviour
     public void TakeDamage(float damage)
     {
         enemyHealthAmount -= damage;
-        enemyHealthBar.fillAmount = enemyHealthAmount / 100f;
+        enemyHealthBar.fillAmount = enemyHealthAmount / living.MaxHealth;
     }
 
 }

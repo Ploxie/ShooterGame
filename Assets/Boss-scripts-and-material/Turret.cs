@@ -14,6 +14,8 @@ public class Turret : Living
     public bool alive = true;
     private bool seen = false;
 
+    private EnemyHealthBar healthBar;
+
     private void Start()
     {
         base.Awake();
@@ -22,8 +24,8 @@ public class Turret : Living
     }
     public override void Awake()
     {
+        healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
-        
         player = FindObjectOfType<movePlayer>();
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
@@ -73,5 +75,11 @@ public class Turret : Living
         {
             Shoot(player);
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        healthBar.TakeDamage(damage);
     }
 }

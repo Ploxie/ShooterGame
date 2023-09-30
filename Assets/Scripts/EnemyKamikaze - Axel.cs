@@ -34,6 +34,8 @@ public class EnemyKamikaze : Living
 
     public StatusEffect effect;
 
+    private EnemyHealthBar healthBar;
+
 
     [SerializeField]
     State state;
@@ -54,7 +56,8 @@ public class EnemyKamikaze : Living
         enemyManager.RegisterEnemy(this);
     }
     public override void Awake()
-    {   
+    {
+        healthBar = FindFirstObjectByType<EnemyHealthBar>();
         //loop through hitboxes, set effect
         if (effect != null)
         {
@@ -74,9 +77,14 @@ public class EnemyKamikaze : Living
     }
 
 
-    void Update()
+    public override void Update()
     {
         base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TakeDamage(20);
+        }
         if (state != State.Die)
         {
 
@@ -189,6 +197,12 @@ public class EnemyKamikaze : Living
     public void EndRoar()
     {
         state = State.Move;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        healthBar.TakeDamage(damage);
     }
 
 }

@@ -17,6 +17,8 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     ShootingLogic SL;
     private EnemyRanged[] enemies;
 
+    private EnemyHealthBar healthBar;
+
     private void Start()
     {
         base.Awake();
@@ -26,7 +28,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
     public override void Awake()
     {
-
+        healthBar = FindFirstObjectByType<EnemyHealthBar>();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();
@@ -164,5 +166,11 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         }
         return returnedValue;
     }
-   
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        healthBar.TakeDamage(damage);
+    }
+
 }

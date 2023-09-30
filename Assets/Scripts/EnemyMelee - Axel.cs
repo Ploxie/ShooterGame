@@ -40,6 +40,8 @@ public class EnemyMelee : Living
 
     public StatusEffect effect;    
 
+    private EnemyHealthBar healthBar;
+
     [SerializeField]
     State state;
 
@@ -61,6 +63,7 @@ public class EnemyMelee : Living
     }
     public override void Awake()
     {
+        healthBar = FindFirstObjectByType<EnemyHealthBar>();
         //loop through hitboxes, set effect
         if (effect != null)
         {
@@ -252,6 +255,12 @@ public class EnemyMelee : Living
                 agent.speed = walkSpeed;
             }
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        healthBar.TakeDamage(damage);
     }
 }
 
