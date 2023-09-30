@@ -7,6 +7,14 @@ public class Crystal : BulletEffect
 
     public GameObject bulletPrefab;
 
+    private BulletManager bulletManager;
+
+    protected override void OnActivate()
+    {
+        bulletManager = GameObject.FindObjectOfType<BulletManager>();
+        base.OnActivate();
+    }
+
     public override void DoEffect(GameObject hitObject)
     {
         if (hitObject != null)
@@ -19,12 +27,12 @@ public class Crystal : BulletEffect
         
         Vector3 position = Parent.transform.position + Quaternion.AngleAxis(270, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
         Vector3 direction = -Vector3.Cross(Parent.GetComponent<Rigidbody>().velocity.normalized, Vector3.up.normalized);
-        
-        GameObject bullet = GameObject.Instantiate(bulletPrefab, position, Quaternion.identity);
+
+        GameObject bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
         bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * 1000);
 
-        Vector3 position2 = Parent.transform.position + Quaternion.AngleAxis(90, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
-        GameObject bullet2 = GameObject.Instantiate(bulletPrefab, position2, Quaternion.identity);
-        bullet2.GetComponent<Rigidbody>().AddRelativeForce(-direction * 1000);
+        position = Parent.transform.position + Quaternion.AngleAxis(90, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
+        bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
+        bullet.GetComponent<Rigidbody>().AddRelativeForce(-direction * 1000);
     }
 }

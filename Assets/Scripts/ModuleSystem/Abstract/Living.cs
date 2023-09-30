@@ -41,6 +41,11 @@ public abstract class Living : MonoBehaviour
         Health = MaxHealth;
     }
 
+    public virtual void Start()
+    {
+
+    }
+
     public virtual void TakeDamage(float damage)
     {
         Health -= damage * DamageTakenMultiplier;

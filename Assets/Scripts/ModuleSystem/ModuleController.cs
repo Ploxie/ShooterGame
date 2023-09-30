@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,36 +20,51 @@ public class ModuleController : MonoBehaviour
 
     public void Awake()
     {
-        EffectStats stats = new EffectStats();
-        stats.Duration = 10000;
-        stats.Interval = 1000;
-        weaponModule = ModuleGenerator.CreateWeaponModule<AutomaticModule>();
-        effectModule = ModuleGenerator.CreateEffectModule<RadiationModule>(stats);
-        bulletModule = ModuleGenerator.CreateBulletModule<CrystalModule>();
-
         gunVisual = GetComponent<GunVisual>();
-        gunVisual.UpdateVisuals(weaponModule);
     }
 
     public void LoadModule(ModuleType type, Module module)
     {
-        //Load logic here
-    }
+        if (type == ModuleType.WeaponModule)
+            gunVisual.UpdateVisuals(((WeaponModule)module).TypeOfWeapon);
 
-    public void EjectModule(ModuleType type)
-    {
-        //Ejection logic here
-    }
-
-    public void ApplyEffects(Projectile projectile)
-    {
-        projectile.AddStatusEffect(effectModule.GetStatusEffect());
-        projectile.AddBulletEffect(bulletModule.GetBulletEffect());
+        switch (type)
+        {
+            case ModuleType.WeaponModule:
+                weaponModule = (WeaponModule)module;
+                gunVisual.UpdateVisuals(weaponModule.TypeOfWeapon);
+                break;
+            case ModuleType.EffectModule:
+                effectModule = (EffectModule)module;
+                break;
+            case ModuleType.BulletModule:
+                bulletModule = (BulletModule)module;
+                break;
+        }
     }
 
     public WeaponData GetWeaponData()
     {
+        if (weaponModule == null)
+            throw new Exception("WeaponModule is null. This should not be possible.");
+
         return weaponModule.GetData();
+    }
+
+    public StatusEffect GetStatusEffect()
+    {
+        if (effectModule == null)
+            return null;
+
+        return effectModule.GetStatusEffect();
+    }
+
+    public BulletEffect GetBulletEffect()
+    {
+        if (bulletModule == null)
+            return null;
+
+        return bulletModule.GetBulletEffect();
     }
 
     // Start is called before the first frame update

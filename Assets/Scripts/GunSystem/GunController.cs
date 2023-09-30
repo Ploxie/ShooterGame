@@ -9,7 +9,9 @@ public class GunController : MonoBehaviour
     private double lastFired;
     private GameObject baseProjectile;
 
-    private GunVisual gunVisual;
+    public GunVisual gunVisual;
+
+    public BulletManager bulletManager;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class GunController : MonoBehaviour
         lastFired = Utils.GetUnixMillis();
         baseProjectile = Resources.Load<GameObject>("Prefabs/Projectile");
         gunVisual = GetComponent<GunVisual>();
+        bulletManager = FindObjectOfType<BulletManager>();
     }
 
     public void Shoot()
@@ -31,13 +34,8 @@ public class GunController : MonoBehaviour
             float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);
             Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * fireDirection;
 
-            GameObject bullet = Instantiate(baseProjectile);
-            bullet.transform.position = gunVisual.GetBarrelPosition();
+            GameObject bullet = bulletManager.RequestBullet(gunVisual.GetBarrelPosition(), Quaternion.identity);
             bullet.GetComponent<Rigidbody>().AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
-
-            Projectile projectile = bullet.GetComponent<Projectile>();
-            projectile.Damage = data.Damage;
-            controller.ApplyEffects(projectile);
         }
 
         lastFired = Utils.GetUnixMillis();
