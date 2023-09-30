@@ -11,9 +11,12 @@ public class EnemyHealthBar : MonoBehaviour
     public Image enemyHealthBarBorder;
     public float enemyHealthAmount = 100;
     public Transform target;
+
+    Living living;
     void Start()
     {
-        
+        living = GetComponentInParent<Living>();
+        enemyHealthAmount = living.MaxHealth;
     }
 
     // Update is called once per frame
