@@ -6,12 +6,16 @@ public class Cluster : BulletEffect
     public const int DISTANCE_FROM_CENTER = 1;
     public const int PROJECTILE_COUNT = 8;
 
-    private GameObject bulletPrefab;
+    private BulletManager bulletManager;
+
+    protected override void OnActivate()
+    {
+        bulletManager = GameObject.FindObjectOfType<BulletManager>();
+    }
 
     public override void DoEffect(GameObject hitObject)
     {
         //Replace with event based system with projectile manager in the future
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
         float placementInterval = 360.0f/PROJECTILE_COUNT;
         for (float i = 0; i < 360; i += placementInterval)
         {
@@ -21,7 +25,7 @@ public class Cluster : BulletEffect
                 continue;
             direction.Normalize();
 
-            GameObject bullet = GameObject.Instantiate(bulletPrefab, position, Quaternion.identity);
+            GameObject bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
             bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * 1000);
         }
     }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2772737571751531792}
   - component: {fileID: 564314581712621177}
   - component: {fileID: 4284606596605501716}
-  - component: {fileID: 1678183699388825054}
   - component: {fileID: 4321066081527214117}
   - component: {fileID: 7025676576208851590}
+  - component: {fileID: 4032159477918280351}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -108,25 +108,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1678183699388825054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9091662491241658815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d1f05ce971cd548a134fcb6dcb64a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 10
-  ShouldPierce: 0
-  Lifetime: 5000
-  EnemyManager: {fileID: 0}
-  OnTickEvent: {fileID: 11400000, guid: d3db43b580c9e21419f889465def7096, type: 2}
-  OnHitEvent: {fileID: 11400000, guid: ac61c3c810fe6e4499760901ceb2117e, type: 2}
-  OnDeleteEvent: {fileID: 11400000, guid: 0f541c5e6cd86be4c8bcac2ea60b01bd, type: 2}
 --- !u!54 &4321066081527214117
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,3 +147,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fe1dd176afdcd40abeaae3335c86cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4032159477918280351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091662491241658815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84944f4b75a78db4c97f89cb150d4412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  ShouldPierce: 0
+  Lifetime: 5000
+  EnemyManager: {fileID: 0}
+  OnTickEvent: {fileID: 11400000, guid: d3db43b580c9e21419f889465def7096, type: 2}
+  OnHitEvent: {fileID: 11400000, guid: ac61c3c810fe6e4499760901ceb2117e, type: 2}
+  OnDeleteEvent: {fileID: 11400000, guid: 0f541c5e6cd86be4c8bcac2ea60b01bd, type: 2}

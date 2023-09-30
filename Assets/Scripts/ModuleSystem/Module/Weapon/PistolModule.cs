@@ -2,6 +2,11 @@ using System.Collections.Generic;
 
 public class PistolModule : WeaponModule
 {
+    public PistolModule()
+    {
+        TypeOfWeapon = WeaponType.Pistol;
+    }
+
     public override WeaponData GetData()
     {
         WeaponData data = new WeaponData
