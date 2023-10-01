@@ -10,7 +10,7 @@ public class Turret : Living
     private EnemyManager enemyManager;
 
     public int HealthTurret = 100;
-    private movePlayer player;
+    private Player player;
     public bool alive = true;
     private bool seen = false;
 
@@ -26,7 +26,7 @@ public class Turret : Living
     {
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
-        player = FindObjectOfType<movePlayer>();
+        player = FindObjectOfType<Player>();
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
     {
@@ -34,7 +34,7 @@ public class Turret : Living
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
         print(transform.rotation);
     }
-    public bool RayCastForVisual(movePlayer player)//a raycast to see if the player is indeed seeing the player
+    public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
     {
 
         bool seePlayer = false;
@@ -52,7 +52,7 @@ public class Turret : Living
         //print(seePlayer);
         return seePlayer;
     }
-    public void Shoot(movePlayer player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
+    public void Shoot(Player player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
     {
         var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         dir = dir - dir * 2;
