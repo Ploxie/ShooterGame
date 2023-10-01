@@ -62,29 +62,34 @@ public class EnemyMelee : Living
         Staggered
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         base.Awake();
+
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
-        { // for testing
-            effectStats.Interval = 10;
-            effectStats.Duration = 10;
-            effect = ModuleGenerator.CreateEffectModule<DebilitationModule>(effectStats);
+        // for testing
+        effectStats.Interval = 500;
+        effectStats.Duration = 1000000;
+        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
+        if (effect != null)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
+                {
+                    hitbox.effect = effect.GetStatusEffect();
+                }
+            }
         }
+
     }
     public override void Awake()
     {
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
         //loop through hitboxes, set effect
-        if (effect != null)
-        {
-            Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
-            foreach (Hitbox hitbox in hitboxes)
-            {
-                hitbox.effect = effect.GetStatusEffect();
-            }
-        }
+        
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
@@ -143,7 +148,7 @@ public class EnemyMelee : Living
 
         if (effect != null)
         {
-            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform);
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
             cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
         }
 
