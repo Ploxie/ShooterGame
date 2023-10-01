@@ -34,7 +34,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         enemies = FindObjectsOfType<EnemyRanged>();
     }
 
-    public void MoveToEnemy(movePlayer placeOfPlayer)//a function to move towards enemy
+    public void MoveToEnemy(Player placeOfPlayer)//a function to move towards enemy
     {
         rotateToPlayer(placeOfPlayer.transform.position);
         agent.SetDestination(placeOfPlayer.transform.position);
@@ -43,7 +43,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
             agent.Resume();
         }
     }
-    public void MoveAwayFromEnemy(movePlayer player)//a function to move away from the enemy
+    public void MoveAwayFromEnemy(Player player)//a function to move away from the enemy
     {
         Vector3 directionOfPlayer = transform.position - player.transform.position;
         
@@ -56,7 +56,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
             agent.Resume();
         }
     }
-    public void Shoot(movePlayer player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
+    public void Shoot(Player player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
     {
         ClearLineOfSight(player);
         if (!agent.isStopped)
@@ -79,7 +79,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         agent.SetDestination(moveToPos);
         agent.Resume();
     }
-    public bool RayCastForVisual(movePlayer player)//a raycast to see if the player is indeed seeing the player
+    public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
     {
 
         bool seePlayer = false;
@@ -125,7 +125,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         agent.SetDestination(rubberPosition);
         agent.Resume();
     }
-    public void ClearLineOfSight(movePlayer player)//looks to see if the a enemy is on the way of its gun arc
+    public void ClearLineOfSight(Player player)//looks to see if the a enemy is on the way of its gun arc
     {
         foreach (EnemyRanged m in enemies)
         {
@@ -142,7 +142,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
             }
         }
     }
-    private Vector3 calulatePath(EnemyRanged enemy, movePlayer player)//find the path if left or right is the closer option
+    private Vector3 calulatePath(EnemyRanged enemy, Player player)//find the path if left or right is the closer option
     {
         var distans = player.transform.position - enemy.transform.position;
         var left = enemy.transform.position + Vector3.left*15;
