@@ -102,9 +102,9 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateWalls(Tile.TILE_SIZE); 
             }
 
-            //CombineFloorMeshes();
+            CombineFloorMeshes();
 
-            //BuildNavMesh();
+            BuildNavMesh();
         }
 
         public List<Room> GenerateRooms()
