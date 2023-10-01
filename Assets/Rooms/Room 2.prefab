@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7214824520791087861}
   - component: {fileID: 843622617916408206}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: Floor
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
   offset: {x: 0, y: 0}
+  Exclude: 0
 --- !u!1 &8742354471793867246
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,3 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSize: 1
+  Bounds:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 1, y: 0, z: 1}
