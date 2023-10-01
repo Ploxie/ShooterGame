@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.LevelGeneration
 {
-    [ExecuteInEditMode, SelectionBase]
+    [SelectionBase]
     public class RoomFloor : MonoBehaviour
     {
 
@@ -31,8 +31,8 @@ namespace Assets.Scripts.LevelGeneration
 
             if(mesh != null)
             {
-                mesh.localScale = new Vector3(size.x * (1.0f / transform.localScale.x), 0.25f, size.y * (1.0f / transform.localScale.z));
-                mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f), 0, size.y - (size.y * 0.5f));
+                mesh.localScale = new Vector3(size.x / (1.0f * transform.localScale.x), 0.25f, size.y / (1.0f * transform.localScale.z));
+                mesh.position = (transform.position + new Vector3(size.x * 0.5f, 0, size.y * 0.5f)) * Tile.TILE_SIZE;
             }
 
 

@@ -99,12 +99,12 @@ namespace Assets.Scripts.LevelGeneration
                 var walls = WallGenerator.Generate(tiles);
                 tiles.UnionWith(walls);
 
-                GenerateWalls(1.0f); 
+                GenerateWalls(Tile.TILE_SIZE); 
             }
 
-            CombineFloorMeshes();
+            //CombineFloorMeshes();
 
-            BuildNavMesh();
+            //BuildNavMesh();
         }
 
         public List<Room> GenerateRooms()
@@ -177,7 +177,7 @@ namespace Assets.Scripts.LevelGeneration
             module.GenerateTiles();
             Vector2Int roomCenter = room.Position;
 
-            module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y);
+            module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y) * Tile.TILE_SIZE;
             module.transform.SetParent(roomsObject.transform, true);
 
             HashSet<Tile> tiles = new HashSet<Tile>();
@@ -262,7 +262,7 @@ namespace Assets.Scripts.LevelGeneration
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y + tileSize);
+                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y + 1) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -274,7 +274,7 @@ namespace Assets.Scripts.LevelGeneration
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y);
+                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -286,7 +286,7 @@ namespace Assets.Scripts.LevelGeneration
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
                         wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + tileSize, wallHeight * 0.5f, tile.Position.y + halfSize);
+                        wall.transform.position = new Vector3(tile.Position.x + 1, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -298,7 +298,7 @@ namespace Assets.Scripts.LevelGeneration
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
                         wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x, wallHeight * 0.5f, tile.Position.y + halfSize);
+                        wall.transform.position = new Vector3(tile.Position.x, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -450,14 +450,15 @@ namespace Assets.Scripts.LevelGeneration
             Vector3 east = new Vector3(1, 0, 0);
             Vector3 west = new Vector3(-1, 0, 0);
 
-            float tileSize = 1.0f;
+            float tileSize = Tile.TILE_SIZE;
 
             foreach (var tile in tiles)
             {
-                Vector3 worldPosition = tile - new Vector3(-0.5f, -0.25f, -0.5f);
+                Vector3 worldPosition = tile + new Vector3(0.5f, 0.25f, 0.5f);
                 Gizmos.color = tile.IsCorridor ? Color.red : Color.cyan;
-                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(tileSize - 0.1f, 0.25f, tileSize - 0.1f));
 
+                /*
                 Gizmos.color = Color.blue;
 
                 if (tile.HasWall(Tile.Wall.NORTH))
@@ -471,13 +472,13 @@ namespace Assets.Scripts.LevelGeneration
 
                 if (tile.HasWall(Tile.Wall.WEST))
                     Gizmos.DrawLine(transform.position + ((worldPosition + (west * 0.4f)) + (north * 0.4f) * tileSize), transform.position + ((worldPosition + (west * 0.4f)) + (south * 0.4f) * tileSize));
-
+                */
             }
 
             foreach (BoundsInt bounds in boundsTest)
             {
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(bounds.center, new Vector3(bounds.size.x, 3, bounds.size.z));
+                Gizmos.DrawWireCube(bounds.center * Tile.TILE_SIZE, new Vector3(bounds.size.x, 1, bounds.size.z) * Tile.TILE_SIZE);
             }
 
             Gizmos.color = Color.green;

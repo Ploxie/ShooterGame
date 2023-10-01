@@ -14,11 +14,9 @@ namespace Assets.Scripts.LevelGeneration
     {
         public HashSet<Tile> Tiles;
         public HashSet<Tile> Excluded;
+        public BoundsInt Bounds;
 
         private RoomFloor[] floors;
-        public float tileSize = 1.0f;
-
-        public BoundsInt Bounds;
 
         private void Update()
         {
@@ -26,7 +24,7 @@ namespace Assets.Scripts.LevelGeneration
             {
                 GenerateTiles();
                 transform.position = Vector3.zero;
-                transform.localScale = Vector3.one;
+                transform.localScale = Vector3.one * Tile.TILE_SIZE;
             }
         }
 
@@ -58,6 +56,7 @@ namespace Assets.Scripts.LevelGeneration
         {
             Vector2Int min = new Vector2Int(int.MaxValue, int.MaxValue);
             Vector2Int max = new Vector2Int(int.MinValue, int.MinValue);
+
             foreach(Tile tile in Tiles)
             {
                 if (tile.Position.x <= min.x)
@@ -69,6 +68,7 @@ namespace Assets.Scripts.LevelGeneration
                 if (tile.Position.y >= max.y)
                     max.y = tile.Position.y;
             }
+
             return new BoundsInt(min.x - offset, 0, min.y - offset, max.x - min.x + 1 + (offset * 2), 0, max.y - min.y + 1 + (offset * 2));
         }
 
@@ -82,29 +82,32 @@ namespace Assets.Scripts.LevelGeneration
             }
 
             if (Tiles == null)
-            return;
-            
+                return;
+
+            float tileHalfSize = Tile.TILE_SIZE * 0.5f;
+
             foreach (var tile in Tiles)
             {
-                Vector3 worldPosition = ((Vector3)tile) + new Vector3(0.5f, 0.1f, 0.5f);
+                Vector3 worldPosition = ((Vector3)tile);
                 Gizmos.color = tile.IsCorridor ? Color.red : Color.green;
-                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+                Gizmos.DrawCube(transform.position + (worldPosition * Tile.TILE_SIZE) + new Vector3(tileHalfSize, 0.1f, tileHalfSize), new Vector3(Tile.TILE_SIZE - 0.1f, Tile.TILE_SIZE * 0.25f, Tile.TILE_SIZE - 0.1f));
             }
 
             var bounds = GetBounds();
-            Gizmos.DrawWireCube(transform.position + bounds.center, bounds.size);
+            Gizmos.DrawWireCube((transform.position + bounds.center) * Tile.TILE_SIZE, new Vector3(bounds.size.x, bounds.size.y, bounds.size.z) * Tile.TILE_SIZE);
 
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawCube(new Vector3(0.5f, 0.1f, 0.5f), new Vector3(1, 0.25f, 1));
+            // Center of room
+            Gizmos.color = Color.grey;
+            Gizmos.DrawCube(new Vector3(tileHalfSize, 0.1f, tileHalfSize), new Vector3(Tile.TILE_SIZE, 0.25f, Tile.TILE_SIZE));
 
             if (Excluded == null)
                 return;
 
             foreach (var tile in Excluded)
             {
-                Vector3 worldPosition = ((Vector3)tile) + new Vector3(0.5f, 0.1f, 0.5f);
+                Vector3 worldPosition = ((Vector3)tile) ;
                 Gizmos.color = Color.black;
-                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+                Gizmos.DrawCube(transform.position + (worldPosition * Tile.TILE_SIZE) + new Vector3(tileHalfSize, 0.1f, tileHalfSize), new Vector3(Tile.TILE_SIZE - 0.1f, 0.25f, Tile.TILE_SIZE - 0.1f));
             }
         }
     }
