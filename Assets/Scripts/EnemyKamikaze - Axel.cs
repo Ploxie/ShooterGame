@@ -36,6 +36,8 @@ public class EnemyKamikaze : Living
 
     private EnemyHealthBar healthBar;
 
+    private float deathTimer = 0;
+
 
     [SerializeField]
     State state;
@@ -103,6 +105,15 @@ public class EnemyKamikaze : Living
 
             }
 
+        }
+        else
+        {
+            deathTimer += Time.deltaTime;
+            Debug.Log(deathTimer);
+            if (deathTimer > 10)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -193,6 +204,7 @@ public class EnemyKamikaze : Living
         explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
         state = State.Die;
+        healthBar.gameObject.SetActive(false);
     }
 
     public void EndRoar()
@@ -204,6 +216,10 @@ public class EnemyKamikaze : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
+        if(Health <= 0 )
+        {
+            Explode();
+        }
     }
 
 }
