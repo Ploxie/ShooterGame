@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.LevelGeneration
@@ -23,12 +25,19 @@ namespace Assets.Scripts.LevelGeneration
         private Room start;
         private Room end;
 
+        private GameObject roomsObject;
+        private GameObject floorsObject;
+        private GameObject wallsObject;
+
+        [SerializeField]
+        private NavMeshSurface navmesh;
+
         private void Start()
         {
             Generate();
         }
 
-        private void Generate()
+        public void Generate()
         {
             // TODO: Add Walls in middle of rooms
 
@@ -38,6 +47,20 @@ namespace Assets.Scripts.LevelGeneration
             tiles = new HashSet<Tile>();
             excluded = new HashSet<Tile>();
             boundsTest = new List<BoundsInt>();
+
+            roomsObject = new GameObject("Rooms");
+            {
+                roomsObject.transform.parent = transform;
+            }
+            floorsObject = new GameObject("Floor");
+            {
+                floorsObject.transform.parent = transform;
+                floorsObject.AddComponent<MeshFilter>();
+            }
+            wallsObject = new GameObject("Walls");
+            {
+                wallsObject.transform.parent = transform;
+            }
 
             // Find Module Manager in child
             if(true){
@@ -78,6 +101,10 @@ namespace Assets.Scripts.LevelGeneration
 
                 GenerateWalls(1.0f); 
             }
+
+            CombineFloorMeshes();
+
+            BuildNavMesh();
         }
 
         public List<Room> GenerateRooms()
@@ -151,7 +178,7 @@ namespace Assets.Scripts.LevelGeneration
             Vector2Int roomCenter = room.Position;
 
             module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y);
-            module.transform.SetParent(transform, true);
+            module.transform.SetParent(roomsObject.transform, true);
 
             HashSet<Tile> tiles = new HashSet<Tile>();
             foreach (var moduleTile in module.Tiles)
@@ -234,7 +261,7 @@ namespace Assets.Scripts.LevelGeneration
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = transform;
+                        wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y + tileSize);
                         wall.tag = "Tile";
                         wall.name = "Wall";
@@ -246,7 +273,7 @@ namespace Assets.Scripts.LevelGeneration
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = transform;
+                        wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y);
                         wall.tag = "Tile";
                         wall.name = "Wall";
@@ -258,7 +285,7 @@ namespace Assets.Scripts.LevelGeneration
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
-                        wall.transform.parent = transform;
+                        wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + tileSize, wallHeight * 0.5f, tile.Position.y + halfSize);
                         wall.tag = "Tile";
                         wall.name = "Wall";
@@ -270,7 +297,7 @@ namespace Assets.Scripts.LevelGeneration
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
-                        wall.transform.parent = transform;
+                        wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x, wallHeight * 0.5f, tile.Position.y + halfSize);
                         wall.tag = "Tile";
                         wall.name = "Wall";
@@ -363,6 +390,7 @@ namespace Assets.Scripts.LevelGeneration
 
             return Vector2Int.zero;
         }
+
         private void ClearTiles()
         {
             var existing = GameObject.FindGameObjectsWithTag("Tile");
@@ -374,6 +402,41 @@ namespace Assets.Scripts.LevelGeneration
             Array.ForEach(existing, child => {
                 EditorApplication.delayCall += () => { DestroyImmediate(child); };
             });
+        }
+
+        private void CombineFloorMeshes()
+        {
+            RoomFloor[] floors = FindObjectsOfType<RoomFloor>();
+            List<MeshFilter> meshFilters = new List<MeshFilter>();
+
+            foreach(RoomFloor floor in floors)
+            {
+                MeshFilter filter = floor.GetComponent<MeshFilter>();
+                if (filter != null)
+                    meshFilters.Add(filter);
+            }
+
+            CombineInstance[] combine = new CombineInstance[meshFilters.Count];
+
+            for (int i = 0; i < meshFilters.Count; i++)
+            {
+                
+                combine[i].mesh = meshFilters[i].sharedMesh;
+                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+                meshFilters[i].gameObject.SetActive(false);
+            }
+
+            Mesh mesh = new Mesh();
+            mesh.name = "Floors";
+            mesh.CombineMeshes(combine);
+
+            floorsObject.transform.GetComponent<MeshFilter>().sharedMesh = mesh;
+            floorsObject.transform.gameObject.SetActive(true);
+        }
+
+        private void BuildNavMesh()
+        {
+            navmesh.BuildNavMesh();
         }
 
         private void OnDrawGizmos()

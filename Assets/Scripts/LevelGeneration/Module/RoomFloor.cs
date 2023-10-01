@@ -15,8 +15,6 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField] private Vector2Int offset;
         [SerializeField] public bool Exclude;
         
-        
-        
         public HashSet<Tile> Tiles;
         private Transform mesh;
 
@@ -73,6 +71,7 @@ namespace Assets.Scripts.LevelGeneration
             if(child != null)
             {
                 mesh = child.transform;
+                child.gameObject.tag = "Floor";
                 return;
             }         
 
@@ -80,7 +79,7 @@ namespace Assets.Scripts.LevelGeneration
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             {
                 cube.transform.SetParent(transform, false);
-
+                cube.tag = "Floor";
             }
 
             mesh = cube.transform;
