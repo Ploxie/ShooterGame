@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,11 +39,15 @@ public class EnemyMelee : Living
     [SerializeField]
     Player player;
 
-    public StatusEffect effect;
+    EffectStats effectStats;
+
+    public EffectModule effect;
 
     private EnemyHealthBar healthBar;
 
     private float deathTimer = 0;
+
+    [SerializeField] CartridgePickup cartridgeDrop;
 
     [SerializeField]
     State state;
@@ -62,6 +67,11 @@ public class EnemyMelee : Living
         base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+        { // for testing
+            effectStats.Interval = 10;
+            effectStats.Duration = 10;
+            effect = ModuleGenerator.CreateEffectModule<DebilitationModule>(effectStats);
+        }
     }
     public override void Awake()
     {
@@ -72,7 +82,7 @@ public class EnemyMelee : Living
             Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
             foreach (Hitbox hitbox in hitboxes)
             {
-                hitbox.effect = effect;
+                hitbox.effect = effect.GetStatusEffect();
             }
         }
 
@@ -128,6 +138,16 @@ public class EnemyMelee : Living
         animator.SetBool("IsDead", isDead);
         canInflictMeleeDamage = false;
         canInflictJumpDamage = false;
+
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+        }
+
+
     }
 
     private void SetState()

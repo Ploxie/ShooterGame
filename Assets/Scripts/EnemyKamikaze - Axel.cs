@@ -32,11 +32,15 @@ public class EnemyKamikaze : Living
     [SerializeField]
     GameObject model;
 
-    public StatusEffect effect;
+    EffectStats effectStats;
+
+    public EffectModule effect;
 
     private EnemyHealthBar healthBar;
 
     private float deathTimer = 0;
+
+    [SerializeField] CartridgePickup cartridgeDrop;
 
 
     [SerializeField]
@@ -60,13 +64,19 @@ public class EnemyKamikaze : Living
     public override void Awake()
     {
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
+
+        { // for testing
+            effectStats.Interval = 10;
+            effectStats.Duration = 10;
+            effect = ModuleGenerator.CreateEffectModule<DebilitationModule>(effectStats);
+        }
         //loop through hitboxes, set effect
         if (effect != null)
         {
             Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
             foreach (Hitbox hitbox in  hitboxes)
             {
-                hitbox.effect = effect;
+                hitbox.effect = effect.GetStatusEffect();
             }
         }
 
@@ -205,6 +215,13 @@ public class EnemyKamikaze : Living
         model.gameObject.SetActive(false);
         state = State.Die;
         healthBar.gameObject.SetActive(false);
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+        }
     }
 
     public void EndRoar()
