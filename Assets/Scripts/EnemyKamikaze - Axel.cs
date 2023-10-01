@@ -27,7 +27,7 @@ public class EnemyKamikaze : Living
     bool playerDetected = false;
 
     [SerializeField]
-    movePlayer player;
+    Player player;
 
     [SerializeField]
     GameObject model;
@@ -68,7 +68,7 @@ public class EnemyKamikaze : Living
             }
         }
 
-        player = FindObjectOfType<movePlayer>();
+        player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         explosionDamageHitBox.gameObject.SetActive(false);
@@ -190,6 +190,7 @@ public class EnemyKamikaze : Living
     void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
+        explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
         state = State.Die;
     }

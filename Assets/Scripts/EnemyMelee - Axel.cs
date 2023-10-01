@@ -36,7 +36,7 @@ public class EnemyMelee : Living
     [SerializeField]
     GameObject visualCracks;
     [SerializeField]
-    movePlayer player;
+    Player player;
 
     public StatusEffect effect;    
 
@@ -74,7 +74,7 @@ public class EnemyMelee : Living
             }
         }
 
-        player = FindObjectOfType<movePlayer>();
+        player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         jumpDamageHitBox.gameObject.SetActive(false);
@@ -86,11 +86,6 @@ public class EnemyMelee : Living
     void Update()
     {
         base.Update();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Die();
-        }
 
         distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -227,6 +222,7 @@ public class EnemyMelee : Living
             {
                 canInflictMeleeDamage = true;
                 meleeDamageHitBox.gameObject.SetActive(true);
+                meleeDamageHitBox.Activate();
             }
             else
             {
@@ -245,6 +241,7 @@ public class EnemyMelee : Living
             {
                 canInflictJumpDamage = true;
                 jumpDamageHitBox.gameObject.SetActive(true);
+                jumpDamageHitBox.Activate();
                 PlaceEffect();
             }
             else
