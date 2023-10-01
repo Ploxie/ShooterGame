@@ -32,11 +32,15 @@ public class EnemyKamikaze : Living
     [SerializeField]
     GameObject model;
 
-    public StatusEffect effect;
+    EffectStats effectStats;
+
+    public EffectModule effect;
 
     private EnemyHealthBar healthBar;
 
     private float deathTimer = 0;
+
+    [SerializeField] CartridgePickup cartridgeDrop;
 
 
     [SerializeField]
@@ -56,19 +60,24 @@ public class EnemyKamikaze : Living
         base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+
+        effectStats.Interval = 500;
+        effectStats.Duration = 1000000;
+        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
+        if (effect != null)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
+                {
+                    hitbox.effect = effect.GetStatusEffect();
+                }
+            }
+        }
     }
     public override void Awake()
     {
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
-        //loop through hitboxes, set effect
-        if (effect != null)
-        {
-            Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
-            foreach (Hitbox hitbox in  hitboxes)
-            {
-                hitbox.effect = effect;
-            }
-        }
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
@@ -205,6 +214,13 @@ public class EnemyKamikaze : Living
         model.gameObject.SetActive(false);
         state = State.Die;
         healthBar.gameObject.SetActive(false);
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+        }
     }
 
     public void EndRoar()

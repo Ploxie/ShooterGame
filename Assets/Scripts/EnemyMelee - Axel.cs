@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,11 +39,15 @@ public class EnemyMelee : Living
     [SerializeField]
     Player player;
 
-    public StatusEffect effect;
+    EffectStats effectStats;
+
+    public EffectModule effect;
 
     private EnemyHealthBar healthBar;
 
     private float deathTimer = 0;
+
+    [SerializeField] CartridgePickup cartridgeDrop;
 
     [SerializeField]
     State state;
@@ -57,24 +62,34 @@ public class EnemyMelee : Living
         Staggered
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         base.Awake();
+
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+        // for testing
+        effectStats.Interval = 500;
+        effectStats.Duration = 1000000;
+        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
+        if (effect != null)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
+                {
+                    hitbox.effect = effect.GetStatusEffect();
+                }
+            }
+        }
+
     }
     public override void Awake()
     {
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
         //loop through hitboxes, set effect
-        if (effect != null)
-        {
-            Hitbox[] hitboxes = GetComponentsInChildren<Hitbox>();
-            foreach (Hitbox hitbox in hitboxes)
-            {
-                hitbox.effect = effect;
-            }
-        }
+        
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
@@ -128,6 +143,16 @@ public class EnemyMelee : Living
         animator.SetBool("IsDead", isDead);
         canInflictMeleeDamage = false;
         canInflictJumpDamage = false;
+
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+        }
+
+
     }
 
     private void SetState()
