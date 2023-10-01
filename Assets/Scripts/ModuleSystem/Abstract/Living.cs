@@ -46,6 +46,12 @@ public abstract class Living : MonoBehaviour
         Health = MaxHealth;
     }
 
+    public void Heal(Component sender, object data)
+    {
+        if (data is int) Health += (int)data;
+        OnHealthChangedEvent.Raise(this, Health);
+    }
+
     public virtual void TakeDamage(float damage)
     {
         Health -= damage * DamageTakenMultiplier;

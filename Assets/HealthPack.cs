@@ -7,83 +7,42 @@ using static UnityEngine.GraphicsBuffer;
 
 public class HealthPack : MonoBehaviour
 {
+    [SerializeField] private GameEvent OnHealthPackPickUpEvent;
+    [SerializeField] private GameObject pickUpText;
+    [SerializeField] private int HealingAmount;
 
-    public float playerHealth = 50;
-    GameObject closestHealthPack;
-    public GameObject player;
-    public GameObject pickUpText;
-    float distance;
-    float inRange = 2;
-    GameObject[] healthPacks;
-    float minDist;
-    // Start is called before the first frame update
-    void Start()
+    private bool colliding;
+
+    private void Update()
     {
-        healthPacks = GameObject.FindGameObjectsWithTag("HealthPack");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        healthPacks = GameObject.FindGameObjectsWithTag("HealthPack");
-
-        GetClosestHealthPack(healthPacks);
-        Debug.Log(healthPacks.Length);
-        if(healthPacks.Length > 0)
+        if (colliding)
         {
-            Debug.Log(distance);
-            if (Vector3.Distance(closestHealthPack.transform.position, player.transform.position) > inRange)
+            if (Input.GetKey(KeyCode.E))
             {
+                OnHealthPackPickUpEvent.Raise(this, HealingAmount);
                 pickUpText.SetActive(false);
-            }
-            if (Vector3.Distance(closestHealthPack.transform.position, player.transform.position) < inRange)
-            {
-                pickUpText.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    HealPlayer(50);
-                    closestHealthPack.SetActive(false);
-                    pickUpText.SetActive(false);
-                }
+                GameObject.Destroy(gameObject);
             }
         }
     }
-    public void GetClosestHealthPack(GameObject[] healthPacks)
+
+    // Have to use OnTriggerEnter.
+    // OnTriggerStay casuses random lag spikes.
+    private void OnTriggerEnter(Collider other)
     {
-        minDist = Mathf.Infinity;
-        foreach(GameObject healthPack in healthPacks)
+        if (other.gameObject.tag == "Player")
         {
-            distance = Vector3.Distance(healthPack.transform.position, player.transform.position);
-            if (distance < minDist)
-            {
-                closestHealthPack = healthPack;
-                minDist = distance;
-            }
-        }
-    }
-        
-    
-    /*private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
+            colliding = true;
             pickUpText.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                HealPlayer(50);
-                gameObject.SetActive(false);
-                pickUpText.SetActive(false);
-            }
         }
-        else
-        {
-            pickUpText.SetActive(false);
-        }
+    }
 
-    }*/
-
-    public void HealPlayer(float healingAmount)
+    private void OnTriggerExit(Collider other)
     {
-        playerHealth += healingAmount;
+        if(other.gameObject.tag == "Player")
+        {
+            colliding = false;
+            if (pickUpText.active) pickUpText.SetActive(false);
+        }
     }
 }

@@ -363,7 +363,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4899044704703110069, guid: 6c39450db3a958f4fb3251893ab1f120, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1490296315}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3272457671779713946, guid: 6c39450db3a958f4fb3251893ab1f120, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1943407050}
+    - targetCorrespondingSourceObject: {fileID: 3272457671779713946, guid: 6c39450db3a958f4fb3251893ab1f120, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1943407056}
   m_SourcePrefab: {fileID: 100100000, guid: 6c39450db3a958f4fb3251893ab1f120, type: 3}
 --- !u!1 &1490296313 stripped
 GameObject:
@@ -469,6 +475,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1943407049 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3272457671779713946, guid: 6c39450db3a958f4fb3251893ab1f120, type: 3}
+  m_PrefabInstance: {fileID: 1024201244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1943407050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943407049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57229b9b523d89443a10a2e9e574a200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  DefaultMovementSpeed: 0
+  DefaultDamage: 0
+  OnHealthChangedEvent: {fileID: 0}
+  OnDeathEvent: {fileID: 0}
+  RegenHealth: 0
+  Slowable: 0
+  Nerfable: 0
+  Stunnable: 0
+  LivingID: 0
+  Health: 0
+  MovementSpeed: 0
+  Damage: 0
+  DamageTakenMultiplier: 1
+  DamageDealtMultiplier: 1
+  MovementSpeedMultiplier: 1
+  Stunned: 0
+  StunDuration: 0
+--- !u!114 &1943407056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943407049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9a245c2e23c5a4c87f00d2e8e9b503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameEvent: {fileID: 11400000, guid: 5e880298b79f4a543bd5ddfe7ecd073f, type: 2}
+  EventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1943407050}
+        m_TargetAssemblyTypeName: Living, Assembly-CSharp
+        m_MethodName: Heal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2140313173
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,6 +50,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(x, 0.0f, z).normalized;
 
-        rb.transform.Translate(moveDirection * Time.deltaTime * player.MovementSpeed, Space.World);
+        rb.transform.Translate(moveDirection * Time.deltaTime * 10, Space.World);
     }
 }
