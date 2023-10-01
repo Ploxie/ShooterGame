@@ -193,6 +193,7 @@ public class EnemyKamikaze : Living
         explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
         state = State.Die;
+        healthBar.gameObject.SetActive(false);
     }
 
     public void EndRoar()
@@ -204,6 +205,10 @@ public class EnemyKamikaze : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
+        if(Health <= 0 )
+        {
+            Explode();
+        }
     }
 
 }

@@ -38,7 +38,7 @@ public class EnemyMelee : Living
     [SerializeField]
     Player player;
 
-    public StatusEffect effect;    
+    public StatusEffect effect;
 
     private EnemyHealthBar healthBar;
 
@@ -167,8 +167,8 @@ public class EnemyMelee : Living
 
     private void HandleMovement()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);        
-        
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
         if (distance < detectionRange)
         {
             //Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
@@ -258,6 +258,10 @@ public class EnemyMelee : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
+        if (Health <= 0)
+        {
+            Die();
+        }
     }
 }
 
