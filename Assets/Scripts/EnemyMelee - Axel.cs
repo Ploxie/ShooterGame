@@ -42,6 +42,8 @@ public class EnemyMelee : Living
 
     private EnemyHealthBar healthBar;
 
+    private float deathTimer = 0;
+
     [SerializeField]
     State state;
 
@@ -103,6 +105,14 @@ public class EnemyMelee : Living
             else
             {
                 SetState();
+            }
+        }
+        else
+        {
+            deathTimer += Time.deltaTime;
+            if (deathTimer > 10)
+            {
+                Destroy(gameObject);
             }
         }
     }

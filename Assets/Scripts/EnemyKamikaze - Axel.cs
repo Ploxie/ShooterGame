@@ -36,6 +36,8 @@ public class EnemyKamikaze : Living
 
     private EnemyHealthBar healthBar;
 
+    private float deathTimer = 0;
+
 
     [SerializeField]
     State state;
@@ -103,6 +105,15 @@ public class EnemyKamikaze : Living
 
             }
 
+        }
+        else
+        {
+            deathTimer += Time.deltaTime;
+            Debug.Log(deathTimer);
+            if (deathTimer > 10)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
