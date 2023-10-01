@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
     [ExecuteInEditMode, SelectionBase]
     public class RoomFloor : MonoBehaviour

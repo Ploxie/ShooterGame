@@ -7,7 +7,7 @@ using UnityEditor.Overlays;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
     [ExecuteInEditMode]
     public class RoomModule : MonoBehaviour

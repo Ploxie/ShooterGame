@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
     public static class WallGenerator
     {
