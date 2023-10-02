@@ -16,14 +16,15 @@ public class Turret : Living
 
     private EnemyHealthBar healthBar;
 
-    private void Start()
+    public override void Start()
     {
-        base.Awake();
+        base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
     }
     public override void Awake()
     {
+        base.Awake();
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
