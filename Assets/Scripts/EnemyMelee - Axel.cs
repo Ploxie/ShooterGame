@@ -102,6 +102,8 @@ public class EnemyMelee : Living
     {
         base.Update();
 
+        agent.speed = MovementSpeed;
+
         distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (state != State.Die)

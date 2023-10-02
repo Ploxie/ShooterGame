@@ -90,6 +90,8 @@ public class EnemyKamikaze : Living
     {
         base.Update();
 
+        agent.speed = MovementSpeed;
+
         if (state != State.Die)
         {
 
