@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
 
+
     private void Start()
     {
         if (rb == null) rb = GetComponent<Rigidbody>();
