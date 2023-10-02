@@ -12,6 +12,8 @@ public class Barrel : Living
 
     float deathTimer = 0;
 
+    public EffectModule effect;
+
     bool die = false;
 
     public override void Start()
@@ -22,6 +24,16 @@ public class Barrel : Living
     public override void Awake()
     {
         base.Awake();
+        if (effect != null)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
+                {
+                    hitbox.effect = effect.GetStatusEffect();
+                }
+            }
+        }
     }
 
     public override void Update()
