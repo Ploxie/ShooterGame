@@ -50,10 +50,6 @@ public class MainMenuPhilip : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu"); 
     }
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("UI"); //Reloads current scene .. should work with PCG
-    }
     //private void Die()
     //{
     //    if (Input.GetKeyDown(KeyCode.T))
