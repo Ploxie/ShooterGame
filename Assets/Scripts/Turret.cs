@@ -21,13 +21,21 @@ public class Turret : Living
         base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+
     }
     public override void Awake()
     {
         base.Awake();
         healthBar = GetComponentInChildren<EnemyHealthBar>();
 
-        player = FindObjectOfType<Player>();
+
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (player == null)
+            player = FindObjectOfType<Player>();
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
     {
