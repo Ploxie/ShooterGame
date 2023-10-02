@@ -95,11 +95,16 @@ public abstract class Living : MonoBehaviour
             OnUpdate();
 
         if (Health <= 0)
+        {
+            OnDeath();
             OnDeathEvent?.Raise(this, 0);
+        }
+            
     }
 
     protected virtual void OnUpdate() {}
     protected virtual void OnDamage() {}
+    protected virtual void OnDeath() {}
     protected virtual void OnStun() {}
     protected virtual void OnStunEnd() {}
     protected virtual void OnEffectAdded() {}
