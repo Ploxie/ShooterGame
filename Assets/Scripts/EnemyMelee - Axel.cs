@@ -65,7 +65,7 @@ public class EnemyMelee : Living
     public override void Start()
     {
         base.Start();
-        base.Awake();
+        
 
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
@@ -87,6 +87,7 @@ public class EnemyMelee : Living
     }
     public override void Awake()
     {
+        base.Awake();
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
         //loop through hitboxes, set effect
         

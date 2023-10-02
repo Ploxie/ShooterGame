@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2740173979425906182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.21, y: 3, z: -5.11}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 7300862800581538703}
   enemyHealthBarBorder: {fileID: 4121381576945941012}
-  enemyHealthAmount: 0
   target: {fileID: 0}
 --- !u!1001 &705424109585006127
 PrefabInstance:
@@ -247,6 +246,10 @@ PrefabInstance:
     - target: {fileID: 6639318290126393700, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
       propertyPath: m_Name
       value: EnemyHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817463726756794208, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossFunctionality : MonoBehaviour
+public class BossFunctionality : Living
 {
+    EnemyManager enemyManager;
     enum currentStateOfCombat{
         TwoTurrets,
         MiddleFight,
@@ -15,18 +16,22 @@ public class BossFunctionality : MonoBehaviour
     [SerializeField]
     Turret turret2;
     [SerializeField]
-    MainComputer mainComputer;
-    private int computerHealth;
-    [SerializeField]
     GameObject shield;
     public BossEnemy[] be;
     bool releaseEnemies = true;
 
+    private EnemyHealthBar healthBar;
+
     currentStateOfCombat state = currentStateOfCombat.TwoTurrets;
     // Start is called before the first frame update
-    private void Start()
+    public override void Start()
     {
-        computerHealth = mainComputer.Health;
+        base.Awake();
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(this);
+
+        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+
         be = FindObjectsOfType<BossEnemy>();
         foreach (BossEnemy b in be)
         {
@@ -34,8 +39,9 @@ public class BossFunctionality : MonoBehaviour
         }
         //mainComputer.Health = mainComputer.Health / 2;
     }
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         WaveFSM();
     }
     void WaveFSM()
@@ -54,10 +60,14 @@ public class BossFunctionality : MonoBehaviour
                 }
                 break;
             case currentStateOfCombat.MiddleFight://fight inbetween one turret destroyed
-                if (mainComputer.Health <= computerHealth/2)
+                if (Health <= Health/2)
                 {
                     state = currentStateOfCombat.OneTurret;
                     shield.active = true;
+                    if (healthBar.enabled)
+                    {
+                        healthBar.enabled = false;
+                    }
                 }
                 else
                 {
@@ -89,9 +99,13 @@ public class BossFunctionality : MonoBehaviour
                 break;
             case currentStateOfCombat.OnlyComputer://when only main computer is up
                 shield.active = false;
-                if (mainComputer.Health <= 0)
+                if (!healthBar.enabled)
                 {
-                    mainComputer.gameObject.active = false;
+                    healthBar.enabled = true;
+                }
+                if (Health <= 0)
+                {
+                    gameObject.active = false;
                 }
                 break;
         }
@@ -99,6 +113,11 @@ public class BossFunctionality : MonoBehaviour
     void MiddleFightSequence()
     {
         shield.active = false;
+
+        if (!healthBar.enabled)
+        {
+            healthBar.enabled = true;
+        }
         if (releaseEnemies)
         {
             SpawnEnemy();
@@ -115,5 +134,10 @@ public class BossFunctionality : MonoBehaviour
     void SlowMove()
     {
 
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
     }
 }

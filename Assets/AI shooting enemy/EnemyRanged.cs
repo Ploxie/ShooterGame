@@ -19,15 +19,16 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
     private EnemyHealthBar healthBar;
 
-    private void Start()
+    public override void Start()
     {
-        base.Awake();
+        base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
     }
 
     public override void Awake()
     {
+        base.Awake();
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
