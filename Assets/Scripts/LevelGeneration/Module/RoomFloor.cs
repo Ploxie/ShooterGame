@@ -5,17 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
-    [ExecuteInEditMode, SelectionBase]
+    [SelectionBase]
     public class RoomFloor : MonoBehaviour
     {
 
         [SerializeField] private Vector2Int size;
         [SerializeField] private Vector2Int offset;
         [SerializeField] public bool Exclude;
-        
-        
         
         public HashSet<Tile> Tiles;
         private Transform mesh;
@@ -33,8 +31,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             if(mesh != null)
             {
-                mesh.localScale = new Vector3(size.x * (1.0f / transform.localScale.x), 0.25f, size.y * (1.0f / transform.localScale.z));
-                mesh.position = transform.position + new Vector3(size.x - (size.x * 0.5f), 0, size.y - (size.y * 0.5f));
+                mesh.localScale = new Vector3(size.x / (1.0f * transform.localScale.x), 0.25f, size.y / (1.0f * transform.localScale.z));
+                mesh.position = (transform.position + new Vector3(size.x * 0.5f, 0, size.y * 0.5f)) * Tile.TILE_SIZE;
             }
 
 
@@ -73,6 +71,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
             if(child != null)
             {
                 mesh = child.transform;
+                child.gameObject.tag = "Floor";
                 return;
             }         
 
@@ -80,7 +79,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             {
                 cube.transform.SetParent(transform, false);
-
+                cube.tag = "Floor";
             }
 
             mesh = cube.transform;

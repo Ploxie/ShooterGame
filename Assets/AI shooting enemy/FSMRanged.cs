@@ -18,7 +18,7 @@ public class FSMRanged : MonoBehaviour
     [SerializeField]
     EnemyRanged enemy;
     [SerializeField]
-    movePlayer player;
+    Player player;
     Vector3[] paths;
     float distanceShort;
     float distanceLong;
@@ -34,7 +34,7 @@ public class FSMRanged : MonoBehaviour
         distanceShort = 10f;
         distanceLong = 30f;
         movetolastPos = true;
-        this.player = FindObjectOfType<movePlayer>();
+        this.player = FindObjectOfType<Player>();
     }
     private void Update()
     {

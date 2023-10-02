@@ -11,6 +11,11 @@ public class Hitbox : MonoBehaviour
 
     public StatusEffect effect;
 
+    public void Activate()
+    {
+       LivingHit = new HashSet<int>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Barrel")
@@ -23,7 +28,8 @@ public class Hitbox : MonoBehaviour
             if (LivingHit.Contains(living.LivingID))
                 return;
 
-            living.AddEffect(effect);
+            if (effect != null)
+                living.AddEffect(effect);
 
             living.TakeDamage(damage);
             LivingHit.Add(living.LivingID);

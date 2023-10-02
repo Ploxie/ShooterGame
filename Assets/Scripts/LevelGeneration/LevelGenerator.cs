@@ -3,39 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using static Assets.Scripts.LevelGeneration.Test2.LevelGenerator;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
-    [ExecuteInEditMode]
     public class LevelGenerator : MonoBehaviour
-    {
-        public class Room
-        {
-            public RoomModule Module;
-            public Vector2Int Position;
-            public Room Parent;
-
-            public BoundsInt GetBounds(int offset)
-            {
-                return new BoundsInt(
-                    new Vector3Int((int)Module.Bounds.center.x + Position.x  - (int)(Module.Bounds.size.x * 0.5f) - offset, (int)Module.Bounds.center.y, (int)Module.Bounds.center.z + Position.y - (int)(Module.Bounds.size.z * 0.5f) - offset),
-                    new Vector3Int(Module.Bounds.size.x + (offset * 2), Module.Bounds.size.y, Module.Bounds.size.z + (offset * 2))
-                );
-            }
-
-            public Vector2Int GetRandomTile()
-            {
-                Tile tile = Module.Tiles.ElementAt(Random.Range(0, Module.Tiles.Count));
-                return new Vector2Int(Position.x + tile.Position.x, Position.y + tile.Position.y);
-            }
-        }
-
-
+    {        
         [SerializeField] private int seed;
         [SerializeField] private ModuleManager moduleManager;
 
@@ -47,12 +25,19 @@ namespace Assets.Scripts.LevelGeneration.Test2
         private Room start;
         private Room end;
 
-        private void OnValidate()
+        private GameObject roomsObject;
+        private GameObject floorsObject;
+        private GameObject wallsObject;
+
+        [SerializeField]
+        private NavMeshSurface navmesh;
+
+        private void Start()
         {
             Generate();
         }
 
-        private void Generate()
+        public void Generate()
         {
             // TODO: Add Walls in middle of rooms
 
@@ -62,6 +47,20 @@ namespace Assets.Scripts.LevelGeneration.Test2
             tiles = new HashSet<Tile>();
             excluded = new HashSet<Tile>();
             boundsTest = new List<BoundsInt>();
+
+            roomsObject = new GameObject("Rooms");
+            {
+                roomsObject.transform.parent = transform;
+            }
+            floorsObject = new GameObject("Floor");
+            {
+                floorsObject.transform.parent = transform;
+                floorsObject.AddComponent<MeshFilter>();
+            }
+            wallsObject = new GameObject("Walls");
+            {
+                wallsObject.transform.parent = transform;
+            }
 
             // Find Module Manager in child
             if(true){
@@ -100,8 +99,12 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 var walls = WallGenerator.Generate(tiles);
                 tiles.UnionWith(walls);
 
-                GenerateWalls(1.0f); 
+                GenerateWalls(Tile.TILE_SIZE); 
             }
+
+            CombineFloorMeshes();
+
+            BuildNavMesh();
         }
 
         public List<Room> GenerateRooms()
@@ -174,8 +177,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
             module.GenerateTiles();
             Vector2Int roomCenter = room.Position;
 
-            module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y);
-            module.transform.SetParent(transform, true);
+            module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y) * Tile.TILE_SIZE;
+            module.transform.SetParent(roomsObject.transform, true);
 
             HashSet<Tile> tiles = new HashSet<Tile>();
             foreach (var moduleTile in module.Tiles)
@@ -258,8 +261,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y + tileSize);
+                        wall.transform.parent = wallsObject.transform;
+                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y + 1) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -270,8 +273,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, wallHeight * 0.5f, tile.Position.y);
+                        wall.transform.parent = wallsObject.transform;
+                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -282,8 +285,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
-                        wall.transform.parent = transform;
-                        wall.transform.position = new Vector3(tile.Position.x + tileSize, wallHeight * 0.5f, tile.Position.y + halfSize);
+                        wall.transform.parent = wallsObject.transform;
+                        wall.transform.position = new Vector3(tile.Position.x + 1, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -294,8 +297,8 @@ namespace Assets.Scripts.LevelGeneration.Test2
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
-                        wall.transform.parent = transform;
-                        wall.transform.position = new Vector3(tile.Position.x, wallHeight * 0.5f, tile.Position.y + halfSize);
+                        wall.transform.parent = wallsObject.transform;
+                        wall.transform.position = new Vector3(tile.Position.x, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
                         wall.tag = "Tile";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -387,6 +390,7 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
             return Vector2Int.zero;
         }
+
         private void ClearTiles()
         {
             var existing = GameObject.FindGameObjectsWithTag("Tile");
@@ -400,6 +404,41 @@ namespace Assets.Scripts.LevelGeneration.Test2
             });
         }
 
+        private void CombineFloorMeshes()
+        {
+            RoomFloor[] floors = FindObjectsOfType<RoomFloor>();
+            List<MeshFilter> meshFilters = new List<MeshFilter>();
+
+            foreach(RoomFloor floor in floors)
+            {
+                MeshFilter filter = floor.GetComponent<MeshFilter>();
+                if (filter != null)
+                    meshFilters.Add(filter);
+            }
+
+            CombineInstance[] combine = new CombineInstance[meshFilters.Count];
+
+            for (int i = 0; i < meshFilters.Count; i++)
+            {
+                
+                combine[i].mesh = meshFilters[i].sharedMesh;
+                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+                meshFilters[i].gameObject.SetActive(false);
+            }
+
+            Mesh mesh = new Mesh();
+            mesh.name = "Floors";
+            mesh.CombineMeshes(combine);
+
+            floorsObject.transform.GetComponent<MeshFilter>().sharedMesh = mesh;
+            floorsObject.transform.gameObject.SetActive(true);
+        }
+
+        private void BuildNavMesh()
+        {
+            navmesh.BuildNavMesh();
+        }
+
         private void OnDrawGizmos()
         {
             if (rooms == null || rooms.Count <= 0)
@@ -411,14 +450,15 @@ namespace Assets.Scripts.LevelGeneration.Test2
             Vector3 east = new Vector3(1, 0, 0);
             Vector3 west = new Vector3(-1, 0, 0);
 
-            float tileSize = 1.0f;
+            float tileSize = Tile.TILE_SIZE;
 
             foreach (var tile in tiles)
             {
-                Vector3 worldPosition = tile - new Vector3(-0.5f, -0.25f, -0.5f);
+                Vector3 worldPosition = tile + new Vector3(0.5f, 0.25f, 0.5f);
                 Gizmos.color = tile.IsCorridor ? Color.red : Color.cyan;
-                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(1.0f - 0.1f, 0.25f, 1.0f - 0.1f));
+                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(tileSize - 0.1f, 0.25f, tileSize - 0.1f));
 
+                /*
                 Gizmos.color = Color.blue;
 
                 if (tile.HasWall(Tile.Wall.NORTH))
@@ -432,13 +472,13 @@ namespace Assets.Scripts.LevelGeneration.Test2
 
                 if (tile.HasWall(Tile.Wall.WEST))
                     Gizmos.DrawLine(transform.position + ((worldPosition + (west * 0.4f)) + (north * 0.4f) * tileSize), transform.position + ((worldPosition + (west * 0.4f)) + (south * 0.4f) * tileSize));
-
+                */
             }
 
             foreach (BoundsInt bounds in boundsTest)
             {
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(bounds.center, new Vector3(bounds.size.x, 3, bounds.size.z));
+                Gizmos.DrawWireCube(bounds.center * Tile.TILE_SIZE, new Vector3(bounds.size.x, 1, bounds.size.z) * Tile.TILE_SIZE);
             }
 
             Gizmos.color = Color.green;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.LevelGeneration.Test2
+namespace Assets.Scripts.LevelGeneration
 {
 
     [Serializable]
@@ -36,6 +36,9 @@ namespace Assets.Scripts.LevelGeneration.Test2
                 return 0;
             }
         }
+
+        public static readonly float TILE_SIZE = 2.5f;
+
 
         [SerializeField] public Vector2Int Position;
 
