@@ -25,9 +25,6 @@ public class ModuleController : MonoBehaviour
 
     public void LoadModule(ModuleType type, Module module)
     {
-        if (type == ModuleType.WeaponModule)
-            gunVisual.UpdateVisuals(((WeaponModule)module).TypeOfWeapon);
-
         switch (type)
         {
             case ModuleType.WeaponModule:

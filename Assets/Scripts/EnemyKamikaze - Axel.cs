@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyKamikaze : Living
 {
     EnemyManager enemyManager;
+    ScoreManager scoreManager;
 
     Animator animator;
     NavMeshAgent agent;
@@ -55,15 +56,12 @@ public class EnemyKamikaze : Living
         Dive
     }
 
-    private void Start()
+    public override void Start()
     {
-        base.Awake();
+        base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        effectStats.Interval = 500;
-        effectStats.Duration = 1000000;
-        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -71,17 +69,20 @@ public class EnemyKamikaze : Living
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
                     hitbox.effect = effect.GetStatusEffect();
+                    hitbox.damage = Damage;
                 }
             }
         }
     }
     public override void Awake()
     {
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        base.Awake();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         explosionDamageHitBox.gameObject.SetActive(false);
 
         state = State.Idle;
@@ -92,10 +93,8 @@ public class EnemyKamikaze : Living
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20);
-        }
+        agent.speed = MovementSpeed;
+
         if (state != State.Die)
         {
 
@@ -119,6 +118,10 @@ public class EnemyKamikaze : Living
         {
             deathTimer += Time.deltaTime;
             Debug.Log(deathTimer);
+            if (deathTimer > 2)
+            {
+                explosionDamageHitBox.gameObject.SetActive(false);
+            }
             if (deathTimer > 10)
             {
                 Destroy(gameObject);
@@ -183,7 +186,7 @@ public class EnemyKamikaze : Living
         }
         if (distance < detectionRange)
         {
-            Debug.Log($"Distance is {distance}, needs to be below {diveRange}");
+            //Debug.Log($"Distance is {distance}, needs to be below {diveRange}");
             Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
             if (distance <= diveRange/* && hitInfo.transform.CompareTag("Player") && state == State.Move*/)
             {
@@ -207,13 +210,19 @@ public class EnemyKamikaze : Living
 
     }
 
+    protected override void OnDeath()
+    {
+        scoreManager.UpdateText(100);
+        Explode();
+    }
+
     void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
         explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
         state = State.Die;
-        healthBar.gameObject.SetActive(false);
+        healthBar.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
         if (effect != null)
@@ -232,10 +241,6 @@ public class EnemyKamikaze : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
-        if(Health <= 0 )
-        {
-            Explode();
-        }
     }
 
 }

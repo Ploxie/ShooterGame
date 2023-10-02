@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyMelee : Living
 {
     EnemyManager enemyManager;
+    ScoreManager scoreManager;
     // Start is called before the first frame update
     Animator animator;
     NavMeshAgent agent;
@@ -65,14 +66,11 @@ public class EnemyMelee : Living
     public override void Start()
     {
         base.Start();
-        base.Awake();
+        
 
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
-        // for testing
-        effectStats.Interval = 500;
-        effectStats.Duration = 1000000;
-        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
+       
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -80,6 +78,7 @@ public class EnemyMelee : Living
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
                     hitbox.effect = effect.GetStatusEffect();
+                    hitbox.damage = Damage;
                 }
             }
         }
@@ -87,22 +86,26 @@ public class EnemyMelee : Living
     }
     public override void Awake()
     {
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        base.Awake();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
         //loop through hitboxes, set effect
         
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         jumpDamageHitBox.gameObject.SetActive(false);
         meleeDamageHitBox.gameObject.SetActive(false);
         state = State.Idle;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         base.Update();
+
+        agent.speed = MovementSpeed;
 
         distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -132,8 +135,9 @@ public class EnemyMelee : Living
         }
     }
 
-    private void Die()
+    protected override void OnDeath()
     {
+        scoreManager.UpdateText(100);
         animator.SetTrigger("Die");
         agent.isStopped = true;
         agent.angularSpeed = 0;
@@ -293,10 +297,6 @@ public class EnemyMelee : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
-        if (Health <= 0)
-        {
-            Die();
-        }
     }
 }
 

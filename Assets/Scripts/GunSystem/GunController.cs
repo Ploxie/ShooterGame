@@ -13,8 +13,11 @@ public class GunController : MonoBehaviour
 
     public BulletManager bulletManager;
 
+    private AudioSource audio;
+
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         controller = GetComponent<ModuleController>();
         lastFired = Utils.GetUnixMillis();
         baseProjectile = Resources.Load<GameObject>("Prefabs/Projectile");
@@ -29,6 +32,9 @@ public class GunController : MonoBehaviour
 
         Vector3 fireDirection = transform.rotation * Vector3.forward;
         data = controller.GetWeaponData();
+
+        audio.Play();
+
         foreach (float angle in data.LaunchAngles)
         {
             float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);

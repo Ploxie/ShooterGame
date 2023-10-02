@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4099370642590014182}
   - component: {fileID: 3330543588922107717}
-  - component: {fileID: 3919575548421767389}
   m_Layer: 0
   m_Name: BulletManager
   m_TagString: Untagged
@@ -45,20 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969250e8d4a0771489a4badacbbe0d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listener: {fileID: 0}
---- !u!114 &3919575548421767389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6257266353600134592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9a245c2e23c5a4c87f00d2e8e9b503, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameEvent: {fileID: 0}
-  EventResponse:
-    m_PersistentCalls:
-      m_Calls: []
