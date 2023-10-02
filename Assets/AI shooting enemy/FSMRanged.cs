@@ -38,7 +38,7 @@ public class FSMRanged : MonoBehaviour
     }
     private void Update()
     {
-        HandelState();//the whole of the switch based state machine
+        //HandelState();//the whole of the switch based state machine
     }
     private void HandelState()
     {

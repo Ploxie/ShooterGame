@@ -10,8 +10,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyRanged : Living //a script that utilizes the navmeshagent for pathfinding
  {
+    [SerializeField] private GameObject gun;
     private EnemyManager enemyManager;
-
+    private GunController gunController;
+    private ModuleController moduleController;
     public NavMeshAgent agent;
     Vector3 rubberPosition;
     ShootingLogic SL;
@@ -24,6 +26,11 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         base.Awake();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+        moduleController = gun.GetComponent<ModuleController>();
+        moduleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
+        //gunController = GetComponent<GunController>();
+        if (gunController == null) gunController = gun.GetComponent<GunController>();
+        gunController.Shoot();
     }
 
     public override void Awake()
@@ -67,7 +74,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir*2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
-        //add weapon
+        
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
