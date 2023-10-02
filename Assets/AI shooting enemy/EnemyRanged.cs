@@ -13,7 +13,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     [SerializeField] private GameObject gun;
     private EnemyManager enemyManager;
     private GunController gunController;
-    private ModuleController moduleController;
+    public ModuleController ModuleController;
     public NavMeshAgent agent;
     Vector3 rubberPosition;
     ShootingLogic SL;
@@ -26,8 +26,8 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
-        moduleController = gun.GetComponent<ModuleController>();
-        moduleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
+        ModuleController = gun.GetComponent<ModuleController>();
+        ModuleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
         //gunController = GetComponent<GunController>();
         if (gunController == null) gunController = gun.GetComponent<GunController>();
         gunController.Shoot();
