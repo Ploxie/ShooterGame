@@ -55,9 +55,9 @@ public class EnemyKamikaze : Living
         Dive
     }
 
-    private void Start()
+    public override void Start()
     {
-        base.Awake();
+        base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
@@ -77,6 +77,7 @@ public class EnemyKamikaze : Living
     }
     public override void Awake()
     {
+        base.Awake();
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
@@ -92,10 +93,6 @@ public class EnemyKamikaze : Living
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20);
-        }
         if (state != State.Die)
         {
 
@@ -213,7 +210,7 @@ public class EnemyKamikaze : Living
         explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
         state = State.Die;
-        healthBar.gameObject.SetActive(false);
+        healthBar.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
         if (effect != null)
