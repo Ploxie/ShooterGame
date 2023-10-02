@@ -44,6 +44,8 @@ public class EnemyKamikaze : Living
 
     [SerializeField] CartridgePickup cartridgeDrop;
 
+    [SerializeField] GameObject healthBarObject;
+
 
     [SerializeField]
     State state;
@@ -119,7 +121,6 @@ public class EnemyKamikaze : Living
         else
         {
             deathTimer += Time.deltaTime;
-            Debug.Log(deathTimer);
             if (deathTimer > 2)
             {
                 explosionDamageHitBox.gameObject.SetActive(false);
@@ -216,6 +217,11 @@ public class EnemyKamikaze : Living
     {
         scoreManager.UpdateText(100);
         Explode();
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, EffectModuleID);
+        }
     }
 
     void Explode()
@@ -226,12 +232,9 @@ public class EnemyKamikaze : Living
         state = State.Die;
         healthBar.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        healthBarObject.gameObject.SetActive(false);
 
-        if (effect != null)
-        {
-            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, EffectModuleID);
-        }
+        
     }
 
     public void EndRoar()

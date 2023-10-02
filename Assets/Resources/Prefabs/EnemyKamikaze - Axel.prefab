@@ -1508,8 +1508,11 @@ MonoBehaviour:
   Slowable: 0
   Nerfable: 0
   Stunnable: 0
+  Alive: 0
   LivingID: 0
   Health: 3
+  HealthRegenAmount: 0
+  HealthRegenInterval: 0
   MovementSpeed: 0.5
   Damage: 0
   DamageTakenMultiplier: 1
@@ -1522,7 +1525,9 @@ MonoBehaviour:
   diveRange: 10
   player: {fileID: 0}
   model: {fileID: -3168422337102530296}
+  EffectModuleID: 0
   cartridgeDrop: {fileID: 3678300901976898227, guid: c6ede2bd54da7124c978bc86fb7ed1a2, type: 3}
+  healthBarObject: {fileID: 7607863008056584553}
   state: 0
 --- !u!114 &1238453961026415036
 MonoBehaviour:
@@ -2654,3 +2659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7607863008056584553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6639318290126393700, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
+  m_PrefabInstance: {fileID: 3870588613019367437}
+  m_PrefabAsset: {fileID: 0}
