@@ -12,6 +12,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
  {
     [SerializeField] private GameObject gun;
     private EnemyManager enemyManager;
+    private ScoreManager scoreManager;
     private GunController gunController;
     public ModuleController ModuleController;
     public NavMeshAgent agent;
@@ -26,6 +27,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     {
         base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         enemyManager.RegisterEnemy(this);
         ModuleController = gun.GetComponent<ModuleController>();
         ModuleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
@@ -44,14 +46,16 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     }
     protected override void OnDeath()
     {
+        scoreManager.UpdateText(99);
         Die();
         base.OnDeath();
+        Destroy(gameObject);
     }
         //base.ApplyStun(duration);
     private void Die()
     {
 
-        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.GetComponent<BoxCollider>().enabled = false;
         if (Health <= 0)
         {
             CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
@@ -62,7 +66,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();

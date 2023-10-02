@@ -77,7 +77,7 @@ public class EnemyKamikaze : Living
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();

@@ -25,7 +25,7 @@ public class Turret : Living
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
     }

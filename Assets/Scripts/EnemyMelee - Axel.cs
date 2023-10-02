@@ -87,7 +87,7 @@ public class EnemyMelee : Living
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
         //loop through hitboxes, set effect
         
 
