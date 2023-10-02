@@ -12,31 +12,61 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
  {
     [SerializeField] private GameObject gun;
     private EnemyManager enemyManager;
+    private ScoreManager scoreManager;
     private GunController gunController;
     public ModuleController ModuleController;
     public NavMeshAgent agent;
     Vector3 rubberPosition;
     ShootingLogic SL;
     private EnemyRanged[] enemies;
-
     private EnemyHealthBar healthBar;
+    private Module[] modarrDrop;
+    [SerializeField] CartridgePickup cartridgeDrop;
 
     public override void Start()
     {
         base.Start();
         enemyManager = FindObjectOfType<EnemyManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         enemyManager.RegisterEnemy(this);
         ModuleController = gun.GetComponent<ModuleController>();
         ModuleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
         //gunController = GetComponent<GunController>();
         if (gunController == null) gunController = gun.GetComponent<GunController>();
-        gunController.Shoot();
+        modarrDrop = new Module[3];
+        WeaponModule wp;
+        wp = ModuleController.GetComponent<WeaponModule>();
+        modarrDrop[0] = wp;
+        EffectModule em;
+        em = ModuleController.GetComponent<EffectModule>();
+        modarrDrop[1] = em;
+        BulletModule bm;
+        bm = ModuleController.GetComponent<BulletModule>();
+        modarrDrop[2] = bm;
     }
+    protected override void OnDeath()
+    {
+        scoreManager.UpdateText(99);
+        Die();
+        base.OnDeath();
+        Destroy(gameObject);
+    }
+        //base.ApplyStun(duration);
+    private void Die()
+    {
 
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+        if (Health <= 0)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            var mod = Random.Range(0, 3);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, modarrDrop[mod]);
+        }
+    }
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
         SL = new ShootingLogic();
         rubberPosition = transform.position;
         enemies = FindObjectsOfType<EnemyRanged>();
@@ -75,7 +105,8 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir*2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
-        
+        gunController.Shoot();
+
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
@@ -174,11 +205,9 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         }
         return returnedValue;
     }
-
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
     }
-
 }

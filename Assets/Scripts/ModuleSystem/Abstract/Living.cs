@@ -18,6 +18,7 @@ public abstract class Living : MonoBehaviour
     public bool Slowable;
     public bool Nerfable;
     public bool Stunnable;
+    public bool Alive;
     
     public int LivingID;
     public float Health;
@@ -43,6 +44,7 @@ public abstract class Living : MonoBehaviour
         StatusEffects = new Dictionary<StatusEffectID, StatusEffect>();
         lastHealthRegen = Utils.GetUnixMillis();
         Health = MaxHealth;
+        Alive = true;
     }
 
     public virtual void Start()
@@ -103,8 +105,12 @@ public abstract class Living : MonoBehaviour
 
         if (Health <= 0)
         {
-            OnDeath();
-            OnDeathEvent?.Raise(this, 0);
+            if (Alive)
+            {
+                OnDeath();
+                OnDeathEvent?.Raise(this, 0);
+                Alive = false;
+            }
         }
 
         if (Utils.GetUnixMillis() - lastHealthRegen >= HealthRegenInterval)

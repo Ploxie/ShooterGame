@@ -25,7 +25,7 @@ public class Turret : Living
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
     }
@@ -63,7 +63,7 @@ public class Turret : Living
     }
     public void isAlive()
     {
-        if (HealthTurret <= 0)
+        if (Health <= 0f)
         {
             alive = false;
         }
@@ -82,5 +82,10 @@ public class Turret : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
+    }
+    protected override void OnDeath()
+    {
+
+        base.OnDeath();
     }
 }

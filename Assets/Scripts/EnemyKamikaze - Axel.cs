@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyKamikaze : Living
 {
     EnemyManager enemyManager;
+    ScoreManager scoreManager;
 
     Animator animator;
     NavMeshAgent agent;
@@ -62,9 +63,7 @@ public class EnemyKamikaze : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        effectStats.Interval = 500;
-        effectStats.Duration = 1000000;
-        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID();
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -72,6 +71,7 @@ public class EnemyKamikaze : Living
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
                     hitbox.effect = effect.GetStatusEffect();
+                    hitbox.damage = Damage;
                 }
             }
         }
@@ -79,11 +79,12 @@ public class EnemyKamikaze : Living
     public override void Awake()
     {
         base.Awake();
-        healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
 
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         explosionDamageHitBox.gameObject.SetActive(false);
 
         state = State.Idle;
@@ -93,6 +94,8 @@ public class EnemyKamikaze : Living
     public override void Update()
     {
         base.Update();
+
+        agent.speed = MovementSpeed;
 
         if (state != State.Die)
         {
@@ -117,6 +120,10 @@ public class EnemyKamikaze : Living
         {
             deathTimer += Time.deltaTime;
             Debug.Log(deathTimer);
+            if (deathTimer > 2)
+            {
+                explosionDamageHitBox.gameObject.SetActive(false);
+            }
             if (deathTimer > 10)
             {
                 Destroy(gameObject);
@@ -205,6 +212,12 @@ public class EnemyKamikaze : Living
 
     }
 
+    protected override void OnDeath()
+    {
+        scoreManager.UpdateText(100);
+        Explode();
+    }
+
     void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
@@ -230,10 +243,6 @@ public class EnemyKamikaze : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
-        if(Health <= 0 )
-        {
-            Explode();
-        }
     }
 
 }
