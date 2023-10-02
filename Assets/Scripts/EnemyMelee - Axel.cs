@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyMelee : Living
 {
     EnemyManager enemyManager;
+    ScoreManager scoreManager;
     // Start is called before the first frame update
     Animator animator;
     NavMeshAgent agent;
@@ -93,6 +94,7 @@ public class EnemyMelee : Living
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         jumpDamageHitBox.gameObject.SetActive(false);
         meleeDamageHitBox.gameObject.SetActive(false);
         state = State.Idle;
@@ -135,6 +137,7 @@ public class EnemyMelee : Living
 
     protected override void OnDeath()
     {
+        scoreManager.UpdateText(100);
         animator.SetTrigger("Die");
         agent.isStopped = true;
         agent.angularSpeed = 0;
