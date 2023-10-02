@@ -180,7 +180,7 @@ public class EnemyKamikaze : Living
         }
         if (distance < detectionRange)
         {
-            Debug.Log($"Distance is {distance}, needs to be below {diveRange}");
+            //Debug.Log($"Distance is {distance}, needs to be below {diveRange}");
             Physics.Raycast(transform.position, (player.transform.position - transform.position), out RaycastHit hitInfo);
             if (distance <= diveRange/* && hitInfo.transform.CompareTag("Player") && state == State.Move*/)
             {

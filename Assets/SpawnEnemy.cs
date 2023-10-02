@@ -1,12 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+public enum EnemyType
+{
+    MELEE,
+    KAMIKAZE,
+    RANGED
+}
+
 [System.Serializable]
 public struct EnemySpawnData
 {
-    public bool Ranged;
+    public EnemyType TypeOfEnemy;
     public GameObject EnemyObject;
 }
 
@@ -21,11 +29,18 @@ public class SpawnEnemy : MonoBehaviour
     private void Start()
     {
         SpawnRandomEnemy();
+        
     }
 
     public void SetupMeleeEnemy(GameObject meleeEnemyObject)
     {
         EnemyMelee meleeEnemy = meleeEnemyObject.GetComponent<EnemyMelee>();
+        meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
+    }
+
+    public void SetupKamikazeEnemy(GameObject meleeEnemyObject)
+    {
+        EnemyKamikaze meleeEnemy = meleeEnemyObject.GetComponent<EnemyKamikaze>();
         meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
     }
 
@@ -39,17 +54,23 @@ public class SpawnEnemy : MonoBehaviour
 
     public void SpawnRandomEnemy()
     {
-        Debug.Log("test");
-
         if (Enemies.Count <= 0)
             return;
 
         EnemySpawnData randomEnemy = Enemies[Random.Range(0, Enemies.Count-1)];
         GameObject instantiatedEnemy = Instantiate(randomEnemy.EnemyObject, transform.position, Quaternion.identity);
 
-        if (randomEnemy.Ranged)
-            SetupRangedEnemy(instantiatedEnemy);
-        else
-            SetupMeleeEnemy(instantiatedEnemy);
+        switch (randomEnemy.TypeOfEnemy)
+        {
+            case EnemyType.MELEE:
+                SetupMeleeEnemy(instantiatedEnemy);
+                break;
+            case EnemyType.KAMIKAZE:
+                SetupKamikazeEnemy(instantiatedEnemy);
+                break;
+            case EnemyType.RANGED:
+                SetupRangedEnemy(instantiatedEnemy);
+                break;
+        }
     }
 }
