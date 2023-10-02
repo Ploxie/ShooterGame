@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyKamikaze : Living
 {
     EnemyManager enemyManager;
+    ScoreManager scoreManager;
 
     Animator animator;
     NavMeshAgent agent;
@@ -81,6 +82,7 @@ public class EnemyKamikaze : Living
         player = FindObjectOfType<Player>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
         explosionDamageHitBox.gameObject.SetActive(false);
 
         state = State.Idle;
@@ -210,6 +212,7 @@ public class EnemyKamikaze : Living
 
     protected override void OnDeath()
     {
+        scoreManager.UpdateText(100);
         Explode();
     }
 
