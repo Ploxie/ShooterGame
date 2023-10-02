@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Living
 {
@@ -42,6 +43,12 @@ public class Player : Living
                 bulletModules.Insert(module);
                 break;
         }
+    }
+
+    protected override void OnDeath()
+    {
+        SceneManager.LoadScene("GameOver");
+        base.OnDeath();
     }
 
     public override void Update()
