@@ -9,13 +9,9 @@ public class ModuleGenerator
         return new();
     }
 
-    public static M CreateEffectModule<M>(EffectStats stats) where M : EffectModule, new()
+    public static M CreateEffectModule<M>() where M : EffectModule, new()
     {
-        M module = new()
-        {
-            BlueprintStats = stats
-        };
-        return module;
+        return new();
     }
 
     public static M CreateBulletModule<M>() where M : BulletModule, new()

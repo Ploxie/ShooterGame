@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Radiation : StatusEffect
 {
+    public const float RadiationDamage = 10;
+
+    public Radiation(StatusEffectData data) : base(data) { }
+
     public override StatusEffectID GetID() 
     { 
         return StatusEffectID.Radiation; 
@@ -9,6 +13,6 @@ public class Radiation : StatusEffect
 
     protected override void OnEffect()
     {
-        target.TakeDamage(10);          
+        target.TakeDamage(RadiationDamage * effectData.Potency);
     }
 }

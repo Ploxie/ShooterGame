@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Stun : StatusEffect
 {
+    public Stun(StatusEffectData data) : base(data) { }
+
     public override StatusEffectID GetID() 
     { 
         return StatusEffectID.Stun; 
@@ -9,6 +11,6 @@ public class Stun : StatusEffect
 
     protected override void OnEffect()
     {
-        target.ApplyStun(3000);
+        target.ApplyStun(effectData.Duration * effectData.Potency);
     }
 }

@@ -12,16 +12,21 @@ public enum StatusEffectID
 
 public abstract class StatusEffect
 {
-    public EffectStats Stats; 
-    
     protected Living target;
 
     private bool activated;
     private double timeStarted;
     private double timeSinceLastEffect;
 
+    protected StatusEffectData effectData;
+
     //I am very sorry for this shitty quick fix.
     public abstract StatusEffectID GetID();
+
+    protected StatusEffect(StatusEffectData data)
+    {
+        effectData = data;
+    }
 
     public void Activate(Living target)
     {
@@ -31,6 +36,9 @@ public abstract class StatusEffect
         this.target = target;
         timeStarted = Utils.GetUnixMillis();
         timeSinceLastEffect = Utils.GetUnixMillis();
+
+        if (effectData.Interval < 0)
+            OnEffect();
 
         OnActivate();
         activated = true;
@@ -51,14 +59,14 @@ public abstract class StatusEffect
         if (!activated)
             return;
 
-        if (Utils.GetUnixMillis() - timeStarted >= Stats.Duration)
+        if (Utils.GetUnixMillis() - timeStarted >= effectData.Duration * effectData.Potency)
         {
             OnClear();
             return;
         }
 
         OnTick();
-        if (Utils.GetUnixMillis() - timeSinceLastEffect >= Stats.Interval)
+        if (effectData.Interval >= 0 && Utils.GetUnixMillis() - timeSinceLastEffect >= effectData.Interval / effectData.Potency)
         {
             OnEffect();
             timeSinceLastEffect = Utils.GetUnixMillis();
