@@ -19,9 +19,8 @@ public class BossFunctionality : Living
     Turret turret2;
     [SerializeField]
     GameObject shield;
-    public BossEnemy[] be;
+    public SpawnEnemy[] be;
     bool releaseEnemies = true;
-
     private EnemyHealthBar healthBar;
 
     currentStateOfCombat state = currentStateOfCombat.TwoTurrets;
@@ -34,11 +33,7 @@ public class BossFunctionality : Living
 
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
-        be = FindObjectsOfType<BossEnemy>();
-        foreach (BossEnemy b in be)
-        {
-            //b.gameObject.active = false;
-        }
+        be = FindObjectsOfType<SpawnEnemy>();
         //mainComputer.Health = mainComputer.Health / 2;
     }
     public override void Update()
@@ -62,7 +57,7 @@ public class BossFunctionality : Living
                 }
                 break;
             case currentStateOfCombat.MiddleFight://fight inbetween one turret destroyed
-                if (Health <= Health/2)
+                if (this.Health <= this.Health/2)
                 {
                     state = currentStateOfCombat.OneTurret;
                     shield.active = true;
@@ -77,7 +72,7 @@ public class BossFunctionality : Living
                 }
                 break;
             case currentStateOfCombat.OneTurret: //when only one turret is left
-                if (turret1.alive == false)
+                if (turret1.alive == false || turret2.alive == false)
                 {
                     state = currentStateOfCombat.OnlyComputer;
                 }
@@ -86,16 +81,7 @@ public class BossFunctionality : Living
                     turret1.ClearToShoot();
                     if (releaseEnemies = false)
                     {
-                        foreach(BossEnemy boss in be)
-                        {
-                            if (boss.gameObject.active == false)
-                            {
-                                boss.ER.Health = 100;
-                                boss.transform.position = boss.posOfStart;
-                            }
-                        }
-                        SpawnEnemy();
-                        releaseEnemies = true;
+                        MiddleFightSequence();
                     }
                 }
                 break;
@@ -104,11 +90,6 @@ public class BossFunctionality : Living
                 if (!healthBar.enabled)
                 {
                     healthBar.enabled = true;
-                }
-                if (Health <= 0)
-                {
-                    SceneManager.LoadScene("VictoryScreen");
-                    gameObject.active = false;
                 }
                 break;
         }
@@ -121,26 +102,23 @@ public class BossFunctionality : Living
         {
             healthBar.enabled = true;
         }
-        if (releaseEnemies)
-        {
-            SpawnEnemy();
-            releaseEnemies = false;
-        }
+        SpawnEnemy();
     }
     void SpawnEnemy()
     {
-        foreach (BossEnemy enemy in be)
+        foreach (SpawnEnemy spawn in be)
         {
-            enemy.gameObject.active = true;
+            spawn.SpawnRandomEnemy();
         }
     }
-    void SlowMove()
-    {
-
-    }
-
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+    }
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        SceneManager.LoadScene("VictoryScreen");
+        gameObject.active = false;
     }
 }
