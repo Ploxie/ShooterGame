@@ -77,6 +77,7 @@ public class EnemyMelee : Living
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
                     hitbox.effect = effect.GetStatusEffect();
+                    hitbox.damage = Damage;
                 }
             }
         }

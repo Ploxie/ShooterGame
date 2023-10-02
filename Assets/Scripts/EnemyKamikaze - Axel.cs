@@ -68,6 +68,7 @@ public class EnemyKamikaze : Living
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
                     hitbox.effect = effect.GetStatusEffect();
+                    hitbox.damage = Damage;
                 }
             }
         }
