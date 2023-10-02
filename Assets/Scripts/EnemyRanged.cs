@@ -18,8 +18,9 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     Vector3 rubberPosition;
     ShootingLogic SL;
     private EnemyRanged[] enemies;
-
     private EnemyHealthBar healthBar;
+    private Module[] modarrDrop;
+    [SerializeField] CartridgePickup cartridgeDrop;
 
     public override void Start()
     {
@@ -30,9 +31,34 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         ModuleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
         //gunController = GetComponent<GunController>();
         if (gunController == null) gunController = gun.GetComponent<GunController>();
-        gunController.Shoot();
+        modarrDrop = new Module[3];
+        WeaponModule wp;
+        wp = ModuleController.GetComponent<WeaponModule>();
+        modarrDrop[0] = wp;
+        EffectModule em;
+        em = ModuleController.GetComponent<EffectModule>();
+        modarrDrop[1] = em;
+        BulletModule bm;
+        bm = ModuleController.GetComponent<BulletModule>();
+        modarrDrop[2] = bm;
     }
+    protected override void OnDeath()
+    {
+        Die();
+        base.OnDeath();
+    }
+        //base.ApplyStun(duration);
+    private void Die()
+    {
 
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        if (Health <= 0)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            var mod = Random.Range(0, 3);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, modarrDrop[mod]);
+        }
+    }
     public override void Awake()
     {
         base.Awake();
@@ -75,7 +101,8 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir*2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
-        
+        gunController.Shoot();
+
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
@@ -174,11 +201,9 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         }
         return returnedValue;
     }
-
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
     }
-
 }
