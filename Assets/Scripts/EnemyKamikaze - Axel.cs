@@ -63,7 +63,7 @@ public class EnemyKamikaze : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        effect = (EffectModule)ModuleRegistry.CreateModuleByID();
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
         if (effect != null)
         {
             foreach (Transform child in transform)
