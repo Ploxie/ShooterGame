@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 6114175092659529929}
   m_Layer: 0
   m_Name: EnemyBossRanged
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   Stunned: 0
   StunDuration: 0
   gun: {fileID: 7294036403122344339}
+  ModuleController: {fileID: 0}
   agent: {fileID: 4317466770689025497}
 --- !u!195 &4317466770689025497
 NavMeshAgent:
