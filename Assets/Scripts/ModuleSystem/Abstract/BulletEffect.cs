@@ -12,8 +12,11 @@ public abstract class BulletEffect
     protected bool hasFired;
     protected bool activated;
 
-    public BulletEffect()
+    protected BulletEffectData effectData;
+
+    protected BulletEffect(BulletEffectData data)
     {
+        effectData = data;
         ActivationDelay = -1;
         activatedAt = 0;
         hasFired = false;

@@ -2,13 +2,18 @@
 
 public class IceModule : EffectModule
 {
+    public override StatusEffectData GetData()
+    {
+        return new StatusEffectData()
+        {
+            Duration = 2000,
+            Interval = INSTANT,
+            Potency = 1
+        };
+    }
+
     public override StatusEffect GetStatusEffect()
     {
-        Ice effect = new()
-        {
-            Stats = BlueprintStats
-        };
-        
-        return effect;
+        return new Ice(GetData());
     }
 }

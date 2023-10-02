@@ -29,15 +29,30 @@ public enum ModuleID
 
 public static class ModuleRegistry
 {
+    public static Dictionary<ModuleID, string> TranslationTable = new Dictionary<ModuleID, string>()
+    {
+        { ModuleID.WPN_PISTOL, "Pistol" },
+        { ModuleID.WPN_SHOTGUN, "Shotgun" },
+        { ModuleID.WPN_BOLT_ACTION, "Bolt Action" },
+        { ModuleID.WPN_AUTOMATIC, "Automatic" },
+        { ModuleID.WPN_SMG, "SMG" },
+
+        { ModuleID.EFF_DEBILITATION, "Debilitation" },
+        { ModuleID.EFF_ICE, "Ice" },
+        { ModuleID.EFF_RADIATION, "Radiation" },
+        { ModuleID.EFF_SLUG, "Slug" },
+        { ModuleID.EFF_STUN, "Stun" },
+
+        { ModuleID.BUL_BLACK_HOLE, "Black Hole" },
+        { ModuleID.BUL_CLUSTER, "Cluster" },
+        { ModuleID.BUL_CRYSTAL, "Crystal" },
+        { ModuleID.BUL_EXPLOSIVE, "Explosive" },
+        { ModuleID.BUL_PIERCING, "Piercing" },
+        { ModuleID.BUL_RICOCHET, "Ricochet" }
+    };
+
     public static Module CreateModuleByID(ModuleID id)
     {
-        //This should not be assigned here. Replace in the future.
-        EffectStats stats = new EffectStats
-        {
-            Duration = 10000,
-            Interval = 1000
-        };
-
         switch (id)
         {
             case ModuleID.WPN_PISTOL:
@@ -52,15 +67,15 @@ public static class ModuleRegistry
                 return ModuleGenerator.CreateWeaponModule<SMGModule>();
 
             case ModuleID.EFF_STUN:
-                return ModuleGenerator.CreateEffectModule<StunModule>(stats);
+                return ModuleGenerator.CreateEffectModule<StunModule>();
             case ModuleID.EFF_DEBILITATION:
-                return ModuleGenerator.CreateEffectModule<DebilitationModule>(stats);
+                return ModuleGenerator.CreateEffectModule<DebilitationModule>();
             case ModuleID.EFF_ICE:
-                return ModuleGenerator.CreateEffectModule<IceModule>(stats);
+                return ModuleGenerator.CreateEffectModule<IceModule>();
             case ModuleID.EFF_RADIATION:
-                return ModuleGenerator.CreateEffectModule<RadiationModule>(stats);
+                return ModuleGenerator.CreateEffectModule<RadiationModule>();
             case ModuleID.EFF_SLUG:
-                return ModuleGenerator.CreateEffectModule<SlugModule>(stats);
+                return ModuleGenerator.CreateEffectModule<SlugModule>();
 
             case ModuleID.BUL_CLUSTER:
                 return ModuleGenerator.CreateBulletModule<ClusterModule>();

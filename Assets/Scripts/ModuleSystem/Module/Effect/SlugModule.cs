@@ -2,13 +2,18 @@
 
 public class SlugModule : EffectModule
 {
+    public override StatusEffectData GetData()
+    {
+        return new StatusEffectData()
+        {
+            Duration = 5000,
+            Interval = INSTANT,
+            Potency = 1
+        };
+    }
+
     public override StatusEffect GetStatusEffect()
     {
-        Slug effect = new()
-        {
-            Stats = BlueprintStats
-        };
-        
-        return effect;
+        return new Slug(GetData());
     }
 }

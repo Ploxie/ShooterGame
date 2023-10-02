@@ -40,7 +40,8 @@ public class EnemyMelee : Living
     [SerializeField]
     Player player;
 
-    EffectStats effectStats;
+    public ModuleID EffectModuleID;
+    public StatusEffectData effectStats;
 
     public EffectModule effect;
 
@@ -70,7 +71,7 @@ public class EnemyMelee : Living
 
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
-       
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -153,7 +154,7 @@ public class EnemyMelee : Living
         if (effect != null)
         {
             CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, EffectModuleID);
         }
 
 

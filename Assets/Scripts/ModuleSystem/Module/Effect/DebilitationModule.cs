@@ -3,13 +3,18 @@
 
 public class DebilitationModule : EffectModule
 {
+    public override StatusEffectData GetData()
+    {
+        return new StatusEffectData()
+        {
+            Duration = 6000,
+            Interval = INSTANT,
+            Potency = 1
+        };
+    }
+
     public override StatusEffect GetStatusEffect()
     {
-        Debilitation effect = new()
-        {
-            Stats = BlueprintStats
-        };
-        
-        return effect;
+        return new Debilitation(GetData());
     }
 }
