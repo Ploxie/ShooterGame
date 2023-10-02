@@ -57,7 +57,7 @@ public class SpawnEnemy : MonoBehaviour
         if (Enemies.Count <= 0)
             return;
 
-        EnemySpawnData randomEnemy = Enemies[Random.Range(0, Enemies.Count-1)];
+        EnemySpawnData randomEnemy = Enemies[UnityEngine.Random.Range(0, Enemies.Count-1)];
         GameObject instantiatedEnemy = Instantiate(randomEnemy.EnemyObject, transform.position, Quaternion.identity);
 
         switch (randomEnemy.TypeOfEnemy)
