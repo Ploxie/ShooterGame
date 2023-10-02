@@ -61,9 +61,6 @@ public class EnemyKamikaze : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        effectStats.Interval = 500;
-        effectStats.Duration = 1000000;
-        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -116,6 +113,10 @@ public class EnemyKamikaze : Living
         {
             deathTimer += Time.deltaTime;
             Debug.Log(deathTimer);
+            if (deathTimer > 2)
+            {
+                explosionDamageHitBox.gameObject.SetActive(false);
+            }
             if (deathTimer > 10)
             {
                 Destroy(gameObject);
@@ -204,6 +205,11 @@ public class EnemyKamikaze : Living
 
     }
 
+    protected override void OnDeath()
+    {
+        Explode();
+    }
+
     void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
@@ -229,10 +235,6 @@ public class EnemyKamikaze : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
-        if(Health <= 0 )
-        {
-            Explode();
-        }
     }
 
 }

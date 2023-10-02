@@ -69,10 +69,7 @@ public class EnemyMelee : Living
 
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
-        // for testing
-        effectStats.Interval = 500;
-        effectStats.Duration = 1000000;
-        effect = ModuleGenerator.CreateEffectModule<RadiationModule>(effectStats);
+       
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -101,7 +98,7 @@ public class EnemyMelee : Living
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         base.Update();
 
@@ -133,7 +130,7 @@ public class EnemyMelee : Living
         }
     }
 
-    private void Die()
+    protected override void OnDeath()
     {
         animator.SetTrigger("Die");
         agent.isStopped = true;
@@ -294,10 +291,6 @@ public class EnemyMelee : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
-        if (Health <= 0)
-        {
-            Die();
-        }
     }
 }
 
