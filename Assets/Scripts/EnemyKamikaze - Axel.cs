@@ -33,7 +33,8 @@ public class EnemyKamikaze : Living
     [SerializeField]
     GameObject model;
 
-    EffectStats effectStats;
+    public ModuleID EffectModuleID;
+    StatusEffectData effectStats;
 
     public EffectModule effect;
 
@@ -62,6 +63,7 @@ public class EnemyKamikaze : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -228,7 +230,7 @@ public class EnemyKamikaze : Living
         if (effect != null)
         {
             CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, EffectModuleID);
         }
     }
 

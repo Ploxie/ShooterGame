@@ -7,27 +7,26 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     private GameObject BulletPrefab;
-    private ModuleController moduleController;
 
     private void Awake()
     {
         BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
-        moduleController = GameObject.FindObjectOfType<ModuleController>();
     }
 
-    public GameObject RequestBullet(Vector3 position, Quaternion quaternion, bool applyStatusEffect = true, bool applyBulletEffect = true)
+    public GameObject RequestBullet(GunController controller, Vector3 position, Quaternion quaternion, bool applyStatusEffect = true, bool applyBulletEffect = true)
     {
-        WeaponData data = moduleController.GetWeaponData();
+        WeaponData data = controller.ModuleController.GetWeaponData();
 
         GameObject bullet = Instantiate(BulletPrefab, position, quaternion);
         Projectile projectileComponent = bullet.GetComponent<Projectile>();
         projectileComponent.Damage = data.Damage;
+        projectileComponent.GunController = controller;
 
-        StatusEffect statusEffect = moduleController.GetStatusEffect();
+        StatusEffect statusEffect = controller.ModuleController.GetStatusEffect();
         if (applyStatusEffect && statusEffect != null)
             projectileComponent.AddStatusEffect(statusEffect);
 
-        BulletEffect bulletEffect = moduleController.GetBulletEffect();
+        BulletEffect bulletEffect = controller.ModuleController.GetBulletEffect();
         if (applyBulletEffect && bulletEffect != null)
             projectileComponent.AddBulletEffect(bulletEffect);
 

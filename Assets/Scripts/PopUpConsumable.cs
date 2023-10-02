@@ -18,7 +18,7 @@ public class PopUpConsumable : MonoBehaviour
         cartridgePickup = GetComponentInParent<CartridgePickup>();
         floatingTextInstance = Instantiate(floatingTextPrefab, transform);
         text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text =$"{cartridgePickup.module}";
+        text.text = $"{ModuleRegistry.TranslationTable[cartridgePickup.id]} Module";
         floatingTextInstance.SetActive(false);
     }
 

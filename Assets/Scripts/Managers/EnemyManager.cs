@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
         return closest;
     }
 
-    public List<Living> GetEnemiesInRange(Vector3 point, int range)
+    public List<Living> GetEnemiesInRange(Vector3 point, float range)
     {
         List<Living> inRange = new List<Living>();
         foreach (Living enemy in enemies.Values)

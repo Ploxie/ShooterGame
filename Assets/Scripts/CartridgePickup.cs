@@ -6,19 +6,18 @@ public class CartridgePickup : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Module module;
-
     public ModuleType type;
+    public ModuleID id;
 
     private void Awake()
     {
-        Assign(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<ShotgunModule>());
+        Assign(ModuleType.WeaponModule, id);
     }
 
-    public void Assign(ModuleType type, Module module)
+    public void Assign(ModuleType type, ModuleID id)
     {
         this.type = type;
-        this.module = module;
+        this.id = id;
     }
 
     private void OnTriggerStay(Collider other)
@@ -27,11 +26,8 @@ public class CartridgePickup : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                if (module != null && module != null)
-                {
-                    other.GetComponent<Player>().PickupModule(type, module);
-                    Destroy(gameObject);
-                }
+                other.GetComponent<Player>().PickupModule(type, ModuleRegistry.CreateModuleByID(id));
+                Destroy(gameObject);
             }
 
         }
