@@ -4,5 +4,6 @@ using UnityEngine;
 
 public abstract class BulletModule : Module
 {
+    public abstract BulletEffectData GetData();
     public abstract BulletEffect GetBulletEffect();
 }

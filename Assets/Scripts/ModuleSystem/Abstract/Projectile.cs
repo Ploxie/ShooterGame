@@ -22,6 +22,8 @@ public abstract class Projectile : MonoBehaviour
     public GameEvent OnHitEvent;
     public GameEvent OnDeleteEvent;
 
+    public GunController GunController;
+
     public void Awake()
     {
         StatusEffects = new List<StatusEffect>();

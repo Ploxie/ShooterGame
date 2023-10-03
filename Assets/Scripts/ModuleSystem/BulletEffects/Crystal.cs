@@ -9,6 +9,8 @@ public class Crystal : BulletEffect
 
     private BulletManager bulletManager;
 
+    public Crystal(BulletEffectData data) : base(data) { }
+
     protected override void OnActivate()
     {
         bulletManager = GameObject.FindObjectOfType<BulletManager>();
@@ -28,11 +30,11 @@ public class Crystal : BulletEffect
         Vector3 position = Parent.transform.position + Quaternion.AngleAxis(270, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
         Vector3 direction = -Vector3.Cross(Parent.GetComponent<Rigidbody>().velocity.normalized, Vector3.up.normalized);
 
-        GameObject bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
-        bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * 1000);
+        GameObject bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
 
         position = Parent.transform.position + Quaternion.AngleAxis(90, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
-        bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
-        bullet.GetComponent<Rigidbody>().AddRelativeForce(-direction * 1000);
+        bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        bullet.GetComponent<Rigidbody>().AddRelativeForce(-direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
     }
 }

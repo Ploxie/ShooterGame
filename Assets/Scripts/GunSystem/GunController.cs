@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    private ModuleController controller;
+    public ModuleController ModuleController;
 
     //Cached to avoid unnecessary reallocations
     private WeaponData data;
@@ -18,7 +18,7 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         audio = GetComponent<AudioSource>();
-        controller = GetComponent<ModuleController>();
+        ModuleController = GetComponent<ModuleController>();
         lastFired = Utils.GetUnixMillis();
         baseProjectile = Resources.Load<GameObject>("Prefabs/Projectile");
         gunVisual = GetComponent<GunVisual>();
@@ -31,7 +31,7 @@ public class GunController : MonoBehaviour
             return;
 
         Vector3 fireDirection = transform.rotation * Vector3.forward;
-        data = controller.GetWeaponData();
+        data = ModuleController.GetWeaponData();
 
         audio.Play();
 
@@ -40,7 +40,7 @@ public class GunController : MonoBehaviour
             float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);
             Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * fireDirection;
 
-            GameObject bullet = bulletManager.RequestBullet(gunVisual.GetBarrelPosition(), Quaternion.identity);
+            GameObject bullet = bulletManager.RequestBullet(this, gunVisual.GetBarrelPosition(), Quaternion.identity);
             bullet.GetComponent<Rigidbody>().AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
         }
 

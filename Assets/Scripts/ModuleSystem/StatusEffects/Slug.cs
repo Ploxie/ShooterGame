@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Slug : StatusEffect
 {
+    public const float SlugMultiplier = 1.5f;
+
+    public Slug(StatusEffectData data) : base(data) { }
+
     public override StatusEffectID GetID() 
     { 
         return StatusEffectID.Slug; 
@@ -9,7 +13,10 @@ public class Slug : StatusEffect
 
     protected override void OnEffect()
     {
-        target.DamageTakenMultiplier = 1.5f;
+        if (!target.Nerfable)
+            return;
+
+        target.DamageTakenMultiplier = SlugMultiplier * effectData.Potency;
     }
 
     protected override void OnClear()

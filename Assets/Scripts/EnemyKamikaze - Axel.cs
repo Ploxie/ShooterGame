@@ -33,7 +33,8 @@ public class EnemyKamikaze : Living
     [SerializeField]
     GameObject model;
 
-    EffectStats effectStats;
+    public ModuleID EffectModuleID;
+    StatusEffectData effectStats;
 
     public EffectModule effect;
 
@@ -42,6 +43,8 @@ public class EnemyKamikaze : Living
     private float deathTimer = 0;
 
     [SerializeField] CartridgePickup cartridgeDrop;
+
+    [SerializeField] GameObject healthBarObject;
 
 
     [SerializeField]
@@ -62,6 +65,7 @@ public class EnemyKamikaze : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
         if (effect != null)
         {
             foreach (Transform child in transform)
@@ -117,7 +121,6 @@ public class EnemyKamikaze : Living
         else
         {
             deathTimer += Time.deltaTime;
-            Debug.Log(deathTimer);
             if (deathTimer > 2)
             {
                 explosionDamageHitBox.gameObject.SetActive(false);
@@ -214,6 +217,11 @@ public class EnemyKamikaze : Living
     {
         scoreManager.UpdateText(100);
         Explode();
+        if (effect != null)
+        {
+            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, EffectModuleID);
+        }
     }
 
     void Explode()
@@ -224,12 +232,9 @@ public class EnemyKamikaze : Living
         state = State.Die;
         healthBar.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        healthBarObject.gameObject.SetActive(false);
 
-        if (effect != null)
-        {
-            CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, effect);
-        }
+        
     }
 
     public void EndRoar()

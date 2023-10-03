@@ -2,13 +2,18 @@
 
 public class RadiationModule : EffectModule
 {
+    public override StatusEffectData GetData()
+    {
+        return new StatusEffectData()
+        {
+            Duration = 6000,
+            Interval = 1000,
+            Potency = 1
+        };
+    }
+
     public override StatusEffect GetStatusEffect()
     {
-        Radiation effect = new()
-        {
-            Stats = BlueprintStats
-        };
-        
-        return effect;
+        return new Radiation(GetData());
     }
 }

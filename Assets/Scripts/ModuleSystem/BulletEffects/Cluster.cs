@@ -4,9 +4,12 @@ using UnityEngine;
 public class Cluster : BulletEffect
 {
     public const int DISTANCE_FROM_CENTER = 1;
-    public const int PROJECTILE_COUNT = 8;
+    public const int PROJECTILE_COUNT = 5;
+    public const int PROJECTILE_COUNT_INCREMENT = 1;
 
     private BulletManager bulletManager;
+
+    public Cluster(BulletEffectData data) : base(data) { }
 
     protected override void OnActivate()
     {
@@ -25,8 +28,8 @@ public class Cluster : BulletEffect
                 continue;
             direction.Normalize();
 
-            GameObject bullet = bulletManager.RequestBullet(position, Quaternion.identity, true, false);
-            bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * 1000);
+            GameObject bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+            bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
         }
     }
 }

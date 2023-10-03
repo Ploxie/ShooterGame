@@ -20,8 +20,15 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     ShootingLogic SL;
     private EnemyRanged[] enemies;
     private EnemyHealthBar healthBar;
-    private Module[] modarrDrop;
     [SerializeField] CartridgePickup cartridgeDrop;
+
+    public ModuleID WeaponID;
+    public ModuleID EffectID;
+    public ModuleID BulletID;
+
+    private WeaponModule weaponModule;
+    private EffectModule effectModule;
+    private BulletModule bulletModule;
 
     public override void Start()
     {
@@ -30,19 +37,16 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         scoreManager = FindObjectOfType<ScoreManager>();
         enemyManager.RegisterEnemy(this);
         ModuleController = gun.GetComponent<ModuleController>();
-        ModuleController.LoadModule(ModuleType.WeaponModule, ModuleGenerator.CreateWeaponModule<PistolModule>());
         //gunController = GetComponent<GunController>();
         if (gunController == null) gunController = gun.GetComponent<GunController>();
-        modarrDrop = new Module[3];
-        WeaponModule wp;
-        wp = ModuleController.GetComponent<WeaponModule>();
-        modarrDrop[0] = wp;
-        EffectModule em;
-        em = ModuleController.GetComponent<EffectModule>();
-        modarrDrop[1] = em;
-        BulletModule bm;
-        bm = ModuleController.GetComponent<BulletModule>();
-        modarrDrop[2] = bm;
+
+        weaponModule = (WeaponModule)ModuleRegistry.CreateModuleByID(WeaponID);
+        effectModule = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
+        bulletModule = (BulletModule)ModuleRegistry.CreateModuleByID(BulletID);
+
+        ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+        ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
+        ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
     }
     protected override void OnDeath()
     {
@@ -59,8 +63,10 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         if (Health <= 0)
         {
             CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
+
             var mod = Random.Range(0, 3);
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, modarrDrop[mod]);
+            ModuleID[] drops = new ModuleID[] { WeaponID, EffectID, BulletID };
+            cartridgeDropInstance.Assign(ModuleType.EffectModule, drops[mod]);
         }
     }
     public override void Awake()

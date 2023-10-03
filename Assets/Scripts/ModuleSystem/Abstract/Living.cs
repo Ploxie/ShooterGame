@@ -22,6 +22,8 @@ public abstract class Living : MonoBehaviour
     
     public int LivingID;
     public float Health;
+    public float HealthRegenAmount;
+    public double HealthRegenInterval;
     public float MovementSpeed;
     public float Damage;
 
@@ -30,15 +32,17 @@ public abstract class Living : MonoBehaviour
     public float MovementSpeedMultiplier = 1;
 
     public bool Stunned;
-    public int StunDuration;
+    public float StunDuration;
     
     public Dictionary<StatusEffectID, StatusEffect> StatusEffects;
     protected double stunStarted;
+    protected double lastHealthRegen;
 
     public virtual void Awake()
     {
         LivingID = NextIDPointer++;
         StatusEffects = new Dictionary<StatusEffectID, StatusEffect>();
+        lastHealthRegen = Utils.GetUnixMillis();
         Health = MaxHealth;
         Alive = true;
     }
@@ -55,8 +59,11 @@ public abstract class Living : MonoBehaviour
         OnDamage();
     }
 
-    public virtual void ApplyStun(int duration)
+    public virtual void ApplyStun(float duration)
     {
+        if (!Stunnable)
+            return;
+
         Stunned = true;
         stunStarted = Utils.GetUnixMillis();
         StunDuration = duration;
@@ -105,7 +112,14 @@ public abstract class Living : MonoBehaviour
                 Alive = false;
             }
         }
-            
+
+        if (Utils.GetUnixMillis() - lastHealthRegen >= HealthRegenInterval)
+        {
+            Health += HealthRegenAmount;
+            lastHealthRegen = Utils.GetUnixMillis();
+        }
+
+        Mathf.Clamp(Health, 0, MaxHealth);
     }
 
     protected virtual void OnUpdate() {}

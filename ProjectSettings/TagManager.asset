@@ -15,6 +15,7 @@ TagManager:
   - Tile
   - EnemyHitbox
   - Floor
+  - HealthBar
   layers:
   - Default
   - TransparentFX
