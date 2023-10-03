@@ -136,7 +136,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &5221511798755955050
 MonoBehaviour:
@@ -174,8 +174,11 @@ MonoBehaviour:
   Slowable: 0
   Nerfable: 0
   Stunnable: 0
+  Alive: 0
   LivingID: 0
   Health: 0
+  HealthRegenAmount: 0
+  HealthRegenInterval: 0
   MovementSpeed: 0
   Damage: 0
   DamageTakenMultiplier: 1

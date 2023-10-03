@@ -1,3 +1,5 @@
+using Cinemachine;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
 
-
     private void Start()
     {
         if (rb == null) rb = GetComponent<Rigidbody>();
@@ -20,6 +21,10 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Player>();
 
         layerMask = 1 << floorLayerMaskIndex;
+
+        var camera = FindObjectOfType<CinemachineVirtualCamera>();
+        camera.Follow = transform;
+        camera.LookAt = transform;
     }
 
     private void Update()
@@ -34,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private void HandleRotationInput()
     {
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane floorPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane floorPlane = new Plane(Vector3.up, transform.position);
 
         if (floorPlane.Raycast(cameraRay, out float rayLength))
         {
@@ -51,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(x, 0.0f, z).normalized;
 
-        rb.transform.Translate(moveDirection * Time.deltaTime * player.MovementSpeed, Space.World);
+        
+        //rb.transform.Translate(moveDirection * Time.deltaTime * player.MovementSpeed, Space.World);
+        rb.velocity = moveDirection * player.MovementSpeed;
     }
 }
