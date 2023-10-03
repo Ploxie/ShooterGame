@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 585040855}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,19 +260,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944e68fbffbc5c44c83c27211a9b0371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartModule: {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
   CorridorModule: {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
+  FinalModule: {fileID: 2925423135877620360, guid: b10c9066adf20f941901a6135f21855b, type: 3}
   Randomize: 1
   Modules:
+  - {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
   - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
-  - {fileID: 2925423135877620360, guid: 8748afc327eb73d48905b140dfb85796, type: 3}
+  - {fileID: 8687897499384190641, guid: ebe8327eff94ec045a97172543d57528, type: 3}
+  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
+  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
+  - {fileID: 8687897499384190641, guid: ebe8327eff94ec045a97172543d57528, type: 3}
+  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
   - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
-  - {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
-  - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
-  - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
-  - {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
-  - {fileID: 2925423135877620360, guid: 8748afc327eb73d48905b140dfb85796, type: 3}
-  - {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
-  - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
+  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
+  - {fileID: 2925423135877620360, guid: b10c9066adf20f941901a6135f21855b, type: 3}
 --- !u!4 &1009885560
 Transform:
   m_ObjectHideFlags: 0
