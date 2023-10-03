@@ -120,6 +120,7 @@ public class BossFunctionality : Living
     protected override void OnDeath()
     {
         base.OnDeath();
+        ScoreManager.Instance?.UpdateText(1000);
         SceneManager.LoadScene("VictoryScreen");
         gameObject.active = false;
     }

@@ -123,6 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &77672170 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1237284395086771356, guid: 32b872faafcf97449b021ce17b423ce8, type: 3}
+  m_PrefabInstance: {fileID: 1569589640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &744729104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5576202700528875113, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
+  m_PrefabInstance: {fileID: 1832866209}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1009885557
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +435,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1682318799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7250329308342882303, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+  m_PrefabInstance: {fileID: 1857376710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1832866209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -610,9 +625,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2539711798128192069, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 744729104}
+    - target: {fileID: 2539711798128192069, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068928947870298765, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068928947870298765, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068928947870298765, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIMenuScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7250329308342882303, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
       propertyPath: m_Name
       value: CanvasPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936183578929871321, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936183578929871321, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936183578929871321, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIMenuScript, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -767,6 +814,18 @@ PrefabInstance:
       propertyPath: weaponCartridgeBar
       value: 
       objectReference: {fileID: 1569589641}
+    - target: {fileID: 3535750609318172470, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: overallUI
+      value: 
+      objectReference: {fileID: 77672170}
+    - target: {fileID: 3535750609318172470, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: pauseMenuUI
+      value: 
+      objectReference: {fileID: 1682318799}
+    - target: {fileID: 3535750609318172470, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: settingsMenuUI
+      value: 
+      objectReference: {fileID: 744729104}
     - target: {fileID: 4885316771904509995, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
       propertyPath: m_LocalPosition.x
       value: 82.446266

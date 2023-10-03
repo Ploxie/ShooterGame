@@ -87,6 +87,7 @@ public class Turret : Living
     }
     protected override void OnDeath()
     {
+        ScoreManager.Instance?.UpdateText(-10);
         alive = false;
         base.OnDeath();
     }
