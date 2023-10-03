@@ -18,7 +18,9 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        score = 0;
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "LevelGenererationTestScene")
+            score = 0;
     }
 
     // Update is called once per frame

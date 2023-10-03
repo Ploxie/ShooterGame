@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class BossFunctionality : Living
 {
     EnemyManager enemyManager;
-    enum currentStateOfCombat{
+    enum currentStateOfCombat
+    {
         TwoTurrets,
         MiddleFight,
         OneTurret,
@@ -57,7 +58,7 @@ public class BossFunctionality : Living
                 }
                 break;
             case currentStateOfCombat.MiddleFight://fight inbetween one turret destroyed
-                if (this.Health <= this.Health/2)
+                if (this.Health <= this.Health / 2)
                 {
                     state = currentStateOfCombat.OneTurret;
                     shield.active = true;
@@ -113,11 +114,13 @@ public class BossFunctionality : Living
     }
     public override void TakeDamage(float damage)
     {
-        base.TakeDamage(damage);
+        if (!shield.active)
+            base.TakeDamage(damage);
     }
     protected override void OnDeath()
     {
         base.OnDeath();
+        ScoreManager.Instance?.UpdateText(1000);
         SceneManager.LoadScene("VictoryScreen");
         gameObject.active = false;
     }
