@@ -7,83 +7,48 @@ using static UnityEngine.GraphicsBuffer;
 
 public class HealthPack : MonoBehaviour
 {
+    [SerializeField] private GameEvent OnHealthPackPickUpEvent;
+    [SerializeField] private GameObject pickUpText;
+    [SerializeField] private int healing;
 
-    public float playerHealth = 50;
-    GameObject closestHealthPack;
-    public GameObject player;
-    public GameObject pickUpText;
-    float distance;
-    float inRange = 2;
-    GameObject[] healthPacks;
-    float minDist;
+    bool colliding;
+
     // Start is called before the first frame update
     void Start()
     {
-        healthPacks = GameObject.FindGameObjectsWithTag("HealthPack");
+        colliding = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthPacks = GameObject.FindGameObjectsWithTag("HealthPack");
-
-        GetClosestHealthPack(healthPacks);
-        Debug.Log(healthPacks.Length);
-        if(healthPacks.Length > 0)
+        if (colliding)
         {
-            Debug.Log(distance);
-            if (Vector3.Distance(closestHealthPack.transform.position, player.transform.position) > inRange)
-            {
-                pickUpText.SetActive(false);
-            }
-            if (Vector3.Distance(closestHealthPack.transform.position, player.transform.position) < inRange)
-            {
-                pickUpText.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    HealPlayer(50);
-                    closestHealthPack.SetActive(false);
-                    pickUpText.SetActive(false);
-                }
-            }
-        }
-    }
-    public void GetClosestHealthPack(GameObject[] healthPacks)
-    {
-        minDist = Mathf.Infinity;
-        foreach(GameObject healthPack in healthPacks)
-        {
-            distance = Vector3.Distance(healthPack.transform.position, player.transform.position);
-            if (distance < minDist)
-            {
-                closestHealthPack = healthPack;
-                minDist = distance;
-            }
-        }
-    }
-        
-    
-    /*private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            pickUpText.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                HealPlayer(50);
+                OnHealthPackPickUpEvent.Raise(this, healing);
                 gameObject.SetActive(false);
                 pickUpText.SetActive(false);
+                GameObject.Destroy(this.gameObject);
             }
         }
-        else
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            pickUpText.SetActive(true);
+            colliding = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
         {
             pickUpText.SetActive(false);
+            colliding = false;
         }
-
-    }*/
-
-    public void HealPlayer(float healingAmount)
-    {
-        playerHealth += healingAmount;
     }
 }
