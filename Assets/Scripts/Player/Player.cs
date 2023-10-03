@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class Player : Living
     private ModuleHolder weaponModules;
     private ModuleHolder effectModules;
     private ModuleHolder bulletModules;
+
+    [SerializeField] GameEvent OnHealthPackPickUpEvent;
 
     public override void Awake()
     {
@@ -43,6 +46,11 @@ public class Player : Living
                 bulletModules.Insert(module);
                 break;
         }
+    }
+
+    public void OnHealthPackPickUp(Component sender, object data)
+    {
+        if (data is int) Health += (int)data;
     }
 
     protected override void OnDeath()
