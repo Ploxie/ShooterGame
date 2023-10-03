@@ -37,7 +37,7 @@ namespace Assets.Scripts.LevelGeneration
             }
         }
 
-        public static readonly float TILE_SIZE = 2.5f;
+        public static readonly float TILE_SIZE = 5.0f;
 
 
         [SerializeField] public Vector2Int Position;

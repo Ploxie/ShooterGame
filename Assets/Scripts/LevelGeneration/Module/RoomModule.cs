@@ -98,7 +98,7 @@ namespace Assets.Scripts.LevelGeneration
 
             // Center of room
             Gizmos.color = Color.grey;
-            Gizmos.DrawCube(new Vector3(tileHalfSize, 0.1f, tileHalfSize), new Vector3(Tile.TILE_SIZE, 0.25f, Tile.TILE_SIZE));
+            Gizmos.DrawCube(new Vector3(tileHalfSize, 0.1f, tileHalfSize), new Vector3(Tile.TILE_SIZE, 0.10f, Tile.TILE_SIZE));
 
             if (Excluded == null)
                 return;
