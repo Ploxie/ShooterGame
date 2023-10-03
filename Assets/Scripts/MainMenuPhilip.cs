@@ -18,7 +18,7 @@ public class MainMenuPhilip : MonoBehaviour
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "Merged")
+        if (currentScene.name == "LevelGenererationTestScene")
         {
             isPaused = false;
             pauseMenuUI.SetActive(false);
@@ -28,7 +28,7 @@ public class MainMenuPhilip : MonoBehaviour
     private void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "Merged")
+        if (currentScene.name == "LevelGenererationTestScene")
         {
             if (canPause == true) // So you can't pause while in death screen
                 PauseGame();
@@ -44,7 +44,7 @@ public class MainMenuPhilip : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Merged");
+        SceneManager.LoadScene("LevelGenererationTestScene");
     }
     public void BackToMenu()
     {
@@ -83,6 +83,6 @@ public class MainMenuPhilip : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quit");
-        //Application.Quit();
+        Application.Quit();
     }
 }
