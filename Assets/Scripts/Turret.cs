@@ -9,7 +9,6 @@ public class Turret : Living
 
     private EnemyManager enemyManager;
 
-    public int HealthTurret = 100;
     private Player player;
     public bool alive = true;
     private bool seen = false;
@@ -27,7 +26,8 @@ public class Turret : Living
     {
         base.Awake();
         healthBar = GetComponentInChildren<EnemyHealthBar>();
-
+        if (player == null)
+            player = FindObjectOfType<Player>();
 
     }
 
@@ -45,7 +45,8 @@ public class Turret : Living
     }
     public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
     {
-
+        if (player == null)
+            player = FindObjectOfType<Player>();
         bool seePlayer = false;
         var rayDirection = player.transform.position - transform.position;
         RaycastHit hit = new RaycastHit();
@@ -69,13 +70,6 @@ public class Turret : Living
         rotateToPlayer(dir);//player.transform.position);
         //add weapon
     }
-    public void isAlive()
-    {
-        if (Health <= 0f)
-        {
-            alive = false;
-        }
-    }
     // Update is called once per frame
     public void ClearToShoot()
     {
@@ -93,7 +87,7 @@ public class Turret : Living
     }
     protected override void OnDeath()
     {
-
+        alive = false;
         base.OnDeath();
     }
 }
