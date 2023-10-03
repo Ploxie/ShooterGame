@@ -141,14 +141,17 @@ MonoBehaviour:
   MaxHealth: 30
   DefaultMovementSpeed: 0
   DefaultDamage: 0
-  OnHealthChangedEvent: {fileID: 0}
-  OnDeathEvent: {fileID: 0}
+  OnHealthChangedEvent: {fileID: 11400000, guid: d13a6412fbbee504ca40d0b41f7f8e64, type: 2}
+  OnDeathEvent: {fileID: 11400000, guid: fb5d7b55ce667334e8c9e9acb9589161, type: 2}
   RegenHealth: 0
   Slowable: 0
   Nerfable: 0
   Stunnable: 0
+  Alive: 0
   LivingID: 0
   Health: 100
+  HealthRegenAmount: 0
+  HealthRegenInterval: 0
   MovementSpeed: 1
   Damage: 0
   DamageTakenMultiplier: 1
@@ -159,6 +162,10 @@ MonoBehaviour:
   gun: {fileID: 7294036403122344339}
   ModuleController: {fileID: 0}
   agent: {fileID: 4317466770689025497}
+  cartridgeDrop: {fileID: 0}
+  WeaponID: 0
+  EffectID: 0
+  BulletID: 0
 --- !u!195 &4317466770689025497
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1525,7 +1525,7 @@ MonoBehaviour:
   diveRange: 10
   player: {fileID: 0}
   model: {fileID: -3168422337102530296}
-  EffectModuleID: 0
+  EffectModuleID: 6
   cartridgeDrop: {fileID: 3678300901976898227, guid: c6ede2bd54da7124c978bc86fb7ed1a2, type: 3}
   healthBarObject: {fileID: 7607863008056584553}
   state: 0

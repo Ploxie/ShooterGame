@@ -190,7 +190,7 @@ MonoBehaviour:
   jumpAttackRange: 20
   visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
   player: {fileID: 0}
-  EffectModuleID: 0
+  EffectModuleID: 6
   cartridgeDrop: {fileID: 3678300901976898227, guid: c6ede2bd54da7124c978bc86fb7ed1a2, type: 3}
   state: 0
 --- !u!1 &7409549626452650265
