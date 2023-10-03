@@ -18,9 +18,15 @@ public class ModuleController : MonoBehaviour
 
     private GunVisual gunVisual;
 
-    public void Awake()
+    private GunVisual GunVisual
     {
-        gunVisual = GetComponent<GunVisual>();
+        get 
+        {
+            if (gunVisual == null)                
+                gunVisual = GetComponent<GunVisual>();
+            
+            return gunVisual;
+        }
     }
 
     public void LoadModule(ModuleType type, Module module)
@@ -29,7 +35,7 @@ public class ModuleController : MonoBehaviour
         {
             case ModuleType.WeaponModule:
                 weaponModule = (WeaponModule)module;
-                gunVisual.UpdateVisuals(weaponModule.TypeOfWeapon);
+                GunVisual.UpdateVisuals(weaponModule.TypeOfWeapon);
                 break;
             case ModuleType.EffectModule:
                 effectModule = (EffectModule)module;
@@ -64,20 +70,4 @@ public class ModuleController : MonoBehaviour
         return bulletModule.GetBulletEffect();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
 }
