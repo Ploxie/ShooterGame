@@ -159,13 +159,14 @@ MonoBehaviour:
   MovementSpeedMultiplier: 1
   Stunned: 0
   StunDuration: 0
-  gun: {fileID: 7294036403122344339}
+  gun: {fileID: 2139962475865016979}
   ModuleController: {fileID: 0}
   agent: {fileID: 4317466770689025497}
+  rubberPosition: {x: 0, y: 0, z: 0}
   cartridgeDrop: {fileID: 0}
   WeaponID: 0
-  EffectID: 0
-  BulletID: 0
+  EffectID: 6
+  BulletID: 14
 --- !u!195 &4317466770689025497
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -556,6 +557,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6608824530077105994, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 5115831674170637723}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2139962475865016979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6579118337252947720, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+  m_PrefabInstance: {fileID: 5115831674170637723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be855106b49449e4785d25c23bf4515a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2934838500244476136 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7945952678391557491, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
@@ -599,10 +611,5 @@ GameObject:
 --- !u!1 &6907887562743738617 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1811197939336088930, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7294036403122344339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2577900372869901320, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 5115831674170637723}
   m_PrefabAsset: {fileID: 0}

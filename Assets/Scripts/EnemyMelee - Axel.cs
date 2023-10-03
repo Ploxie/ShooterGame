@@ -138,7 +138,7 @@ public class EnemyMelee : Living
 
     protected override void OnDeath()
     {
-        scoreManager.UpdateText(100);
+        scoreManager.UpdateText(100); // Eventify
         animator.SetTrigger("Die");
         agent.isStopped = true;
         agent.angularSpeed = 0;

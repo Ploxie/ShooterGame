@@ -10,39 +10,44 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemyRanged : Living //a script that utilizes the navmeshagent for pathfinding
  {
-    [SerializeField] private GameObject gun;
-    private EnemyManager enemyManager;
-    private ScoreManager scoreManager;
-    private GunController gunController;
-    public ModuleController ModuleController;
-    public NavMeshAgent agent;
-    Vector3 rubberPosition;
-    ShootingLogic SL;
-    private EnemyRanged[] enemies;
-    private EnemyHealthBar healthBar;
+
+    [SerializeField] public float Range; // Maybe tie it to the weapon type (shotgun = shorter range?)
+
+    [Header("Weapon")]
+    [SerializeField] public ModuleController ModuleController;
+    [SerializeField] private ModuleID WeaponID;
+    [SerializeField] private ModuleID EffectID;
+    [SerializeField] private ModuleID BulletID;
     [SerializeField] CartridgePickup cartridgeDrop;
 
-    public ModuleID WeaponID;
-    public ModuleID EffectID;
-    public ModuleID BulletID;
+    private GunController gunController;
+    private Vector3 spawnPosition;
+    private EnemyHealthBar healthBar;
+    private NavMeshAgent agent;
 
     private WeaponModule weaponModule;
     private EffectModule effectModule;
     private BulletModule bulletModule;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
-        enemyManager = FindObjectOfType<EnemyManager>();
-        scoreManager = FindObjectOfType<ScoreManager>();
-        enemyManager.RegisterEnemy(this);
-        ModuleController = gun.GetComponent<ModuleController>();
-        //gunController = GetComponent<GunController>();
-        if (gunController == null) gunController = gun.GetComponent<GunController>();
+        base.Awake();
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
+        ModuleController = GetComponentInChildren<ModuleController>();
+        gunController = GetComponentInChildren<GunController>();
+        agent = GetComponent<NavMeshAgent>();
 
         weaponModule = (WeaponModule)ModuleRegistry.CreateModuleByID(WeaponID);
         effectModule = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
         bulletModule = (BulletModule)ModuleRegistry.CreateModuleByID(BulletID);
+
+        spawnPosition = transform.position;
+    }
+
+    public override void Start()
+    {
+        base.Start();        
+        EnemyManager.Instance.RegisterEnemy(this);             
 
         ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
         ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
@@ -50,16 +55,16 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     }
     protected override void OnDeath()
     {
-        scoreManager.UpdateText(99);
+        ScoreManager.Instance?.UpdateText(99); // TODO: Eventify
         Die();
         base.OnDeath();
         Destroy(gameObject);
     }
-        //base.ApplyStun(duration);
+
     private void Die()
     {
-
         gameObject.GetComponent<BoxCollider>().enabled = false;
+
         if (Health <= 0)
         {
             CartridgePickup cartridgeDropInstance = Instantiate(cartridgeDrop, transform.position, Quaternion.identity);
@@ -69,18 +74,11 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
             cartridgeDropInstance.Assign(ModuleType.EffectModule, drops[mod]);
         }
     }
-    public override void Awake()
-    {
-        base.Awake();
-        healthBar = GetComponentInChildren<EnemyHealthBar>();
-        SL = new ShootingLogic();
-        rubberPosition = transform.position;
-        enemies = FindObjectsOfType<EnemyRanged>();
-    }
+   
 
     public void MoveToEnemy(Player placeOfPlayer)//a function to move towards enemy
     {
-        rotateToPlayer(placeOfPlayer.transform.position);
+        RotateTowards(placeOfPlayer.transform.position);
         agent.SetDestination(placeOfPlayer.transform.position);
         if (agent.isStopped == true)
         {
@@ -92,7 +90,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         Vector3 directionOfPlayer = transform.position - player.transform.position;
         
         Vector3 newPosition = transform.position + directionOfPlayer;
-        rotateToPlayer(player.transform.position);
+        RotateTowards(player.transform.position);
         agent.updateRotation = false;
         agent.SetDestination(newPosition);
         if (agent.isStopped == true)
@@ -108,86 +106,69 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
             agent.Stop();
         }
         var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        dir = dir - dir*2;
-        dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
-        rotateToPlayer(dir);//player.transform.position);
+        dir = dir - dir * 2;
+        dir = player.transform.position - dir * 3.5f; //changes direction slightly when player moves away to give a sense of in-accuresy
+        RotateTowards(dir); //player.transform.position);
         gunController.Shoot();
 
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
     {
         lookAtLastPos(pos);
-        rotateToPlayer(pos);
+        RotateTowards(pos);
     }
     public void lookAtLastPos(Vector3 moveToPos)//set destination for last position
     {
         agent.SetDestination(moveToPos);
         agent.Resume();
     }
-    public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
+    public bool HasLineOfSightTo(Vector3 position, string tag = "Enemy") //a raycast to see if the player is indeed seeing the player
     {
-
-        bool seePlayer = false;
-        var rayDirection = player.transform.position - transform.position;
-        RaycastHit hit = new RaycastHit();
-        
-        if(Physics.Raycast(transform.position, rayDirection, out hit))
+        var rayDirection = position - transform.position;
+        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit))
         {
-            if(hit.transform.gameObject.tag == player.gameObject.tag)
+            if (hit.transform.gameObject.tag == tag)
             {
-                seePlayer = true;
+                return true;
             }
         }
-        //print(this.transform.position - player.transform.position);
-        //print(seePlayer);
-        return seePlayer;
+        return false;
     }
-    public bool RayCastForEnemy(EnemyRanged enemy)//a raycast to see if the player is indeed seeing the player
-    {
 
-        bool enemyInTheWay = false;
-        var rayDirection = enemy.transform.position - transform.position;
-        RaycastHit hit = new RaycastHit();
-
-        if (Physics.Raycast(transform.position, rayDirection, out hit))
-        {
-            if (hit.transform.gameObject.tag == enemy.gameObject.tag)
-            {
-                enemyInTheWay = true;
-            }
-        }
-        return enemyInTheWay;
-    }
-    public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
+    public void RotateTowards(Vector3 pos)//the enemy rotates to the player 
     {
         Quaternion rotation = Quaternion.LookRotation(pos - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
-        //print(transform.rotation);
     }
     public void SimpleLeash()// uses a leach function that mean that the enemy goes back to its original position and makes it idle
     {
         agent.Stop();
-        agent.SetDestination(rubberPosition);
+        agent.SetDestination(spawnPosition);
         agent.Resume();
     }
     public void ClearLineOfSight(Player player)//looks to see if the a enemy is on the way of its gun arc
     {
-        foreach (EnemyRanged m in enemies)
+
+        var allies = EnemyManager.Instance.GetEnemiesInRange(transform.position, Range);
+
+        foreach (Living ally in allies)
         {
-            if (m.gameObject != gameObject)
-            {
-                if (RayCastForEnemy(m) == true)
+
+            if (ally == this)
+                continue;
+
+
+                if (HasLineOfSightTo(ally.transform.position) == true)
                 {
                     agent.Stop();
-                    var a = calulatePath(m, player);
+                    var a = CalculatePath(ally, player);
                     agent.SetDestination(a);
                     agent.speed = 6f;
                     agent.Resume();
                 }
-            }
         }
     }
-    private Vector3 calulatePath(EnemyRanged enemy, Player player)//find the path if left or right is the closer option
+    private Vector3 CalculatePath(Living enemy, Player player)//find the path if left or right is the closer option
     {
         var distans = player.transform.position - enemy.transform.position;
         var left = enemy.transform.position + Vector3.left*15;
@@ -214,6 +195,6 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.TakeDamage(damage);
+        healthBar.TakeDamage(damage); // TODO: Eventify
     }
 }

@@ -14,15 +14,15 @@ public class HealthBarManager : MonoBehaviour
 
     private Player player;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = FindObjectOfType<Player>();
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if (EnemyManager.Instance.Player == null)
+            return;
+
+        var player = EnemyManager.Instance.Player;
+
         healthBar.fillAmount = player.Health / player.MaxHealth;
         HealthText.text = $"{player.Health}/{player.MaxHealth}";
     }

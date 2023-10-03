@@ -5,11 +5,27 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+
+    public static EnemyManager Instance;
+
     protected Dictionary<int, Living> enemies;
 
-    public void Awake()
+    public Player Player { get; private set; }
+
+    private void Awake()
     {
         enemies = new Dictionary<int, Living>();
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        if (Player != null)
+            return;
+
+        var foundPlayer = FindObjectOfType<Player>();
+        if (foundPlayer != null)
+            Player = foundPlayer;
     }
 
     public void RegisterEnemy(Living enemy)
