@@ -22,8 +22,6 @@ public class Crystal : BulletEffect
         if (hitObject != null)
             return;
 
-        //Replace with event based system with projectile manager in the future
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
         GameObject.Destroy(Parent.gameObject);
 
@@ -32,11 +30,12 @@ public class Crystal : BulletEffect
 
         float launchSpeed = Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed;
 
-        Projectile bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        Projectile bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
         bullet.RigidBody.AddRelativeForce(direction * launchSpeed);
 
         position = Parent.transform.position;
-        bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
         bullet.RigidBody.AddRelativeForce(-direction * launchSpeed);
+
     }
 }

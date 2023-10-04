@@ -28,8 +28,9 @@ public class Cluster : BulletEffect
                 continue;
             direction.Normalize();
 
-            Projectile bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+            Projectile bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
             bullet.RigidBody.AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
+
         }
     }
 }
