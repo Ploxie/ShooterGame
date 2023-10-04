@@ -54,6 +54,22 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
         ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
     }
+
+    public void SwapModules(ModuleID weaponID, ModuleID effectID, ModuleID bulletID)
+    {
+        WeaponID = weaponID;
+        EffectID = effectID;
+        BulletID = bulletID;
+
+        weaponModule = (WeaponModule)ModuleRegistry.CreateModuleByID(weaponID);
+        effectModule = (EffectModule)ModuleRegistry.CreateModuleByID(effectID);
+        bulletModule = (BulletModule)ModuleRegistry.CreateModuleByID(bulletID);
+
+        ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+        ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
+        ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
+    }
+
     protected override void OnDeath()
     {
         ScoreManager.Instance?.UpdateText(99); // TODO: Eventify
@@ -61,7 +77,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         base.OnDeath();
         Destroy(gameObject);
     }
-
+     
     private void Die()
     {
         gameObject.GetComponent<BoxCollider>().enabled = false;

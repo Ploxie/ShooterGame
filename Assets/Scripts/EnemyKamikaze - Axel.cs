@@ -92,6 +92,19 @@ public class EnemyKamikaze : Living
         state = State.Idle;
     }
 
+    public void SwapModule(ModuleID id)
+    {
+        EffectModuleID = id;
+        effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectModuleID);
+        foreach (Transform child in transform)
+        {
+            if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
+            {
+                hitbox.effect = effect.GetStatusEffect();
+                hitbox.damage = Damage;
+            }
+        }
+    }
 
     public override void Update()
     {
