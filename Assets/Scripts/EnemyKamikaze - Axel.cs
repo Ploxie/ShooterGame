@@ -121,7 +121,9 @@ public class EnemyKamikaze : Living
         else
         {
             deathTimer += Time.deltaTime;
-            if (deathTimer > 2)
+            explosionDamageHitBox.transform.localScale += new Vector3(deathTimer, deathTimer, deathTimer) * 0.5f;
+            
+            if (deathTimer > 0.5)
             {
                 explosionDamageHitBox.gameObject.SetActive(false);
             }
@@ -229,6 +231,7 @@ public class EnemyKamikaze : Living
         explosionDamageHitBox.gameObject.SetActive(true);
         explosionDamageHitBox.Activate();
         model.gameObject.SetActive(false);
+        agent.isStopped = true;
         state = State.Die;
         healthBar.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;

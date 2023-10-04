@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd31557929770e4faac54c284d185b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1
+  MaxHealth: 100
   DefaultMovementSpeed: 0
   DefaultDamage: 50
   OnHealthChangedEvent: {fileID: 11400000, guid: d13a6412fbbee504ca40d0b41f7f8e64, type: 2}
@@ -143,9 +143,9 @@ MonoBehaviour:
   Stunned: 0
   StunDuration: 0
   ModuleController: {fileID: 6032403887414806082}
-  WeaponID: 1
-  EffectID: 7
-  BulletID: 15
+  WeaponID: 4
+  EffectID: 9
+  BulletID: 12
   alive: 1
 --- !u!114 &7733917376656234623
 MonoBehaviour:

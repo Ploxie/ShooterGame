@@ -263,7 +263,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y + 1) * Tile.TILE_SIZE;
-                        wall.tag = "Tile";
+                        wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
                     }
@@ -275,7 +275,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y) * Tile.TILE_SIZE;
-                        wall.tag = "Tile";
+                        wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
                     }
@@ -287,7 +287,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 1, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
-                        wall.tag = "Tile";
+                        wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
                     }
@@ -299,7 +299,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
-                        wall.tag = "Tile";
+                        wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
                     }
@@ -394,12 +394,18 @@ namespace Assets.Scripts.LevelGeneration
         private void ClearTiles()
         {
             var existing = GameObject.FindGameObjectsWithTag("Tile");
+            var existingWalls = GameObject.FindGameObjectsWithTag("Wall");
 
             if (existing == null)
+                return;
+            if (existingWalls == null)
                 return;
 
 
             Array.ForEach(existing, child => {
+                EditorApplication.delayCall += () => { DestroyImmediate(child); };
+            });
+            Array.ForEach(existingWalls, child => {
                 EditorApplication.delayCall += () => { DestroyImmediate(child); };
             });
         }
