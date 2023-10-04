@@ -58,7 +58,6 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     {
         ScoreManager.Instance?.UpdateText(99); // TODO: Eventify
         Die();
-        base.OnDeath();
         Destroy(gameObject);
     }
 
@@ -110,7 +109,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir * 2;
         dir = player.transform.position - dir * 3.5f; //changes direction slightly when player moves away to give a sense of in-accuresy
         RotateTowards(dir); //player.transform.position);
-        gunController.Shoot();
+        //gunController.Shoot();
 
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM

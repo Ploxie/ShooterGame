@@ -70,8 +70,7 @@ public class Turret : Living
     }
     public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
     {
-        if (player == null)
-            player = enemyManager.Player;
+       
         bool seePlayer = false;
         var rayDirection = player.transform.position - transform.position;
         RaycastHit hit = new RaycastHit();
@@ -98,6 +97,8 @@ public class Turret : Living
     // Update is called once per frame
     public void ClearToShoot()
     {
+        if (player == null)
+            return;
         seen = RayCastForVisual(player);
         if (seen == true)
         {

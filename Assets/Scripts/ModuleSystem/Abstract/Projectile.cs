@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using OpenCover.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
@@ -66,7 +67,7 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile"))
+        if (other.CompareTag("Projectile") || other.gameObject.IsDestroyed())
             return;
         if (other.CompareTag(Parent.tag) && other.gameObject.tag != "Wall")
             return;
