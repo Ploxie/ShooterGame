@@ -2,6 +2,13 @@
 
 public class BlackHoleModule : BulletModule
 {
+    public const int DURABILITY = 500;
+
+    public BlackHoleModule()
+    {
+        this.remainingUses = DURABILITY;
+    }
+
     public override BulletEffectData GetData()
     {
         return new BulletEffectData

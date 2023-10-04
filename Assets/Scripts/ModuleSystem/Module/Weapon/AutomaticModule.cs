@@ -2,8 +2,11 @@ using System.Collections.Generic;
 
 public class AutomaticModule : WeaponModule
 {
+    public const int DURABILITY = 3000;
+
     public AutomaticModule()
     {
+        this.remainingUses = DURABILITY;
         TypeOfWeapon = WeaponType.Automatic;
     }
 

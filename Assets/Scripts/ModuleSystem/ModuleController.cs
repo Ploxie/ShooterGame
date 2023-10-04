@@ -12,10 +12,6 @@ public enum ModuleType
 
 public class ModuleController : MonoBehaviour
 {
-    private WeaponModule weaponModule;
-    private EffectModule effectModule;
-    private BulletModule bulletModule;
-
     private GunVisual gunVisual;
 
     private GunVisual GunVisual
@@ -29,43 +25,81 @@ public class ModuleController : MonoBehaviour
         }
     }
 
-    public void LoadModule(ModuleType type, Module module)
+    public void LoadModule(ModuleType type, Module module, ModuleHolder inventory)
     {
         switch (type)
         {
             case ModuleType.WeaponModule:
-                weaponModule = (WeaponModule)module;
+                WeaponModule weaponModule = (WeaponModule)module;
+                inventory.Insert(weaponModule);
                 GunVisual.UpdateVisuals(weaponModule.TypeOfWeapon);
                 break;
             case ModuleType.EffectModule:
-                effectModule = (EffectModule)module;
+                inventory.Insert((EffectModule)module);
                 break;
             case ModuleType.BulletModule:
-                bulletModule = (BulletModule)module;
+                inventory.Insert((BulletModule)module);
                 break;
         }
     }
 
-    public WeaponData GetWeaponData()
+    public void DecrementDurabilities(ModuleHolder weaponModuleInventory, ModuleHolder effectModuleInventory, ModuleHolder bulletModuleInventory)
     {
+        Module weaponModule = weaponModuleInventory.Peek();
+        if (weaponModule != null)
+            weaponModule.DecrementDurability(1);
+
+        Module effectModule = effectModuleInventory.Peek();
+        if (effectModule != null)
+            effectModule.DecrementDurability(1);
+
+        Module bulletModule = bulletModuleInventory.Peek();
+        if (bulletModule != null)
+            bulletModule.DecrementDurability(1);
+    }
+
+    public WeaponData GetWeaponData(ModuleHolder weaponModuleInventory)
+    {
+        WeaponModule weaponModule = (WeaponModule)weaponModuleInventory.Peek();
         if (weaponModule == null)
             throw new Exception("WeaponModule is null. This should not be possible.");
+
+        if (weaponModule.Durability <= 0)
+        {
+            weaponModuleInventory.Pop();
+            LoadModule(ModuleType.WeaponModule, ModuleRegistry.CreateModuleByID(ModuleID.WPN_PISTOL), weaponModuleInventory);
+        }
+            
 
         return weaponModule.GetData();
     }
 
-    public StatusEffect GetStatusEffect()
+    public StatusEffect GetStatusEffect(ModuleHolder effectModuleInventory)
     {
+        EffectModule effectModule = (EffectModule)effectModuleInventory.Peek();
         if (effectModule == null)
             return null;
+
+        if (effectModule.Durability <= 0)
+        {
+            effectModuleInventory.Pop();
+            return null;
+        }
 
         return effectModule.GetStatusEffect();
     }
 
-    public BulletEffect GetBulletEffect()
+    public BulletEffect GetBulletEffect(ModuleHolder bulletModuleInventory)
     {
+        BulletModule bulletModule = (BulletModule)bulletModuleInventory.Peek();
         if (bulletModule == null)
             return null;
+
+        if (bulletModule.Durability <= 0)
+        {
+            bulletModuleInventory.Pop();
+            return null;
+        }
 
         return bulletModule.GetBulletEffect();
     }
