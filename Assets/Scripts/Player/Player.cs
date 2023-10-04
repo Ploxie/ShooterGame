@@ -27,7 +27,7 @@ public class Player : Living
 
         weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
         Module pistol = weaponModules.Peek();
-        moduleController.LoadModule(ModuleType.WeaponModule, pistol);
+        moduleController.LoadModule(ModuleType.WeaponModule, pistol, weaponModules);
 
         base.Awake();
     }
@@ -67,14 +67,14 @@ public class Player : Living
             if (weaponModule == null)
                 weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
             weaponModule = weaponModules.Cycle();
-            moduleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+            moduleController.LoadModule(ModuleType.WeaponModule, weaponModule, weaponModules);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            moduleController.LoadModule(ModuleType.EffectModule, effectModules.Cycle());
+            moduleController.LoadModule(ModuleType.EffectModule, effectModules.Cycle(), effectModules);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            moduleController.LoadModule(ModuleType.BulletModule, bulletModules.Cycle());
+            moduleController.LoadModule(ModuleType.BulletModule, bulletModules.Cycle(), bulletModules);
 
         base.Update();
     }

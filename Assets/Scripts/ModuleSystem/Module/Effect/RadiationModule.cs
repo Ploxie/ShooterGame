@@ -2,6 +2,13 @@
 
 public class RadiationModule : EffectModule
 {
+    public const int DURABILITY = 2000;
+
+    public RadiationModule()
+    {
+        this.remainingUses = DURABILITY;
+    }
+
     public override StatusEffectData GetData()
     {
         return new StatusEffectData()

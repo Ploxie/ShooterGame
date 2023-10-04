@@ -25,13 +25,13 @@ public class GunController : MonoBehaviour
         bulletManager = FindObjectOfType<BulletManager>();
     }
 
-    public void Shoot()
+    public void Shoot(ModuleHolder weaponModules, ModuleHolder effectModules, ModuleHolder bulletModules, bool useDurability = true)
     {
         if (Utils.GetUnixMillis() - lastFired < data.FireRate)
             return;
 
         Vector3 fireDirection = transform.rotation * Vector3.forward;
-        data = ModuleController.GetWeaponData();
+        data = ModuleController.GetWeaponData(weaponModules);
 
         audio.Play();
 
@@ -40,10 +40,12 @@ public class GunController : MonoBehaviour
             float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);
             Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * fireDirection;
 
-            GameObject bullet = bulletManager.RequestBullet(this, gunVisual.GetBarrelPosition(), Quaternion.identity);
+            GameObject bullet = bulletManager.RequestBullet(this, weaponModules, effectModules, bulletModules, gunVisual.GetBarrelPosition(), Quaternion.identity);
             bullet.GetComponent<Rigidbody>().AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
         }
 
+        if (useDurability)
+            ModuleController.DecrementDurabilities(weaponModules, effectModules, bulletModules);
         lastFired = Utils.GetUnixMillis();
     }
 }
