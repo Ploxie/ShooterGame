@@ -115,6 +115,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         {
             agent.Resume();
         }
+        gunController.Shoot();
     }
     public void MoveAwayFromEnemy(Player player)//a function to move away from the enemy
     {
@@ -128,6 +129,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         {
             agent.Resume();
         }
+        gunController.Shoot();
     }
     public void Shoot(Player player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
     {
