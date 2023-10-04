@@ -2,11 +2,8 @@ using System.Collections.Generic;
 
 public class BoltActionModule : WeaponModule
 {
-    public const int DURABILITY = 4000;
-
     public BoltActionModule()
     {
-        this.remainingUses = DURABILITY;
         TypeOfWeapon = WeaponType.BoltAction;
     }
 

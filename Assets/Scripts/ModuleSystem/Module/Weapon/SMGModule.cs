@@ -2,11 +2,8 @@ using System.Collections.Generic;
 
 public class SMGModule : WeaponModule
 {
-    public const int DURABILITY = 2000;
-
     public SMGModule()
     {
-        this.remainingUses = DURABILITY;
         TypeOfWeapon = WeaponType.SMG;
     }
 

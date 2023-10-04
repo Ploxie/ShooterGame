@@ -25,10 +25,6 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     private EnemyHealthBar healthBar;
     private NavMeshAgent agent;
 
-    private ModuleHolder weaponModules;
-    private ModuleHolder effectModules;
-    private ModuleHolder bulletModules;
-
     private WeaponModule weaponModule;
     private EffectModule effectModule;
     private BulletModule bulletModule;
@@ -40,10 +36,6 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         ModuleController = GetComponentInChildren<ModuleController>();
         gunController = GetComponentInChildren<GunController>();
         agent = GetComponent<NavMeshAgent>();
-
-        weaponModules = new ModuleHolder();
-        effectModules = new ModuleHolder();
-        bulletModules = new ModuleHolder();
 
         weaponModule = (WeaponModule)ModuleRegistry.CreateModuleByID(WeaponID);
         effectModule = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
@@ -57,9 +49,9 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         base.Start();        
         EnemyManager.Instance.RegisterEnemy(this);             
 
-        ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule, weaponModules);
-        ModuleController.LoadModule(ModuleType.EffectModule, effectModule, effectModules);
-        ModuleController.LoadModule(ModuleType.BulletModule, bulletModule, bulletModules);
+        ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+        ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
+        ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
     }
     protected override void OnDeath()
     {
@@ -117,7 +109,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir * 2;
         dir = player.transform.position - dir * 3.5f; //changes direction slightly when player moves away to give a sense of in-accuresy
         RotateTowards(dir); //player.transform.position);
-        gunController.Shoot(weaponModules, effectModules, bulletModules, false);
+        gunController.Shoot();
 
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM

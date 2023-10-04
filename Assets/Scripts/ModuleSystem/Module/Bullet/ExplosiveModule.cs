@@ -2,13 +2,6 @@
 
 public class ExplosiveModule : BulletModule
 {
-    public const int DURABILITY = 200;
-
-    public ExplosiveModule()
-    {
-        this.remainingUses = DURABILITY;
-    }
-
     public override BulletEffectData GetData()
     {
         return new BulletEffectData

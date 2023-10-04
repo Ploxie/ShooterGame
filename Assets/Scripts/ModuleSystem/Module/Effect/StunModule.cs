@@ -2,13 +2,6 @@
 
 public class StunModule : EffectModule
 {
-    public const int DURABILITY = 500;
-
-    public StunModule()
-    {
-        this.remainingUses = DURABILITY;
-    }
-
     public override StatusEffectData GetData()
     {
         return new StatusEffectData()

@@ -25,19 +25,6 @@ public class ModuleHolder
         insertionPointer++;
     }
 
-    public void Pop()
-    {
-        storage[accessPointer] = null;
-        insertionPointer--;
-        accessPointer--;
-
-        if (accessPointer < 0)
-            accessPointer = 0;
-
-        if (insertionPointer < 0)
-            insertionPointer = 0;
-    }
-
     public Module Peek()
     {
         return storage[accessPointer];

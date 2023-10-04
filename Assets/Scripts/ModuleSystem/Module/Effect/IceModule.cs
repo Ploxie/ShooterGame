@@ -2,13 +2,6 @@
 
 public class IceModule : EffectModule
 {
-    public const int DURABILITY = 2000;
-
-    public IceModule()
-    {
-        this.remainingUses = DURABILITY;
-    }
-
     public override StatusEffectData GetData()
     {
         return new StatusEffectData()
