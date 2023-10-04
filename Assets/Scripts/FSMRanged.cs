@@ -33,17 +33,11 @@ public class FSMRanged : MonoBehaviour
     }
     private void Awake()
     {
-        player = FindObjectOfType<Player>();//EnemyManager.Instance.Player;
+        player = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
-        //if (player == null)
-        //{
-        //player = EnemyManager.Instance.Player;
-        //}
-        //else{
-
         switch (state)//switch no work we will try the object oriented way. maybe done points on the map where we show where the enemy should be
         {
             case State.STATE_PATROL://go to last place of enemy and go back to original place. It uses a bool check to keep the patrol state at either look for enemy at a place
@@ -70,7 +64,6 @@ public class FSMRanged : MonoBehaviour
                     animator.SetBool("WalkForward", walkfwrd);
                     animator.SetBool("WalkBackwards", walkbwrd);
                 }
-
                 HandleShootingState();
                 break;
             case State.STATE_RUNNING_TO_ENEMY_WHILE_SHOOTING://running towards enemy in this state.
@@ -111,7 +104,7 @@ public class FSMRanged : MonoBehaviour
         float distBetweenEnemyPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         enemy.MoveAwayFromEnemy(player);
-        enemy.Shoot(player);
+        //enemy.Shoot(player);
         if (seen == true)
         {
             if (25f <= distBetweenEnemyPlayer)//move from player
@@ -136,7 +129,7 @@ public class FSMRanged : MonoBehaviour
         float distBetweenEnemyPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         enemy.MoveToEnemy(player);
-        enemy.Shoot(player);
+        //enemy.Shoot(player);
         if (seen == true)
         {
             if (10f < distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//move to player
@@ -151,8 +144,6 @@ public class FSMRanged : MonoBehaviour
             shangedfwrd = true;
             lastSeenPos = player.transform.position;
         }
-        //print(state);
-        //some form of pathfinding with shooting action
     }
 
     private void HandleShootingState()
