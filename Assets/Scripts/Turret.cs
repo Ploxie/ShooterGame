@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Turret : Living
 {
     // Start is called before the first frame update
     //need rotation and 
+
+    [Header("Weapon")]
+    [SerializeField] public ModuleController ModuleController;
+    [SerializeField] private ModuleID WeaponID;
+    [SerializeField] private ModuleID EffectID;
+    [SerializeField] private ModuleID BulletID;
+
+    private GunController gunController;
+
+    private WeaponModule weaponModule;
+    private EffectModule effectModule;
+    private BulletModule bulletModule;
 
     private EnemyManager enemyManager;
 
@@ -21,10 +34,22 @@ public class Turret : Living
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
+        
+
     }
     public override void Awake()
     {
         base.Awake();
+        ModuleController = GetComponentInChildren<ModuleController>();
+        gunController = GetComponentInChildren<GunController>();
+
+        weaponModule = (WeaponModule)ModuleRegistry.CreateModuleByID(WeaponID);
+        effectModule = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
+        bulletModule = (BulletModule)ModuleRegistry.CreateModuleByID(BulletID);
+
+        ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+        ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
+        ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         if (player == null)
             player = FindObjectOfType<Player>();
@@ -68,7 +93,7 @@ public class Turret : Living
         dir = dir - dir * 2;
         dir = player.transform.position - dir * 3.5f;//changes direction slightly when player moves away to give a sense of in-accuresy
         rotateToPlayer(dir);//player.transform.position);
-        //add weapon
+        gunController.Shoot();
     }
     // Update is called once per frame
     public void ClearToShoot()

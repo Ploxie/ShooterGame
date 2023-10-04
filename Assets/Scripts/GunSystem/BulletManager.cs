@@ -13,7 +13,7 @@ public class BulletManager : MonoBehaviour
         BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
     }
 
-    public GameObject RequestBullet(GunController controller, Vector3 position, Quaternion quaternion, bool applyStatusEffect = true, bool applyBulletEffect = true)
+    public GameObject RequestBullet(GunController controller, GameObject parent, Vector3 position, Quaternion quaternion, bool applyStatusEffect = true, bool applyBulletEffect = true)
     {
         WeaponData data = controller.ModuleController.GetWeaponData();
 
@@ -29,6 +29,8 @@ public class BulletManager : MonoBehaviour
         BulletEffect bulletEffect = controller.ModuleController.GetBulletEffect();
         if (applyBulletEffect && bulletEffect != null)
             projectileComponent.AddBulletEffect(bulletEffect);
+
+        projectileComponent.Parent = parent;
 
         return bullet;
     }

@@ -12,6 +12,8 @@ public abstract class Projectile : MonoBehaviour
     protected List<BulletEffect> BulletEffects;
     protected HashSet<int> LivingHit;
 
+    public GameObject Parent;
+
     protected Rigidbody projectileRigidbody;
 
     protected double startedLifeAt;
@@ -65,6 +67,8 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag(Parent.tag))
+            return;
         if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "Wall")
             return;
 
