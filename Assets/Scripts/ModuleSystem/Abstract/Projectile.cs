@@ -59,7 +59,7 @@ public abstract class Projectile : MonoBehaviour
         foreach (BulletEffect effect in BulletEffects)
             effect.Tick();
 
-        transform.LookAt(RigidBody.velocity);
+        //transform.LookAt(RigidBody.velocity);
 
         OnTick();
     }
