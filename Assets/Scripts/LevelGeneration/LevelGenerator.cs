@@ -397,12 +397,18 @@ namespace Assets.Scripts.LevelGeneration
         private void ClearTiles()
         {
             var existing = GameObject.FindGameObjectsWithTag("Tile");
+            var existingWalls = GameObject.FindGameObjectsWithTag("Wall");
 
             if (existing == null)
+                return;
+            if (existingWalls == null)
                 return;
 
 
             Array.ForEach(existing, child => {
+                EditorApplication.delayCall += () => { DestroyImmediate(child); };
+            });
+            Array.ForEach(existingWalls, child => {
                 EditorApplication.delayCall += () => { DestroyImmediate(child); };
             });
         }
