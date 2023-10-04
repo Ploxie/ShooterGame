@@ -11,7 +11,7 @@ public class CartridgePickup : MonoBehaviour
 
     private void Awake()
     {
-        Assign(ModuleType.WeaponModule, id);
+        //Assign(ModuleType.WeaponModule, id);
     }
 
     public void Assign(ModuleType type, ModuleID id)

@@ -87,7 +87,22 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
             var mod = Random.Range(0, 3);
             ModuleID[] drops = new ModuleID[] { WeaponID, EffectID, BulletID };
-            cartridgeDropInstance.Assign(ModuleType.EffectModule, drops[mod]);
+
+            switch (mod)
+            {
+                case 0:
+                    cartridgeDropInstance.Assign(ModuleType.WeaponModule, drops[mod]);
+                    break;
+                case 1:
+                    cartridgeDropInstance.Assign(ModuleType.EffectModule, drops[mod]);
+                    break;
+                case 2:
+                    cartridgeDropInstance.Assign(ModuleType.BulletModule, drops[mod]);
+                    break;
+                default:
+                    Debug.Log("Haha");
+                    break;
+            }
         }
     }
    
@@ -125,7 +140,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
         dir = dir - dir * 2;
         dir = player.transform.position - dir * 3.5f; //changes direction slightly when player moves away to give a sense of in-accuresy
         RotateTowards(dir); //player.transform.position);
-        //gunController.Shoot();
+        gunController.Shoot();
 
     }
     public void Patrol(Vector3 pos)//a patrol function that looks for the enemy when out of sight when in combination of the FSM
