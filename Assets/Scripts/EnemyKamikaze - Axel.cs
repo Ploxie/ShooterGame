@@ -217,6 +217,7 @@ public class EnemyKamikaze : Living
 
     protected override void OnDeath()
     {
+        agent.isStopped = true;
         scoreManager.UpdateText(100);
         Explode();
         if (effect != null)
