@@ -19,7 +19,8 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     [SerializeField] private ModuleID EffectID;
     [SerializeField] private ModuleID BulletID;
     [SerializeField] CartridgePickup cartridgeDrop;
-
+    
+    
     private GunController gunController;
     private Vector3 spawnPosition;
     private EnemyHealthBar healthBar;
