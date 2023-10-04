@@ -26,15 +26,17 @@ public class Crystal : BulletEffect
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
         GameObject.Destroy(Parent.gameObject);
-        
-        Vector3 position = Parent.transform.position + Quaternion.AngleAxis(270, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
-        Vector3 direction = -Vector3.Cross(Parent.GetComponent<Rigidbody>().velocity.normalized, Vector3.up.normalized);
 
-        GameObject bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
-        bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
+        Vector3 position = Parent.transform.position;
+        Vector3 direction = -Vector3.Cross(Parent.RigidBody.velocity.normalized, Vector3.up);
 
-        position = Parent.transform.position + Quaternion.AngleAxis(90, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
+        float launchSpeed = Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed;
+
+        Projectile bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        bullet.RigidBody.AddRelativeForce(direction * launchSpeed);
+
+        position = Parent.transform.position;
         bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
-        bullet.GetComponent<Rigidbody>().AddRelativeForce(-direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
+        bullet.RigidBody.AddRelativeForce(-direction * launchSpeed);
     }
 }

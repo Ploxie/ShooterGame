@@ -40,8 +40,8 @@ public class GunController : MonoBehaviour
             float angleDeviation = UnityEngine.Random.Range(angle-data.AngleDeviation, angle+data.AngleDeviation);
             Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * fireDirection;
 
-            GameObject bullet = bulletManager.RequestBullet(this, gunVisual.GetBarrelPosition(), Quaternion.identity);
-            bullet.GetComponent<Rigidbody>().AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
+            Projectile bullet = bulletManager.RequestBullet(this, gunVisual.GetBarrelPosition(), Quaternion.identity);
+            bullet.RigidBody.AddRelativeForce(rotatedFireDirection * data.LaunchSpeed);
         }
 
         lastFired = Utils.GetUnixMillis();

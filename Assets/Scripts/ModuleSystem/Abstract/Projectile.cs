@@ -12,7 +12,7 @@ public abstract class Projectile : MonoBehaviour
     protected List<BulletEffect> BulletEffects;
     protected HashSet<int> LivingHit;
 
-    protected Rigidbody projectileRigidbody;
+    public Rigidbody RigidBody;
 
     protected double startedLifeAt;
 
@@ -29,7 +29,7 @@ public abstract class Projectile : MonoBehaviour
         StatusEffects = new List<StatusEffect>();
         BulletEffects = new List<BulletEffect>();
         LivingHit = new HashSet<int>();
-        projectileRigidbody = GetComponent<Rigidbody>();
+        RigidBody = GetComponent<Rigidbody>();
         startedLifeAt = Utils.GetUnixMillis();
 
         //this NEEDS to be replaced with an event system friendly implementation. This is horrible.
@@ -58,7 +58,7 @@ public abstract class Projectile : MonoBehaviour
         foreach (BulletEffect effect in BulletEffects)
             effect.Tick();
 
-        transform.LookAt(projectileRigidbody.velocity);
+        transform.LookAt(RigidBody.velocity);
 
         OnTick();
     }
