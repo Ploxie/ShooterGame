@@ -29,6 +29,8 @@ namespace Assets.Scripts.LevelGeneration
         private GameObject floorsObject;
         private GameObject wallsObject;
 
+        [SerializeField] private PhysicMaterial wallPhysicMaterial;
+
         [SerializeField]
         private NavMeshSurface navmesh;
 
@@ -266,6 +268,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
+                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
                     }
                 }
                 if (tile.HasWall(Tile.Wall.SOUTH))
@@ -279,6 +282,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
+                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
                     }
                 }
                 if (tile.HasWall(Tile.Wall.EAST))
@@ -292,6 +296,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
+                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
                     }
                 }
                 if (tile.HasWall(Tile.Wall.WEST))
@@ -305,6 +310,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
+                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
                     }
                 }
             }
