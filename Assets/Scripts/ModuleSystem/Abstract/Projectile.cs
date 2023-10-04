@@ -70,6 +70,8 @@ public abstract class Projectile : MonoBehaviour
             return;
         if (other.CompareTag(Parent.tag) && other.gameObject.tag != "Wall")
             return;
+        if (other.gameObject.tag == "Pickup")
+            return;
 
         foreach (BulletEffect effect in BulletEffects)
             effect.DoEffect(other.gameObject);
