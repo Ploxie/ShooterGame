@@ -38,12 +38,15 @@ public class Player : Living
         {
             case ModuleType.WeaponModule:
                 weaponModules.Insert(module);
+                moduleController.LoadModule(ModuleType.WeaponModule, module);
                 break;
             case ModuleType.EffectModule:
                 effectModules.Insert(module);
+                moduleController.LoadModule(ModuleType.EffectModule, module);
                 break;
             case ModuleType.BulletModule:
                 bulletModules.Insert(module);
+                moduleController.LoadModule(ModuleType.BulletModule, module);
                 break;
         }
     }
