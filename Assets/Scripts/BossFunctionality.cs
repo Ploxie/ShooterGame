@@ -1,3 +1,4 @@
+using Assets.Scripts.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
@@ -20,9 +21,13 @@ public class BossFunctionality : Living
     Turret turret2;
     [SerializeField]
     GameObject shield;
-    public SpawnEnemy[] be;
+    public EnemySpawner[] be;
     bool releaseEnemies = true;
     private EnemyHealthBar healthBar;
+
+    private double lastSpawn;
+
+    private double spawnTimer = 5000;
 
     currentStateOfCombat state = currentStateOfCombat.TwoTurrets;
     // Start is called before the first frame update
@@ -34,7 +39,9 @@ public class BossFunctionality : Living
 
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
 
-        be = FindObjectsOfType<SpawnEnemy>();
+        be = FindObjectsOfType<EnemySpawner>();
+
+        lastSpawn = Utils.GetUnixMillis();
         //mainComputer.Health = mainComputer.Health / 2;
     }
     public override void Update()
@@ -107,7 +114,10 @@ public class BossFunctionality : Living
     }
     void SpawnEnemy()
     {
-        foreach (SpawnEnemy spawn in be)
+        if (Utils.GetUnixMillis() - lastSpawn < spawnTimer)
+            return;
+        lastSpawn = Utils.GetUnixMillis();
+        foreach (EnemySpawner spawn in be)
         {
             spawn.SpawnRandomEnemy();
         }

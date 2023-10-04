@@ -22,19 +22,17 @@ public class Crystal : BulletEffect
         if (hitObject != null)
             return;
 
-        //Replace with event based system with projectile manager in the future
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile");
 
         GameObject.Destroy(Parent.gameObject);
         
         Vector3 position = Parent.transform.position + Quaternion.AngleAxis(270, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
         Vector3 direction = -Vector3.Cross(Parent.GetComponent<Rigidbody>().velocity.normalized, Vector3.up.normalized);
 
-        GameObject bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        GameObject bullet = bulletManager.RequestBullet(Parent.GunController, Parent.Parent, position, Quaternion.identity, true, false);
         bullet.GetComponent<Rigidbody>().AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
 
         position = Parent.transform.position + Quaternion.AngleAxis(90, Vector3.up) * new Vector3(0, 0, DISTANCE_FROM_ORIGINAL);
-        bullet = bulletManager.RequestBullet(Parent.GunController, position, Quaternion.identity, true, false);
+        bullet = bulletManager.RequestBullet(Parent.GunController, Parent.Parent, position, Quaternion.identity, true, false);
         bullet.GetComponent<Rigidbody>().AddRelativeForce(-direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
     }
 }

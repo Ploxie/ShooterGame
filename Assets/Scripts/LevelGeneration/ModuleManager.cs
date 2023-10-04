@@ -31,6 +31,8 @@ namespace Assets.Scripts.LevelGeneration
                 List<RoomModule> prefabs = new List<RoomModule>();
                 for(int i = 0; i < modules.Length; i++)
                 {
+                    if (!modules[i].enabled)
+                        continue;
                     var prefab = modules[i];
                     if(prefab.IsPrefabDefinition() && prefab.name != StartModule.name && prefab.name != FinalModule.name && prefab.name != CorridorModule.name)
                         prefabs.Add(prefab);
