@@ -32,10 +32,12 @@ public class Crystal : BulletEffect
 
         Projectile bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
         bullet.RigidBody.AddRelativeForce(direction * launchSpeed);
+        bullet.RigidBody.rotation = Quaternion.AngleAxis(90.0f, Vector3.up) * Quaternion.AngleAxis(90.0f, direction);
 
         position = Parent.transform.position;
         bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
         bullet.RigidBody.AddRelativeForce(-direction * launchSpeed);
+        bullet.RigidBody.rotation = Quaternion.AngleAxis(90.0f, Vector3.up) * Quaternion.AngleAxis(90.0f, -direction);
 
     }
 }

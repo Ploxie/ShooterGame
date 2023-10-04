@@ -21,8 +21,10 @@ public class Ricochet : BulletEffect
         }
 
         Parent.ShouldPierce = true;
-        Rigidbody bulletRigidbody = Parent.GetComponent<Rigidbody>();
-        bulletRigidbody.velocity = Vector3.Reflect(bulletRigidbody.velocity, hitObject.transform.rotation * Vector3.forward);
+        Rigidbody bulletRigidbody = Parent.RigidBody;        
+        Vector3 reflectedDirection = Vector3.Reflect(bulletRigidbody.velocity, hitObject.transform.rotation * Vector3.forward);
+        bulletRigidbody.velocity = reflectedDirection;
+        bulletRigidbody.rotation = Quaternion.AngleAxis(90.0f, Vector3.Cross(bulletRigidbody.velocity, Vector3.up)) * Quaternion.LookRotation(bulletRigidbody.velocity.normalized, Vector3.up);
         RicochetCount++;
 
     }

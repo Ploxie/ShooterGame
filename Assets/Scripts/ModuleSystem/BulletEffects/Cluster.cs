@@ -28,8 +28,11 @@ public class Cluster : BulletEffect
                 continue;
             direction.Normalize();
 
+            Vector3 afterDirection = Vector3.Cross(direction, Vector3.up);
+
             Projectile bullet = bulletManager.RequestBullet(Parent.GunController,Parent.Parent, position, Quaternion.identity, true, false);
             bullet.RigidBody.AddRelativeForce(direction * Parent.GunController.ModuleController.GetWeaponData().LaunchSpeed);
+            bullet.RigidBody.rotation =  Quaternion.AngleAxis(90.0f, afterDirection) * Quaternion.LookRotation(direction, Vector3.up);
 
         }
     }

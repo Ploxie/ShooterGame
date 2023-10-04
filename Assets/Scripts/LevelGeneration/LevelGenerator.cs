@@ -275,6 +275,7 @@ namespace Assets.Scripts.LevelGeneration
                         wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y) * Tile.TILE_SIZE;
+                        wall.transform.rotation = Quaternion.Euler(0, 180.0f, 0);
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -284,9 +285,10 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
-                        wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
+                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x + 1, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
+                        wall.transform.rotation = Quaternion.Euler(0, 90.0f, 0);
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;
@@ -296,9 +298,10 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     {
-                        wall.transform.localScale = new Vector3(wallThickness, wallHeight, tileSize);
+                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
                         wall.transform.parent = wallsObject.transform;
                         wall.transform.position = new Vector3(tile.Position.x, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
+                        wall.transform.rotation = Quaternion.Euler(0, -90.0f, 0);
                         wall.tag = "Wall";
                         wall.name = "Wall";
                         wall.isStatic = true;

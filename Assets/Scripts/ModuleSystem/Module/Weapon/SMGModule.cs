@@ -12,10 +12,10 @@ public class SMGModule : WeaponModule
         WeaponData data = new WeaponData
         {
             Damage = 10,
-            FireRate = 50,
+            FireRate = 70,
             LaunchSpeed = 1000,
-            LaunchAngles = new List<float>() { 0, 11.25f, -11.25f },
-            AngleDeviation = 5
+            LaunchAngles = new List<float>() { 0 },
+            AngleDeviation = 20
         };
 
         return data;
