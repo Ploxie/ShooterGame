@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4032159477918280351}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,9 @@ MonoBehaviour:
   Damage: 0
   ShouldPierce: 0
   Lifetime: 5000
+  Parent: {fileID: 0}
   EnemyManager: {fileID: 0}
   OnTickEvent: {fileID: 11400000, guid: d3db43b580c9e21419f889465def7096, type: 2}
   OnHitEvent: {fileID: 11400000, guid: ac61c3c810fe6e4499760901ceb2117e, type: 2}
   OnDeleteEvent: {fileID: 11400000, guid: 0f541c5e6cd86be4c8bcac2ea60b01bd, type: 2}
+  GunController: {fileID: 0}

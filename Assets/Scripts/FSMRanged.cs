@@ -31,6 +31,8 @@ public class FSMRanged : MonoBehaviour
 
     private void Update()
     {
+        if (player == null)
+            player = EnemyManager.Instance.Player;
         switch (state)//switch no work we will try the object oriented way. maybe done points on the map where we show where the enemy should be
         {
             case State.STATE_PATROL://go to last place of enemy and go back to original place. It uses a bool check to keep the patrol state at either look for enemy at a place
@@ -67,7 +69,7 @@ public class FSMRanged : MonoBehaviour
             state = State.STATE_PATROL;
             lastSeenPos = player.transform.position;
         }
-        print(state);
+        //print(state);
         //some form of pathfinding with shooting action
     }
 
@@ -89,7 +91,7 @@ public class FSMRanged : MonoBehaviour
             state = State.STATE_PATROL;
             lastSeenPos = player.transform.position;
         }
-        print(state);
+        //print(state);
         //some form of pathfinding with shooting action
     }
 

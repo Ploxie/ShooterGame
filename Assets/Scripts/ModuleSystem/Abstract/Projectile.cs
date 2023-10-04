@@ -67,9 +67,9 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Parent.tag))
+        if (other.CompareTag("Projectile"))
             return;
-        if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "Wall")
+        if (other.CompareTag(Parent.tag) && other.gameObject.tag != "Wall")
             return;
 
         foreach (BulletEffect effect in BulletEffects)

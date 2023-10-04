@@ -66,12 +66,12 @@ public class Turret : Living
     {
         Quaternion rotation = Quaternion.LookRotation(pos - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
-        print(transform.rotation);
+        //print(transform.rotation);
     }
     public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
     {
         if (player == null)
-            player = FindObjectOfType<Player>();
+            player = enemyManager.Player;
         bool seePlayer = false;
         var rayDirection = player.transform.position - transform.position;
         RaycastHit hit = new RaycastHit();
