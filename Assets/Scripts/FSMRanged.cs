@@ -109,6 +109,7 @@ public class FSMRanged : MonoBehaviour
         float distBetweenEnemyPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         enemy.MoveAwayFromEnemy(player);
+        enemy.Shoot(player);
         if (seen == true)
         {
             if (25f <= distBetweenEnemyPlayer)//move from player
@@ -133,6 +134,7 @@ public class FSMRanged : MonoBehaviour
         float distBetweenEnemyPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         enemy.MoveToEnemy(player);
+        enemy.Shoot(player);
         if (seen == true)
         {
             if (10f < distBetweenEnemyPlayer && 25f > distBetweenEnemyPlayer)//move to player
@@ -147,7 +149,7 @@ public class FSMRanged : MonoBehaviour
             shangedfwrd = true;
             lastSeenPos = player.transform.position;
         }
-        print(state);
+        //print(state);
         //some form of pathfinding with shooting action
     }
 
