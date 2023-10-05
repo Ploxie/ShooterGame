@@ -1,5 +1,4 @@
 using Cinemachine;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour

@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.LevelGeneration
@@ -411,12 +412,12 @@ namespace Assets.Scripts.LevelGeneration
                 return;
 
 
-            Array.ForEach(existing, child => {
-                EditorApplication.delayCall += () => { DestroyImmediate(child); };
-            });
-            Array.ForEach(existingWalls, child => {
-                EditorApplication.delayCall += () => { DestroyImmediate(child); };
-            });
+            //Array.ForEach(existing, child => {
+            //    EditorApplication.delayCall += () => { DestroyImmediate(child); };
+            //});
+            //Array.ForEach(existingWalls, child => {
+            //    EditorApplication.delayCall += () => { DestroyImmediate(child); };
+            //});
         }
 
         private void CombineFloorMeshes()
@@ -451,6 +452,7 @@ namespace Assets.Scripts.LevelGeneration
 
         private void BuildNavMesh()
         {
+           
             navmesh.BuildNavMesh();
         }
 

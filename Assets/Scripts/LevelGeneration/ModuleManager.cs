@@ -34,7 +34,7 @@ namespace Assets.Scripts.LevelGeneration
                     if (!modules[i].enabled)
                         continue;
                     var prefab = modules[i];
-                    if(prefab.IsPrefabDefinition() && prefab.name != StartModule.name && prefab.name != FinalModule.name && prefab.name != CorridorModule.name)
+                    if(prefab.name != StartModule.name && prefab.name != FinalModule.name && prefab.name != CorridorModule.name)
                         prefabs.Add(prefab);
                 }                
 

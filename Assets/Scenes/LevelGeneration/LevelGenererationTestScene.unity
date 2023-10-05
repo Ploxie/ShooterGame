@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 18
   moduleManager: {fileID: 1009885559}
   wallPhysicMaterial: {fileID: 13400000, guid: 175adfe6ebd941b40a55ca5b3da2abef, type: 2}
   navmesh: {fileID: 2074374608}
@@ -208,6 +208,9 @@ MonoBehaviour:
   Randomize: 1
   Modules:
   - {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
+  - {fileID: 8687897499384190641, guid: ebe8327eff94ec045a97172543d57528, type: 3}
+  - {fileID: 2925423135877620360, guid: 225e01ce4a2057e409c3e4c3efafc802, type: 3}
+  - {fileID: 8687897499384190641, guid: 197cd9ae1d3d0d149b9ccd0b6d59b89c, type: 3}
   - {fileID: 2925423135877620360, guid: b10c9066adf20f941901a6135f21855b, type: 3}
 --- !u!4 &1009885560
 Transform:

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor.Overlays;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Assets.Scripts.LevelGeneration
@@ -17,16 +15,6 @@ namespace Assets.Scripts.LevelGeneration
         public BoundsInt Bounds;
 
         private RoomFloor[] floors;
-
-        private void Update()
-        {
-            if(PrefabStageUtility.GetCurrentPrefabStage() != null)
-            {
-                GenerateTiles();
-                transform.position = Vector3.zero;
-                transform.localScale = Vector3.one * Tile.TILE_SIZE;
-            }
-        }
 
 
         public void GenerateTiles()
@@ -76,10 +64,7 @@ namespace Assets.Scripts.LevelGeneration
 
         private void OnDrawGizmos()
         {
-            if (PrefabStageUtility.GetCurrentPrefabStage() == null)
-            {
-                return;
-            }
+
 
             if (Tiles == null)
                 return;
