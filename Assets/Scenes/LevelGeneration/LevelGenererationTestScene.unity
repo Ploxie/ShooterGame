@@ -205,12 +205,12 @@ MonoBehaviour:
   StartModule: {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
   CorridorModule: {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
   FinalModule: {fileID: 2925423135877620360, guid: b10c9066adf20f941901a6135f21855b, type: 3}
-  Randomize: 1
+  Randomize: 0
   Modules:
   - {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
-  - {fileID: 8687897499384190641, guid: ebe8327eff94ec045a97172543d57528, type: 3}
-  - {fileID: 2925423135877620360, guid: 225e01ce4a2057e409c3e4c3efafc802, type: 3}
   - {fileID: 8687897499384190641, guid: 197cd9ae1d3d0d149b9ccd0b6d59b89c, type: 3}
+  - {fileID: 8687897499384190641, guid: ebe8327eff94ec045a97172543d57528, type: 3}
+  - {fileID: 2925423135877620360, guid: 75d46f3c91c50c445b60c3eaf65d0ce0, type: 3}
   - {fileID: 2925423135877620360, guid: b10c9066adf20f941901a6135f21855b, type: 3}
 --- !u!4 &1009885560
 Transform:

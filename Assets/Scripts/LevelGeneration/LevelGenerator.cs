@@ -18,6 +18,7 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField] private int seed;
         [SerializeField] private ModuleManager moduleManager;
 
+
         private List<Room> rooms;
         private HashSet<Tile> tiles;
         private HashSet<Tile> excluded;
@@ -35,8 +36,9 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField]
         private NavMeshSurface navmesh;
 
-        private void Start()
+        private void Awake()
         {
+            moduleManager.Generate();
             Generate();
         }
 
@@ -102,7 +104,8 @@ namespace Assets.Scripts.LevelGeneration
                 var walls = WallGenerator.Generate(tiles);
                 tiles.UnionWith(walls);
 
-                GenerateWalls(Tile.TILE_SIZE); 
+                GenerateWalls(Tile.TILE_SIZE);
+                
             }
 
             CombineFloorMeshes();
@@ -202,8 +205,7 @@ namespace Assets.Scripts.LevelGeneration
         {
             HashSet<Tile> corridors = new HashSet<Tile>();
             int index = 0;
-            
-            for(int i = 1; i < rooms.Count; i++)
+            for (int i = 1; i < rooms.Count; i++)
             {
                 var currentRoom = rooms[index];
                 var nextRoom = rooms[i];
@@ -221,6 +223,7 @@ namespace Assets.Scripts.LevelGeneration
             HashSet<Tile> corridor = new HashSet<Tile>();
             var position = currentRoomCenter;
             corridor.Add(new Tile(position) { IsCorridor = true });
+
             while (position.y != destination.y)
             {
                 if (destination.y > position.y)
@@ -245,6 +248,8 @@ namespace Assets.Scripts.LevelGeneration
                 }
                 corridor.Add(new Tile(position) { IsCorridor = true });
             }
+            
+            
             return corridor;
         }
 

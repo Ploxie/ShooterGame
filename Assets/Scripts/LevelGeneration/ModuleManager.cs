@@ -20,7 +20,7 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField] public bool Randomize;
         [SerializeField] public RoomModule[] Modules;
 
-        private void OnValidate()
+        public void Generate()
         {
             // This should be made more interesting, this was mainly to give the option to create a predefined level with certain modules in order
             if(Randomize)
