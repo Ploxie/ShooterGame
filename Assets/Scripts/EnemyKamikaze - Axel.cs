@@ -240,7 +240,7 @@ public class EnemyKamikaze : Living
         }
     }
 
-    void Explode()
+    public void Explode()
     {
         explosionDamageHitBox.gameObject.SetActive(true);
         explosionDamageHitBox.Activate();

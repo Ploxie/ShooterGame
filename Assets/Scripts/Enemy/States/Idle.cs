@@ -13,7 +13,7 @@ public class Idle : State
 
     protected Player player;
 
-     [SerializeField] protected float detectionRange = 5;
+    [SerializeField] protected float detectionRange = 5;
 
 
     public override void Init(object parent)
@@ -26,17 +26,17 @@ public class Idle : State
     {
         if (Vector3.Distance(enemy.transform.position, player.transform.position) < detectionRange)
         {
-            enemy.StateMachine.SetState(typeof(RunToPlayer));
+            enemy.StateMachine.SetState(typeof(KamikazeRunToPlayer));
         }
     }
 
     public override void Exit()
     {
-        
+
     }
 
     public override void Update()
     {
-        
+
     }
 }

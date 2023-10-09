@@ -44,6 +44,7 @@ public abstract class Enemy : Living
     protected override void OnDeath()
     {
         base.OnDeath();
+        StateMachine.SetState(typeof(Death));
     }
 
     public override void TakeDamage(float damage)

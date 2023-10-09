@@ -6,13 +6,13 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "States/Enemy/RunToPlayer")]
 public /*abstract*/ class RunToPlayer : State
 {
-    Enemy enemy;
+    protected Enemy enemy;
 
-    Vector3 targetLocation;
+    protected Vector3 targetLocation;
 
-    NavMeshAgent agent;
+    protected NavMeshAgent agent;
 
-    Player player;
+    protected Player player;
     public override void Init(object parent)
     {
         base.Init(parent);
@@ -22,10 +22,15 @@ public /*abstract*/ class RunToPlayer : State
     }
     public override void ChangeState()
     {
-        if (Vector3.Distance(player.transform.position, enemy.transform.position) > 10)
+        if (Vector3.Distance(player.transform.position, enemy.transform.position) > 20)
         {
             agent.isStopped = true;
             enemy.StateMachine.SetState(typeof(Idle));
+        }
+        else if (Vector3.Distance(player.transform.position, enemy.transform.position) < 2)
+        {
+            agent.isStopped = true;
+            enemy.StateMachine.SetState(typeof(Death));
         }
     }
 
