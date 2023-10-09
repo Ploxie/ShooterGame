@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1199364917430786043}
   - component: {fileID: 5221511798755955050}
   - component: {fileID: 4555118920110067795}
+  - component: {fileID: 7560273735874215680}
   m_Layer: 30
   m_Name: Player
   m_TagString: Player
@@ -187,6 +188,22 @@ MonoBehaviour:
   Stunned: 0
   StunDuration: 0
   GunVisual: {fileID: 1018399607209050969}
+  OnHealthPackPickUpEvent: {fileID: 0}
+--- !u!114 &7560273735874215680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272457671779713946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24885f7375d69146934303f12498b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _yaw: 0
+  _pitch: 60
+  _zoom: 25
 --- !u!1001 &3306943635200028497
 PrefabInstance:
   m_ObjectHideFlags: 0

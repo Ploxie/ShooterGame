@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gun;
     [SerializeField] private int floorLayerMaskIndex;
 
+    public Vector3 AimPosition;
+    public Vector3 LastAimPosition;
+
     private int layerMask;
     private GunController gunController;
 
@@ -22,8 +25,8 @@ public class PlayerController : MonoBehaviour
         layerMask = 1 << floorLayerMaskIndex;
 
         var camera = FindObjectOfType<CinemachineVirtualCamera>();
-        camera.Follow = transform;
-        camera.LookAt = transform;
+        //camera.Follow = transform;
+        //camera.LookAt = transform;
     }
 
     private void Update()
@@ -42,10 +45,20 @@ public class PlayerController : MonoBehaviour
 
         if (floorPlane.Raycast(cameraRay, out float rayLength))
         {
-            Vector3 point = cameraRay.GetPoint(rayLength);
+            var rayHit = cameraRay.GetPoint(rayLength);
 
-            transform.LookAt(new Vector3(point.x, rb.transform.position.y, point.z));
+            LastAimPosition = AimPosition;
+            var aimPos = new Vector3(rayHit.x, rb.transform.position.y, rayHit.z);
+            var aimDir = ((aimPos - transform.position) * 100.0f).normalized;
+            aimDir.y = 0.0f;
+            AimPosition = Vector3.Lerp(LastAimPosition, aimPos, Time.deltaTime * 20.0f);
+
+            //AimPosition = aimPos;
+            //transform.LookAt(rb.transform.position + (aimDir * 50.0f));
+            transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 20.0f);
+            
         }
+
     }
 
     private void HandleMovementInput()
@@ -53,7 +66,7 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveDirection = new Vector3(x, 0.0f, z).normalized;
+        Vector3 moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
         
         //rb.transform.Translate(moveDirection * Time.deltaTime * player.MovementSpeed, Space.World);
