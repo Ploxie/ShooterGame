@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
         layerMask = 1 << floorLayerMaskIndex;
 
         var camera = FindObjectOfType<CinemachineVirtualCamera>();
-        //camera.Follow = transform;
-        //camera.LookAt = transform;
+        camera.Follow = transform;
+        camera.LookAt = transform;
     }
 
     private void Update()
