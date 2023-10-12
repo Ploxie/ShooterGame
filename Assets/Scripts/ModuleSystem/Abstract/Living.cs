@@ -11,9 +11,6 @@ public abstract class Living : MonoBehaviour
     public float DefaultMovementSpeed;
     public float DefaultDamage;
 
-    public GameEvent OnHealthChangedEvent;
-    public GameEvent OnDeathEvent;
-
     public bool RegenHealth;
     public bool Slowable;
     public bool Nerfable;
@@ -55,7 +52,7 @@ public abstract class Living : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         Health -= damage * DamageTakenMultiplier;
-        OnHealthChangedEvent.Raise(this, Health);
+        //OnHealthChangedEvent.Raise(this, Health);
         OnDamage();
     }
 
@@ -108,7 +105,7 @@ public abstract class Living : MonoBehaviour
             if (Alive)
             {
                 OnDeath();
-                OnDeathEvent?.Raise(this, 0);
+                //OnDeathEvent?.Raise(this, 0);
                 Alive = false;
             }
         }

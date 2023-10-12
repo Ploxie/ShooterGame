@@ -15,7 +15,7 @@ public class Player : Living
     private ModuleHolder effectModules;
     private ModuleHolder bulletModules;
 
-    [SerializeField] GameEvent OnHealthPackPickUpEvent;
+    //GameEvent OnHealthPackPickUpEvent;
 
     public override void Awake()
     {

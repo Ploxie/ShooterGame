@@ -19,9 +19,10 @@ public abstract class Projectile : MonoBehaviour
 
     public EnemyManager EnemyManager;
 
-    public GameEvent OnTickEvent;
-    public GameEvent OnHitEvent;
-    public GameEvent OnDeleteEvent;
+    // REPLACE WITH PROPER EVENTS AFTER REFACTORING
+    //public GameEvent OnTickEvent;
+    //public GameEvent OnHitEvent;
+    //public GameEvent OnDeleteEvent;
 
     public GunController GunController;
 

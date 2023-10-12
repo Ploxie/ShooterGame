@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class HealthPack : MonoBehaviour
 {
-    [SerializeField] private GameEvent OnHealthPackPickUpEvent;
+    //[SerializeField] private GameEvent OnHealthPackPickUpEvent;
     [SerializeField] private GameObject pickUpText;
     [SerializeField] private int healing;
 
@@ -25,7 +25,7 @@ public class HealthPack : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                OnHealthPackPickUpEvent.Raise(this, healing);
+                //OnHealthPackPickUpEvent.Raise(this, healing);
                 gameObject.SetActive(false);
                 pickUpText.SetActive(false);
                 GameObject.Destroy(this.gameObject);
