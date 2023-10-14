@@ -198,7 +198,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: 18c38db93f9cd5c4fa0ea65c36f56af1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4899044704703110069, guid: 76b28677611ac36429e54e086f9aac1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.5
+      value: -52.329998
       objectReference: {fileID: 0}
     - target: {fileID: 4899044704703110069, guid: 76b28677611ac36429e54e086f9aac1d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -360,7 +360,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: 18c38db93f9cd5c4fa0ea65c36f56af1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,7 +490,7 @@ Transform:
   m_GameObject: {fileID: 303370979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.45, y: 0, z: -6.73}
+  m_LocalPosition: {x: -0.45, y: 0, z: -24.559998}
   m_LocalScale: {x: 1.8593049, y: 1.6275, z: 6.49302}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -563,7 +563,7 @@ Transform:
   m_GameObject: {fileID: 417269040}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -17.829998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -644,7 +644,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: 167a60282f922bf4fbcb1a81bb6c9373, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -754,7 +754,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: 167a60282f922bf4fbcb1a81bb6c9373, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -809,7 +809,7 @@ Transform:
   m_GameObject: {fileID: 614680832}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.153, y: 2.93, z: -25.27}
+  m_LocalPosition: {x: -2.153, y: 2.93, z: -43.1}
   m_LocalScale: {x: 0.9805425, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -902,7 +902,7 @@ Transform:
   m_GameObject: {fileID: 710380848}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2188992, y: -0, z: -0, w: 0.9757475}
-  m_LocalPosition: {x: 0, y: 6.79, z: -13.56}
+  m_LocalPosition: {x: 0, y: 6.79, z: -31.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -933,7 +933,7 @@ Transform:
   m_GameObject: {fileID: 726610983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.153, y: 2.93, z: -7.91}
+  m_LocalPosition: {x: -2.153, y: 2.93, z: -25.739998}
   m_LocalScale: {x: 0.9805425, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -970,7 +970,7 @@ Transform:
   m_GameObject: {fileID: 1022759528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2431927, y: -9.256042, z: -22.769907}
+  m_LocalPosition: {x: -4.2431927, y: -9.256042, z: -40.599907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1039,6 +1039,10 @@ PrefabInstance:
     - target: {fileID: 4972167997025983191, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
       propertyPath: m_Name
       value: Sci Fi Gates
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148571496422144611, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
+      propertyPath: keyText
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1120,7 +1124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: d4e1ca1c630db5b4fbd7eef68592464b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1225,7 +1229,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cb387c0363a7bf40b07fa2f3c550980, type: 2}
+  - {fileID: 2100000, guid: d4e1ca1c630db5b4fbd7eef68592464b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1273,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537885549018535796, guid: 2bfcc371ab042f14b930a05db2bfbebb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.8
+      value: -50.629997
       objectReference: {fileID: 0}
     - target: {fileID: 537885549018535796, guid: 2bfcc371ab042f14b930a05db2bfbebb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1404,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sci Fi Gates
       objectReference: {fileID: 0}
+    - target: {fileID: 8148571496422144611, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
+      propertyPath: keyText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1434,7 +1442,7 @@ Transform:
   m_GameObject: {fileID: 1606608585}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.153, y: 2.93, z: 13.7}
+  m_LocalPosition: {x: -2.153, y: 2.93, z: -4.129998}
   m_LocalScale: {x: 0.9805425, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1494,7 +1502,7 @@ PrefabInstance:
       value: Sci Fi Gates
       objectReference: {fileID: 0}
     - target: {fileID: 8148571496422144611, guid: 22d2c44fed4ffa743aac7afe4d993905, type: 3}
-      propertyPath: image
+      propertyPath: keyText
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1527,7 +1535,7 @@ Transform:
   m_GameObject: {fileID: 1891568279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.38, y: 2.96, z: -19.18}
+  m_LocalPosition: {x: -1.38, y: 2.96, z: -37.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1642,7 +1650,7 @@ Transform:
   m_GameObject: {fileID: 2068977516}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: -17.829998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1774,6 +1782,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedKey
       objectReference: {fileID: 0}
+    - target: {fileID: 3942257321213359800, guid: cb5326bebd0023949abffd47e8a462f1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4e1ca1c630db5b4fbd7eef68592464b, type: 2}
     - target: {fileID: 6699460295943623448, guid: cb5326bebd0023949abffd47e8a462f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.973192
