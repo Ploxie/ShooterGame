@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ImagePopUp : MonoBehaviour
 {
-    public Image image;
+    public TMP_Text keyText;
     public Transform target;
 
     // Start is called before the first frame update
@@ -17,6 +18,6 @@ public class ImagePopUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        image.transform.LookAt(target);
+        keyText.transform.LookAt(target);
     }
 }

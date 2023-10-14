@@ -5,74 +5,26 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private Animator anim;
-    private bool isOpen;
-    private bool openDoor;
-    private bool closeDoor;
-    private bool inTrigger;
-    public GameObject imageE;
+    [SerializeField] private Key.KeyType keyType;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
-        isOpen = false;
-        openDoor = false;
-        closeDoor = false;
-        imageE.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Key.KeyType GetKeyType()
     {
-        //Använda events(??) för att skippa många if satser.
-
-        if (Input.GetKeyDown(KeyCode.E) && isOpen == false && inTrigger == true /* && Player.RedKey == true*/)
-        {
-            Debug.Log("Open Door");
-            openDoor = true;
-            closeDoor = false;
-            //anim.SetTrigger("DoorOpen");
-        }
-        if (Input.GetKeyDown(KeyCode.E) && isOpen == true && inTrigger == true /* && Player.RedKey == true*/)
-        {
-            Debug.Log("Close Door");
-            closeDoor = true;
-            openDoor = false;
-            //anim.SetTrigger("Reset");
-        }
+        return keyType;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OpenDoor()
     {
-        Debug.Log("Entered");
-        imageE.SetActive(true);
-        inTrigger = true;
-
+        Debug.Log("Open Door");
+        anim.SetTrigger("DoorOpen");
     }
-    private void OnTriggerStay(Collider other)
+    public void CloseDoor()
     {
-        if (isOpen == false)
-        {
-            if (openDoor == true)
-            {
-                Debug.Log("Open Door");
-                isOpen = true;
-                anim.SetTrigger("DoorOpen");
-            }
-        }
-        if (isOpen == true)
-        {
-            if (openDoor == false)
-            {
-                Debug.Log("Close Door");
-                isOpen = false;
-                anim.SetTrigger("Reset");
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other) 
-    {
-        Debug.Log("Exited");
-        imageE.SetActive(false);
-        inTrigger = false;
+        Debug.Log("Close Door");
+        anim.SetTrigger("Reset");
     }
 }
