@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,47 @@ using UnityEngine;
 public class KeySystem : MonoBehaviour
 {
 
-    public List<GameObject> keys = new List<GameObject>();
+    [SerializeField] private List<Key.KeyType> keyList;
 
-    private void OnTriggerEnter(Collider objectYouHit)
+    private void Awake()
     {
-        if (objectYouHit.gameObject.name == "BlueKey")
+        keyList = new List<Key.KeyType>();
+    }
+
+    public void AddKey(Key.KeyType keyType)
+    {
+        Debug.Log($"Added key: {keyType}");
+        keyList.Add(keyType);
+    }
+
+    public void RemoveKey(Key.KeyType keyType)
+    {
+        Debug.Log($"Removed key: {keyType}");
+        keyList.Remove(keyType);
+    }
+
+    public bool ContainsKey(Key.KeyType keyType)
+    {
+        return keyList.Contains(keyType);
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        Key key = collider.GetComponent<Key>();
+        if (key != null)
         {
-            keys.Add(objectYouHit.gameObject);
-            Destroy(objectYouHit.gameObject);
+            AddKey(key.GetKeyType());
+            Destroy(key.gameObject);
+        }
+
+        Door keyDoor = collider.GetComponent<Door>();
+        if (keyDoor != null)
+        {
+            if (ContainsKey(keyDoor.GetKeyType()))
+            {
+                RemoveKey(keyDoor.GetKeyType());
+                keyDoor.OpenDoor();
+            }
         }
     }
 }

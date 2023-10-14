@@ -18,6 +18,7 @@ TagManager:
   - HealthBar
   - Projectile
   - Pickup
+  - Keys
   layers:
   - Default
   - TransparentFX
