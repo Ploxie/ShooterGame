@@ -10,7 +10,8 @@ public class Key : MonoBehaviour
     {
         Red,
         Green,
-        Blue
+        Blue,
+        Purple
     }
 
     public KeyType GetKeyType()
