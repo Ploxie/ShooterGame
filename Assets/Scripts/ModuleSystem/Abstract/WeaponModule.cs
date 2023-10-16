@@ -11,7 +11,7 @@ public enum WeaponType
     Shotgun
 }
 
-public abstract class WeaponModule : Module
+public abstract class WeaponModule : Module2
 {
     public WeaponType TypeOfWeapon;
 

@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
@@ -72,7 +73,7 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
 
     protected override void OnDeath()
     {
-        ScoreManager.Instance?.UpdateText(99); // TODO: Eventify
+        EventManager.TriggerScoreChanged(99);
         Die();
         Destroy(gameObject);
     }
@@ -228,6 +229,6 @@ public class EnemyRanged : Living //a script that utilizes the navmeshagent for 
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.TakeDamage(damage); // TODO: Eventify
+        //healthBar.TakeDamage(damage); // TODO: Eventify
     }
 }

@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ public class Idle : State
 
     protected Vector3 targetLocation;
 
-    protected Player player;
+    protected Assets.Scripts.Entity.Player player;
 
      [SerializeField] protected float detectionRange = 5;
 

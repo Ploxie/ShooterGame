@@ -1,18 +1,14 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CartridgePickup : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public ModuleType type;
     public ModuleID id;
 
-    private void Awake()
-    {
-        //Assign(ModuleType.WeaponModule, id);
-    }
+    public Module Module;
 
     public void Assign(ModuleType type, ModuleID id)
     {
@@ -20,17 +16,24 @@ public class CartridgePickup : MonoBehaviour
         this.id = id;
     }
 
-    private void OnTriggerStay(Collider other)
+    public void ApplyModuleTo(Gun gun)
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (other.CompareTag("Player"))
-            {
-                other.GetComponent<Player>().PickupModule(type, ModuleRegistry.CreateModuleByID(id));
-                Destroy(gameObject);
-            }
+        if (gun == null)
+            return;
 
+        if (Module is Assets.Scripts.Entity.StatusEffect statusEffect) //TODO: Remove namespace
+        {
+            gun.StatusEffect = statusEffect;
+        }
+        else if (Module is ProjectileEffect projectileEffect)
+        {
+            gun.ProjectileEffect = projectileEffect;
+        }
+        else if (Module is Weapon weaponModule)
+        {
+            gun.Weapon = weaponModule;
         }
 
+        Destroy(gameObject);
     }
 }

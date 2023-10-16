@@ -29,7 +29,7 @@ public class ModuleController : MonoBehaviour
         }
     }
 
-    public void LoadModule(ModuleType type, Module module)
+    public void LoadModule(ModuleType type, Module2 module)
     {
         switch (type)
         {

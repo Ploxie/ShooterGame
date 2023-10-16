@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;

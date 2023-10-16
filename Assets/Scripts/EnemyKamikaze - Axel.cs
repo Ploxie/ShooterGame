@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -231,7 +232,7 @@ public class EnemyKamikaze : Living
     protected override void OnDeath()
     {
         agent.isStopped = true;
-        scoreManager.UpdateText(100);
+        EventManager.TriggerScoreChanged(100);
         Explode();
         if (effect != null)
         {
@@ -262,7 +263,7 @@ public class EnemyKamikaze : Living
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.TakeDamage(damage);
+        //healthBar.TakeDamage(damage);
     }
 
 }

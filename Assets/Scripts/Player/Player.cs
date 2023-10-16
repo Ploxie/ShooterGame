@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,13 +27,13 @@ public class Player : Living
         bulletModules = new ModuleHolder();
 
         weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
-        Module pistol = weaponModules.Peek();
+        Module2 pistol = weaponModules.Peek();
         moduleController.LoadModule(ModuleType.WeaponModule, pistol);
 
         base.Awake();
     }
 
-    public void PickupModule(ModuleType moduleType, Module module)
+    public void PickupModule(ModuleType moduleType, Module2 module)
     {
         switch (moduleType)
         {
@@ -66,7 +67,7 @@ public class Player : Living
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Module weaponModule = weaponModules.Peek();
+            Module2 weaponModule = weaponModules.Peek();
             if (weaponModule == null)
                 weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
             weaponModule = weaponModules.Cycle();
@@ -80,5 +81,11 @@ public class Player : Living
             moduleController.LoadModule(ModuleType.BulletModule, bulletModules.Cycle());
 
         base.Update();
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        EventManager.TriggerPlayerHealthChanged(Health);
     }
 }

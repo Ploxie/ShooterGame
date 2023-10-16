@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using Assets.Scripts.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
@@ -129,7 +130,7 @@ public class BossFunctionality : Living
     protected override void OnDeath()
     {
         base.OnDeath();
-        ScoreManager.Instance?.UpdateText(1000);
+        EventManager.TriggerScoreChanged(1000);
         SceneManager.LoadScene("VictoryScreen");
         gameObject.active = false;
     }

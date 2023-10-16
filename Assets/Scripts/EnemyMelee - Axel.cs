@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
@@ -152,7 +153,7 @@ public class EnemyMelee : Living
 
     protected override void OnDeath()
     {
-        scoreManager.UpdateText(100); // Eventify
+        EventManager.TriggerScoreChanged(100);
         animator.SetTrigger("Die");
         agent.isStopped = true;
         agent.angularSpeed = 0;
@@ -311,7 +312,7 @@ public class EnemyMelee : Living
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.TakeDamage(damage);
+        //healthBar.TakeDamage(damage);
     }
 }
 

@@ -51,7 +51,7 @@ public static class ModuleRegistry
         { ModuleID.BUL_RICOCHET, "Ricochet" }
     };
 
-    public static Module CreateModuleByID(ModuleID id)
+    public static Module2 CreateModuleByID(ModuleID id)
     {
         switch (id)
         {

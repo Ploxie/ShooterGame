@@ -2,7 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemy : Enemy
+namespace Assets.Scripts.Entity
 {
-    // Start is called before the first frame update
+    public class TestEnemy : Enemy
+    {
+
+        protected override void OnDeath()
+        {
+            base.OnDeath();
+            SpawnCartridgePickup(new PistolWeapon());
+        }
+
+    }
 }

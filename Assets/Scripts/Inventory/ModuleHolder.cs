@@ -6,17 +6,17 @@ public class ModuleHolder
 
     private int accessPointer;
     private int insertionPointer;
-    private Module[] storage;
+    private Module2[] storage;
 
 
     public ModuleHolder()
     {
         accessPointer = 0;
         insertionPointer = 0;
-        storage = new Module[MODULE_STORAGE_CAPACITY];
+        storage = new Module2[MODULE_STORAGE_CAPACITY];
     }
 
-    public void Insert(Module module)
+    public void Insert(Module2 module)
     {
         if (insertionPointer > MODULE_STORAGE_CAPACITY - 1)
             insertionPointer = 0;
@@ -25,12 +25,12 @@ public class ModuleHolder
         insertionPointer++;
     }
 
-    public Module Peek()
+    public Module2 Peek()
     {
         return storage[accessPointer];
     }
 
-    public Module Cycle()
+    public Module2 Cycle()
     {
         accessPointer++;
         if (accessPointer >= insertionPointer)

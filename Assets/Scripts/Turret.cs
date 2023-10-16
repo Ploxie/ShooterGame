@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -109,11 +110,11 @@ public class Turret : Living
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        healthBar.TakeDamage(damage);
+        //healthBar.TakeDamage(damage);
     }
     protected override void OnDeath()
-    {
-        ScoreManager.Instance?.UpdateText(-10);
+    {        
+        EventManager.TriggerScoreChanged(-10);
         alive = false;
         base.OnDeath();
     }

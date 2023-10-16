@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public /*abstract*/ class RunToPlayer : State
 
     NavMeshAgent agent;
 
-    Player player;
+    Assets.Scripts.Entity.Player player;
     public override void Init(object parent)
     {
         base.Init(parent);
