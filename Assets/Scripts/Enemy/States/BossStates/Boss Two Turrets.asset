@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61527ca4e70df45449933652e41b21f5, type: 3}
-  m_Name: Idle
+  m_Script: {fileID: 11500000, guid: e041c4b273da5de489bbf81ddf64a519, type: 3}
+  m_Name: Boss Two Turrets
   m_EditorClassIdentifier: 
-  detectionRange: 5

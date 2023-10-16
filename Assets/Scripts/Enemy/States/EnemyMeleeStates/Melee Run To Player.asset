@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e143500da9d496548a50eb16a3146403, type: 3}
-  m_Name: RunToPlayer
+  m_Script: {fileID: 11500000, guid: 9ad44612831e03b4b8556284af0c8253, type: 3}
+  m_Name: Melee Run To Player
   m_EditorClassIdentifier: 

@@ -4768,6 +4768,22 @@ PrefabInstance:
       propertyPath: turret2
       value: 
       objectReference: {fileID: 4112806283600445967}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.data[0]
+      value: 
+      objectReference: {fileID: 2603618551086933588}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.data[1]
+      value: 
+      objectReference: {fileID: 4112806283600445967}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: SpawnPositions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6755498765752554789, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2

@@ -35,21 +35,21 @@ public class SpawnEnemy : MonoBehaviour
     public void SetupMeleeEnemy(GameObject meleeEnemyObject)
     {
         EnemyMelee meleeEnemy = meleeEnemyObject.GetComponent<EnemyMelee>();
-        meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
+        //meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
     }
 
     public void SetupKamikazeEnemy(GameObject meleeEnemyObject)
     {
         EnemyKamikaze meleeEnemy = meleeEnemyObject.GetComponent<EnemyKamikaze>();
-        meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
+        //meleeEnemy.effect = (EffectModule)ModuleRegistry.CreateModuleByID(EffectID);
     }
 
     public void SetupRangedEnemy(GameObject rangedEnemyObject)
     {
         EnemyRanged rangedEnemy = rangedEnemyObject.GetComponent<EnemyRanged>();
-        rangedEnemy.ModuleController.LoadModule(ModuleType.WeaponModule, ModuleRegistry.CreateModuleByID(WeaponID));
-        rangedEnemy.ModuleController.LoadModule(ModuleType.EffectModule, ModuleRegistry.CreateModuleByID(EffectID));
-        rangedEnemy.ModuleController.LoadModule(ModuleType.BulletModule, ModuleRegistry.CreateModuleByID(BulletID));
+        //rangedEnemy.ModuleController.LoadModule(ModuleType.WeaponModule, ModuleRegistry.CreateModuleByID(WeaponID));
+        //rangedEnemy.ModuleController.LoadModule(ModuleType.EffectModule, ModuleRegistry.CreateModuleByID(EffectID));
+        //rangedEnemy.ModuleController.LoadModule(ModuleType.BulletModule, ModuleRegistry.CreateModuleByID(BulletID));
     }
 
     public void SpawnRandomEnemy()

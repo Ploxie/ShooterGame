@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "States/Enemy/Idle")]
+[CreateAssetMenu(menuName = "States/Enemy/Generic/Idle")]
 
-public class Idle : State
+public abstract class Idle : State
 {
     protected Enemy enemy;
 
@@ -14,30 +14,20 @@ public class Idle : State
 
     protected Assets.Scripts.Entity.Player player;
 
-     [SerializeField] protected float detectionRange = 5;
+     [SerializeField] protected float detectionRange = 50;
 
 
     public override void Init(object parent)
     {
         base.Init(parent);
         enemy = (Enemy)parent;
-        player = enemy.Player;
     }
-    public override void ChangeState()
+    public override void Enter()
     {
-        if (Vector3.Distance(enemy.transform.position, player.transform.position) < detectionRange)
-        {
-            enemy.StateMachine.SetState(typeof(RunToPlayer));
-        }
+       enemy.Agent.isStopped = true;
     }
-
     public override void Exit()
     {
-        
-    }
-
-    public override void Update()
-    {
-        
+        enemy.Agent.isStopped = false;
     }
 }

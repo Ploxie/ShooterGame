@@ -1520,15 +1520,17 @@ MonoBehaviour:
   MovementSpeedMultiplier: 1
   Stunned: 0
   StunDuration: 0
-  explosionDamageHitBox: {fileID: 6981675018335404132}
-  detectionRange: 50
-  diveRange: 10
-  player: {fileID: 0}
+  cartridgePickup: {fileID: 0}
+  StateMachine:
+    states:
+    - {fileID: 11400000, guid: 84b9573872f0f2343ab1a130dff879b8, type: 2}
+    - {fileID: 11400000, guid: 7a02ed7a69dba2a4282e6b0b72c06930, type: 2}
+    - {fileID: 11400000, guid: b3877f7f7add329488f6e5b97bbdd9b6, type: 2}
+    - {fileID: 11400000, guid: 8fcbeb33fa5666741a51938495528ed6, type: 2}
+    activeState: {fileID: 0}
+  <DiveRange>k__BackingField: 3
+  ExplosionDamageHitBox: {fileID: 6981675018335404132}
   model: {fileID: -3168422337102530296}
-  EffectModuleID: 6
-  cartridgeDrop: {fileID: 3678300901976898227, guid: c6ede2bd54da7124c978bc86fb7ed1a2, type: 3}
-  healthBarObject: {fileID: 7607863008056584553}
-  state: 0
 --- !u!114 &1238453961026415036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2418,7 +2420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &923245816954247015
 Transform:
   m_ObjectHideFlags: 0
@@ -2709,8 +2711,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7607863008056584553 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6639318290126393700, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
-  m_PrefabInstance: {fileID: 3870588613019367437}
-  m_PrefabAsset: {fileID: 0}

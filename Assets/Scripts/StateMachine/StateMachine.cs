@@ -10,18 +10,20 @@ public class StateMachine
     [SerializeField] private List<State> states;
 
     private readonly Dictionary<Type, State> stateByType = new();
-    private State activeState;
+    [SerializeField] private State activeState;
     private object parent;
+    private Enemy enemy;
 
     public void Init(object parent)
     {
         this.parent = parent;
-        //states.ForEach(s => stateByType.Add(s.GetType(), s));
-        foreach (State s in states)
-        {
-            stateByType.Add(s.GetType(), s);
-        }
+        enemy = (Enemy)parent;
 
+        foreach (var state in states)
+        {
+            State tempState = UnityEngine.Object.Instantiate(state);
+            stateByType.Add(tempState.GetType(), tempState);
+        }
         SetState(states[0].GetType());
     }
 
@@ -31,9 +33,10 @@ public class StateMachine
         {
             activeState.Exit();
         }
-
+        Debug.Log(newStateType + " " + enemy.transform.name);
         activeState = stateByType[newStateType];
         activeState.Init(parent);
+        activeState.Enter();
     }
     public void Update()
     {

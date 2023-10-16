@@ -4,36 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu (menuName = "States/Enemy/RunToPlayer")]
-public /*abstract*/ class RunToPlayer : State
+
+[CreateAssetMenu(menuName = "States/Enemy/Generic/RunToPlayer")]
+public abstract class RunToPlayer : State
 {
-    Enemy enemy;
+    protected Enemy enemy;
 
-    Vector3 targetLocation;
+    protected Vector3 targetLocation;
 
-    NavMeshAgent agent;
+    protected NavMeshAgent agent;
 
-    Assets.Scripts.Entity.Player player;
+    protected Assets.Scripts.Entity.Player player;
+
     public override void Init(object parent)
     {
         base.Init(parent);
         enemy = (Enemy)parent;
-        agent = enemy.Agent;
         player = enemy.Player;
     }
     public override void ChangeState()
     {
-        
-    }
-
-    public override void Exit()
-    {
-        
+        if (Vector3.Distance(player.transform.position, enemy.transform.position) > 20)
+        {
+            enemy.Agent.isStopped = true;
+            enemy.StateMachine.SetState(typeof(Idle));
+        }
     }
 
     public override void Update()
+    {       
+        enemy.Agent.SetDestination(player.transform.position);
+    }
+
+    public override void Enter()
     {
-        targetLocation = player.transform.position;
-        agent.SetDestination(targetLocation);
+        enemy.Agent.isStopped = false;
     }
 }

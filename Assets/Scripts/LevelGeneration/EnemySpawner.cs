@@ -43,19 +43,19 @@ namespace Assets.Scripts.LevelGeneration
                 case EnemyType.Kamikaze:
                     EnemyKamikaze kamikazeEnemy = enemy.GetComponent<EnemyKamikaze>();
                     randomModule = (ModuleID)Random.Range(5, 9);
-                    kamikazeEnemy.SwapModule(randomModule);
+                    //kamikazeEnemy.SwapModule(randomModule);
                     break;
                 case EnemyType.Melee:
                     EnemyMelee meleeEnemy = enemy.GetComponent<EnemyMelee>();
                     randomModule = (ModuleID)Random.Range(5, 9);
-                    meleeEnemy.SwapModule(randomModule);
+                    //meleeEnemy.SwapModule(randomModule);
                     break;
                 case EnemyType.Ranged:
                     EnemyRanged rangedEnemy = enemy.GetComponent<EnemyRanged>();
                     ModuleID weaponID = (ModuleID)Random.Range(0, 4);
                     ModuleID effectID = (ModuleID)Random.Range(5, 9);
                     ModuleID bulletID = (ModuleID)Random.Range(10, 15);
-                    rangedEnemy.SwapModules(weaponID, effectID, bulletID);
+                    //rangedEnemy.SwapModules(weaponID, effectID, bulletID);
                     break;
             }
 
