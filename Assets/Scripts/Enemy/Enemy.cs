@@ -46,7 +46,10 @@ namespace Assets.Scripts.Entity
 
         protected void SpawnCartridgePickup(Module module)
         {
-            GameObject prefab = Instantiate(module.DropPrefab, transform.position, Quaternion.identity);
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.y = 0.0f;
+
+            GameObject prefab = Instantiate(module.DropPrefab, spawnPosition, Quaternion.identity);
             CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
             {
                 pickup.Module = module;

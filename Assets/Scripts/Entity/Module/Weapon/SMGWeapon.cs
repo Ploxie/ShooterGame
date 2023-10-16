@@ -10,6 +10,7 @@ namespace Assets.Scripts.Entity
     {
         public SMGWeapon()
         {
+            Name = "SMG";
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
             Range = 10.0f;

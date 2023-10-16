@@ -12,6 +12,7 @@ namespace Assets.Scripts.Entity
 
         public PistolWeapon()
         {
+            Name = "Pistol";
             Damage = 15.0f;
             ProjectileSpeed = 10.0f;
             Range = 10.0f;

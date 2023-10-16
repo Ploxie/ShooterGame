@@ -1,3 +1,4 @@
+using Assets.Scripts.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +42,7 @@ public class BossMiddleFight : State
             return;
 
         lastSpawn = Utils.GetUnixMillis();
-        foreach (SpawnEnemy spawn in enemyBoss.SpawnPositions)
+        foreach (EnemySpawner spawn in enemyBoss.SpawnPositions)
         {
             spawn.SpawnRandomEnemy();
         }

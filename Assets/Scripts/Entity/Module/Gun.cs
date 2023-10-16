@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Entity
 {
-    [RequireComponent(typeof(GunVisual))]
     public class Gun : MonoBehaviour
     {        
         private GunVisual GunVisual { get; set; }
@@ -46,7 +45,9 @@ namespace Assets.Scripts.Entity
                 float angleDeviation = UnityEngine.Random.Range(launchAngle - Weapon.AngleDeviation, launchAngle + Weapon.AngleDeviation);
                 Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * transform.rotation * Vector3.forward;
 
-                Projectile projectile = ProjectileEffect.CreateProjectile(GunVisual.GetBarrelPosition());
+                Vector3 barrelPosition = GunVisual != null ? GunVisual.GetBarrelPosition() : transform.position;
+
+                Projectile projectile = ProjectileEffect.CreateProjectile(barrelPosition);
                 {
                     projectile = Weapon.ShootProjectile(projectile);
                     projectile.Damage *= damageMultiplier;
@@ -57,6 +58,22 @@ namespace Assets.Scripts.Entity
                         projectile.StatusEffects.Add(StatusEffect.Copy());
                 }
             }            
+        }
+
+        public void ApplyModule(Module module)
+        {
+            if (module is StatusEffect statusEffect)
+            {
+                StatusEffect = statusEffect;
+            }
+            else if (module is ProjectileEffect projectileEffect)
+            {
+                ProjectileEffect = projectileEffect;
+            }
+            else if (module is Weapon weaponModule)
+            {
+                Weapon = weaponModule;
+            }
         }
     }
 }

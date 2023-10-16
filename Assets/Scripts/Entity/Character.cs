@@ -89,10 +89,13 @@ namespace Assets.Scripts.Entity
             return null;
         }
 
-        public virtual void OnBulletCollision(Projectile projectile)
+        public virtual void OnHit(float damage, params StatusEffect[] statusEffects)
         {
-            projectile?.StatusEffects.ForEach(e => AddStatusEffect(e));
-            Health.TakeDamage(projectile.Damage);
+            foreach(var effect in statusEffects)
+            {
+                AddStatusEffect(effect);
+            }
+            Health.TakeDamage(damage);
         }
     }
 }

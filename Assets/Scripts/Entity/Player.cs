@@ -12,7 +12,7 @@ namespace Assets.Scripts.Entity
     public class Player : Character
     {
         private Gun Gun { get; set; }
-        private CartridgePickup AvailablePickup { get; set; }
+        private PickupAble AvailablePickup { get; set; }
 
         public Vector3 AimPosition { get; set; }
 
@@ -40,7 +40,19 @@ namespace Assets.Scripts.Entity
 
             if(Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
-                AvailablePickup?.ApplyModuleTo(Gun);
+                CartridgePickup cartridgePickup = AvailablePickup as CartridgePickup;
+                if (cartridgePickup != null)
+                {
+                    Gun?.ApplyModule(cartridgePickup.Module);
+                }
+
+                HealthPack healthPack = AvailablePickup as HealthPack;
+                if (healthPack != null)
+                {
+                    Health.Heal(healthPack.Healing);
+                }
+
+                AvailablePickup?.Pickup();
             }
 
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -69,17 +81,17 @@ namespace Assets.Scripts.Entity
 
 
         protected void OnTriggerEnter(Collider other)
-        {
-            if(other.CompareTag("Pickup"))
+        {            
+            if(other.TryGetComponent(out PickupAble pickup))
             {
-                AvailablePickup = other.GetComponent<CartridgePickup>();
+                AvailablePickup = pickup;
                 return;
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Pickup"))
+            if (other.TryGetComponent(out PickupAble pickup))
             {
                 AvailablePickup = null;
                 return;

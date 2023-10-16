@@ -13,16 +13,14 @@ public class EnemyBoss : Enemy
     public int InitialNumberOfTurrets { get; private set; } = 0;
     [field: SerializeField] public GameObject Shield { get; set; }
 
-    [SerializeField] public SpawnEnemy[] SpawnPositions;
+    [SerializeField] public EnemySpawner[] SpawnPositions;
+
     protected override void Start()
     {
         base.Start();
         InitialNumberOfTurrets = Turrets.Count;
-        foreach (Turret turret in Turrets)
-        {
-            turret.Enemy = this;
-        }
     }
+
     protected override void Update()
     {
         base.Update();

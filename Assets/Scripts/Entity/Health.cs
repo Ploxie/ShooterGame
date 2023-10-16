@@ -23,6 +23,8 @@ namespace Assets.Scripts.Entity
         [field: SerializeField] public float MaxHealth { get; private set; } = 100;
         [field: SerializeField] public float HealthRegen { get; private set; } = 10;
 
+        public bool IsDead { get; private set; }
+
         private void Awake()
         {
             Character = GetComponent<Character>();
@@ -30,11 +32,17 @@ namespace Assets.Scripts.Entity
 
         private void Update()
         {
-            Heal(HealthRegen * Time.deltaTime);
+            if(!IsDead)
+            {
+                Heal(HealthRegen * Time.deltaTime);
+            }
         }
 
         public void TakeDamage(float amount)
         {
+            if (IsDead)
+                return;
+
             float totalAmount = amount;
             float damageMultiplier = 1.0f;
 
@@ -47,7 +55,10 @@ namespace Assets.Scripts.Entity
             OnDamageTaken?.Invoke(amount);
 
             if (CurrentHealth <= 0.0f)
+            {
                 OnDeath?.Invoke();
+                IsDead = true;
+            }
         }
 
         public void Heal(float amount)

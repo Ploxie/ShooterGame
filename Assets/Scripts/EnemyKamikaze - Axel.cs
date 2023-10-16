@@ -6,22 +6,36 @@ using UnityEngine;
 public class EnemyKamikaze : Enemy
 {
     [field: SerializeField] public float DiveRange { get; private set; } = 3f;
+    [field: SerializeField] public float Damage { get; set; } = 10.0f;
 
-    [SerializeField] public Hitbox ExplosionDamageHitBox;
-    [SerializeField] private GameObject model;
+    [SerializeField] public Hitbox ExplosionDamageHitBox; // TODO: Create an explosion instance? 
+    [SerializeField] private GameObject model;    
 
-    private void Awake()
+    private Assets.Scripts.Entity.StatusEffect StatusEffect { get; set; }
+
+
+    protected override void Awake()
     {
         base.Awake();
         Agent.speed = CurrentMovementSpeed;
+        StatusEffect = Module.CreateRandomStatusEffectModule();
+
+        ExplosionDamageHitBox.Damage = Damage;
+        ExplosionDamageHitBox.Effect = StatusEffect;
     }
     public void Explode()
     {
         ExplosionDamageHitBox.gameObject.SetActive(true);
-        ExplosionDamageHitBox.Activate();
         model.SetActive(false);
         Agent.isStopped = true;
     }
+
+    protected override void OnDeath()
+    {
+        StateMachine.SetState(typeof(KamikazeDeath));
+        SpawnCartridgePickup(StatusEffect);
+    }
+
 }
         //EnemyManager enemyManager;
         //ScoreManager scoreManager;

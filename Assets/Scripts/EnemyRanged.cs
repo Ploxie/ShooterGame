@@ -1,12 +1,31 @@
 using Assets.Scripts.Entity;
 using UnityEngine;
 
+[RequireComponent(typeof(Gun))]
 public class EnemyRanged : Enemy
 {
+    private Gun Gun { get; set; }
+    private Module Module { get; set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Gun = GetComponent<Gun>();
+        Module = Module.CreateRandomModule();
+        Gun.ApplyModule(Module);
+    }
+
     public void Shoot()
     {
-        Debug.Log("Bang!");
+        Gun?.Shoot();
     }
+
+    protected override void OnDeath()
+    {
+        StateMachine.SetState(typeof(RangedDeath));
+        SpawnCartridgePickup(Module);
+    }
+
     public bool HasLineOfSightToPlayer() //a raycast to see if the player is indeed seeing the player
     {
         var rayDirection = Player.transform.position - transform.position;

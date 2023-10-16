@@ -1,3 +1,4 @@
+using Assets.Scripts.LevelGeneration;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Boss/ComputerOnly")]
@@ -7,11 +8,13 @@ public class BossComputerOnly : State
 
     private double spawnTimer = 3000;
     private double lastSpawn;
+
     public override void Init(object parent)
     {
         base.Init(parent);
         enemyBoss = (EnemyBoss)parent;
     }
+
     public override void ChangeState()
     {
 
@@ -31,8 +34,10 @@ public class BossComputerOnly : State
     {
         if (Utils.GetUnixMillis() - lastSpawn < spawnTimer)
             return;
+
         lastSpawn = Utils.GetUnixMillis();
-        foreach (SpawnEnemy spawn in enemyBoss.SpawnPositions)
+
+        foreach (EnemySpawner spawn in enemyBoss.SpawnPositions)
         {
             spawn.SpawnRandomEnemy();
         }

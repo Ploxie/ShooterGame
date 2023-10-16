@@ -38,6 +38,6 @@ public abstract class Death : State
     {
         deathTimerStarted = Utils.GetUnixMillis();
         enemy.Agent.isStopped = true;
-        enemy.GetComponent<CapsuleCollider>().enabled = false;
+        enemy.GetComponent<Collider>().enabled = false;
     }
 }

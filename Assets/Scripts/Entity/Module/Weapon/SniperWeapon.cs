@@ -10,6 +10,7 @@ namespace Assets.Scripts.Entity
     {
         public SniperWeapon()
         {
+            Name = "Sniper";
             Damage = 50.0f;
             ProjectileSpeed = 20.0f;
             Range = 20.0f;

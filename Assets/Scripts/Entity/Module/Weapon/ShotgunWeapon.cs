@@ -11,6 +11,7 @@ namespace Assets.Scripts.Entity
 
         public ShotgunWeapon()
         {
+            Name = "Shotgun";
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
             Range = 10.0f;

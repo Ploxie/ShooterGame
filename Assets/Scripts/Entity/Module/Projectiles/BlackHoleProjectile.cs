@@ -21,7 +21,7 @@ namespace Assets.Scripts.Entity
 
         protected override void OnCharacterCollision(Character character)
         {
-            character.OnBulletCollision(this);
+            character.OnHit(Damage, StatusEffects.ToArray());
             SpawnBlackHole();
             Destroy(gameObject);
         }

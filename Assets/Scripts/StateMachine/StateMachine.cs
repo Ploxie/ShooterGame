@@ -25,6 +25,7 @@ public class StateMachine
             State tempState = UnityEngine.Object.Instantiate(state);
             stateByType.Add(tempState.GetType(), tempState);
         }
+
         SetState(states[0].GetType());
     }
 

@@ -6,6 +6,8 @@ public class EnemyMelee : Enemy
 {
     [field: SerializeField] public float AttackRange { get; private set; } = 3f;
     [field: SerializeField] public float JumpRange { get; private set; } = 10f;
+    [field: SerializeField] public float Damage { get; private set; } = 1.0f;
+    [field: SerializeField] public float JumpDamage { get; private set; } = 2.0f;
 
     [SerializeField] private Hitbox meleeDamageHitBox;
 
@@ -13,19 +15,30 @@ public class EnemyMelee : Enemy
 
     [SerializeField] private GameObject visualCracks;
 
+    private Assets.Scripts.Entity.StatusEffect Effect { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
         Agent.speed = MovementSpeed;
+
+        meleeDamageHitBox.Damage = Damage;
+        meleeDamageHitBox.Effect = Effect;
+        jumpDamageHitBox.Damage = JumpDamage;
+        jumpDamageHitBox.Effect = Effect;
+    }
+
+    protected override void OnDeath()
+    {
+        StateMachine.SetState(typeof(MeleeDeath));
+        SpawnCartridgePickup(Effect);
     }
 
     public void ToggleMeleeDamage(int value)
     {
-
         if (value != 0)
         {
             meleeDamageHitBox.gameObject.SetActive(true);
-            meleeDamageHitBox.Activate();
         }
         else
         {
@@ -40,7 +53,6 @@ public class EnemyMelee : Enemy
         if (value != 0)
         {
             jumpDamageHitBox.gameObject.SetActive(true);
-            jumpDamageHitBox.Activate();
             PlaceEffect();
         }
         else
