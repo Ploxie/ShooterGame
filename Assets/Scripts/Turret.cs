@@ -8,7 +8,6 @@ using UnityEngine.AI;
 public class Turret : Enemy
 {
     private EnemyBoss Boss;
-
     private Gun Gun { get; set; }
     private Module Module { get; set; }
 
