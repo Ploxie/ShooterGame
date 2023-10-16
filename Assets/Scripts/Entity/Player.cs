@@ -13,8 +13,11 @@ namespace Assets.Scripts.Entity
     {
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
-
         public Vector3 AimPosition { get; set; }
+
+        private ModuleHolder<Weapon> weaponModules = new();
+        private ModuleHolder<StatusEffect> effectModules = new();
+        private ModuleHolder<ProjectileEffect> bulletModules = new();
 
         protected override void Awake()
         {
@@ -22,6 +25,12 @@ namespace Assets.Scripts.Entity
 
             gameObject.tag = "Player";
             Gun = GetComponent<Gun>();
+
+            weaponModules.Insert(new ShotgunWeapon());
+
+            Gun.ApplyModule(weaponModules.Peek());
+            Gun.ApplyModule(effectModules.Peek());
+            Gun.ApplyModule(bulletModules.Peek());
         }
 
         protected override void Update()
@@ -33,17 +42,22 @@ namespace Assets.Scripts.Entity
                 Gun?.Shoot();
             }
 
-            if(Input.GetKeyDown(KeyCode.K))
-            {
-                AddStatusEffect(new IceEffect());
-            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                Gun.ApplyModule(weaponModules.Cycle());
 
-            if(Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                Gun.ApplyModule(effectModules.Cycle());
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                Gun.ApplyModule(bulletModules.Cycle());
+
+            if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
                 CartridgePickup cartridgePickup = AvailablePickup as CartridgePickup;
                 if (cartridgePickup != null)
                 {
-                    Gun?.ApplyModule(cartridgePickup.Module);
+                    //Gun?.ApplyModule(cartridgePickup.Module);
+                    PickupModule(cartridgePickup.Module);
                 }
 
                 HealthPack healthPack = AvailablePickup as HealthPack;
@@ -79,6 +93,26 @@ namespace Assets.Scripts.Entity
             Rigidbody.velocity = moveDirection * CurrentMovementSpeed;
         }
 
+        private void PickupModule(Module module)
+        {
+            if (module is Weapon weapon)
+            {
+                weaponModules.Insert(weapon);
+                return;
+            }
+
+            if (module is StatusEffect statusEffect)
+            {
+                effectModules.Insert(statusEffect);
+                return;
+            }
+
+            if (module is ProjectileEffect projectileEffect)
+            {
+                bulletModules.Insert(projectileEffect);
+                return;
+            }
+        }
 
         protected void OnTriggerEnter(Collider other)
         {            

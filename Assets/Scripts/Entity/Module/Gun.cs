@@ -19,13 +19,10 @@ namespace Assets.Scripts.Entity
         private Character Parent { get; set; }
 
         private void Awake()
-        {
-            
+        {            
             GunVisual = GetComponentInChildren<GunVisual>();
             Parent = GetComponent<Character>();
 
-            StatusEffect = new RadiationEffect();
-            ProjectileEffect = new ClusterEffect();
             Weapon = new PistolWeapon();
         }
 
@@ -47,16 +44,21 @@ namespace Assets.Scripts.Entity
 
                 Vector3 barrelPosition = GunVisual != null ? GunVisual.GetBarrelPosition() : transform.position;
 
-                Projectile projectile = ProjectileEffect.CreateProjectile(barrelPosition);
-                {
-                    projectile = Weapon.ShootProjectile(projectile);
-                    projectile.Damage *= damageMultiplier;
-                    projectile.Direction = rotatedFireDirection;
-                    projectile.tag = Parent.tag;
+                Projectile projectile;
+                if (ProjectileEffect != null)
+                    projectile = ProjectileEffect.CreateProjectile(barrelPosition);
+                else
+                    projectile = ProjectileEffect.CreateDefaultProjectile(barrelPosition);
 
-                    if (StatusEffect != null)
-                        projectile.StatusEffects.Add(StatusEffect.Copy());
-                }
+                
+                projectile = Weapon.ShootProjectile(projectile);
+                projectile.Damage *= damageMultiplier;
+                projectile.Direction = rotatedFireDirection;
+                projectile.tag = Parent.tag;
+
+                if (StatusEffect != null)
+                    projectile.StatusEffects.Add(StatusEffect.Copy());
+                
             }            
         }
 

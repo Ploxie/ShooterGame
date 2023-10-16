@@ -1,22 +1,23 @@
+using Assets.Scripts.Entity;
 using System;
 
-public class ModuleHolder
+public class ModuleHolder<T> where T : Module
 {
     public const int MODULE_STORAGE_CAPACITY = 3;
 
     private int accessPointer;
     private int insertionPointer;
-    private Module2[] storage;
+    private T[] storage;
 
 
     public ModuleHolder()
     {
         accessPointer = 0;
         insertionPointer = 0;
-        storage = new Module2[MODULE_STORAGE_CAPACITY];
+        storage = new T[MODULE_STORAGE_CAPACITY];
     }
 
-    public void Insert(Module2 module)
+    public void Insert(T module)
     {
         if (insertionPointer > MODULE_STORAGE_CAPACITY - 1)
             insertionPointer = 0;
@@ -25,12 +26,12 @@ public class ModuleHolder
         insertionPointer++;
     }
 
-    public Module2 Peek()
+    public T Peek()
     {
         return storage[accessPointer];
     }
 
-    public Module2 Cycle()
+    public T Cycle()
     {
         accessPointer++;
         if (accessPointer >= insertionPointer)

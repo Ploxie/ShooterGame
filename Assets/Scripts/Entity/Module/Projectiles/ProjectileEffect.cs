@@ -12,6 +12,12 @@ namespace Assets.Scripts.Entity
         public GameObject BulletPrefab { get; protected set; }
 
         public abstract Projectile CreateProjectile(Vector3 barrelPosition);
+
+        public static Projectile CreateDefaultProjectile(Vector3 barrelPosition)
+        {
+            GameObject parent = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Projectile_Crystal"), barrelPosition, Quaternion.identity);
+            return parent.AddComponent<Projectile>(); ;
+        }
     }
 
     public class RicochetEffect : ProjectileEffect

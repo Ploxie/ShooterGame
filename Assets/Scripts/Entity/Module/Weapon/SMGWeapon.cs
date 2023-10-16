@@ -23,8 +23,6 @@ namespace Assets.Scripts.Entity
             MaxAmmo = 20;
             CurrentAmmo = MaxAmmo;
 
-            LaunchAngles = new float[] { 0, 22.5f, -22.5f, 11.25f, -11.25f };
-
             AngleDeviation = 10.0f;            
         }
     }
