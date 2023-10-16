@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements.Experimental;
+
 
 
 [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar))]
 public abstract class Enemy : Living
 {
-    [SerializeField] private CartridgePickup cartridgeDrop; //assign in code?
+    [SerializeField] private CartridgePickup cartridgePickup; //assign in code?
 
     public Animator Animator { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     public Player Player { get; private set; }
+
     private EnemyHealthBar healthBar;
 
     [SerializeField] public StateMachine StateMachine = new StateMachine();
@@ -44,6 +44,7 @@ public abstract class Enemy : Living
     protected override void OnDeath()
     {
         base.OnDeath();
+        SpawnCartridgePickup();
         StateMachine.SetState(typeof(Death));
     }
 
@@ -51,6 +52,11 @@ public abstract class Enemy : Living
     {
         base.TakeDamage(damage);
         healthBar.TakeDamage(damage);
+    }
+
+    private void SpawnCartridgePickup()
+    {
+        CartridgePickup temp = Instantiate(cartridgePickup);
     }
 }
 

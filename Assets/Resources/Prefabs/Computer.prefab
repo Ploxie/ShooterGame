@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 213164965403224654}
   - component: {fileID: 5916244122740199480}
   - component: {fileID: 7855502154589655697}
+  - component: {fileID: 8765661411188205792}
   m_Layer: 0
   m_Name: Computer
   m_TagString: Enemy
@@ -247,10 +248,17 @@ MonoBehaviour:
   MovementSpeedMultiplier: 1
   Stunned: 0
   StunDuration: 0
-  turret1: {fileID: 0}
-  turret2: {fileID: 0}
-  shield: {fileID: 1991202017065224557}
-  be: []
+  cartridgePickup: {fileID: 0}
+  StateMachine:
+    states:
+    - {fileID: 11400000, guid: 60dddbfccea704b459ebbbd309884006, type: 2}
+    - {fileID: 11400000, guid: 65a0ae4456f116545891aa884f998c6b, type: 2}
+    - {fileID: 11400000, guid: 819360a1d4a150d47913fb636f36a588, type: 2}
+    - {fileID: 11400000, guid: 93565df4cc433994fb657c2f20eb72d6, type: 2}
+    activeState: {fileID: 0}
+  Turrets: []
+  <Shield>k__BackingField: {fileID: 1991202017065224557}
+  SpawnPositions: []
 --- !u!114 &7855502154589655697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +274,28 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 6057558066326301617}
   enemyHealthBarBorder: {fileID: 608885675929592362}
   target: {fileID: 0}
+--- !u!195 &8765661411188205792
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969704335469189934}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &4074367346975155729
 PrefabInstance:
   m_ObjectHideFlags: 0

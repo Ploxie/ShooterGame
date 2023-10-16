@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f797f65f4f1e743459f805248472a158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ModuleController: {fileID: 0}
   gunVisual: {fileID: 0}
   bulletManager: {fileID: 0}
 --- !u!114 &6579118337252947720

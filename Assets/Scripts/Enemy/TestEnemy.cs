@@ -11,9 +11,4 @@ public class TestEnemy : Enemy
         Debug.Log("You did it!");
     }
 
-    private void Explode()
-    {
-        StateMachine.SetState(typeof(Death));
-    }
-
 }

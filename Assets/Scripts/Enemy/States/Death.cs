@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "States/Enemy/Death")]
-public class Death : State
+[CreateAssetMenu(menuName = "States/Enemy/Generic/Death")]
+public abstract class Death : State
 {
-    TestEnemy enemy;
+    Enemy enemy;
     protected double deathTimerStarted;
     protected double deathTimerDuration = 1000;
 
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (TestEnemy)parent;
-        deathTimerStarted = Utils.GetUnixMillis();
-        enemy.Agent.isStopped = true;
+        enemy = (Enemy)parent;
+
     }
     public override void ChangeState()
     {
@@ -33,5 +31,12 @@ public class Death : State
         {
             Destroy(enemy.gameObject);
         }
+    }
+
+    public override void Enter()
+    {
+        deathTimerStarted = Utils.GetUnixMillis();
+        enemy.Agent.isStopped = true;
+        enemy.GetComponent<CapsuleCollider>().enabled = false;
     }
 }

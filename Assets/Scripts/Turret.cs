@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Turret : Living
+public class Turret : Enemy
 {
     // Start is called before the first frame update
     //need rotation and 
@@ -19,20 +19,11 @@ public class Turret : Living
     private WeaponModule weaponModule;
     private EffectModule effectModule;
     private BulletModule bulletModule;
-
-    private EnemyManager enemyManager;
-
-    private Player player;
-    public bool alive = true;
-    private bool seen = false;
-
-    private EnemyHealthBar healthBar;
+    public EnemyBoss Enemy;
 
     public override void Start()
     {
         base.Start();
-        enemyManager = FindObjectOfType<EnemyManager>();
-        enemyManager.RegisterEnemy(this);
 
         
 
@@ -50,17 +41,14 @@ public class Turret : Living
         ModuleController.LoadModule(ModuleType.WeaponModule, weaponModule);
         ModuleController.LoadModule(ModuleType.EffectModule, effectModule);
         ModuleController.LoadModule(ModuleType.BulletModule, bulletModule);
-        healthBar = GetComponentInChildren<EnemyHealthBar>();
-        if (player == null)
-            player = FindObjectOfType<Player>();
+
+        Enemy = FindAnyObjectByType<EnemyBoss>();
 
     }
 
     public override void Update()
     {
-        base.Update();
-        if (player == null)
-            player = FindObjectOfType<Player>();
+
     }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
     {
@@ -97,24 +85,13 @@ public class Turret : Living
     // Update is called once per frame
     public void ClearToShoot()
     {
-        if (player == null)
-            return;
-        seen = RayCastForVisual(player);
-        if (seen == true)
+        if (RayCastForVisual(Player))
         {
-            Shoot(player);
+            Shoot(Player);
         }
-    }
-
-    public override void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-        healthBar.TakeDamage(damage);
     }
     protected override void OnDeath()
     {
-        ScoreManager.Instance?.UpdateText(-10);
-        alive = false;
-        base.OnDeath();
+        Enemy.Turrets.Remove(this);
     }
 }

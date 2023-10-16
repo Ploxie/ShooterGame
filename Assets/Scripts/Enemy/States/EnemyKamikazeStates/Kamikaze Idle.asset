@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b144b1dbd980684cba18d35d9a3d30e, type: 3}
-  m_Name: Death
+  m_Script: {fileID: 11500000, guid: c8a0b2b5851c58b4580ebf53445db5b2, type: 3}
+  m_Name: Kamikaze Idle
   m_EditorClassIdentifier: 

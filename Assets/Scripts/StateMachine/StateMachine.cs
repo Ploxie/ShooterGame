@@ -36,6 +36,7 @@ public class StateMachine
         Debug.Log(newStateType + " " + enemy.transform.name);
         activeState = stateByType[newStateType];
         activeState.Init(parent);
+        activeState.Enter();
     }
     public void Update()
     {
