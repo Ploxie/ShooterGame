@@ -12,13 +12,12 @@ public class StateMachine
 
     private readonly Dictionary<Type, State> stateByType = new();
     [SerializeField] private State activeState;
+
     private object parent;
-    private Enemy enemy;
 
     public void Init(object parent)
     {
         this.parent = parent;
-        enemy = (Enemy)parent;
 
         foreach (var state in states)
         {

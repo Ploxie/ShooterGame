@@ -13,6 +13,12 @@ namespace Assets.Scripts.LevelGeneration
         {
             Random.InitState(System.DateTime.Now.Millisecond);
 
+            StartCoroutine(DelayedSpawn());
+        }
+
+        private IEnumerator DelayedSpawn()
+        {
+            yield return new WaitForSeconds(10.0f);
             SpawnRandomEnemy();
         }
 

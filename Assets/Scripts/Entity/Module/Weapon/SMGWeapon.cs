@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
@@ -11,6 +12,8 @@ namespace Assets.Scripts.Entity
         public SMGWeapon()
         {
             Name = "SMG";
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_SMG");
+
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
             Range = 10.0f;

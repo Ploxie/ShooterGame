@@ -13,6 +13,8 @@ namespace Assets.Scripts.Entity
         public PistolWeapon()
         {
             Name = "Pistol";
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Pistol");
+
             Damage = 15.0f;
             ProjectileSpeed = 10.0f;
             Range = 10.0f;

@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d87bee72167f342877f326074f675e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5221511798755955050, guid: 76b28677611ac36429e54e086f9aac1d, type: 3}
+  player: {fileID: 0}
 --- !u!1 &2694418151254780915
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ PrefabInstance:
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[0]
       value: 
-      objectReference: {fileID: 1559823927425874320, guid: fccda00f80ed4e149a4615cba553021b, type: 3}
+      objectReference: {fileID: 6908275559297693039, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -870,6 +870,10 @@ PrefabInstance:
       propertyPath: Enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6784032201294740920, guid: 1f3a9e1238f39d141a0e1966e18857e8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

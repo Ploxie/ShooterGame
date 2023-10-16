@@ -10,11 +10,13 @@ public class MeleeIdle : Idle
     {
         base.Init(parent);
         enemyMelee = (EnemyMelee)parent;
-        player = enemyMelee.Player;
+        
     }
 
     public override void ChangeState()
     {
+        player = enemyMelee.Player;
+
         float distance = Vector3.Distance(player.transform.position, enemyMelee.transform.position);
         if (distance <= enemyMelee.AttackRange)
         {

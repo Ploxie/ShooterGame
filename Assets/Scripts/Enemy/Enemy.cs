@@ -21,7 +21,7 @@ namespace Assets.Scripts.Entity
         {
             base.Awake();
             Agent = GetComponent<NavMeshAgent>();
-            Player = FindObjectOfType<Player>();
+            //Player = FindObjectOfType<Player>();
             Animator = GetComponent<Animator>();
             StateMachine.Init(this);
 
@@ -35,6 +35,9 @@ namespace Assets.Scripts.Entity
 
         protected override void Update()
         {
+            if(Player == null)
+                Player = FindObjectOfType<Player>();
+
             base.Update();
             StateMachine.Update();
         }

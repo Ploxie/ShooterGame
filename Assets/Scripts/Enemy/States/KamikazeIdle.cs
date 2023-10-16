@@ -10,11 +10,13 @@ public class KamikazeIdle : Idle
     {
         base.Init(parent);
         enemyKamikaze = (EnemyKamikaze)parent;
-        player = enemyKamikaze.Player;
+        
     }
 
     public override void ChangeState()
     {
+        player = enemyKamikaze.Player;
+
         float distance = Vector3.Distance(player.transform.position, enemyKamikaze.transform.position);
         if (distance < detectionRange)
         {

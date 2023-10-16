@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
 
         public Module()
         {
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickup_Default");
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Default");
         }
 
         public static StatusEffect CreateRandomStatusEffectModule()

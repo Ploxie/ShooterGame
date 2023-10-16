@@ -60,6 +60,9 @@ public class Turret : Enemy
 
     public void ClearToShoot()
     {
+        if (Player == null)
+            return;
+
         if (RayCastForVisual(Player))
         {
             Shoot(Player);
