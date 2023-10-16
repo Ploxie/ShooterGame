@@ -1,4 +1,5 @@
 
+using Assets.Scripts.Entity;
 using UnityEngine;
 
 
@@ -12,7 +13,7 @@ public class EnemyKamikaze : Enemy
     private void Awake()
     {
         base.Awake();
-        Agent.speed = DefaultMovementSpeed;
+        Agent.speed = CurrentMovementSpeed;
     }
     public void Explode()
     {

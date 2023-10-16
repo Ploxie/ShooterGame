@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using Assets.Scripts.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class EnemyBoss : Enemy
     [field: SerializeField] public GameObject Shield { get; set; }
 
     [SerializeField] public SpawnEnemy[] SpawnPositions;
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         InitialNumberOfTurrets = Turrets.Count;
@@ -22,7 +23,7 @@ public class EnemyBoss : Enemy
             turret.Enemy = this;
         }
     }
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
     }

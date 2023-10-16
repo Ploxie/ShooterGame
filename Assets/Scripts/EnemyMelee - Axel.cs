@@ -1,4 +1,5 @@
 
+using Assets.Scripts.Entity;
 using UnityEngine;
 
 public class EnemyMelee : Enemy
@@ -12,10 +13,10 @@ public class EnemyMelee : Enemy
 
     [SerializeField] private GameObject visualCracks;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
-        Agent.speed = DefaultMovementSpeed;
+        Agent.speed = MovementSpeed;
     }
 
     public void ToggleMeleeDamage(int value)

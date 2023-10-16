@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ public class StateMachine
         {
             activeState.Exit();
         }
-        Debug.Log(newStateType + " " + enemy.transform.name);
+        
         activeState = stateByType[newStateType];
         activeState.Init(parent);
         activeState.Enter();

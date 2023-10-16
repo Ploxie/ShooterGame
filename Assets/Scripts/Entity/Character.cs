@@ -12,7 +12,7 @@ namespace Assets.Scripts.Entity
     {
         [HideInInspector] public Health Health { get; private set; }
 
-        [SerializeField] private float MovementSpeed = 2.0f;
+        [SerializeField] protected float MovementSpeed = 2.0f;
         [HideInInspector] public float CurrentMovementSpeed;
 
         private Dictionary<Type, StatusEffect> statusEffects = new ();

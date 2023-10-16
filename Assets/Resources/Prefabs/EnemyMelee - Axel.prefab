@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8279193036526476926}
   - component: {fileID: 1238453961026415036}
   - component: {fileID: 6604629319892681356}
+  - component: {fileID: 6068969350829940005}
   m_Layer: 0
   m_Name: EnemyMelee - Axel
   m_TagString: Enemy
@@ -148,7 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 6425753358773597613}
   enemyHealthBarBorder: {fileID: 382570802237422646}
-  target: {fileID: 0}
 --- !u!114 &6604629319892681356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,28 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046e0173d7529fa489060ed5e59856d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 50
-  DefaultMovementSpeed: 10
-  DefaultDamage: 10
-  OnHealthChangedEvent: {fileID: 11400000, guid: d13a6412fbbee504ca40d0b41f7f8e64, type: 2}
-  OnDeathEvent: {fileID: 11400000, guid: fb5d7b55ce667334e8c9e9acb9589161, type: 2}
-  RegenHealth: 0
-  Slowable: 0
-  Nerfable: 0
-  Stunnable: 0
-  Alive: 0
-  LivingID: 0
-  Health: 0
-  HealthRegenAmount: 0
-  HealthRegenInterval: 0
-  MovementSpeed: 0
-  Damage: 10
-  DamageTakenMultiplier: 1
-  DamageDealtMultiplier: 1
-  MovementSpeedMultiplier: 1
-  Stunned: 0
-  StunDuration: 0
-  cartridgePickup: {fileID: 0}
+  MovementSpeed: 5
+  CurrentMovementSpeed: 0
   StateMachine:
     states:
     - {fileID: 11400000, guid: a4f793de924b63f46a03da7f7a52bf48, type: 2}
@@ -196,6 +176,21 @@ MonoBehaviour:
   meleeDamageHitBox: {fileID: 3177056810037174350}
   jumpDamageHitBox: {fileID: 5846884138433985401}
   visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
+--- !u!114 &6068969350829940005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566266523723854114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 100
+  <HealthRegen>k__BackingField: 10
 --- !u!1 &7409549626452650265
 GameObject:
   m_ObjectHideFlags: 0

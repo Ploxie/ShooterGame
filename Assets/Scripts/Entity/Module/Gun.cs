@@ -26,7 +26,7 @@ namespace Assets.Scripts.Entity
             Parent = GetComponent<Character>();
 
             StatusEffect = new RadiationEffect();
-            ProjectileEffect = new BlackHoleEffect();
+            ProjectileEffect = new ClusterEffect();
             Weapon = new PistolWeapon();
         }
 

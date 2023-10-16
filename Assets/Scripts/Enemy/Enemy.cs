@@ -28,7 +28,7 @@ namespace Assets.Scripts.Entity
             Health.OnDeath += OnDeath;
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             //EnemyManager.Instance.RegisterEnemy(this);
         }

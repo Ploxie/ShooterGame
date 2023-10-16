@@ -20,19 +20,19 @@ namespace Assets.Scripts.Player
         [SerializeField, Range(0, 0.5f)] private float _aimInterpolation = 0.1f;
 
         private Camera _camera;
-        private PlayerController _playerController;
+        private Assets.Scripts.Entity.Player _player;
 
         private void Awake()
         {
             _camera = Camera.main;
-            _playerController = GetComponent<PlayerController>();
+            _player = GetComponent<Assets.Scripts.Entity.Player>();
         }
 
         private void LateUpdate()
         {
             Quaternion lookRotation = Quaternion.Euler(_pitch, _yaw, 0.0f);
 
-            Vector3 targetPosition = transform.position + ((_playerController.AimPosition - transform.position) * _aimInterpolation);
+            Vector3 targetPosition = transform.position + ((_player.AimPosition - transform.position) * _aimInterpolation);
             Vector3 lookDirection = lookRotation * Vector3.forward;
             Vector3 lookPosition = targetPosition - lookDirection * _zoom;
 

@@ -1,49 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "States/Enemy/Ranged/Shooting")]
 public class RangedShooting : State
 {
-    EnemyRanged enemy;
+    protected EnemyRanged enemyRanged;
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyRanged)parent;
+        enemyRanged = (EnemyRanged)parent;
     }
     public override void ChangeState()
     {
-        float distance = Vector3.Distance(enemy.Player.transform.position, enemy.transform.position);
+        float distance = Vector3.Distance(enemyRanged.Player.transform.position, enemyRanged.transform.position);
         if (distance <= 5)
         {
-            enemy.StateMachine.SetState(typeof(RangedRunFromPlayer));
+            enemyRanged.StateMachine.SetState(typeof(RangedRunFromPlayer));
         }
         else if (distance > 20)
         {
-            enemy.StateMachine.SetState(typeof(RangedRunToPlayer));
+            enemyRanged.StateMachine.SetState(typeof(RangedRunToPlayer));
         }
     }
 
     public override void Enter()
     {
-        enemy.Agent.isStopped = true;
-        enemy.Animator.SetBool("IdleState", true);
+        enemyRanged.Agent.isStopped = true;
+        enemyRanged.Animator.SetBool("IdleState", true);
     }
 
     public override void Exit()
     {
-        enemy.Agent.isStopped = false;
-        enemy.Animator.SetBool("IdleState", false);
+        enemyRanged.Agent.isStopped = false;
+        enemyRanged.Animator.SetBool("IdleState", false);
     }
 
     public override void Update()
     {
-        if (enemy.HasLineOfSightToPlayer())
+        if (enemyRanged.HasLineOfSightToPlayer())
         {
-            var lookPos = enemy.Player.transform.position - enemy.transform.position;
+            var lookPos = enemyRanged.Player.transform.position - enemyRanged.transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
-            enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, rotation, Time.deltaTime * 2);
-            enemy.Shoot();
+            enemyRanged.transform.rotation = Quaternion.Slerp(enemyRanged.transform.rotation, rotation, Time.deltaTime * 2);
+            enemyRanged.Shoot();
         }
     }
 }

@@ -1,10 +1,11 @@
 
+using Assets.Scripts.Entity;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Generic/Death")]
 public abstract class Death : State
 {
-    Enemy enemy;
+    protected Enemy enemy;
     protected double deathTimerStarted;
     protected double deathTimerDuration = 1000;
 

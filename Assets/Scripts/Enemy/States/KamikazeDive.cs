@@ -3,17 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "States/Enemy/Kamikaze/Dive")]
 public class KamikazeDive : State
 {
-    EnemyKamikaze enemy;
+    protected EnemyKamikaze enemyKamikaze;
+
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyKamikaze)parent;
+        enemyKamikaze = (EnemyKamikaze)parent;
     }
+
     public override void ChangeState()
     {
-        if (enemy.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        if (enemyKamikaze.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
-            enemy.StateMachine.SetState(typeof(KamikazeDeath));
+            enemyKamikaze.StateMachine.SetState(typeof(KamikazeDeath));
         }
     }
 
@@ -29,6 +31,6 @@ public class KamikazeDive : State
 
     public override void Enter()
     {
-        enemy.Animator.SetTrigger("Dive");
+        enemyKamikaze.Animator.SetTrigger("Dive");
     }
 }

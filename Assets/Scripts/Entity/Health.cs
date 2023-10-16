@@ -19,9 +19,9 @@ namespace Assets.Scripts.Entity
         public event UnityAction OnDeath;
 
         // Properties
-        [field: SerializeField] public float CurrentHealth { get; private set; }
-        [field: SerializeField] public float MaxHealth { get; private set; }
-        [field: SerializeField] public float HealthRegen { get; private set; }
+        [field: SerializeField] public float CurrentHealth { get; private set; } = 100;
+        [field: SerializeField] public float MaxHealth { get; private set; } = 100;
+        [field: SerializeField] public float HealthRegen { get; private set; } = 10;
 
         private void Awake()
         {

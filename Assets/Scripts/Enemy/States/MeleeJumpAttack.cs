@@ -6,46 +6,45 @@ using UnityEngine;
 
 public class MeleeJumpAttack : State
 {
-    EnemyMelee enemy;
+    protected EnemyMelee enemyMelee;
 
-    Player player;
+    protected Assets.Scripts.Entity.Player player;
 
-    float baseSpeed;
+    protected float baseSpeed;
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyMelee)parent;
-        player = enemy.Player;
-        baseSpeed = enemy.Agent.speed;
+        enemyMelee = (EnemyMelee)parent;
+        player = enemyMelee.Player;
+        baseSpeed = enemyMelee.Agent.speed;
     }
+
     public override void ChangeState()
     {
-        if (enemy.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+        if (enemyMelee.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
         {
-            float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
-            if (distance <= enemy.AttackRange)
+            float distance = Vector3.Distance(player.transform.position, enemyMelee.transform.position);
+            if (distance <= enemyMelee.AttackRange)
             {
-                enemy.StateMachine.SetState(typeof(MeleeAttack));
+                enemyMelee.StateMachine.SetState(typeof(MeleeAttack));
             }
-            else if (distance > enemy.AttackRange)
+            else if (distance > enemyMelee.AttackRange)
             {
-                enemy.StateMachine.SetState(typeof(MeleeRunToPlayer));
+                enemyMelee.StateMachine.SetState(typeof(MeleeRunToPlayer));
             }
-
         }
     }
 
     public override void Enter()
     {
-        enemy.Agent.SetDestination(player.transform.position);
-        enemy.Animator.SetBool("IsWalking", false);
-        enemy.Animator.SetTrigger("JumpAttack");
-        enemy.Agent.speed += baseSpeed / 2;
+        enemyMelee.Agent.SetDestination(player.transform.position);
+        enemyMelee.Animator.SetBool("IsWalking", false);
+        enemyMelee.Animator.SetTrigger("JumpAttack");
+        enemyMelee.Agent.speed += baseSpeed / 2;
     }
-
     public override void Exit()
     {
-        enemy.Agent.speed -= baseSpeed / 2;
+        enemyMelee.Agent.speed -= baseSpeed / 2;
     }
 
     public override void Update()

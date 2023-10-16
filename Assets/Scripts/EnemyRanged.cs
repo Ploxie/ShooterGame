@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using UnityEngine;
 
 public class EnemyRanged : Enemy

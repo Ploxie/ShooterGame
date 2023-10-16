@@ -4,25 +4,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "States/Enemy/Melee/Idle")]
 public class MeleeIdle : Idle
 {
-    EnemyMelee enemy;
+    protected EnemyMelee enemyMelee;
 
-    Player player;
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyMelee)parent;
-        player = enemy.Player;
+        enemyMelee = (EnemyMelee)parent;
+        player = enemyMelee.Player;
     }
+
     public override void ChangeState()
     {
-        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distance <= enemy.AttackRange)
+        float distance = Vector3.Distance(player.transform.position, enemyMelee.transform.position);
+        if (distance <= enemyMelee.AttackRange)
         {
-            enemy.StateMachine.SetState(typeof(MeleeAttack));
+            enemyMelee.StateMachine.SetState(typeof(MeleeAttack));
         }
-        else if (distance > enemy.AttackRange)
+        else if (distance > enemyMelee.AttackRange)
         {
-            enemy.StateMachine.SetState(typeof(MeleeRunToPlayer));
+            enemyMelee.StateMachine.SetState(typeof(MeleeRunToPlayer));
         }
     }
 
@@ -37,6 +37,6 @@ public class MeleeIdle : Idle
     public override void Enter()
     {
         base.Enter();
-        enemy.Animator.SetBool("IsWalking", false);
+        enemyMelee.Animator.SetBool("IsWalking", false);
     }
 }

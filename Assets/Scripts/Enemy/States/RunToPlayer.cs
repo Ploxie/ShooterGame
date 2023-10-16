@@ -1,9 +1,6 @@
 using Assets.Scripts.Entity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 
 [CreateAssetMenu(menuName = "States/Enemy/Generic/RunToPlayer")]
 public abstract class RunToPlayer : State

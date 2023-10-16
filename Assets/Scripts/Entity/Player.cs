@@ -14,6 +14,8 @@ namespace Assets.Scripts.Entity
         private Gun Gun { get; set; }
         private CartridgePickup AvailablePickup { get; set; }
 
+        public Vector3 AimPosition { get; set; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -51,6 +53,8 @@ namespace Assets.Scripts.Entity
                 var aimPos = new Vector3(rayHit.x, Rigidbody.transform.position.y, rayHit.z);
                 var aimDir = ((aimPos - transform.position) * 100.0f).normalized;
                 aimDir.y = 0.0f;
+
+                AimPosition = aimPos;
 
                 transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 20.0f);
             }

@@ -5,28 +5,28 @@ using UnityEngine;
 
 public class MeleeRunToPlayer : RunToPlayer
 {
-    EnemyMelee enemy;
+    protected EnemyMelee enemyMelee;
 
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyMelee)parent;
+        enemyMelee = (EnemyMelee)parent;
     }
 
     public override void ChangeState()
     {
-        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distance <= enemy.AttackRange)
+        float distance = Vector3.Distance(player.transform.position, enemyMelee.transform.position);
+        if (distance <= enemyMelee.AttackRange)
         {
-            enemy.StateMachine.SetState(typeof(MeleeAttack));
+            enemyMelee.StateMachine.SetState(typeof(MeleeAttack));
         }
-        else if (distance < enemy.JumpRange)
+        else if (distance < enemyMelee.JumpRange)
         {
-            enemy.StateMachine.SetState(typeof(MeleeJumpAttack));
+            enemyMelee.StateMachine.SetState(typeof(MeleeJumpAttack));
         }
-        else if (distance > enemy.AttackRange)
+        else if (distance > enemyMelee.AttackRange)
         {
-            enemy.StateMachine.SetState(typeof(MeleeRunToPlayer));
+            enemyMelee.StateMachine.SetState(typeof(MeleeRunToPlayer));
         }
     }
 
@@ -38,6 +38,6 @@ public class MeleeRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
-        enemy.Animator.SetBool("IsWalking", true);
+        enemyMelee.Animator.SetBool("IsWalking", true);
     }
 }

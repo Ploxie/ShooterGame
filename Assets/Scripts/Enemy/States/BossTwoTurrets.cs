@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "States/Enemy/Boss/TwoTurrets")]
 public class BossTwoTurrets : State
 {
-    EnemyBoss enemy;
+    protected EnemyBoss enemyBoss;
+
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyBoss)parent;
+        enemyBoss = (EnemyBoss)parent;
     }
+
     public override void ChangeState()
     {
-        if (enemy.Turrets.Count <= enemy.InitialNumberOfTurrets / 2)
+        if (enemyBoss.Turrets.Count <= enemyBoss.InitialNumberOfTurrets / 2)
         {
-            enemy.StateMachine.SetState(typeof(BossMiddleFight));
+            enemyBoss.StateMachine.SetState(typeof(BossMiddleFight));
         }
     }
 
@@ -30,7 +31,7 @@ public class BossTwoTurrets : State
 
     public override void Update()
     {
-        foreach (Turret turret in enemy.Turrets)
+        foreach (Turret turret in enemyBoss.Turrets)
         {
             turret.ClearToShoot();
         }

@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,14 +22,7 @@ public class Turret : Enemy
     private BulletModule bulletModule;
     public EnemyBoss Enemy;
 
-    public override void Start()
-    {
-        base.Start();
-
-        
-
-    }
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         ModuleController = GetComponentInChildren<ModuleController>();
@@ -46,17 +40,13 @@ public class Turret : Enemy
 
     }
 
-    public override void Update()
-    {
-
-    }
     public void rotateToPlayer(Vector3 pos)//the enemy rotates to the player 
     {
         Quaternion rotation = Quaternion.LookRotation(pos - transform.position);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 60f * Time.deltaTime);
         //print(transform.rotation);
     }
-    public bool RayCastForVisual(Player player)//a raycast to see if the player is indeed seeing the player
+    public bool RayCastForVisual(Assets.Scripts.Entity.Player player)//a raycast to see if the player is indeed seeing the player
     {
        
         bool seePlayer = false;
@@ -74,7 +64,7 @@ public class Turret : Enemy
         //print(seePlayer);
         return seePlayer;
     }
-    public void Shoot(Player player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
+    public void Shoot(Assets.Scripts.Entity.Player player)//uses a rotation funtion from the quaternion to look for rotation and then to decide where to rotate
     {
         var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         dir = dir - dir * 2;

@@ -5,24 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "States/Enemy/Ranged/Idle")]
 public class RangedIdle : Idle
 {
-    EnemyRanged enemy;
+    protected EnemyRanged enemyRanged;
     public override void Init(object parent)
     {
         base.Init(parent);
-        enemy = (EnemyRanged)parent;
+        enemyRanged = (EnemyRanged)parent;
     }
     public override void ChangeState()
     {
-        if (Vector3.Distance(enemy.transform.position, enemy.Player.transform.position) < detectionRange)
+        if (Vector3.Distance(enemyRanged.transform.position, enemyRanged.Player.transform.position) < detectionRange)
         {
-            enemy.StateMachine.SetState(typeof(RangedRunToPlayer));
+            enemyRanged.StateMachine.SetState(typeof(RangedRunToPlayer));
         }
     }
     public override void Enter()
     {
         base.Enter();
-        enemy.Animator.SetBool("WalkForward", false);
-        enemy.Animator.SetBool("WalkBackwards", false);
+        enemyRanged.Animator.SetBool("WalkForward", false);
+        enemyRanged.Animator.SetBool("WalkBackwards", false);
     }
     public override void Exit()
     {
