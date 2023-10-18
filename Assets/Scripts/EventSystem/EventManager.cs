@@ -16,7 +16,7 @@ public class EventManager : Singleton<EventManager>
     {
         if (delegateLookup.ContainsKey(del))
             return null;
-        
+
         EventDelegate internalDelegate = (e) => del((T)e);
         delegateLookup[del] = internalDelegate;
 

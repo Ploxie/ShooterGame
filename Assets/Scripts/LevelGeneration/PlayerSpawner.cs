@@ -10,7 +10,7 @@ namespace Assets.Scripts.LevelGeneration
     [AddComponentMenu("Level Generator/PlayerSpawner")]
     public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] private PlayerController player;
+        [SerializeField] private Entity.Player player;
 
         private void Start()
         {

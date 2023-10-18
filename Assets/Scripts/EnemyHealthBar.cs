@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,19 +10,17 @@ public class EnemyHealthBar : MonoBehaviour
     public Image enemyHealthBar;
     public Image enemyHealthBarBorder;
     public Image enemyMovingHealthBar;
-    private float enemyHealthAmount;
+    public float enemyMovingHealth;
     public Transform target;
     public float timer;
 
-    Living living;
-    public float enemyMovingHealth;
+    private Health health;
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        living = GetComponentInParent<Living>();
-        enemyHealthAmount = living.MaxHealth;
-        enemyMovingHealth = living.MaxHealth;
-        timer = 0;
+        health = GetComponentInParent<Health>();
+        health.OnDamageTaken += UpdateHealthBar;
+        health.OnHealthGained += UpdateHealthBar;
     }
 
     // Update is called once per frame
@@ -43,11 +42,10 @@ public class EnemyHealthBar : MonoBehaviour
         enemyHealthBarBorder.transform.LookAt(target);
     }
 
-    public void TakeDamage(float damage)
+
+    private void UpdateHealthBar(float _)
     {
-        enemyHealthAmount -= damage;
-        enemyHealthBar.fillAmount = enemyHealthAmount / living.MaxHealth;
-        
+        enemyHealthBar.fillAmount = health.CurrentHealth / health.MaxHealth;
     }
 
 }

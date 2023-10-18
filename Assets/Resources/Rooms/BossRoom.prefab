@@ -4731,13 +4731,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6784032201294740920, guid: 1f3a9e1238f39d141a0e1966e18857e8, type: 3}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 6672186406215466359, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
+      objectReference: {fileID: 6604629319892681356, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[2]
       value: 
-      objectReference: {fileID: 566266523723854114, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
+      objectReference: {fileID: 6908275559297693039, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4768,6 +4776,22 @@ PrefabInstance:
       propertyPath: turret2
       value: 
       objectReference: {fileID: 4112806283600445967}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.data[0]
+      value: 
+      objectReference: {fileID: 2603618551086933588}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: Turrets.Array.data[1]
+      value: 
+      objectReference: {fileID: 4112806283600445967}
+    - target: {fileID: 5916244122740199480, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
+      propertyPath: SpawnPositions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6755498765752554789, guid: c88e045430539514a8bbc3dfa62dfdd8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -4895,13 +4919,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6784032201294740920, guid: 1f3a9e1238f39d141a0e1966e18857e8, type: 3}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 6672186406215466359, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
+      objectReference: {fileID: 6604629319892681356, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[2]
       value: 
-      objectReference: {fileID: 566266523723854114, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
+      objectReference: {fileID: 6908275559297693039, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4977,13 +5009,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6784032201294740920, guid: 1f3a9e1238f39d141a0e1966e18857e8, type: 3}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 6672186406215466359, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
+      objectReference: {fileID: 6604629319892681356, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[2]
       value: 
-      objectReference: {fileID: 566266523723854114, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
+      objectReference: {fileID: 6908275559297693039, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5059,13 +5099,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 6784032201294740920, guid: 1f3a9e1238f39d141a0e1966e18857e8, type: 3}
+    - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 6672186406215466359, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
+      objectReference: {fileID: 6604629319892681356, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
     - target: {fileID: 5617135101876453902, guid: 31471eca054d936468eca04fa9632470, type: 3}
       propertyPath: Enemies.Array.data[2]
       value: 
-      objectReference: {fileID: 566266523723854114, guid: ef60b1ac01f511f4294385b70bfda032, type: 3}
+      objectReference: {fileID: 6908275559297693039, guid: 14c6acddd9ed8cc48b5464f81fb8b3d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

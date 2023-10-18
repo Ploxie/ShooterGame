@@ -130,8 +130,11 @@ MonoBehaviour:
   Slowable: 0
   Nerfable: 0
   Stunnable: 0
+  Alive: 0
   LivingID: 0
   Health: 0
+  HealthRegenAmount: 0
+  HealthRegenInterval: 0
   MovementSpeed: 0
   Damage: 0
   DamageTakenMultiplier: 1
@@ -139,6 +142,7 @@ MonoBehaviour:
   MovementSpeedMultiplier: 1
   Stunned: 0
   StunDuration: 0
+  explosionDamageHitBox: {fileID: 0}
 --- !u!195 &4744583838029523378
 NavMeshAgent:
   m_ObjectHideFlags: 0

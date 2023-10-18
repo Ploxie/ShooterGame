@@ -10,15 +10,14 @@ public class PopUpConsumable : MonoBehaviour
     private GameObject floatingTextInstance;
     private TMP_Text text;
 
-    CartridgePickup cartridgePickup;
+    private CartridgePickup cartridgePickup;
 
     private void Start()
     {
         //floatingTextInstance = Instantiate(floatingTextPrefab/*, transform.position, Quaternion.identity, transform*/);
-        cartridgePickup = GetComponentInParent<CartridgePickup>();
+        cartridgePickup = GetComponent<CartridgePickup>();
         floatingTextInstance = Instantiate(floatingTextPrefab, transform);
-        text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = $"{ModuleRegistry.TranslationTable[cartridgePickup.id]} Module";
+        text = GetComponentInChildren<TextMeshProUGUI>();        
         floatingTextInstance.SetActive(false);
     }
 
@@ -26,6 +25,7 @@ public class PopUpConsumable : MonoBehaviour
     {
         if (other.CompareTag("Player")) {
             floatingTextInstance.SetActive(true);
+            text.text = $"{cartridgePickup.Module.Name} Module";
         }
     }
 

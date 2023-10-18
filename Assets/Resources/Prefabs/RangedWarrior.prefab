@@ -158,15 +158,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.5817614
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.9732
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.3875
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -219,9 +219,6 @@ PrefabInstance:
       addedObject: {fileID: 6908275559297693039}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 961962833308424566}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6844479380584626875}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
@@ -268,24 +265,15 @@ MonoBehaviour:
   MovementSpeedMultiplier: 1
   Stunned: 0
   StunDuration: 0
-  Range: 0
-  ModuleController: {fileID: 4024884369457759857}
-  WeaponID: 0
-  EffectID: 6
-  BulletID: 14
-  cartridgeDrop: {fileID: 3678300901976898227, guid: c6ede2bd54da7124c978bc86fb7ed1a2, type: 3}
---- !u!114 &961962833308424566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672186406215466359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4699c815fd4984b9cd51829754f831, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  cartridgePickup: {fileID: 0}
+  StateMachine:
+    states:
+    - {fileID: 11400000, guid: 2c7b7b531e97cae439e5b4d347c416cb, type: 2}
+    - {fileID: 11400000, guid: 4fca5d1f7e33fda4f9a846614c298a80, type: 2}
+    - {fileID: 11400000, guid: d377284631e64b14e8c3aef843769afc, type: 2}
+    - {fileID: 11400000, guid: 154cccc7f9b7442498185a29bcbbd09d, type: 2}
+    - {fileID: 11400000, guid: 852fdd9b6660e3e4fb6074505b2e6216, type: 2}
+    activeState: {fileID: 0}
 --- !u!195 &6844479380584626875
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -555,17 +543,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6608824530077105994, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 7824716587544686969}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4024884369457759857 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6579118337252947720, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 7824716587544686969}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be855106b49449e4785d25c23bf4515a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4400659229560900122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5874015559669037923, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}

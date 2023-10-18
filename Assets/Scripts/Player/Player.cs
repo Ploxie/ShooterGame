@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ public class Player : Living
 
     private ModuleController moduleController;
 
-    private ModuleHolder weaponModules;
-    private ModuleHolder effectModules;
-    private ModuleHolder bulletModules;
+    //private ModuleHolder weaponModules;
+    //private ModuleHolder effectModules;
+    //private ModuleHolder bulletModules;
 
     //GameEvent OnHealthPackPickUpEvent;
 
@@ -21,31 +22,31 @@ public class Player : Living
     {
         moduleController = GunVisual.GetComponent<ModuleController>();
 
-        weaponModules = new ModuleHolder();
-        effectModules = new ModuleHolder();
-        bulletModules = new ModuleHolder();
+        //weaponModules = new ModuleHolder();
+        //effectModules = new ModuleHolder();
+        //bulletModules = new ModuleHolder();
 
-        weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
-        Module pistol = weaponModules.Peek();
-        moduleController.LoadModule(ModuleType.WeaponModule, pistol);
+        //weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
+        //Module2 pistol = weaponModules.Peek();
+        //moduleController.LoadModule(ModuleType.WeaponModule, pistol);
 
         base.Awake();
     }
 
-    public void PickupModule(ModuleType moduleType, Module module)
+    public void PickupModule(ModuleType moduleType, Module2 module)
     {
         switch (moduleType)
         {
             case ModuleType.WeaponModule:
-                weaponModules.Insert(module);
+                //weaponModules.Insert(module);
                 moduleController.LoadModule(ModuleType.WeaponModule, module);
                 break;
             case ModuleType.EffectModule:
-                effectModules.Insert(module);
+                //effectModules.Insert(module);
                 moduleController.LoadModule(ModuleType.EffectModule, module);
                 break;
             case ModuleType.BulletModule:
-                bulletModules.Insert(module);
+                //bulletModules.Insert(module);
                 moduleController.LoadModule(ModuleType.BulletModule, module);
                 break;
         }
@@ -64,9 +65,9 @@ public class Player : Living
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        /*if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Module weaponModule = weaponModules.Peek();
+            Module2 weaponModule = weaponModules.Peek();
             if (weaponModule == null)
                 weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
             weaponModule = weaponModules.Cycle();
@@ -79,6 +80,12 @@ public class Player : Living
         if (Input.GetKeyDown(KeyCode.Alpha3))
             moduleController.LoadModule(ModuleType.BulletModule, bulletModules.Cycle());
 
-        base.Update();
+        base.Update();*/
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        EventManager.TriggerPlayerHealthChanged(Health);
     }
 }

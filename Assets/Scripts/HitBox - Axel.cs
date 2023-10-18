@@ -6,35 +6,15 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    public float damage = 1f;
-    protected HashSet<int> LivingHit;
-
-    public StatusEffect effect;
-
-    public void Activate()
-    {
-       LivingHit = new HashSet<int>();
-    }
+    public float Damage { get; set; }
+    public Assets.Scripts.Entity.StatusEffect Effect { get; set; }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Barrel")
-            return;
-
-        Living living = other.gameObject.GetComponent<Living>();
-
-        if (living != null)
+        if (GetComponent<Collider>().TryGetComponent(out Assets.Scripts.Entity.Player player)) // TODO: Make more generic to handle barrels and such
         {
-            if (LivingHit.Contains(living.LivingID))
-                return;
-
-            if (effect != null)
-                living.AddEffect(effect);
-
-            living.TakeDamage(damage);
-            LivingHit.Add(living.LivingID);
+            player.OnHit(Damage, Effect);            
         }
-
     }
 
 }

@@ -1,3 +1,4 @@
+using Assets.Scripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,14 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
-
     public static int score = 0;
     public TMP_Text scoreText;
 
     private void Awake()
     {
-        Instance = this;
+        EventManager.ScoreChanged += OnScoreChanged;
     }
 
     void Start()
@@ -23,22 +22,17 @@ public class ScoreManager : MonoBehaviour
             score = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            UpdateText(10);
-        }
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T)) // Remove this?
         {
             SceneManager.LoadScene("VictoryScreen");
         }
     }
 
-    public void UpdateText(int value)
+    private void OnScoreChanged(int score)
     {
-        score += value;
+        score += score;
         scoreText.text = $"Score: {score}";
     }
 }

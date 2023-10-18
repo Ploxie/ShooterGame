@@ -5,20 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Threading;
+using Assets.Scripts.EventSystem;
 
 public class HealthBarManager : MonoBehaviour
 {
     public Image healthBar;
     public TMP_Text HealthText;
-    public Image movingHealthBar;
-    private Player player;
-    public float movingHealth = 100;
-    public float timer = 0;
 
+    private void Awake()
+    {
+        EventManager.PlayerHealthChanged += SetHealth;
+    }
 
-    // Update is called once per frame
-    void Update()
+    private void SetHealth(float health)
     {
         if (EnemyManager.Instance.Player == null)
             return;

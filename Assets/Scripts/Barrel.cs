@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class Barrel : Living
 {
-    // Start is called before the first frame update
-    // Update is called once per frame
     [SerializeField]
     Hitbox explosionDamageHitBox;
 
     float deathTimer = 0;
 
-    public EffectModule effect;
+    public Assets.Scripts.Entity.StatusEffect effect;
 
     bool die = false;
 
@@ -30,7 +28,7 @@ public class Barrel : Living
             {
                 if (child.TryGetComponent<Hitbox>(out Hitbox hitbox))
                 {
-                    hitbox.effect = effect.GetStatusEffect();
+                    hitbox.Effect = effect;
                 }
             }
         }
