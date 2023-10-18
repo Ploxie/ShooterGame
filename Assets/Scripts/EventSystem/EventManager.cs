@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameEvent { } 
-
 public class EventManager : Singleton<EventManager>
 {
     public delegate void EventDelegate<T>(T e) where T : GameEvent;

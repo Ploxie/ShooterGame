@@ -1,4 +1,3 @@
-using Assets.Scripts.EventSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -86,6 +85,7 @@ public class Player : Living
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        EventManager.TriggerPlayerHealthChanged(Health);
+        //EventManager.TriggerPlayerHealthChanged(Health);
+        //EventManager.Instance.TriggerEvent(new PlayerHealthChangeEvent(Health));
     }
 }

@@ -1,4 +1,3 @@
-using Assets.Scripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.ScoreChanged += OnScoreChanged;
+        EventManager.Instance.AddListener<ScoreChangedEvent>(OnScoreChanged);
     }
 
     void Start()
@@ -30,9 +29,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void OnScoreChanged(int score)
+    private void OnScoreChanged(ScoreChangedEvent e)
     {
-        score += score;
+        score += e.Score;
         scoreText.text = $"Score: {score}";
     }
 }

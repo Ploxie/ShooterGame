@@ -26,15 +26,15 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyMovingHealthBar.fillAmount = enemyMovingHealth / living.MaxHealth;
-        if (enemyMovingHealth > living.Health)
+        enemyMovingHealthBar.fillAmount = enemyMovingHealth / health.MaxHealth;
+        if (enemyMovingHealth > health.CurrentHealth)
         {
             timer += Time.deltaTime;
             if (timer > 0.5f)
             {
                 enemyMovingHealth -= 0.25f;
             }
-            if (enemyMovingHealth <= living.Health)
+            if (enemyMovingHealth <= health.CurrentHealth)
             {
                 timer = 0;
             }
@@ -47,5 +47,4 @@ public class EnemyHealthBar : MonoBehaviour
     {
         enemyHealthBar.fillAmount = health.CurrentHealth / health.MaxHealth;
     }
-
 }

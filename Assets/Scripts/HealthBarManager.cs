@@ -5,42 +5,37 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Assets.Scripts.EventSystem;
+using Assets.Scripts.Entity;
 
 public class HealthBarManager : MonoBehaviour
 {
     public Image healthBar;
+    public Image movingHealthBar;
     public TMP_Text HealthText;
+
+    private float lastHealth;
 
     private void Awake()
     {
-        EventManager.PlayerHealthChanged += SetHealth;
+        EventManager.Instance.AddListener<PlayerHealthChangeEvent>(SetHealth);
     }
 
-    private void SetHealth(float health)
+    private void Update()
+    {
+        movingHealthBar.fillAmount = Mathf.Lerp(lastHealth, healthBar.fillAmount, Time.deltaTime);
+    }
+
+    private void SetHealth(PlayerHealthChangeEvent e)
     {
         if (EnemyManager.Instance.Player == null)
             return;
 
-        
-        var player = EnemyManager.Instance.Player;
-        
 
-        healthBar.fillAmount = player.Health / player.MaxHealth;
-        HealthText.text = $"{player.Health}/{player.MaxHealth}";
-        movingHealthBar.fillAmount = movingHealth / player.MaxHealth;
-        if(movingHealth > player.Health)
-        {
-            timer += Time.deltaTime;
-            if(timer > 0.5f)
-            {
-                movingHealth -= 0.25f;
-            }
-            if(movingHealth <= player.Health)
-            {
-                timer = 0;
-            }
-        }
+        var health = e.Health;
+
+        lastHealth = healthBar.fillAmount;
+        healthBar.fillAmount = health.CurrentHealth / health.MaxHealth;
+        HealthText.text = $"{health.CurrentHealth}/{health.MaxHealth}";        
     }
 
 

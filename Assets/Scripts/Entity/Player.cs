@@ -31,6 +31,9 @@ namespace Assets.Scripts.Entity
             Gun.ApplyModule(weaponModules.Peek());
             Gun.ApplyModule(effectModules.Peek());
             Gun.ApplyModule(bulletModules.Peek());
+
+            Health.OnDamageTaken += OnHealthChanged;
+            Health.OnHealthGained += OnHealthChanged;
         }
 
         protected override void Update()
@@ -112,6 +115,11 @@ namespace Assets.Scripts.Entity
                 bulletModules.Insert(projectileEffect);
                 return;
             }
+        }
+
+        private void OnHealthChanged(float _)
+        {
+            EventManager.Instance.TriggerEvent(new PlayerHealthChangeEvent(Health));
         }
 
         protected void OnTriggerEnter(Collider other)
