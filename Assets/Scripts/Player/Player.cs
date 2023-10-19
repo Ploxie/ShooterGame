@@ -1,91 +1,148 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Player : Living
+namespace Assets.Scripts.Entity
 {
-    public GameObject GunVisual;
 
-    private ModuleController moduleController;
-
-    //private ModuleHolder weaponModules;
-    //private ModuleHolder effectModules;
-    //private ModuleHolder bulletModules;
-
-    //GameEvent OnHealthPackPickUpEvent;
-
-    public override void Awake()
+    [RequireComponent(typeof(Gun)/*, typeof(GunVisual)*/)]
+    public class Player : Character
     {
-        moduleController = GunVisual.GetComponent<ModuleController>();
+        private Gun Gun { get; set; }
+        private PickupAble AvailablePickup { get; set; }
+        public Vector3 AimPosition { get; set; }
 
-        //weaponModules = new ModuleHolder();
-        //effectModules = new ModuleHolder();
-        //bulletModules = new ModuleHolder();
+        private ModuleHolder<Weapon> weaponModules = new();
+        private ModuleHolder<StatusEffect> effectModules = new();
+        private ModuleHolder<ProjectileEffect> bulletModules = new();
 
-        //weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
-        //Module2 pistol = weaponModules.Peek();
-        //moduleController.LoadModule(ModuleType.WeaponModule, pistol);
-
-        base.Awake();
-    }
-
-    public void PickupModule(ModuleType moduleType, Module2 module)
-    {
-        switch (moduleType)
+        protected override void Awake()
         {
-            case ModuleType.WeaponModule:
-                //weaponModules.Insert(module);
-                moduleController.LoadModule(ModuleType.WeaponModule, module);
-                break;
-            case ModuleType.EffectModule:
-                //effectModules.Insert(module);
-                moduleController.LoadModule(ModuleType.EffectModule, module);
-                break;
-            case ModuleType.BulletModule:
-                //bulletModules.Insert(module);
-                moduleController.LoadModule(ModuleType.BulletModule, module);
-                break;
-        }
-    }
+            base.Awake();
 
-    public void OnHealthPackPickUp(Component sender, object data)
-    {
-        if (data is int) Health += (int)data;
-    }
+            gameObject.tag = "Player";
+            Gun = GetComponent<Gun>();
 
-    protected override void OnDeath()
-    {
-        SceneManager.LoadScene("GameOver");
-        base.OnDeath();
-    }
+            weaponModules.Insert(new ShotgunWeapon());
 
-    public override void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Module2 weaponModule = weaponModules.Peek();
-            if (weaponModule == null)
-                weaponModules.Insert(ModuleGenerator.CreateWeaponModule<PistolModule>());
-            weaponModule = weaponModules.Cycle();
-            moduleController.LoadModule(ModuleType.WeaponModule, weaponModule);
+            Gun.ApplyModule(weaponModules.Peek());
+            Gun.ApplyModule(effectModules.Peek());
+            Gun.ApplyModule(bulletModules.Peek());
+
+            Health.OnDamageTaken += OnHealthChanged;
+            Health.OnHealthGained += OnHealthChanged;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            moduleController.LoadModule(ModuleType.EffectModule, effectModules.Cycle());
+        protected override void Update()
+        {
+            base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            moduleController.LoadModule(ModuleType.BulletModule, bulletModules.Cycle());
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                Gun?.Shoot();
+            }
 
-        base.Update();*/
-    }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                Gun.ApplyModule(weaponModules.Cycle());
 
-    public override void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-        //EventManager.TriggerPlayerHealthChanged(Health);
-        //EventManager.Instance.TriggerEvent(new PlayerHealthChangeEvent(Health));
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                Gun.ApplyModule(effectModules.Cycle());
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                Gun.ApplyModule(bulletModules.Cycle());
+
+            if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
+            {
+                if (!AvailablePickup.IsDestroyed())
+                {
+                    CartridgePickup cartridgePickup = AvailablePickup as CartridgePickup;
+                    if (cartridgePickup != null)
+                    {
+                        //Gun?.ApplyModule(cartridgePickup.Module);
+                        PickupModule(cartridgePickup.Module);
+                    }
+
+                    HealthPack healthPack = AvailablePickup as HealthPack;
+                    if (healthPack != null)
+                    {
+                        Health.Heal(healthPack.Healing);
+                    }
+
+                    AvailablePickup?.Pickup();
+                }
+            }
+
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane floorPlane = new Plane(Vector3.up, transform.position);
+
+            if (floorPlane.Raycast(cameraRay, out float rayLength))
+            {
+                var rayHit = cameraRay.GetPoint(rayLength);
+
+                var aimPos = new Vector3(rayHit.x, Rigidbody.transform.position.y, rayHit.z);
+                var aimDir = ((aimPos - transform.position) * 100.0f).normalized;
+                aimDir.y = 0.0f;
+
+                AimPosition = aimPos;
+
+                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 20.0f);
+            }
+
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+
+            Vector3 moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
+
+            Rigidbody.velocity = moveDirection * CurrentMovementSpeed;
+        }
+
+        private void PickupModule(Module module)
+        {
+            if (module is Weapon weapon)
+            {
+                weaponModules.Insert(weapon);
+                return;
+            }
+
+            if (module is StatusEffect statusEffect)
+            {
+                effectModules.Insert(statusEffect);
+                return;
+            }
+
+            if (module is ProjectileEffect projectileEffect)
+            {
+                bulletModules.Insert(projectileEffect);
+                return;
+            }
+        }
+
+        private void OnHealthChanged(float _)
+        {
+            EventManager.GetInstance().TriggerEvent(new PlayerHealthChangeEvent(Health));
+        }
+
+        protected void OnTriggerEnter(Collider other)
+        {            
+            if(other.TryGetComponent(out PickupAble pickup))
+            {
+                AvailablePickup = pickup;
+                return;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out PickupAble pickup))
+            {
+                AvailablePickup = null;
+                return;
+            }
+        }
+
     }
 }
