@@ -26,6 +26,10 @@ public class EnemyMelee : Enemy
         meleeDamageHitBox.Effect = Effect;
         jumpDamageHitBox.Damage = JumpDamage;
         jumpDamageHitBox.Effect = Effect;
+        Effect = Module.CreateRandomStatusEffectModule();
+
+        meleeDamageHitBox.Effect = Effect;
+        jumpDamageHitBox.Effect = Effect;
     }
 
     protected override void OnDeath()
