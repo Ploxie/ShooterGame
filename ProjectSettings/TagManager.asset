@@ -19,6 +19,8 @@ TagManager:
   - Projectile
   - Pickup
   - Keys
+  - Door
+  - Prop
   layers:
   - Default
   - TransparentFX

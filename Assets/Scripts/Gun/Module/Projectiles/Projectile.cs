@@ -73,7 +73,7 @@ namespace Assets.Scripts.Entity
                 HitColliders.Add(collider);
             }
 
-            if (collider.CompareTag("Wall"))
+            if (collider.CompareTag("Wall") || collider.CompareTag("Prop"))
             {
                 OnWallCollision(null);
                 return;
