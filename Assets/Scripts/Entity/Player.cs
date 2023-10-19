@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Entity
@@ -56,20 +57,23 @@ namespace Assets.Scripts.Entity
 
             if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
-                CartridgePickup cartridgePickup = AvailablePickup as CartridgePickup;
-                if (cartridgePickup != null)
+                if (!AvailablePickup.IsDestroyed())
                 {
-                    //Gun?.ApplyModule(cartridgePickup.Module);
-                    PickupModule(cartridgePickup.Module);
-                }
+                    CartridgePickup cartridgePickup = AvailablePickup as CartridgePickup;
+                    if (cartridgePickup != null)
+                    {
+                        //Gun?.ApplyModule(cartridgePickup.Module);
+                        PickupModule(cartridgePickup.Module);
+                    }
 
-                HealthPack healthPack = AvailablePickup as HealthPack;
-                if (healthPack != null)
-                {
-                    Health.Heal(healthPack.Healing);
-                }
+                    HealthPack healthPack = AvailablePickup as HealthPack;
+                    if (healthPack != null)
+                    {
+                        Health.Heal(healthPack.Healing);
+                    }
 
-                AvailablePickup?.Pickup();
+                    AvailablePickup?.Pickup();
+                }
             }
 
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
