@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.AddListener<ScoreChangedEvent>(OnScoreChanged);
+        EventManager.GetInstance().AddListener<ScoreChangedEvent>(OnScoreChanged);
     }
 
     void Start()

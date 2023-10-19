@@ -17,7 +17,7 @@ public class HealthBarManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Instance.AddListener<PlayerHealthChangeEvent>(SetHealth);
+        EventManager.GetInstance().AddListener<PlayerHealthChangeEvent>(SetHealth);
     }
 
     private void Update()
