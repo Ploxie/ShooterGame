@@ -128,6 +128,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6691845870191264192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9191016425648760978, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
+  m_PrefabInstance: {fileID: 2545442961160235346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6672186406215367639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +237,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8790823841516230516}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8703826803304233713}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 473521877123624648}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4488209455237467229}
   m_SourcePrefab: {fileID: 100100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
 --- !u!1 &6672186406215466359 stripped
 GameObject:
@@ -244,28 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1
-  DefaultMovementSpeed: 3
-  DefaultDamage: 2
-  OnHealthChangedEvent: {fileID: 11400000, guid: d13a6412fbbee504ca40d0b41f7f8e64, type: 2}
-  OnDeathEvent: {fileID: 11400000, guid: fb5d7b55ce667334e8c9e9acb9589161, type: 2}
-  RegenHealth: 0
-  Slowable: 0
-  Nerfable: 0
-  Stunnable: 0
-  Alive: 0
-  LivingID: 0
-  Health: 100
-  HealthRegenAmount: 0
-  HealthRegenInterval: 0
   MovementSpeed: 0
-  Damage: 0
-  DamageTakenMultiplier: 1
-  DamageDealtMultiplier: 1
-  MovementSpeedMultiplier: 1
-  Stunned: 0
-  StunDuration: 0
-  cartridgePickup: {fileID: 0}
+  CurrentMovementSpeed: 0
   StateMachine:
     states:
     - {fileID: 11400000, guid: 2c7b7b531e97cae439e5b4d347c416cb, type: 2}
@@ -331,7 +331,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 5749110556970755314}
   enemyHealthBarBorder: {fileID: 1417234389833985385}
+  enemyMovingHealthBar: {fileID: 6691845870191264192}
+  enemyMovingHealth: 0
   target: {fileID: 0}
+  timer: 0
+--- !u!114 &8703826803304233713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672186406215466359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c8d7ce5d504408409ed2935ec0797eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &473521877123624648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672186406215466359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 100
+  <HealthRegen>k__BackingField: 10
+--- !u!54 &4488209455237467229
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672186406215466359}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &6672186406215754071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}

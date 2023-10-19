@@ -146,6 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 7300862800581538703}
   enemyHealthBarBorder: {fileID: 4121381576945941012}
+  enemyMovingHealthBar: {fileID: 8522824539575178941}
+  enemyMovingHealth: 0
+  target: {fileID: 0}
+  timer: 0
 --- !u!114 &5646720270553769169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +602,17 @@ MonoBehaviour:
 --- !u!114 &7300862800581538703 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7826072478396566944, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
+  m_PrefabInstance: {fileID: 705424109585006127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8522824539575178941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9191016425648760978, guid: 6f83b856ce1796741b2edff39945e997, type: 3}
   m_PrefabInstance: {fileID: 705424109585006127}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
