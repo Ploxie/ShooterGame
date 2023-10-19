@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Assets.Scripts.Entity
 {
 
-    [RequireComponent(typeof(Gun), typeof(GunVisual))]
+    [RequireComponent(typeof(Gun)/*, typeof(GunVisual)*/)]
     public class Player : Character
     {
         private Gun Gun { get; set; }

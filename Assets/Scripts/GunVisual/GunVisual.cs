@@ -18,6 +18,13 @@ public class GunVisual : MonoBehaviour
 
     private WeaponType selectedType;
 
+    private AudioSource audio;
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+    }
+
     public Vector3 GetBarrelPosition()
     {
         return Barrels[(int)selectedType].FiringPosition.transform.position;
@@ -32,6 +39,11 @@ public class GunVisual : MonoBehaviour
 
         selectedType = weaponType;
         Barrels[(int)selectedType].BarrelObject.SetActive(true);
+    }
+
+    public void PlaySound()
+    {
+        audio.Play();
     }
 
 
