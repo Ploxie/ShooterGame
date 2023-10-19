@@ -27,10 +27,6 @@ public class HealthBarManager : MonoBehaviour
 
     private void SetHealth(PlayerHealthChangeEvent e)
     {
-        if (EnemyManager.Instance.Player == null)
-            return;
-
-
         var health = e.Health;
 
         lastHealth = healthBar.fillAmount;

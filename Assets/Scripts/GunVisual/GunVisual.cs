@@ -2,6 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType
+{
+    Pistol,
+    BoltAction,
+    SMG,
+    Automatic,
+    Shotgun
+}
+
 [Serializable]
 public struct BarrelData
 {
