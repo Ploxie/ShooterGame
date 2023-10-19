@@ -15,7 +15,7 @@ namespace Assets.Scripts.Entity
 
         public static Projectile CreateDefaultProjectile(Vector3 barrelPosition)
         {
-            GameObject parent = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Projectile_Crystal"), barrelPosition, Quaternion.identity);
+            GameObject parent = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Gun/Projectile_Crystal"), barrelPosition, Quaternion.identity);
             return parent.AddComponent<Projectile>(); ;
         }
     }
