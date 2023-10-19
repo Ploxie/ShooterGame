@@ -37,12 +37,12 @@ namespace Assets.Scripts.Entity
 
             LastShootTime = Time.time;
 
-            CurrentAmmo--;
-            if (CurrentAmmo <= 0)
-            {
-                LastShootTime = Time.time + ReloadTime;
-                CurrentAmmo = MaxAmmo;
-            }
+            //CurrentAmmo--;
+            //if (CurrentAmmo <= 0)
+            //{
+            //    LastShootTime = Time.time + ReloadTime;
+            //    CurrentAmmo = MaxAmmo;
+            //}
 
             return projectile;
         }
