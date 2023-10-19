@@ -9,11 +9,27 @@ namespace Assets.Scripts.LevelGeneration
     {
         [SerializeField] private Entity.Enemy[] Enemies;
 
+        public bool ContinousSpawns;
+        public int SpawnCooldown;
+        public int MaxActiveEnemies;
+        private double lastSpawn;
+        private double activeEnemies;
+
         private void Start()
         {
             Random.InitState(System.DateTime.Now.Millisecond);
-
+            lastSpawn = Utils.GetUnixMillis();
             StartCoroutine(DelayedSpawn());
+        }
+
+        protected void Update()
+        {
+            if (ContinousSpawns && Utils.GetUnixMillis() - lastSpawn >= SpawnCooldown && activeEnemies < MaxActiveEnemies)
+            {
+                SpawnRandomEnemy();
+                activeEnemies++;
+                lastSpawn = Utils.GetUnixMillis();
+            }
         }
 
         private IEnumerator DelayedSpawn()
