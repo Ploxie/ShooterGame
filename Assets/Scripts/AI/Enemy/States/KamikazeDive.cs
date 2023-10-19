@@ -13,10 +13,10 @@ public class KamikazeDive : State
 
     public override void ChangeState()
     {
-        if (enemyKamikaze.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-        {
-            enemyKamikaze.StateMachine.SetState(typeof(KamikazeDeath));
-        }
+        //if (enemyKamikaze.Animator.GetCurrentAnimatorStateInfo(0).length >= 1.19) //TODO: FIX ANIMATION TIME
+        //{
+        //    enemyKamikaze.StateMachine.SetState(typeof(KamikazeDeath));
+        //}
     }
 
     public override void Exit()
@@ -32,5 +32,6 @@ public class KamikazeDive : State
     public override void Enter()
     {
         enemyKamikaze.Animator.SetTrigger("Dive");
+        enemyKamikaze.Animator.SetBool("IsWalking", false);
     }
 }
