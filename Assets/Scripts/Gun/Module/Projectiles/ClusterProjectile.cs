@@ -14,9 +14,9 @@ namespace Assets.Scripts.Entity
 
         private bool HasExploded;
 
-        protected override void OnWallCollision(Collider collider)
+        protected override void OnWallCollision(Collision collision)
         {
-            base.OnWallCollision(collider);
+            base.OnWallCollision(collision);
             Explode();
         }
 

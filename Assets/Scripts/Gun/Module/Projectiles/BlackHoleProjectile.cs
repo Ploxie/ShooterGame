@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
         public const float PullStrength = 100;
         public const float PullStrengthIncrements = 50;
 
-        protected override void OnWallCollision(Collider collider)
+        protected override void OnWallCollision(Collision collision)
         {
             SpawnBlackHole();
             Destroy(gameObject);

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
         {
             character.OnHit(Damage, StatusEffects.ToArray());
         }
-        protected override void OnWallCollision(Collider collider)
+        protected override void OnWallCollision(Collision collision)
         {
         }
     }

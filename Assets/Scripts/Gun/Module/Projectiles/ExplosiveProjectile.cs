@@ -9,9 +9,9 @@ namespace Assets.Scripts.Entity
 {
     public class ExplosiveProjectile : Projectile
     {
-        protected override void OnWallCollision(Collider collider)
+        protected override void OnWallCollision(Collision collision)
         {
-            base.OnWallCollision(collider);
+            base.OnWallCollision(collision);
             Explode();
         }
 
