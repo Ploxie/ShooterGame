@@ -149,7 +149,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_Name
-      value: RangedWarrior
+      value: EnemyRanged
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_TagString
@@ -359,9 +359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 100
-  <MaxHealth>k__BackingField: 100
-  <HealthRegen>k__BackingField: 10
+  <CurrentHealth>k__BackingField: 1
+  <MaxHealth>k__BackingField: 1
+  <HealthRegen>k__BackingField: 0
 --- !u!54 &4488209455237467229
 Rigidbody:
   m_ObjectHideFlags: 0

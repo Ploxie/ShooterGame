@@ -34,7 +34,7 @@ namespace Assets.Scripts.LevelGeneration
 
         private IEnumerator DelayedSpawn()
         {
-            yield return new WaitForSeconds(10.0f);
+            yield return new WaitForSeconds(1.0f);
             SpawnRandomEnemy();
         }
 

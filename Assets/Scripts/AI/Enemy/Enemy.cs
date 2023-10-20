@@ -12,8 +12,8 @@ namespace Assets.Scripts.Entity
     public abstract class Enemy : Character
     {
 
-        public Animator Animator { get; private set; }
-        public NavMeshAgent Agent { get; private set; }
+        public Animator Animator { get; protected set; }
+        public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
 
         [SerializeField] public StateMachine StateMachine = new StateMachine();
