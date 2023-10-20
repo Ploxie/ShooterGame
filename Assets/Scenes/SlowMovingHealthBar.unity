@@ -5162,11 +5162,23 @@ PrefabInstance:
     - target: {fileID: -772300969017197240, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
       propertyPath: Barrels.Array.data[0].BarrelObject
       value: 
-      objectReference: {fileID: 1906539943}
+      objectReference: {fileID: 1533988500}
     - target: {fileID: -772300969017197240, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
       propertyPath: Barrels.Array.data[1].BarrelObject
       value: 
-      objectReference: {fileID: 1533988500}
+      objectReference: {fileID: 1906539943}
+    - target: {fileID: -772300969017197240, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
+      propertyPath: Barrels.Array.data[2].BarrelObject
+      value: 
+      objectReference: {fileID: 310249953}
+    - target: {fileID: -772300969017197240, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
+      propertyPath: Barrels.Array.data[3].BarrelObject
+      value: 
+      objectReference: {fileID: 1022764189}
+    - target: {fileID: -772300969017197240, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
+      propertyPath: Barrels.Array.data[4].BarrelObject
+      value: 
+      objectReference: {fileID: 1462032638}
     - target: {fileID: 3272457671779713946, guid: 664e6c70a883bb845b7a9c6eb28bf023, type: 3}
       propertyPath: m_Name
       value: Player (1)
