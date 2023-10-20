@@ -18,7 +18,7 @@ namespace Assets.Scripts.Entity
         public Vector3 Direction { get; set; }
         public List<StatusEffect> StatusEffects { get; set; }     
         public ProjectileEffect ProjectileEffect { get; set; }
-        public HashSet<Collider> HitColliders { get; set; }
+        public HashSet<Collision> HitCollisions { get; set; }
         protected Rigidbody RigidBody { get; set; }
         protected Collider Collider { get; private set; }
         public Vector3 StartPosition { get; set; }
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Entity
         protected virtual void Awake()
         {
             StatusEffects = new List<StatusEffect>();
-            HitColliders = new HashSet<Collider>();
+            HitCollisions = new HashSet<Collision>();
             RigidBody = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
 
@@ -62,18 +62,18 @@ namespace Assets.Scripts.Entity
             Destroy(gameObject);
         }
 
-        protected void OnTriggerEnter(Collider collider)
+        protected void OnCollisionEnter(Collision collision)
         {
-            if (HitColliders.Contains(collider)) // We don't want to be able to be hit by the same bullet twice
+            if (HitCollisions.Contains(collision)) // We don't want to be able to be hit by the same bullet twice
                 return;
 
-            if (collider.TryGetComponent(out Character character) && !character.CompareTag(tag))
+            if (collision.collider.gameObject.TryGetComponent(out Character character) && !character.CompareTag(tag))
             {
                 OnCharacterCollision(character);
-                HitColliders.Add(collider);
+                HitCollisions.Add(collision);
             }
 
-            if (collider.CompareTag("Wall") || collider.CompareTag("Prop"))
+            if (collision.collider.gameObject.CompareTag("Wall") || collision.collider.gameObject.CompareTag("Prop"))
             {
                 OnWallCollision(null);
                 return;

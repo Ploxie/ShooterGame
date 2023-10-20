@@ -43,7 +43,7 @@ namespace Assets.Scripts.Entity
                 projectile.Range = Range;
                 projectile.HasExploded = true;
                 projectile.StartPosition = transform.position;
-                projectile.HitColliders = HitColliders;
+                projectile.HitCollisions = HitCollisions;
 
 
                 if (StatusEffects != null)
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Entity
                 projectile.Range = Range;
                 projectile.HasExploded = true;
                 projectile.StartPosition = transform.position;
-                projectile.HitColliders = HitColliders;
+                projectile.HitCollisions = HitCollisions;
 
 
                 if (StatusEffects != null)

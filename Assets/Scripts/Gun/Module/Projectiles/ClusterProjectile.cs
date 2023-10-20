@@ -51,7 +51,7 @@ namespace Assets.Scripts.Entity
                 projectile.Speed = Speed;
                 projectile.Range = Range;
                 projectile.StartPosition = transform.position;
-                projectile.HitColliders = HitColliders;
+                projectile.HitCollisions = HitCollisions;
                 projectile.HasExploded = true;
                 projectile.tag = tag;
                 
