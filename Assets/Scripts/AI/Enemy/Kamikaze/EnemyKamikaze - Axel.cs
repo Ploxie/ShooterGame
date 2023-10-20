@@ -32,8 +32,8 @@ public class EnemyKamikaze : Enemy
 
     protected override void OnDeath()
     {
-        StateMachine.SetState(typeof(KamikazeDeath));
         SpawnCartridgePickup(StatusEffect);
+        StateMachine.SetState(typeof(KamikazeDeath));
     }
 
     private void Jank()
