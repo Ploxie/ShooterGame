@@ -19,43 +19,56 @@ namespace Assets.Scripts.LevelGeneration
 
         [SerializeField] public bool Randomize;
         [SerializeField] public RoomModule[] Modules;
+        public RoomModule[] ModulePool;
+
+        public int RoomsToGenerate;
+
+        
 
         public void Generate()
         {
             // This should be made more interesting, this was mainly to give the option to create a predefined level with certain modules in order
-            if(Randomize)
+            ModulePool = new RoomModule[RoomsToGenerate];
+            if (Randomize)
             {
                 Modules = new RoomModule[Modules.Length];
 
                 var modules = Resources.FindObjectsOfTypeAll<RoomModule>();
                 List<RoomModule> prefabs = new List<RoomModule>();
-                for(int i = 0; i < modules.Length; i++)
+                for(int i = 0; i < Modules.Length; i++)
                 {
                     if (!modules[i].enabled)
                         continue;
                     var prefab = modules[i];
                     if(prefab.name != StartModule.name && prefab.name != FinalModule.name && prefab.name != CorridorModule.name)
                         prefabs.Add(prefab);
-                }                
-
-                List<RoomModule> available = new List<RoomModule>(prefabs);
-
-                Modules[0] = StartModule;
-                for (int i = 1; i < Modules.Length-1;i++)
-                {
-                    Modules[i] = prefabs[Random.Range(0, prefabs.Count)];
                 }
-                Modules[Modules.Length-1] = FinalModule;
+
+                ModulePool[0] = StartModule;
+                for (int i = 1; i < RoomsToGenerate; i++)
+                {
+                    ModulePool[i] = prefabs[Random.Range(0, prefabs.Count)];
+                }
+                ModulePool[ModulePool.Length-1] = FinalModule;
+            }
+            else
+            {
+                int pointer = 0;
+                for (int i = 0; i < RoomsToGenerate; i++)
+                {
+                    if (pointer == Modules.Length)
+                        pointer = 0;
+
+                    ModulePool[i] = Modules[pointer];
+                    pointer++;
+                }
             }
 
-            if (Modules == null)
+            if (ModulePool == null)
                 return;
 
-            foreach(RoomModule module in Modules)
-            {
-                module.GenerateTiles();
-            }                      
+            foreach (RoomModule module in ModulePool)
+                module.GenerateTiles();       
         }
-
     }
 }
