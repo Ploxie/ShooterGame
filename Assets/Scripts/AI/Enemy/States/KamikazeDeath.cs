@@ -16,6 +16,7 @@ public class KamikazeDeath : Death
     {
         base.Enter();
         enemyKamikaze.Agent.isStopped = true;
+        enemyKamikaze.Agent.updateRotation = false;
         enemyKamikaze.Explode();
     }
 

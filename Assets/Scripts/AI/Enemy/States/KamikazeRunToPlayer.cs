@@ -12,8 +12,7 @@ public class KamikazeRunToPlayer : RunToPlayer
     }
     public override void ChangeState()
     {
-        base.ChangeState();
-        if (Vector3.Distance(player.transform.position, enemyKamikaze.transform.position) < 3)
+        if (Vector3.Distance(player.transform.position, enemyKamikaze.transform.position) < enemyKamikaze.DiveRange)
         {
             enemyKamikaze.StateMachine.SetState(typeof(KamikazeDive));
         }
@@ -27,6 +26,6 @@ public class KamikazeRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
-        enemyKamikaze.Animator.SetBool("IsRunning", true);
+        enemyKamikaze.Animator.SetBool("IsWalking", true);
     }
 }

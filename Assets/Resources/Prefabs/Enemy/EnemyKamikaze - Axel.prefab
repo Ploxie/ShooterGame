@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a3b10ec2ef0184abdae84a8f31de07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 0.5
+  MovementSpeed: 5
   CurrentMovementSpeed: 0
   StateMachine:
     states:
