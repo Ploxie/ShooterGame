@@ -6,7 +6,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Generic/Idle")]
 
-public abstract class Idle : State
+public class Idle : State
 {
     protected Enemy enemy;
 
@@ -29,5 +29,15 @@ public abstract class Idle : State
     public override void Exit()
     {
         enemy.Agent.isStopped = false;
+    }
+
+    public override void Update()
+    {
+        
+    }
+
+    public override void ChangeState()
+    {
+        
     }
 }
