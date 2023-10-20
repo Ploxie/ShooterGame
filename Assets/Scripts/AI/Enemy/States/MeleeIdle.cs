@@ -18,13 +18,16 @@ public class MeleeIdle : Idle
         player = enemyMelee.Player;
 
         float distance = Vector3.Distance(player.transform.position, enemyMelee.transform.position);
-        if (distance <= enemyMelee.AttackRange)
+        if (distance < detectionRange)
         {
-            enemyMelee.StateMachine.SetState(typeof(MeleeAttack));
-        }
-        else if (distance > enemyMelee.AttackRange)
-        {
-            enemyMelee.StateMachine.SetState(typeof(MeleeRunToPlayer));
+            if (distance <= enemyMelee.AttackRange)
+            {
+                enemyMelee.StateMachine.SetState(typeof(MeleeAttack));
+            }
+            else if (distance > enemyMelee.AttackRange)
+            {
+                enemyMelee.StateMachine.SetState(typeof(MeleeRunToPlayer));
+            }
         }
     }
 

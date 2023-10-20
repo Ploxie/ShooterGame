@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
         public int BounceCount { get; set; } = 4;
         public int Bounces { get; set; }
 
-        protected override void OnWallCollision(Collider collider)
+        protected override void OnWallCollision(Collision collision)
         {
             if(Bounces >= BounceCount)
             {
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Entity
                 return;
             }
 
-            Vector3 reflectedDirection = Vector3.Reflect(RigidBody.velocity, collider.transform.rotation * Vector3.forward);
+            Vector3 reflectedDirection = Vector3.Reflect(Direction, collision.GetContact(0).normal);
             Direction = reflectedDirection.normalized;            
             Bounces++;
             StartPosition = RigidBody.position;

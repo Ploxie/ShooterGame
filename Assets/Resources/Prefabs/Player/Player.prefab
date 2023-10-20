@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4471037607700539646}
   - component: {fileID: -5661077277882984213}
   - component: {fileID: 6161884985011829043}
-  m_Layer: 30
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -197,7 +197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 10
   CurrentMovementSpeed: 0
-  DashForce: 2147483647
 --- !u!1001 &3306943635200028497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,17 +209,61 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoltActionBarrelPos
       objectReference: {fileID: 0}
+    - target: {fileID: 148144041277724743, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1011717354397285429, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: SMGBarrelPos
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011717354397285429, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087678699404347376, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188746061942358507, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811197939336088930, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1964219339830625595, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: ShotgunBarrelPos
       objectReference: {fileID: 0}
+    - target: {fileID: 1964219339830625595, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191225934118056256, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2577900372869901320, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: GunVisual
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577900372869901320, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2946969415979933305, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086298752519332579, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3400942998898062391, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.size
@@ -314,13 +357,41 @@ PrefabInstance:
       propertyPath: Barrels.Array.data[4].FiringPosition
       value: 
       objectReference: {fileID: 3938064319322303082}
+    - target: {fileID: 5874015559669037923, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946706608320513719, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6324908983639187780, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608824530077105994, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7945952678391557491, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: PistolBarrelPos
       objectReference: {fileID: 0}
+    - target: {fileID: 7945952678391557491, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8817395268705537122, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: AutomaticBarrelPos
+      objectReference: {fileID: 0}
+    - target: {fileID: 8817395268705537122, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854317212063111301, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8902511240563484846, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_LocalPosition.x

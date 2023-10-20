@@ -15,16 +15,19 @@ namespace Assets.Scripts.LevelGeneration
         private double lastSpawn;
         private double activeEnemies;
 
+        [field: SerializeField] private bool Active { get; set; } = false;
+
         private void Start()
         {
             Random.InitState(System.DateTime.Now.Millisecond);
             lastSpawn = Utils.GetUnixMillis();
-            StartCoroutine(DelayedSpawn());
+            if (Active)
+                StartCoroutine(DelayedSpawn());
         }
 
         protected void Update()
         {
-            if (ContinousSpawns && Utils.GetUnixMillis() - lastSpawn >= SpawnCooldown && activeEnemies < MaxActiveEnemies)
+            if (Active && ContinousSpawns && Utils.GetUnixMillis() - lastSpawn >= SpawnCooldown && activeEnemies < MaxActiveEnemies)
             {
                 SpawnRandomEnemy();
                 activeEnemies++;
@@ -43,8 +46,16 @@ namespace Assets.Scripts.LevelGeneration
             if (Enemies?.Length <= 0)
                 return;
 
-            Entity.Enemy enemyToSpawn = Enemies[Random.Range(0, Enemies.Length)];
-            Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+            if (activeEnemies <= MaxActiveEnemies)
+            {
+                Entity.Enemy enemyToSpawn = Enemies[Random.Range(0, Enemies.Length)];
+                Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+            }
+        }
+
+        public void Activate()
+        {
+            Active = true;
         }
     }
 }

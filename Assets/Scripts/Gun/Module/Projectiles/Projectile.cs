@@ -50,7 +50,7 @@ namespace Assets.Scripts.Entity
             Destroy(gameObject);
         }
 
-        protected virtual void OnWallCollision(Collider collider)
+        protected virtual void OnWallCollision(Collision collision)
         {
             Destroy(gameObject);
         }
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Entity
 
             if (collision.collider.gameObject.CompareTag("Wall") || collision.collider.gameObject.CompareTag("Prop"))
             {
-                OnWallCollision(null);
+                OnWallCollision(collision);
                 return;
             }
         }
