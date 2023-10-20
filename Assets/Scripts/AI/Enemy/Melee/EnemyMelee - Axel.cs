@@ -34,8 +34,8 @@ public class EnemyMelee : Enemy
 
     protected override void OnDeath()
     {
-        StateMachine.SetState(typeof(MeleeDeath));
         SpawnCartridgePickup(Effect);
+        StateMachine.SetState(typeof(MeleeDeath));
     }
 
     public void ToggleMeleeDamage(int value)

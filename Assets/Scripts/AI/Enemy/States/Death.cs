@@ -7,7 +7,7 @@ public abstract class Death : State
 {
     protected Enemy enemy;
     protected double deathTimerStarted;
-    protected double deathTimerDuration = 1000;
+    protected double deathTimerDuration = 5000;
 
     public override void Init(object parent)
     {

@@ -22,8 +22,8 @@ public class EnemyRanged : Enemy
 
     protected override void OnDeath()
     {
-        StateMachine.SetState(typeof(RangedDeath));
         SpawnCartridgePickup(Module);
+        StateMachine.SetState(typeof(RangedDeath));
     }
 
     public bool HasLineOfSightToPlayer() //a raycast to see if the player is indeed seeing the player

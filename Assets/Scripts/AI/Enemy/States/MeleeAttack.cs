@@ -37,14 +37,16 @@ public class MeleeAttack : State
         enemyMelee.Animator.SetBool("IsWalking", false);
         enemyMelee.Agent.isStopped = true;
         if (Random.Range(1, 100) % 2 == 1)
-            enemyMelee.Animator.SetTrigger("Punch");
+            enemyMelee.Animator.SetBool("IsPunching", true);
         else
-            enemyMelee.Animator.SetTrigger("Swipe");
+            enemyMelee.Animator.SetBool("IsSwiping", true);
     }
 
     public override void Exit()
     {
-        
+        enemyMelee.Animator.SetBool("IsPunching", false);
+
+        enemyMelee.Animator.SetBool("IsSwiping", false);
     }
 
     public override void Update()

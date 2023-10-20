@@ -39,12 +39,13 @@ public class MeleeJumpAttack : State
     {
         enemyMelee.Agent.SetDestination(player.transform.position);
         enemyMelee.Animator.SetBool("IsWalking", false);
-        enemyMelee.Animator.SetTrigger("JumpAttack");
+        enemyMelee.Animator.SetBool("IsJumpAttacking", true);
         enemyMelee.Agent.speed += baseSpeed / 2;
     }
     public override void Exit()
     {
         enemyMelee.Agent.speed -= baseSpeed / 2;
+        enemyMelee.Animator.SetBool("IsJumpAttacking", false);
     }
 
     public override void Update()
