@@ -31,24 +31,9 @@ namespace Assets.Scripts.LevelGeneration
             ModulePool = new RoomModule[RoomsToGenerate];
             if (Randomize)
             {
-                Modules = new RoomModule[Modules.Length];
-
-                var modules = Resources.FindObjectsOfTypeAll<RoomModule>();
-                List<RoomModule> prefabs = new List<RoomModule>();
-                for(int i = 0; i < Modules.Length; i++)
-                {
-                    if (!modules[i].enabled)
-                        continue;
-                    var prefab = modules[i];
-                    if(prefab.name != StartModule.name && prefab.name != FinalModule.name && prefab.name != CorridorModule.name)
-                        prefabs.Add(prefab);
-                }
-
                 ModulePool[0] = StartModule;
                 for (int i = 1; i < RoomsToGenerate; i++)
-                {
-                    ModulePool[i] = prefabs[Random.Range(0, prefabs.Count)];
-                }
+                    ModulePool[i] = Modules[Random.Range(0, Modules.Length)];
                 ModulePool[ModulePool.Length-1] = FinalModule;
             }
             else

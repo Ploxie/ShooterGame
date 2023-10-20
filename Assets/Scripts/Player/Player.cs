@@ -79,9 +79,9 @@ namespace Assets.Scripts.Entity
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane floorPlane = new Plane(Vector3.up, transform.position);
 
-            if (floorPlane.Raycast(cameraRay, out float rayLength))
+            if (Physics.Raycast(cameraRay.origin, cameraRay.direction, out RaycastHit hit, float.MaxValue, 1 << 3))
             {
-                var rayHit = cameraRay.GetPoint(rayLength);
+                var rayHit = hit.point;
 
                 var aimPos = new Vector3(rayHit.x, Rigidbody.transform.position.y, rayHit.z);
                 var aimDir = ((aimPos - transform.position) * 100.0f).normalized;

@@ -340,8 +340,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8902511240563484846}
   - component: {fileID: 4805262327887804958}
-  - component: {fileID: 5508651975567437312}
-  - component: {fileID: 6579118337252947720}
   - component: {fileID: 7001363860879562112}
   m_Layer: 0
   m_Name: GunVisual
@@ -380,33 +378,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseModel: {fileID: 1087678699404347376}
   Barrels: []
---- !u!114 &5508651975567437312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2577900372869901320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f797f65f4f1e743459f805248472a158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ModuleController: {fileID: 0}
-  gunVisual: {fileID: 0}
-  bulletManager: {fileID: 0}
---- !u!114 &6579118337252947720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2577900372869901320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be855106b49449e4785d25c23bf4515a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &7001363860879562112
 AudioSource:
   m_ObjectHideFlags: 0
