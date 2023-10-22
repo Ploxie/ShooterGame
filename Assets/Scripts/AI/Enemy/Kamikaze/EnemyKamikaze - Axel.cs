@@ -1,15 +1,21 @@
 
 using Assets.Scripts.Entity;
 using UnityEngine;
+using UnityEngine.AI;
 
-
+[RequireComponent(typeof(KamikazeEnemyAudioManager))]
 public class EnemyKamikaze : Enemy
 {
+    public KamikazeEnemyAudioManager AudioManager { get; private set; }
+    
+    
     [field: SerializeField] public float DiveRange { get; private set; } = 3f;
     [field: SerializeField] public float Damage { get; set; } = 10.0f;
 
     [SerializeField] public Hitbox ExplosionDamageHitBox; // TODO: Create an explosion instance? 
     [SerializeField] private GameObject model;
+
+    public bool HasRoared { get; private set; } = false;
 
     private Assets.Scripts.Entity.StatusEffect StatusEffect { get; set; }
 
@@ -17,6 +23,9 @@ public class EnemyKamikaze : Enemy
     protected override void Awake()
     {
         base.Awake();
+
+        AudioManager = GetComponent<KamikazeEnemyAudioManager>();
+
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();
 
@@ -39,6 +48,10 @@ public class EnemyKamikaze : Enemy
     private void Jank()
     {
         StateMachine.SetState(typeof(KamikazeDeath));
+    }
+    private void EndRoar()
+    {
+        HasRoared = true;
     }
 }
 //EnemyManager enemyManager;

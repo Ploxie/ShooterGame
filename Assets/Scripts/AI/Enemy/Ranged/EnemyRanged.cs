@@ -1,7 +1,7 @@
 using Assets.Scripts.Entity;
 using UnityEngine;
 
-[RequireComponent(typeof(Gun))]
+[RequireComponent(typeof(Gun), typeof(RangedEnemyAudioManager))]
 public class EnemyRanged : Enemy
 {
     private Gun Gun { get; set; }

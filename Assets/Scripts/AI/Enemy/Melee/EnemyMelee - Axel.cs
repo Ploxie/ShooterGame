@@ -1,7 +1,7 @@
 
 using Assets.Scripts.Entity;
 using UnityEngine;
-
+[RequireComponent(typeof(MeleeEnemyAudioManager))]
 public class EnemyMelee : Enemy
 {
     [field: SerializeField] public float AttackRange { get; private set; } = 3f;

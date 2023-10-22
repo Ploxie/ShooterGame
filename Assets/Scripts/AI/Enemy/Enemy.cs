@@ -17,6 +17,8 @@ namespace Assets.Scripts.Entity
         public Player Player { get; private set; }
 
         [SerializeField] public StateMachine StateMachine = new StateMachine();
+
+       
         protected override void Awake()
         {
             base.Awake();
