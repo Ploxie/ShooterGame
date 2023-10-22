@@ -20,7 +20,7 @@ public class KamikazeIdle : Idle
         float distance = Vector3.Distance(player.transform.position, enemyKamikaze.transform.position);
         if (distance < detectionRange)
         {
-            enemyKamikaze.StateMachine.SetState(typeof(KamikazeRunToPlayer));
+            enemyKamikaze.StateMachine.SetState(typeof(KamikazeRoar));
         }
     }
 

@@ -39,7 +39,8 @@ public class EnemyHealthBar : MonoBehaviour
                 timer = 0;
             }
         }
-        enemyHealthBarBorder.transform.LookAt(target);
+        //enemyHealthBarBorder.transform.LookAt(target);
+        enemyHealthBarBorder.transform.rotation = target.rotation;
     }
 
 
