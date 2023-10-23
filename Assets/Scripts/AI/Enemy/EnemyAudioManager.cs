@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class EnemyAudioManager : MonoBehaviour
 {
     protected AudioSource audioSource;
 
-    [SerializeField] private List<AudioClip> footstepsAudio = new List<AudioClip>();
-    private void Awake()
+    [SerializeField] protected List<AudioClip> footstepsAudio = new List<AudioClip>();
+
+    protected AudioClip deathSound;
+    protected virtual void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
     public void PlayFootStep()
     {
-        audioSource.clip = footstepsAudio[Random.Range(0, footstepsAudio.Count)];
+        audioSource.PlayOneShot(footstepsAudio[Random.Range(0, footstepsAudio.Count)], 1f);
+    }
+
+    public void PlayDeathSound()
+    {
+        audioSource.clip = deathSound;
         audioSource.Play();
+        //audioSource.PlayOneShot(deathSound, 1f);
     }
 }

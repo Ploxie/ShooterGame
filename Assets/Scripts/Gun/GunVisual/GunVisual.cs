@@ -16,7 +16,7 @@ public struct BarrelData
 {
     public GameObject BarrelObject;
     public GameObject FiringPosition;
-}
+}  
 
 public class GunVisual : MonoBehaviour
 {
@@ -45,7 +45,6 @@ public class GunVisual : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
-
         selectedType = weaponType;
         Barrels[(int)selectedType].BarrelObject.SetActive(true);
     }

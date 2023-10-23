@@ -50,6 +50,6 @@ public class MeleeJumpAttack : State
 
     public override void Update()
     {
-        
+
     }
 }
