@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeleeEnemyAudioManager))]
 public class EnemyMelee : Enemy
 {
+    public MeleeEnemyAudioManager AudioManager { get; private set; }
     [field: SerializeField] public float AttackRange { get; private set; } = 3f;
     [field: SerializeField] public float JumpRange { get; private set; } = 10f;
     [field: SerializeField] public float Damage { get; private set; } = 1.0f;
@@ -20,6 +21,7 @@ public class EnemyMelee : Enemy
     protected override void Awake()
     {
         base.Awake();
+        AudioManager = GetComponent<MeleeEnemyAudioManager>();
         Agent.speed = MovementSpeed;
 
         meleeDamageHitBox.Damage = Damage;
@@ -34,6 +36,7 @@ public class EnemyMelee : Enemy
 
     protected override void OnDeath()
     {
+        AudioManager.PlayDeathSound();
         SpawnCartridgePickup(Effect);
         StateMachine.SetState(typeof(MeleeDeath));
     }
@@ -58,6 +61,8 @@ public class EnemyMelee : Enemy
         {
             jumpDamageHitBox.gameObject.SetActive(true);
             PlaceEffect();
+            AudioManager.PlaySlamAttack();
+            AudioManager.PlayAttackGrunt();
         }
         else
         {
@@ -72,6 +77,7 @@ public class EnemyMelee : Enemy
         temp.transform.position = transform.position;
         temp.transform.Rotate(0, Random.Range(0, 360f), 0);
     }
+
 }
     //EnemyManager enemyManager;
     //ScoreManager scoreManager;

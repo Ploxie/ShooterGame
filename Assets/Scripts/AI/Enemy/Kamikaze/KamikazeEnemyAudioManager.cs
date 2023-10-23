@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class KamikazeEnemyAudioManager : EnemyAudioManager
 {
-    [SerializeField] private AudioClip explodeAudio;
-    [SerializeField] private AudioClip roarAudio;
+    private AudioClip explodeAudio;
+    private AudioClip roarAudio;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        footstepsAudio = AudioFileManager.GetInstance().FootstepsKamikaze;
+        explodeAudio = AudioFileManager.GetInstance().ExplodeAudio;
+        roarAudio = AudioFileManager.GetInstance().RoarAudio;
+    }
 
     public void PlayExplosion()
     {
-        audioSource.clip = explodeAudio;
-        audioSource.Play();
+        audioSource.PlayOneShot(explodeAudio, 1f);
+        //audioSource.clip = explodeAudio;
+        //audioSource.Play();
     }
     public void PlayRoar()
     {
-        audioSource.clip = roarAudio;
-        audioSource.Play();
+        audioSource.PlayOneShot(roarAudio, 1f);
+        //audioSource.clip = roarAudio;
+        //audioSource.Play();
     }
 
 }
