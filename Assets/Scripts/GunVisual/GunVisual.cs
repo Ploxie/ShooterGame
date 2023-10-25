@@ -15,7 +15,7 @@ public class GunVisual : MonoBehaviour
     private GameObject baseModel;
 
     public List<BarrelData> Barrels;
-
+    [SerializeField]
     private WeaponType selectedType;
 
     public Vector3 GetBarrelPosition()
@@ -29,10 +29,12 @@ public class GunVisual : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
-
+        if(weaponType == WeaponType.Pistol)
+        {
+            return;
+        }
         selectedType = weaponType;
+        
         Barrels[(int)selectedType].BarrelObject.SetActive(true);
     }
-
-
 }

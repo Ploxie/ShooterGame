@@ -169,18 +169,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe8c19664af46e4e9c1302a0dfd4f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseModel: {fileID: 2521076485059995809}
+  baseModel: {fileID: 4354721026192814998}
   Barrels:
+  - BarrelObject: {fileID: 4354721026192814998}
+    FiringPosition: {fileID: 4987177445306062952}
   - BarrelObject: {fileID: 1795977626464181960}
     FiringPosition: {fileID: 4567479243005133172}
+  - BarrelObject: {fileID: 6725797039658759095}
+    FiringPosition: {fileID: 5749896488847259533}
   - BarrelObject: {fileID: 5918455602808688002}
     FiringPosition: {fileID: 663115104164296064}
   - BarrelObject: {fileID: 6620869724234331413}
     FiringPosition: {fileID: 3039731968979825863}
-  - BarrelObject: {fileID: 6725797039658759095}
-    FiringPosition: {fileID: 5749896488847259533}
-  - BarrelObject: {fileID: 6270212587194955732}
-    FiringPosition: {fileID: 4873227311333343778}
+  selectedType: 0
 --- !u!114 &4471037607700539646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +239,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SMGBarrelPos
       objectReference: {fileID: 0}
+    - target: {fileID: 1264258071001275591, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927642521178195581, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927642521178195581, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927642521178195581, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1964219339830625595, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_Name
       value: ShotgunBarrelPos
@@ -249,6 +266,10 @@ PrefabInstance:
     - target: {fileID: 3821312624073929113, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486666294796757795, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 4486666294796757795, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_LocalPosition.z
@@ -378,6 +399,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8398609780380498025, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8504645854826994244, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -426,6 +451,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8933342715041384028, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028946447844131070, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 9028946447844131070, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0254
+      objectReference: {fileID: 0}
     - target: {fileID: 9207059357739721427, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -443,11 +480,6 @@ GameObject:
 --- !u!1 &1795977626464181960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3821312624073929113, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 3306943635200028497}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2521076485059995809 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1087678699404347376, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 3306943635200028497}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2589226900474073956 stripped
@@ -475,6 +507,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1964219339830625595, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 3306943635200028497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4354721026192814998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264258071001275591, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+  m_PrefabInstance: {fileID: 3306943635200028497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4439381042862632634 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1188746061942358507, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
@@ -488,6 +525,11 @@ GameObject:
 --- !u!1 &4873227311333343778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7945952678391557491, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
+  m_PrefabInstance: {fileID: 3306943635200028497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4987177445306062952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7553271880062924601, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 3306943635200028497}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5749896488847259533 stripped
