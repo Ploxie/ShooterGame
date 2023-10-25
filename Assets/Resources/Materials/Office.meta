@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Materials/Office.meta
 guid: 1b98bd751e3579348a287270929699a2
+========
+guid: c4eb6fddb691efc43888209f9e4029e3
+>>>>>>>> 1f7184d6ca67f734cf8618d157b99213557a3080:Assets/VFXEffects/BlackHole.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

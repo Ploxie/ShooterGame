@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/VFXEffects/BlackHole/ShaderMaterial.mat.meta
 guid: 5994dcbd2ac278f47bea2b20df6cbeaa
+========
+guid: 685cc35192f7a7241a41f3a9f041d3f5
+>>>>>>>> 1f7184d6ca67f734cf8618d157b99213557a3080:Assets/VFXEffects/Explosion/FireMaterial.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
