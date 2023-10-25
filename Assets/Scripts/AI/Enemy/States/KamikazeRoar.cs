@@ -22,7 +22,7 @@ public class KamikazeRoar : State
 
     public override void Enter()
     {
-        enemyKamikaze.AudioManager.PlayRoar();
+        enemyKamikaze.PlaySound("roarkamikaze");
         enemyKamikaze.Animator.SetTrigger("Roar");
     }
 

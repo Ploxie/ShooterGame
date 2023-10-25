@@ -123,7 +123,7 @@ namespace Assets.Scripts.Entity
 
         private void OnHealthChanged(float _)
         {
-            EventManager.GetInstance().TriggerEvent(new PlayerHealthChangeEvent(Health));
+            //EventManager.GetInstance().TriggerEvent(new PlayerHealthChangeEvent(Health));
         }
 
         protected void OnTriggerEnter(Collider other)

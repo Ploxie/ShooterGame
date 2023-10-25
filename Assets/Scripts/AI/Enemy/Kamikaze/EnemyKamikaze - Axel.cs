@@ -3,10 +3,11 @@ using Assets.Scripts.Entity;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(KamikazeEnemyAudioManager))]
+
 public class EnemyKamikaze : Enemy
 {
-    public KamikazeEnemyAudioManager AudioManager { get; private set; }
+
+    
     
     
     [field: SerializeField] public float DiveRange { get; private set; } = 3f;
@@ -23,8 +24,6 @@ public class EnemyKamikaze : Enemy
     protected override void Awake()
     {
         base.Awake();
-
-        AudioManager = GetComponent<KamikazeEnemyAudioManager>();
 
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();

@@ -36,7 +36,7 @@ public class MeleeAttack : State
     {
         enemyMelee.Animator.SetBool("IsWalking", false);
         enemyMelee.Agent.isStopped = true;
-        enemyMelee.AudioManager.PlayAttackGrunt();
+        enemyMelee.PlaySound("attackgruntsmelee");
 
         if (Random.Range(1, 100) % 2 == 1)
             enemyMelee.Animator.SetBool("IsPunching", true);

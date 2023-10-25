@@ -18,13 +18,13 @@ public abstract class EnemyAudioManager : MonoBehaviour
 
     public void PlayFootStep()
     {
-        audioSource.PlayOneShot(footstepsAudio[Random.Range(0, footstepsAudio.Count)], 1f);
+        //audioSource.PlayOneShot(footstepsAudio[Random.Range(0, footstepsAudio.Count)], 1f);
     }
 
     public void PlayDeathSound()
     {
-        audioSource.clip = deathSound;
-        audioSource.Play();
+        //audioSource.clip = deathSound;
+        //audioSource.Play();
         //audioSource.PlayOneShot(deathSound, 1f);
     }
 }

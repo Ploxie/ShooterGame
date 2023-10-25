@@ -9,21 +9,21 @@ public class KamikazeEnemyAudioManager : EnemyAudioManager
 
     protected override void Awake()
     {
-        base.Awake();
-        footstepsAudio = AudioFileManager.GetInstance().FootstepsKamikaze;
-        explodeAudio = AudioFileManager.GetInstance().ExplodeAudio;
-        roarAudio = AudioFileManager.GetInstance().RoarAudio;
+        //base.Awake();
+        //footstepsAudio = AudioFileManager.GetInstance().footstepsKamikaze;
+        //explodeAudio = AudioFileManager.GetInstance().explodeAudio;
+        //roarAudio = AudioFileManager.GetInstance().roarAudio;
     }
 
     public void PlayExplosion()
     {
-        audioSource.PlayOneShot(explodeAudio, 1f);
+        //audioSource.PlayOneShot(explodeAudio, 1f);
         //audioSource.clip = explodeAudio;
         //audioSource.Play();
     }
     public void PlayRoar()
     {
-        audioSource.PlayOneShot(roarAudio, 1f);
+        //audioSource.PlayOneShot(roarAudio, 1f);
         //audioSource.clip = roarAudio;
         //audioSource.Play();
     }
