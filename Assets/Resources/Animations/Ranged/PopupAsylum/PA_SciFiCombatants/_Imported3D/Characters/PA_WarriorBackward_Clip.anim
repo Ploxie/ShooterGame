@@ -14104,16 +14104,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.29166666
-    functionName: PlayFootStep
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 1f910ad5c3cd3f84f942baf9e73cc1c9, type: 3}
+    functionName: PlaySound
+    data: footstepsranged
+    objectReferenceParameter: {fileID: 11500000, guid: bf36f9720f42f544db6107cc284954f6, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.6666667
-    functionName: PlayFootStep
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 1f910ad5c3cd3f84f942baf9e73cc1c9, type: 3}
+    functionName: PlaySound
+    data: footstepsranged
+    objectReferenceParameter: {fileID: 11500000, guid: bf36f9720f42f544db6107cc284954f6, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
