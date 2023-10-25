@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Materials/Door.meta
 guid: 2b902d11de1742044b6eaf3c8abc7b5d
+========
+guid: c4b1b55513d711347bce870d0e2e7396
+>>>>>>>> 1f7184d6ca67f734cf8618d157b99213557a3080:Assets/VFXEffects.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
