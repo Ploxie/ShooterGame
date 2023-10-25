@@ -15,6 +15,8 @@ public class EnemyKamikaze : Enemy
 
     [SerializeField] public Hitbox ExplosionDamageHitBox; // TODO: Create an explosion instance? 
     [SerializeField] private GameObject model;
+    [SerializeField] private GameObject explosionVFX;
+    [SerializeField] private GameObject healthBarVisual;
 
     public bool HasRoared { get; private set; } = false;
 
@@ -34,6 +36,9 @@ public class EnemyKamikaze : Enemy
     public void Explode()
     {
         ExplosionDamageHitBox.gameObject.SetActive(true);
+        explosionVFX.SetActive(true);
+        healthBarVisual.SetActive(false);
+        
         model.SetActive(false);
         Agent.isStopped = true;
     }

@@ -23,8 +23,6 @@ public class KamikazeDeath : Death
 
     public override void Update()
     {
-        explosionSize += Time.deltaTime / 10;
-        enemyKamikaze.ExplosionDamageHitBox.transform.localScale += new Vector3(explosionSize, explosionSize, explosionSize);
         base.Update();
     }
 }
