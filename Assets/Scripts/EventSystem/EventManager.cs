@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Singleton<EventManager>
+public class EventManager : MonoBehaviour
 {
     public delegate void EventDelegate<T>(T e) where T : GameEvent;
     private delegate void EventDelegate(GameEvent e);
@@ -10,6 +10,16 @@ public class EventManager : Singleton<EventManager>
     private Dictionary<System.Type, EventDelegate> delegates = new Dictionary<System.Type, EventDelegate>();
     private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
 
+    private static EventManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    public static EventManager GetInstance()
+    {
+        return instance;
+    }
     private EventDelegate AddDelegate<T>(EventDelegate<T> del) where T : GameEvent
     {
         if (delegateLookup.ContainsKey(del))
@@ -34,6 +44,7 @@ public class EventManager : Singleton<EventManager>
     public void AddListener<T>(EventDelegate<T> del) where T : GameEvent
     {
         AddDelegate<T>(del);
+        Debug.Log("Added listener " + typeof(T));
     }
 
     public void RemoveListener<T>(EventDelegate<T> del) where T : GameEvent
@@ -68,7 +79,7 @@ public class EventManager : Singleton<EventManager>
         }
         else
         {
-            Debug.LogWarning("Event: " + e.GetType() + " has no listeners");
+            Debug.Log("Event: " + e.GetType() + " has no listeners");
         }
     }
 }

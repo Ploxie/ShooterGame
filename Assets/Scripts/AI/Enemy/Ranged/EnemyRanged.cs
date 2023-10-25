@@ -1,17 +1,16 @@
 using Assets.Scripts.Entity;
 using UnityEngine;
 
-[RequireComponent(typeof(Gun), typeof(RangedEnemyAudioManager))]
+[RequireComponent(typeof(Gun))]
 public class EnemyRanged : Enemy
 {
-    public RangedEnemyAudioManager AudioManager { get; private set; }
     private Gun Gun { get; set; }
     private Module Module { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
-        AudioManager = GetComponent<RangedEnemyAudioManager>();
+        
         Gun = GetComponent<Gun>();
         Module = Module.CreateRandomModule();
         Gun.ApplyModule(Module);
@@ -24,7 +23,7 @@ public class EnemyRanged : Enemy
 
     protected override void OnDeath()
     {
-        AudioManager.PlayDeathSound();
+        PlaySound("deathranged");
         SpawnCartridgePickup(Module);
         StateMachine.SetState(typeof(RangedDeath));
     }

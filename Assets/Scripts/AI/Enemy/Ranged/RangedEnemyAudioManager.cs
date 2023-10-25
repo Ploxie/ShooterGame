@@ -6,9 +6,9 @@ public class RangedEnemyAudioManager : EnemyAudioManager
 {
     protected override void Awake()
     {
-        base.Awake();
-        footstepsAudio = AudioFileManager.GetInstance().FootstepsRanged;
-        deathSound = AudioFileManager.GetInstance().DeathRanged;
+        //base.Awake();
+        //footstepsAudio = AudioFileManager.GetInstance().footstepsRanged;
+        //deathSound = AudioFileManager.GetInstance().deathRanged;
 
     }
 }

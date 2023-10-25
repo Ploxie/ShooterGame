@@ -1371,7 +1371,6 @@ GameObject:
   - component: {fileID: 1238453961026415036}
   - component: {fileID: 6068969350829940005}
   - component: {fileID: 914841011330155602}
-  - component: {fileID: 5918141711094098364}
   m_Layer: 0
   m_Name: EnemyKamikaze - Axel
   m_TagString: Enemy
@@ -1645,23 +1644,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5918141711094098364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566266523723854114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60048275e453d840a29982b367ba746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  footstepsAudio:
-  - {fileID: 8300000, guid: 502ebabf48351ca4aa86b4bf126ab3b3, type: 3}
-  - {fileID: 8300000, guid: 2c97663b90e92094ab4a4f22d2d78bdd, type: 3}
-  explodeAudio: {fileID: 8300000, guid: 9c845ffa12f5a8e468a6e30549b417f2, type: 3}
-  roarAudio: {fileID: 8300000, guid: 5815f98865c898145b73f1b05bf01295, type: 3}
 --- !u!1 &919132149155446097
 GameObject:
   m_ObjectHideFlags: 0
