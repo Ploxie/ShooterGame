@@ -40,9 +40,9 @@ public class AudioFileManager : MonoBehaviour
         }
         //load ranged sound clips
         {
-            LoadAudioFromFolder("rangedfootsteps", "Assets/Resources/Audio/Enemy/Footsteps/Ranged");
+            LoadAudioFromFolder("footstepsranged", "Assets/Resources/Audio/Enemy/Footsteps/Ranged");
 
-            AddSound("rangeddeath", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Ranged/Death.wav", typeof(AudioClip)));
+            AddSound("deathranged", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Ranged/Death.wav", typeof(AudioClip)));
 
         }
     }
