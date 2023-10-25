@@ -4,11 +4,15 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class AudioFileManager : MonoBehaviour 
+public class AudioFileManager : MonoBehaviour
 {
     private static Dictionary<string, List<AudioClip>> audioClips;
 
     private static AudioFileManager instance;
+
+    public float MasterLevel { get; private set; } = 1f;
+    public float AmbienceLevel { get; private set; } = 0.5f;
+    public float EffectLevel { get; private set; } = 1;
     public static AudioFileManager GetInstance()
     {
         return instance;
@@ -45,14 +49,19 @@ public class AudioFileManager : MonoBehaviour
             AddSound("deathranged", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Ranged/Death.wav", typeof(AudioClip)));
 
         }
+        //load ambient sounc clips
+        {
+            LoadAudioFromFolder("ambience", "Assets/Resources/Audio/Ambience");
+        }
     }
     private void Start()
     {
         EventManager.GetInstance().AddListener<AudioEvent>(PlaySound);
+        EventManager.GetInstance().AddListener<AudioLoopEvent>(PlayAmbience);
     }
     private void LoadAudioFromFolder(string name, string path)
     {
-        string[] files = Directory.GetFiles(path, "*.mp3", SearchOption.TopDirectoryOnly);
+        string[] files = Directory.GetFiles(path);
         foreach (var file in files)
         {
             AudioClip audio = (AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip));
@@ -92,12 +101,36 @@ public class AudioFileManager : MonoBehaviour
             if (key.Contains("death"))
             {
                 e.AudioSource.clip = tempClip;
+                e.AudioSource.volume = MasterLevel * EffectLevel;
                 e.AudioSource.Play();
             }
             else
             {
-                e.AudioSource.PlayOneShot(tempClip, 1f);
+                e.AudioSource.PlayOneShot(tempClip, MasterLevel * EffectLevel);
             }
+        }
+    }
+    public void PlayAmbience(AudioLoopEvent e)
+    {
+        string key = e.Key.ToLower();
+        if (audioClips.ContainsKey(key))
+        {
+            List<AudioClip> tempList = audioClips[key];
+            AudioClip tempClip;
+            if (tempList.Count > 1)
+            {
+                tempClip = tempList[Random.Range(0, tempList.Count)];
+            }
+            else
+            {
+                tempClip = tempList[0];
+            }
+
+            e.AudioSource.clip = tempClip;
+            e.AudioSource.volume = MasterLevel * AmbienceLevel;
+            e.AudioSource.loop = true;
+            e.AudioSource.Play();
+
         }
     }
 }

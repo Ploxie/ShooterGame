@@ -38,3 +38,13 @@ public class AudioEvent : GameEvent
         Key = key;
     }
 }
+public class AudioLoopEvent : GameEvent
+{
+    public AudioSource AudioSource;
+    public string Key;
+    public AudioLoopEvent(AudioSource audioSource, string key)
+    {
+        AudioSource = audioSource;
+        Key = key;
+    }
+}
