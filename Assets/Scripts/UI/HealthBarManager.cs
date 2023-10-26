@@ -15,7 +15,7 @@ public class HealthBarManager : MonoBehaviour
 
     private float lastHealth;
 
-    private void Awake()
+    private void Start()
     {
         EventManager.GetInstance().AddListener<PlayerHealthChangeEvent>(SetHealth);
     }
