@@ -11,11 +11,13 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.GetInstance().AddListener<ScoreChangedEvent>(OnScoreChanged);
+        
     }
+
 
     void Start()
     {
+        EventManager.GetInstance().AddListener<ScoreChangedEvent>(OnScoreChanged);
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "LevelGenererationTestScene")
             score = 0;

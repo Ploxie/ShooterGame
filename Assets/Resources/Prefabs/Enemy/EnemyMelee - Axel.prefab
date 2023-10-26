@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 1
-  <MaxHealth>k__BackingField: 1
+  <CurrentHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 100
   <HealthRegen>k__BackingField: 0
 --- !u!82 &1398768924454591360
 AudioSource:
