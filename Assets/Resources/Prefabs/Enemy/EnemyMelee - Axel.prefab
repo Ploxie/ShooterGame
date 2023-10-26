@@ -151,7 +151,7 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 6425753358773597613}
   enemyHealthBarBorder: {fileID: 382570802237422646}
   enemyMovingHealthBar: {fileID: 5348617641502429343}
-  enemyMovingHealth: 0
+  enemyMovingHealth: 10
   target: {fileID: 0}
   timer: 0
 --- !u!114 &6604629319892681356
@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 100
-  <MaxHealth>k__BackingField: 100
+  <CurrentHealth>k__BackingField: 10
+  <MaxHealth>k__BackingField: 10
   <HealthRegen>k__BackingField: 0
 --- !u!82 &1398768924454591360
 AudioSource:
