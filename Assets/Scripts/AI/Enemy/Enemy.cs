@@ -16,6 +16,9 @@ namespace Assets.Scripts.Entity
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
 
+        [HideInInspector]
+        public WaveSpawner waveSpawner;
+
         [SerializeField] public StateMachine StateMachine = new StateMachine();
 
        
@@ -25,6 +28,7 @@ namespace Assets.Scripts.Entity
             AudioSource = GetComponent<AudioSource>();
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
+            waveSpawner = GetComponentInParent<WaveSpawner>();
             StateMachine.Init(this);
 
             Health.OnDeath += OnDeath;
@@ -46,7 +50,10 @@ namespace Assets.Scripts.Entity
 
         protected virtual void OnDeath()
         {
-            StateMachine.SetState(typeof(Death));
+            //if (Player.inWaveRoom == true)//Ska göra detta bara om man är i rummet med waves
+            //{
+            //    waveSpawner.Waves[waveSpawner.CurrentWaveIndex].EnemiesLeft--;
+            //}
         }
 
         protected void SpawnCartridgePickup(Module module)

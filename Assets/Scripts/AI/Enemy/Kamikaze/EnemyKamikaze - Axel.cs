@@ -35,6 +35,7 @@ public class EnemyKamikaze : Enemy
     }
     public void Explode()
     {
+        
         ExplosionDamageHitBox.gameObject.SetActive(true);
         explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
@@ -45,6 +46,7 @@ public class EnemyKamikaze : Enemy
 
     protected override void OnDeath()
     {
+        base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
         StateMachine.SetState(typeof(KamikazeDeath));
     }
