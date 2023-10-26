@@ -9,13 +9,15 @@ namespace Assets.Scripts.Entity
 {
     public abstract class ProjectileEffect : Module
     {
+        public const string BULLET_PREFAB_PATH = "Prefabs/Gun/Projectile_Crystal";
+
         public GameObject BulletPrefab { get; protected set; }
 
         public abstract Projectile CreateProjectile(Vector3 barrelPosition);
 
         public static Projectile CreateDefaultProjectile(Vector3 barrelPosition)
         {
-            GameObject parent = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Gun/Projectile_Crystal"), barrelPosition, Quaternion.identity);
+            GameObject parent = GameObject.Instantiate(Resources.Load<GameObject>(BULLET_PREFAB_PATH), barrelPosition, Quaternion.identity);
             return parent.AddComponent<Projectile>(); ;
         }
     }
@@ -24,7 +26,7 @@ namespace Assets.Scripts.Entity
     {
         public RicochetEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Ricochet";
         }
 
@@ -41,7 +43,7 @@ namespace Assets.Scripts.Entity
     {
         public CrystalEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Crystal";
         }
 
@@ -58,7 +60,7 @@ namespace Assets.Scripts.Entity
     {
         public ClusterEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Cluster";
         }
 
@@ -75,7 +77,7 @@ namespace Assets.Scripts.Entity
     {
         public ExplosionEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Explosive";
         }
 
@@ -92,7 +94,7 @@ namespace Assets.Scripts.Entity
     {
         public BlackHoleEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Black Hole";
         }
 
@@ -109,7 +111,7 @@ namespace Assets.Scripts.Entity
     {
         public PiercingEffect()
         {
-            BulletPrefab = Resources.Load<GameObject>("Prefabs/Projectile_Crystal");
+            BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Piercing";
         }
 

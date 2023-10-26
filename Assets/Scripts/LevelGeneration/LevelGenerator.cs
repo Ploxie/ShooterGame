@@ -115,7 +115,7 @@ namespace Assets.Scripts.LevelGeneration
 
         public List<Room> GenerateRooms()
         {
-            if(moduleManager == null || moduleManager.Modules?.Length <= 0)
+            if(moduleManager == null || moduleManager.ModulePool?.Length <= 0)
                 return new List<Room>();
 
             List<Room> rooms = new List<Room>();
@@ -124,7 +124,7 @@ namespace Assets.Scripts.LevelGeneration
 
             // Add Start Module
             {
-                var startModule = moduleManager.Modules[0];
+                var startModule = moduleManager.ModulePool[0];
                 Room startRoom = new Room()
                 {
                     Module = startModule,
@@ -140,9 +140,9 @@ namespace Assets.Scripts.LevelGeneration
 
             int attempts = 0;
 
-            for(int i = 0; i < moduleManager.Modules.Length - 1; i++)
+            for(int i = 0; i < moduleManager.ModulePool.Length - 1; i++)
             {
-                var module = moduleManager.Modules[i + 1];
+                var module = moduleManager.ModulePool[i + 1];
 
                 Room room = new Room()
                 {
@@ -157,7 +157,7 @@ namespace Assets.Scripts.LevelGeneration
                     i--;
                     currentRoom = currentRoom.Parent;
                     attempts++;
-                    if(attempts > moduleManager.Modules.Length * moduleManager.Modules.Length || currentRoom == null)
+                    if(attempts > moduleManager.ModulePool.Length * moduleManager.ModulePool.Length || currentRoom == null)
                     {
                         Debug.Log("Something went wrong with the generation, please contact Level Generation Administrator");
                         break;
