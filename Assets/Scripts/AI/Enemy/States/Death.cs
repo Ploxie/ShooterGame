@@ -3,7 +3,7 @@ using Assets.Scripts.Entity;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Generic/Death")]
-public abstract class Death : State
+public class Death : State
 {
     protected Enemy enemy;
     protected double deathTimerStarted;
