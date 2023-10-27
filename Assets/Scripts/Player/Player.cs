@@ -29,8 +29,6 @@ namespace Assets.Scripts.Entity
             gameObject.tag = "Player";
             Gun = GetComponent<Gun>();
 
-            lastPressed = Utils.GetUnixMillis();
-
             weaponModules.Insert(new ShotgunWeapon());
 
             Gun.ApplyModule(weaponModules.Peek());
