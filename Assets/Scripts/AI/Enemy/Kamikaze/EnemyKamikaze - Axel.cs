@@ -36,7 +36,7 @@ public class EnemyKamikaze : Enemy
     public void Explode()
     {
         ExplosionDamageHitBox.gameObject.SetActive(true);
-        explosionVFX.SetActive(true);
+        //explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
         
         model.SetActive(false);

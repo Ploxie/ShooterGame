@@ -20,6 +20,12 @@ public class EnemyBoss : Enemy
         base.Start();
         InitialNumberOfTurrets = Turrets.Count;
     }
+    public override void OnHit(float damage, params StatusEffect[] statusEffects)
+    {
+        if (!Shield.activeSelf)
+            base.OnHit(damage, statusEffects);
+    }
+
 
     protected override void Update()
     {
