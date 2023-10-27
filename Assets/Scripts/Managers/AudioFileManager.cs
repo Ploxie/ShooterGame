@@ -25,33 +25,33 @@ public class AudioFileManager : MonoBehaviour
         audioClips = new Dictionary<string, List<AudioClip>>();
         //Load melee sound clips
         {
-            LoadAudioFromFolder("footstepsmelee", "Assets/Resources/Audio/Enemy/Footsteps/Melee");
+            LoadAudioFromFolder("footstepsmelee", "Audio/Enemy/Footsteps/Melee");
 
-            LoadAudioFromFolder("attackgruntsmelee", "Assets/Resources/Audio/Enemy/Attack/Melee");
+            LoadAudioFromFolder("attackgruntsmelee", "Audio/Enemy/Attack/Melee");
 
-            AddSound("slammattackmelee", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Melee/SlamAttack.mp3", typeof(AudioClip)));
+            LoadAudioFromFolder("slammattackmelee", "Audio/Enemy/Misc/Melee/");
 
-            AddSound("deathmelee", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Melee/Death.mp3", typeof(AudioClip)));
+            LoadAudioFromFolder("deathmelee", "Audio/Enemy/Misc/Melee");
 
         }
         //load kamikaze sound clips
         {
-            LoadAudioFromFolder("footstepskamikaze", "Assets/Resources/Audio/Enemy/Footsteps/Kamikaze");
+            LoadAudioFromFolder("footstepskamikaze", "Audio/Enemy/Footsteps/Kamikaze");
 
-            AddSound("explodekamikaze", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Kamikaze/Explosion 1.mp3", typeof(AudioClip)));
+            LoadAudioFromFolder("explodekamikaze", "Audio/Enemy/Misc/Kamikaze");
 
-            AddSound("roarkamikaze", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Kamikaze/KamikazeRoar.mp3", typeof(AudioClip)));
+            LoadAudioFromFolder("roarkamikaze", "Audio/Enemy/Misc/Kamikaze");
         }
         //load ranged sound clips
         {
-            LoadAudioFromFolder("footstepsranged", "Assets/Resources/Audio/Enemy/Footsteps/Ranged");
+            LoadAudioFromFolder("footstepsranged", "Audio/Enemy/Footsteps/Ranged");
 
-            AddSound("deathranged", (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Resources/Audio/Enemy/Misc/Ranged/Death.wav", typeof(AudioClip)));
+            LoadAudioFromFolder("deathranged", "Audio/Enemy/Misc/Kamikaze");
 
         }
         //load ambient sounc clips
         {
-            LoadAudioFromFolder("ambience", "Assets/Resources/Audio/Ambience");
+            LoadAudioFromFolder("ambience", "Audio/Ambience");
         }
     }
     private void Start()
@@ -61,13 +61,15 @@ public class AudioFileManager : MonoBehaviour
     }
     private void LoadAudioFromFolder(string name, string path)
     {
-        string[] files = Directory.GetFiles(path);
-        foreach (var file in files)
-        {
-            AudioClip audio = (AudioClip)AssetDatabase.LoadAssetAtPath(file, typeof(AudioClip));
-            if (audio != null)
-                AddSound(name, audio);
-        }
+       
+        //foreach (var file in files)
+        //{
+
+
+        //    if (audio != null)
+        //        AddSound(name, audio);
+        //}
+        audioClips.Add(name, new List<AudioClip>(Resources.LoadAll<AudioClip>(path)));
     }
     private void AddSound(string name, AudioClip audioClip)
     {
