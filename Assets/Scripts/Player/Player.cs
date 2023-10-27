@@ -8,10 +8,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
-
     [RequireComponent(typeof(Gun)/*, typeof(GunVisual)*/)]
     public class Player : Character
     {
+        public double DashTimeWindow;
+        public float DashForce;
+
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
@@ -26,6 +28,8 @@ namespace Assets.Scripts.Entity
 
             gameObject.tag = "Player";
             Gun = GetComponent<Gun>();
+
+            lastPressed = Utils.GetUnixMillis();
 
             weaponModules.Insert(new ShotgunWeapon());
 
@@ -55,6 +59,13 @@ namespace Assets.Scripts.Entity
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 Gun.ApplyModule(bulletModules.Cycle());
 
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+            Vector3 moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+                Rigidbody.AddForce(moveDirection * DashForce);
+
             if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
                 if (!AvailablePickup.IsDestroyed())
@@ -76,27 +87,11 @@ namespace Assets.Scripts.Entity
                 }
             }
 
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane floorPlane = new Plane(Vector3.up, transform.position);
-
-            if (Physics.Raycast(cameraRay.origin, cameraRay.direction, out RaycastHit hit, float.MaxValue, 1 << 3))
-            {
-                var rayHit = hit.point;
-
-                var aimPos = new Vector3(rayHit.x, Rigidbody.transform.position.y, rayHit.z);
-                var aimDir = ((aimPos - transform.position) * 100.0f).normalized;
-                aimDir.y = 0.0f;
-
-                AimPosition = aimPos;
-
-                transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 20.0f);
-            }
-
-            float x = Input.GetAxisRaw("Horizontal");
-            float z = Input.GetAxisRaw("Vertical");
-
-            Vector3 moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
-
+            Vector3 direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            angle -= 90;
+            transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
+            
             Rigidbody.velocity = moveDirection * CurrentMovementSpeed;
         }
 
