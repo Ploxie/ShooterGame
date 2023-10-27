@@ -1513,7 +1513,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 86f5b433272ae9a418dce8c829278d7c, type: 2}
     activeState: {fileID: 0}
   <DiveRange>k__BackingField: 3
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 70
   ExplosionDamageHitBox: {fileID: 6981675018335404132}
   model: {fileID: -3168422337102530296}
   explosionVFX: {fileID: 1334732295689868075}
@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 1
-  <MaxHealth>k__BackingField: 1
+  <CurrentHealth>k__BackingField: 25
+  <MaxHealth>k__BackingField: 25
   <HealthRegen>k__BackingField: 0
 --- !u!82 &914841011330155602
 AudioSource:
