@@ -29,24 +29,24 @@ public class AudioFileManager : MonoBehaviour
 
             LoadAudioFromFolder("attackgruntsmelee", "Audio/Enemy/Attack/Melee");
 
-            AddSound("slammattackmelee", Resources.Load<AudioClip>("Audio/Enemy/Misc/Melee/SlamAttack.mp3"));
+            LoadAudioFromFolder("slammattackmelee", "Audio/Enemy/Misc/Melee/");
 
-            AddSound("deathmelee", Resources.Load<AudioClip>("Audio/Enemy/Misc/Melee/Death.mp3"));
+            LoadAudioFromFolder("deathmelee", "Audio/Enemy/Misc/Melee");
 
         }
         //load kamikaze sound clips
         {
             LoadAudioFromFolder("footstepskamikaze", "Audio/Enemy/Footsteps/Kamikaze");
 
-            AddSound("explodekamikaze", Resources.Load<AudioClip>("Audio/Enemy/Misc/Kamikaze/Explosion 1.mp3"));
+            LoadAudioFromFolder("explodekamikaze", "Audio/Enemy/Misc/Kamikaze");
 
-            AddSound("roarkamikaze", Resources.Load<AudioClip>("Audio/Enemy/Misc/Kamikaze/KamikazeRoar.mp3"));
+            LoadAudioFromFolder("roarkamikaze", "Audio/Enemy/Misc/Kamikaze");
         }
         //load ranged sound clips
         {
             LoadAudioFromFolder("footstepsranged", "Audio/Enemy/Footsteps/Ranged");
 
-            AddSound("deathranged", Resources.Load<AudioClip>("Audio/Enemy/Misc/Ranged/Death.wav"));
+            LoadAudioFromFolder("deathranged", "Audio/Enemy/Misc/Kamikaze");
 
         }
         //load ambient sounc clips
