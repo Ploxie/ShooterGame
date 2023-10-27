@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,13 +15,19 @@ namespace Assets.Scripts.Entity
         public double DashTimeWindow;
         public float DashForce;
 
+        //Temporary debug code, dont bother refactoring it
+        public TMP_Text WeaponModDebugText;
+        public TMP_Text EffectModDebugText;
+        public TMP_Text BulletModDebugText;
+        //
+
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
 
-        private ModuleHolder<Weapon> weaponModules = new();
-        private ModuleHolder<StatusEffect> effectModules = new();
-        private ModuleHolder<ProjectileEffect> bulletModules = new();
+        private readonly ModuleHolder<Weapon> weaponModules = new();
+        private readonly ModuleHolder<StatusEffect> effectModules = new();
+        private readonly ModuleHolder<ProjectileEffect> bulletModules = new();
 
         protected override void Awake()
         {
@@ -31,14 +38,47 @@ namespace Assets.Scripts.Entity
 
             weaponModules.Insert(new ShotgunWeapon());
 
-            Gun.ApplyModule(weaponModules.Peek());
-            Gun.ApplyModule(effectModules.Peek());
-            Gun.ApplyModule(bulletModules.Peek());
+            //Temporary debug code, dont bother refactoring it
+            WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
+            EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
+            BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
+            //
+
+            CycleWeapon();
+            CycleEffect();
+            CycleBullet();
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
         }
+        
+        private void CycleWeapon()
+        {
+            Gun.ApplyModule(weaponModules.Cycle());
+            if (weaponModules.Peek() != null)
+                WeaponModDebugText.text = $"Weapon Module: {weaponModules.Peek().Name}";
+            else
+                WeaponModDebugText.text = "Weapon Module: None";
+        }
 
+        private void CycleEffect()
+        {
+            Gun.ApplyModule(effectModules.Cycle());
+            if (effectModules.Peek() != null)
+                EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
+            else
+                EffectModDebugText.text = "Effect Module: None";
+        }
+
+        private void CycleBullet()
+        {
+            Gun.ApplyModule(bulletModules.Cycle());
+            if (bulletModules.Peek() != null)
+                BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
+            else
+                BulletModDebugText.text = "Bullet Module: None";
+        }
+        
         protected override void Update()
         {
             base.Update();
@@ -49,13 +89,14 @@ namespace Assets.Scripts.Entity
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                Gun.ApplyModule(weaponModules.Cycle());
+                CycleWeapon();
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                Gun.ApplyModule(effectModules.Cycle());
+                CycleEffect();
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
-                Gun.ApplyModule(bulletModules.Cycle());
+                CycleBullet();
+                
 
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
@@ -98,18 +139,21 @@ namespace Assets.Scripts.Entity
             if (module is Weapon weapon)
             {
                 weaponModules.Insert(weapon);
+                CycleWeapon();
                 return;
             }
 
             if (module is StatusEffect statusEffect)
             {
                 effectModules.Insert(statusEffect);
+                CycleEffect();
                 return;
             }
 
             if (module is ProjectileEffect projectileEffect)
             {
                 bulletModules.Insert(projectileEffect);
+                CycleBullet();
                 return;
             }
         }
