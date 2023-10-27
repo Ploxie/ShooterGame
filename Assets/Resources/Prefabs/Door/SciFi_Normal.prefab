@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4972167997025879799}
-  - component: {fileID: 2635353172168303799}
-  - component: {fileID: 8148571496422144611}
   - component: {fileID: 7927322022343585739}
   - component: {fileID: 3816705258622358441}
+  - component: {fileID: 7148286415652264354}
   m_Layer: 0
-  m_Name: Sci Fi Gates
+  m_Name: SciFi_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,33 +37,6 @@ Transform:
   - {fileID: 4972167997025879805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2635353172168303799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4972167997025983191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18dfb3b524fe874e92dbbf0c0b320b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyType: 2
---- !u!114 &8148571496422144611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4972167997025983191}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f826c57626ed045afa0fcdfd2471a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyText: {fileID: 0}
-  target: {fileID: 0}
 --- !u!135 &7927322022343585739
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -107,6 +79,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7148286415652264354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972167997025983191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18dfb3b524fe874e92dbbf0c0b320b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyType: 4
 --- !u!1 &4972167997025983193
 GameObject:
   m_ObjectHideFlags: 0

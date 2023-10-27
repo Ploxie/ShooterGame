@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float countdown;
     [SerializeField] private List<GameObject> spawnPoints;
+    [SerializeField] private List<GameObject> doors;
 
     public Wave[] Waves;
     public Player player;
@@ -34,28 +34,36 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (CurrentWaveIndex >= Waves.Length)
+        if (player.inWaveRoom == true)
         {
-            player.inWaveRoom = false;
-            Debug.Log("GG you clear all waves");
-            return;
-        }
+            if (CurrentWaveIndex >= Waves.Length)
+            {
+                foreach (GameObject doors in doors)
+                {
+                    Door door = doors.GetComponent<Door>();
+                    door.OpenDoor();
+                }
+                player.inWaveRoom = false;
+                Debug.Log("GG you clear all waves");
+                return;
+            }
 
 
-        if (readyToCountDown == true)
-            countdown -= Time.deltaTime;
+            if (readyToCountDown == true)
+                countdown -= Time.deltaTime;
 
-        if (countdown < 0)
-        {
-            readyToCountDown = false;
-            countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
-            StartCoroutine(SpawnWave());
-        }
+            if (countdown < 0)
+            {
+                readyToCountDown = false;
+                countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
+                StartCoroutine(SpawnWave());
+            }
 
-        if (Waves[CurrentWaveIndex].EnemiesLeft == 0)
-        {
-            readyToCountDown = true;
-            CurrentWaveIndex++;
+            if (Waves[CurrentWaveIndex].EnemiesLeft == 0)
+            {
+                readyToCountDown = true;
+                CurrentWaveIndex++;
+            }
         }
     }
 
