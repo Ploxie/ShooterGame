@@ -121,7 +121,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3272457671779713946}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -197,6 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 10
   CurrentMovementSpeed: 0
+  DashTimeWindow: 200
+  DashForce: 100000
 --- !u!1001 &3306943635200028497
 PrefabInstance:
   m_ObjectHideFlags: 0

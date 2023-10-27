@@ -178,8 +178,8 @@ MonoBehaviour:
     activeState: {fileID: 0}
   <AttackRange>k__BackingField: 5
   <JumpRange>k__BackingField: 10
-  <Damage>k__BackingField: 1
-  <JumpDamage>k__BackingField: 2
+  <Damage>k__BackingField: 10
+  <JumpDamage>k__BackingField: 20
   meleeDamageHitBox: {fileID: 3177056810037174350}
   jumpDamageHitBox: {fileID: 5846884138433985401}
   visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 10
-  <MaxHealth>k__BackingField: 10
-  <HealthRegen>k__BackingField: 0
+  <CurrentHealth>k__BackingField: 75
+  <MaxHealth>k__BackingField: 75
+  <HealthRegen>k__BackingField: 1
 --- !u!82 &1398768924454591360
 AudioSource:
   m_ObjectHideFlags: 0
