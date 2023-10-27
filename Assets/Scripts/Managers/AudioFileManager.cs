@@ -61,7 +61,7 @@ public class AudioFileManager : MonoBehaviour
     }
     private void LoadAudioFromFolder(string name, string path)
     {
-       
+        string key = name.ToLower();
         //foreach (var file in files)
         //{
 
@@ -69,7 +69,7 @@ public class AudioFileManager : MonoBehaviour
         //    if (audio != null)
         //        AddSound(name, audio);
         //}
-        audioClips.Add(name, new List<AudioClip>(Resources.LoadAll<AudioClip>(path)));
+        audioClips.Add(key, new List<AudioClip>(Resources.LoadAll<AudioClip>(path)));
     }
     private void AddSound(string name, AudioClip audioClip)
     {
