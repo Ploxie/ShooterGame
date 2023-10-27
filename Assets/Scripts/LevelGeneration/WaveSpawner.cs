@@ -10,7 +10,7 @@ using UnityEngine.AI;
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float countdown;
-    [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private List<GameObject> spawnPoints;
 
     public Wave[] Waves;
     public Player player;
@@ -28,7 +28,7 @@ public class WaveSpawner : MonoBehaviour
 
         for (int i = 0; i < Waves.Length; i++)
         {
-            Waves[i].EnemiesLeft = Waves[i].Enemies.Length;
+            Waves[i].EnemiesLeft = Waves[i].Enemies.Length * spawnPoints.Count;
         }
     }
 
@@ -65,11 +65,14 @@ public class WaveSpawner : MonoBehaviour
         {
             for (int i = 0; i < Waves[CurrentWaveIndex].Enemies.Length; i++)
             {
-                Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i], spawnPoint.transform);
+                foreach (GameObject spawnPoint in spawnPoints)
+                {
+                    Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i], spawnPoint.transform);
 
-                enemy.transform.SetParent(spawnPoint.transform);
+                    enemy.transform.SetParent(spawnPoint.transform);
 
-                yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy);
+                    yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy);
+                }
             }
         }
     }
