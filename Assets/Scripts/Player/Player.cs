@@ -16,6 +16,8 @@ namespace Assets.Scripts.Entity
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
 
+        public bool inWaveRoom;
+
         private ModuleHolder<Weapon> weaponModules = new();
         private ModuleHolder<StatusEffect> effectModules = new();
         private ModuleHolder<ProjectileEffect> bulletModules = new();
@@ -35,6 +37,8 @@ namespace Assets.Scripts.Entity
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
+
+            inWaveRoom = false;
         }
 
         protected override void Update()

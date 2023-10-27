@@ -34,6 +34,7 @@ public class EnemyMelee : Enemy
 
     protected override void OnDeath()
     {
+        base.OnDeath();
         PlaySound("deathmelee");
         SpawnCartridgePickup(Effect);
         StateMachine.SetState(typeof(MeleeDeath));

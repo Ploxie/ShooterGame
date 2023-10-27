@@ -30,6 +30,10 @@ public abstract class Death : State
 
         if (Utils.GetUnixMillis() - deathTimerStarted >= deathTimerDuration)
         {
+            if (enemy.Player.inWaveRoom == true)//Ska göra detta bara om man är i rummet med waves
+            {
+                enemy.waveSpawner.Waves[enemy.waveSpawner.CurrentWaveIndex].EnemiesLeft--;
+            }
             Destroy(enemy.gameObject);
         }
     }
