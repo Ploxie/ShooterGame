@@ -647,7 +647,7 @@ MonoBehaviour:
   - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
   - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
   ModulePool: []
-  RoomsToGenerate: 2
+  RoomsToGenerate: 5
 --- !u!4 &1602041983
 Transform:
   m_ObjectHideFlags: 0
