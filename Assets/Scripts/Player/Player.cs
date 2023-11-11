@@ -17,6 +17,8 @@ namespace Assets.Scripts.Entity
         public Vector3 AimPosition { get; set; }
 
         public bool inWaveRoom;
+        public bool powerUpActive;
+        public float powerUpTimer;
 
         private ModuleHolder<Weapon> weaponModules = new();
         private ModuleHolder<StatusEffect> effectModules = new();
@@ -39,6 +41,7 @@ namespace Assets.Scripts.Entity
             Health.OnHealthGained += OnHealthChanged;
 
             inWaveRoom = false;
+            powerUpActive = false;
         }
 
         protected override void Update()
@@ -75,11 +78,25 @@ namespace Assets.Scripts.Entity
                     {
                         Health.Heal(healthPack.Healing);
                     }
+                    PowerUpPickUp powerUp = AvailablePickup as PowerUpPickUp;
+                    if(powerUp != null)
+                    {
+                        powerUp.Pickup();
+                        powerUpActive = true;
+                    }
 
                     AvailablePickup?.Pickup();
                 }
             }
-
+            if (powerUpActive)
+            {
+                powerUpTimer += Time.deltaTime;
+                if(powerUpTimer >= 10)
+                {
+                    powerUpActive = false;
+                    powerUpTimer = 0;
+                }
+            }
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane floorPlane = new Plane(Vector3.up, transform.position);
 
