@@ -36,10 +36,14 @@ namespace Assets.Scripts.Entity
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
                 damageMultiplier = debilitationEffect.DamageMultiplier;
-            Player player = Parent as Player;
-            if (player.powerUpActive)
+            
+            if (gameObject.tag == "Player")
             {
-                damageMultiplier = 2.0f;
+                Player player = Parent as Player;
+                if (player.powerUpActive)
+                {
+                    damageMultiplier = 2.0f;
+                }
             }
 
             foreach(float launchAngle in Weapon.LaunchAngles)
