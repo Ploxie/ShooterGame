@@ -25,7 +25,7 @@ namespace Assets.Scripts.Entity
         public DamageReceivedEffect()
         {
             Name = "Slug";
-            Icon = Resources.Load<Sprite>("Resources/Sprites/Modules/Effects/Tex_skill_41Slug.PNG");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_41Slug");
         }
     }
 
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Entity
         public RadiationEffect()
         {
             Name = "Radiation";
-            Icon = Resources.Load<Sprite>("Resources/Sprites/Modules/Effects/Tex_skill_62Radiation.PNG");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_62Radiation");
         }
     }
 
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Entity
         public IceEffect()
         {
             Name = "Ice";
-            Icon = Resources.Load<Sprite>("Resources/Sprites/Modules/Effects/Tex_skill_31Ice.PNG");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_31Ice");
         }
     }
 
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Entity
         public StunEffect()
         {
             Name = "Stun";
-            Icon = Resources.Load<Sprite>("Resources/Sprites/Modules/Effects/Tex_skill_45Stun.PNG");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_45Stun");
         }
     }
 
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Entity
         public DebilitationEffect()
         {
             Name = "Debilitation";
-            Icon = Resources.Load<Sprite>("Resources/Sprites/Modules/Effects/Tex_skill_79Debilitation.PNG");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_79Debilitation");
         }
     }
 }

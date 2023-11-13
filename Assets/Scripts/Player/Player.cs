@@ -57,7 +57,10 @@ namespace Assets.Scripts.Entity
         {
             Gun.ApplyModule(weaponModules.Cycle());
             if (weaponModules.Peek() != null)
+            {
                 WeaponModDebugText.text = $"Weapon Module: {weaponModules.Peek().Name}";
+                EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
+            }
             else
                 WeaponModDebugText.text = "Weapon Module: None";
         }
@@ -66,7 +69,10 @@ namespace Assets.Scripts.Entity
         {
             Gun.ApplyModule(effectModules.Cycle());
             if (effectModules.Peek() != null)
+            {
                 EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
+                EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
+            }
             else
                 EffectModDebugText.text = "Effect Module: None";
         }
@@ -75,7 +81,10 @@ namespace Assets.Scripts.Entity
         {
             Gun.ApplyModule(bulletModules.Cycle());
             if (bulletModules.Peek() != null)
+            {
                 BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
+                EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
+            }
             else
                 BulletModDebugText.text = "Bullet Module: None";
         }
