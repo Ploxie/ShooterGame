@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Entity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,11 +61,13 @@ namespace Assets.Scripts.LevelGeneration
                 _ => throw new NotImplementedException("Module not implemented"),
             };
 
-            GameObject parent = Instantiate(module.DropPrefab, transform.position, Quaternion.identity);
-            CartridgePickup pickup = parent.AddComponent<CartridgePickup>();
+            GameObject prefab = Instantiate(module.DropPrefab, transform.position, Quaternion.identity);
+            CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
             pickup.Module = module;
 
             SpawnedModule = pickup.Module;
+            PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
+            popUp.CartridgePickup = pickup;
         }
 
         private void OnDrawGizmos()

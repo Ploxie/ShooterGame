@@ -1513,7 +1513,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 86f5b433272ae9a418dce8c829278d7c, type: 2}
     activeState: {fileID: 0}
   <DiveRange>k__BackingField: 3
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 70
   ExplosionDamageHitBox: {fileID: 6981675018335404132}
   model: {fileID: -3168422337102530296}
   explosionVFX: {fileID: 1334732295689868075}
@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 1
-  <MaxHealth>k__BackingField: 1
+  <CurrentHealth>k__BackingField: 25
+  <MaxHealth>k__BackingField: 25
   <HealthRegen>k__BackingField: 0
 --- !u!82 &914841011330155602
 AudioSource:
@@ -2515,6 +2515,7 @@ GameObject:
   - component: {fileID: 8559735209053255891}
   - component: {fileID: 4132639251275281500}
   - component: {fileID: 2141521049726254946}
+  - component: {fileID: 3221986694527312259}
   m_Layer: 0
   m_Name: ExplosionDamageHitbox
   m_TagString: EnemyHitbox
@@ -2620,6 +2621,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8546361473704274779}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &3221986694527312259
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8546361473704274779}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8784984517425777262
 GameObject:
   m_ObjectHideFlags: 0

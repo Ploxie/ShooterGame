@@ -66,6 +66,8 @@ namespace Assets.Scripts.Entity
             {
                 pickup.Module = module;
             }
+            PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
+            popUp.CartridgePickup = pickup;
         }
 
         public void PlaySound(string key)

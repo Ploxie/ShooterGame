@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 8765661411188205792}
   - component: {fileID: 4744610648167531680}
   - component: {fileID: 4041793284713522686}
+  - component: {fileID: 1742782773564518411}
   m_Layer: 0
   m_Name: Computer
   m_TagString: Enemy
@@ -215,7 +216,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5916244122740199480
 MonoBehaviour:
@@ -237,6 +238,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 65a0ae4456f116545891aa884f998c6b, type: 2}
     - {fileID: 11400000, guid: 819360a1d4a150d47913fb636f36a588, type: 2}
     - {fileID: 11400000, guid: 93565df4cc433994fb657c2f20eb72d6, type: 2}
+    - {fileID: 11400000, guid: 30646aa41186a0c4d91ae4e1e0747142, type: 2}
     activeState: {fileID: 0}
   Turrets: []
   <Shield>k__BackingField: {fileID: 1991202017065224557}
@@ -293,9 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 100
-  <MaxHealth>k__BackingField: 100
-  <HealthRegen>k__BackingField: 10
+  <CurrentHealth>k__BackingField: 10
+  <MaxHealth>k__BackingField: 10
+  <HealthRegen>k__BackingField: 0
 --- !u!54 &4041793284713522686
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -323,6 +325,102 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &1742782773564518411
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969704335469189934}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &4074367346975155729
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ namespace Assets.Scripts.Entity
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
-            Range = 10.0f;
+            Range = 20.0f;
 
             FireRate = 1.0f;
             ReloadTime = 3.0f;

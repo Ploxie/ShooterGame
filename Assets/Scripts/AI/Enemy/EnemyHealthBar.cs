@@ -19,6 +19,7 @@ public class EnemyHealthBar : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("MainCamera").transform;
         health = GetComponentInParent<Health>();
+        enemyMovingHealth = health.MaxHealth;
         health.OnDamageTaken += UpdateHealthBar;
         health.OnHealthGained += UpdateHealthBar;
     }
