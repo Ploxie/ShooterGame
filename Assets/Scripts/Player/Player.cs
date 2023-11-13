@@ -21,6 +21,7 @@ namespace Assets.Scripts.Entity
         public TMP_Text BulletModDebugText;
         //
 
+        public bool inWaveRoom;
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
