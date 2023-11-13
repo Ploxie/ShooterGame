@@ -1522,6 +1522,7 @@ MonoBehaviour:
   model: {fileID: -3168422337102530296}
   explosionVFX: {fileID: 1334732295689868075}
   healthBarVisual: {fileID: 7607863008056584553}
+  DE: {fileID: 0}
 --- !u!114 &1238453961026415036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,7 +1740,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566266523723854114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9f866459e0a85f40ab74a21037eea87, type: 3}
   m_Name: 

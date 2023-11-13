@@ -149,7 +149,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_Name
-      value: EnemyRanged 1
+      value: EnemyRangedDisolve
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_TagString
@@ -239,13 +239,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6908275559297693039}
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6844479380584626875}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3637227557195566439}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6908275559297693039}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8790823841516230516}
@@ -281,29 +281,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
   m_PrefabInstance: {fileID: 6672186406215367639}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6908275559297693039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6672186406215466359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementSpeed: 0
-  CurrentMovementSpeed: 0
-  waveSpawner: {fileID: 0}
-  StateMachine:
-    states:
-    - {fileID: 11400000, guid: 2c7b7b531e97cae439e5b4d347c416cb, type: 2}
-    - {fileID: 11400000, guid: 4fca5d1f7e33fda4f9a846614c298a80, type: 2}
-    - {fileID: 11400000, guid: d377284631e64b14e8c3aef843769afc, type: 2}
-    - {fileID: 11400000, guid: 154cccc7f9b7442498185a29bcbbd09d, type: 2}
-    - {fileID: 11400000, guid: 852fdd9b6660e3e4fb6074505b2e6216, type: 2}
-    activeState: {fileID: 0}
 --- !u!195 &6844479380584626875
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -347,6 +324,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6908275559297693039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672186406215466359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementSpeed: 0
+  CurrentMovementSpeed: 0
+  waveSpawner: {fileID: 0}
+  StateMachine:
+    states:
+    - {fileID: 11400000, guid: 2c7b7b531e97cae439e5b4d347c416cb, type: 2}
+    - {fileID: 11400000, guid: 4fca5d1f7e33fda4f9a846614c298a80, type: 2}
+    - {fileID: 11400000, guid: d377284631e64b14e8c3aef843769afc, type: 2}
+    - {fileID: 11400000, guid: 154cccc7f9b7442498185a29bcbbd09d, type: 2}
+    - {fileID: 11400000, guid: 852fdd9b6660e3e4fb6074505b2e6216, type: 2}
+    activeState: {fileID: 0}
+  DissolveEffect: {fileID: -2735737565747727225}
 --- !u!114 &8790823841516230516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +523,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672186406215466359}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9f866459e0a85f40ab74a21037eea87, type: 3}
   m_Name: 
@@ -552,7 +553,10 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1, y: 1, z: 1}
+        m_Name: Scale
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:

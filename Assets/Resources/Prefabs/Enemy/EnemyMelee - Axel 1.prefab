@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -642118733350735103}
   - component: {fileID: -3233705320921258766}
   - component: {fileID: 275554664238564514}
+  - component: {fileID: 3765532405242016479}
   m_Layer: 0
   m_Name: EnemyMelee - Axel 1
   m_TagString: Enemy
@@ -393,6 +394,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkinnedMeshRenderer: {fileID: 8079822696852981449}
   Effect: {fileID: -642118733350735103}
+  dissolveRate: 0.0125
+  refreshRate: 0.025
+--- !u!114 &3765532405242016479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566266523723854114}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f866459e0a85f40ab74a21037eea87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMeshRenderer: {fileID: 0}
+  Effect: {fileID: 0}
   dissolveRate: 0.0125
   refreshRate: 0.025
 --- !u!1 &7409549626452650265

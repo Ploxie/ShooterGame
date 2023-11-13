@@ -25,17 +25,16 @@ public class DissolveEffect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Effect.Play();
+            
             StartCoroutine(DissolveRoutine());
             
         }
     }
-    IEnumerator DissolveRoutine()
+    public IEnumerator DissolveRoutine()
     {
-        
-
         if (materials.Length >0)
         {
+            Effect.Play();
             float counter = 0;
             while (materials[0].GetFloat("_DissolveAmount") < 1)
             {

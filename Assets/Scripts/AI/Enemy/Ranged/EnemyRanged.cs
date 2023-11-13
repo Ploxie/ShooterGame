@@ -6,11 +6,12 @@ public class EnemyRanged : Enemy
 {
     private Gun Gun { get; set; }
     private Module Module { get; set; }
+    [SerializeField]public DissolveEffect DissolveEffect;// { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
-        
+        DissolveEffect.Effect.Stop();
         Gun = GetComponent<Gun>();
         Module = Module.CreateRandomModule();
         Gun.ApplyModule(Module);
@@ -27,6 +28,8 @@ public class EnemyRanged : Enemy
         PlaySound("deathranged");
         SpawnCartridgePickup(Module);
         StateMachine.SetState(typeof(RangedDeath));
+        DissolveEffect.enabled = true;
+        DissolveEffect.Effect.Play();
     }
 
     public bool HasLineOfSightToPlayer() //a raycast to see if the player is indeed seeing the player
