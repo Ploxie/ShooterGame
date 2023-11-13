@@ -1522,7 +1522,7 @@ MonoBehaviour:
   model: {fileID: -3168422337102530296}
   explosionVFX: {fileID: 1334732295689868075}
   healthBarVisual: {fileID: 7607863008056584553}
-  DE: {fileID: 0}
+  DE: {fileID: 9165156233680878082}
 --- !u!114 &1238453961026415036
 MonoBehaviour:
   m_ObjectHideFlags: 0

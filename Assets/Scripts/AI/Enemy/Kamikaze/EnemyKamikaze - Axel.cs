@@ -40,7 +40,6 @@ public class EnemyKamikaze : Enemy
         ExplosionDamageHitBox.gameObject.SetActive(true);
         explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
-        
         model.SetActive(false);
         Agent.isStopped = true;
     }
@@ -49,9 +48,10 @@ public class EnemyKamikaze : Enemy
     {
         base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
-        StateMachine.SetState(typeof(KamikazeDeath));
         DE.enabled = true;
         DE.Effect.Play();
+        StateMachine.SetState(typeof(KamikazeDeath));
+        
     }
 
     private void Jank()

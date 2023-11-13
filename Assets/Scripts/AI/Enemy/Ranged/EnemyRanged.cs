@@ -27,9 +27,9 @@ public class EnemyRanged : Enemy
         base.OnDeath();
         PlaySound("deathranged");
         SpawnCartridgePickup(Module);
-        StateMachine.SetState(typeof(RangedDeath));
         DissolveEffect.enabled = true;
         DissolveEffect.Effect.Play();
+        StateMachine.SetState(typeof(RangedDeath));
     }
 
     public bool HasLineOfSightToPlayer() //a raycast to see if the player is indeed seeing the player
