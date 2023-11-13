@@ -28,6 +28,8 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Ricochet";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_41_ricochet.png");
+
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -45,6 +47,7 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Crystal";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_41_crystal.png");
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -62,6 +65,7 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Cluster";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_41_cluster_edit.png");
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -79,6 +83,7 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Explosive";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_57Explosive.PNG");
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -96,6 +101,7 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Black Hole";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_107BlackHole.PNG");
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -113,6 +119,7 @@ namespace Assets.Scripts.Entity
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Piercing";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Bullet/Tex_skill_41_piercing.png");
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)

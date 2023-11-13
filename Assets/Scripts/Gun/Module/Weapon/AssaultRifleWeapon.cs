@@ -13,6 +13,7 @@ namespace Assets.Scripts.Entity
         public AssaultRifleWeapon()
         {
             Name = "Assault Rifle";
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Weapon/t_51AssaultRifle.PNG");
             Damage = 15.0f;
             ProjectileSpeed = 12.0f;
             Range = 15.0f;

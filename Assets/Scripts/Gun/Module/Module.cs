@@ -11,6 +11,8 @@ namespace Assets.Scripts.Entity
         public GameObject DropPrefab { get; protected set; }
         public string Name { get; protected set; } = "Undefined Name";
 
+        public Sprite Icon { get; protected set; }
+
         public Module()
         {
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Default");

@@ -13,6 +13,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "SMG";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_SMG");
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Weapon/t_78SMG.png");
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;

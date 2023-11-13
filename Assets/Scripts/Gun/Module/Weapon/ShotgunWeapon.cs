@@ -14,6 +14,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Shotgun";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Shotgun");
+            Icon = Resources.Load<Sprite>("Assets/Resources/Sprites/Modules/Weapon/t_87Shotgun.png");
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
