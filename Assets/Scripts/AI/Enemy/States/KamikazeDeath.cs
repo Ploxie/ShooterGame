@@ -18,11 +18,15 @@ public class KamikazeDeath : Death
         enemyKamikaze.Agent.isStopped = true;
         enemyKamikaze.Agent.updateRotation = false;
         enemyKamikaze.PlaySound("explodekamikaze");
+        enemyKamikaze.DE.Effect.Play();
+        enemyKamikaze.StartCoroutine(enemyKamikaze.DE.DissolveRoutine());
         enemyKamikaze.Explode();
     }
 
     public override void Update()
     {
         base.Update();
+        //if(enemyKamikaze.DE.counter <= 1)
+        //enemyKamikaze.StartCoroutine(enemyKamikaze.DE.DissolveRoutine());    
     }
 }

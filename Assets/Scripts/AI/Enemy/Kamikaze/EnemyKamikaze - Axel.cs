@@ -17,7 +17,7 @@ public class EnemyKamikaze : Enemy
     [SerializeField] private GameObject model;
     [SerializeField] private GameObject explosionVFX;
     [SerializeField] private GameObject healthBarVisual;
-    [SerializeField] private DissolveEffect DE;
+    [SerializeField] public DissolveEffect DE;
 
     public bool HasRoared { get; private set; } = false;
 
@@ -48,8 +48,6 @@ public class EnemyKamikaze : Enemy
     {
         base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
-        DE.enabled = true;
-        DE.Effect.Play();
         StateMachine.SetState(typeof(KamikazeDeath));
         
     }

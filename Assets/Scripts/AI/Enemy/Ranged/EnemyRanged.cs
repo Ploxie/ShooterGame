@@ -27,8 +27,6 @@ public class EnemyRanged : Enemy
         base.OnDeath();
         PlaySound("deathranged");
         SpawnCartridgePickup(Module);
-        DissolveEffect.enabled = true;
-        DissolveEffect.Effect.Play();
         StateMachine.SetState(typeof(RangedDeath));
     }
 

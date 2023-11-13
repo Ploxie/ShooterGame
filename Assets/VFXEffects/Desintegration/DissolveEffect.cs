@@ -11,6 +11,7 @@ public class DissolveEffect : MonoBehaviour
     private Material[] materials;
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
+    public float counter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +22,15 @@ public class DissolveEffect : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-            StartCoroutine(DissolveRoutine());
-    }
+    //public void Update()
+    //{
+    //        StartCoroutine(DissolveRoutine());
+    //}
     public IEnumerator DissolveRoutine()
     {
         if (materials.Length >0)
         {
-            Effect.Play();
+            //Effect.Play();
             float counter = 0;
             while (materials[0].GetFloat("_DissolveAmount") < 1)
             {

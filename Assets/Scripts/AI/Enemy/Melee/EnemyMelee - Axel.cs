@@ -15,7 +15,7 @@ public class EnemyMelee : Enemy
 
     [SerializeField] private GameObject visualCracks;
 
-    [SerializeField] private DissolveEffect DE;
+    [SerializeField] public DissolveEffect DE;
 
     private Assets.Scripts.Entity.StatusEffect Effect { get; set; }
 
