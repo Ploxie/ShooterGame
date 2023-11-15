@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5137751008735566834}
   m_Layer: 0
   m_Name: GreenKey
-  m_TagString: Untagged
+  m_TagString: Keys
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 167a60282f922bf4fbcb1a81bb6c9373, type: 2}
+  - {fileID: 2100000, guid: 7f0bd1689faa31b4b996293e59683387, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
