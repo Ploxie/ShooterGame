@@ -44,7 +44,13 @@ namespace Assets.Scripts.LevelGeneration
 
         private bool isCorridor;
         private bool isModule;
+        private bool isDoor;
         private int walls;
+        private Tile previous;
+        public int id;
+        public Key.KeyType keyType;
+
+        
 
         public Tile(Vector2Int position)
         {
@@ -68,10 +74,22 @@ namespace Assets.Scripts.LevelGeneration
             set { isModule = value; }
         }
 
+        public bool IsDoor
+        {
+            get { return isDoor; }
+            set { isDoor = value; }
+        }
+
         public int Walls
         {
             get { return walls; }
             set { walls = value; }
+        }
+
+        public Tile Previous
+        {
+            get { return previous; }
+            set { previous = value; }
         }
 
         public static implicit operator Vector2Int(Tile tile) => tile.Position;

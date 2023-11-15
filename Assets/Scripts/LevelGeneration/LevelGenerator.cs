@@ -1,229 +1,284 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
+using static Assets.Scripts.LevelGeneration.Tile;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.LevelGeneration
 {
     public class LevelGenerator : MonoBehaviour
-    {        
+    {
+        [SerializeField] private Level level;
+
         [SerializeField] private int seed;
-        [SerializeField] private ModuleManager moduleManager;
+        [SerializeField, Range(1, 10)] private int spaceBetweenRooms = 1;
+        [SerializeField, Range(0, 10)] private int randomWalkDrunkeness = 4;
+        [SerializeField, Range(0.0f, 1.0f)] private float corridorRandomness = 0.5f;
 
+        private int corridorId = 0;
 
-        private List<Room> rooms;
-        private HashSet<Tile> tiles;
-        private HashSet<Tile> excluded;
-        private List<BoundsInt> boundsTest;
-
-        private Room start;
-        private Room end;
-
-        private GameObject roomsObject;
-        private GameObject floorsObject;
-        private GameObject wallsObject;
-
-        [SerializeField] private PhysicMaterial wallPhysicMaterial;
-
-        [SerializeField]
-        private NavMeshSurface navmesh;
+        public HashSet<Tile> tiles;
+        public HashSet<Tile> corridors;
+        public HashSet<Tile> doors;
 
         private void Awake()
         {
-            moduleManager.Generate();
-            Generate();
-        }
-
-        public void Generate()
-        {
-            // TODO: Add Walls in middle of rooms
-
-            Random.InitState(seed);
-
-            ClearTiles();
             tiles = new HashSet<Tile>();
-            excluded = new HashSet<Tile>();
-            boundsTest = new List<BoundsInt>();
-
-            roomsObject = new GameObject("Rooms");
-            {
-                roomsObject.transform.parent = transform;
-            }
-            floorsObject = new GameObject("Floor");
-            {
-                floorsObject.transform.parent = transform;
-                floorsObject.AddComponent<MeshFilter>();
-            }
-            wallsObject = new GameObject("Walls");
-            {
-                wallsObject.transform.parent = transform;
-            }
-
-            // Find Module Manager in child
-            if(true){
-                var child = GetComponentInChildren<ModuleManager>();
-                if (child != null)
-                    moduleManager = child;
-            }
-
-            // Generate Rooms
-            if(true){
-                rooms = GenerateRooms();
-                foreach(Room room in rooms)
-                {
-                    tiles.UnionWith(SpawnRoomModule(room));
-                }
-            }
-
-            // Generate Corridors
-            if(true){
-                HashSet<Tile> corridors = ConnectRooms(rooms);
-                foreach(Tile tile in corridors)
-                {
-                    var room = new Room()
-                    {
-                        Position = tile.Position,
-                        Module = moduleManager.CorridorModule
-                    };
-                    tiles.UnionWith(SpawnRoomModule(room));
-                }
-
-                tiles.ExceptWith(excluded);
-            }
-
-            // Generate Walls
-            if(true){
-                var walls = WallGenerator.Generate(tiles);
-                tiles.UnionWith(walls);
-
-                GenerateWalls(Tile.TILE_SIZE);
-                
-            }
-
-            CombineFloorMeshes();
-
-            BuildNavMesh();
+            corridors = new HashSet<Tile>();
+            doors = new HashSet<Tile>();
+            RoomManager.LoadPrefabs();
         }
 
-        public List<Room> GenerateRooms()
+        private void Start()
         {
-            if(moduleManager == null || moduleManager.ModulePool?.Length <= 0)
-                return new List<Room>();
+            UnityEngine.Random.InitState(seed);
+            StartCoroutine((new[] {
+                GenerateRoomLocations(),
+                GenerateRoomModules(),
+                GenerateCorridors(),
+                GenerateWalls(),
+                GenerateDoors(),
+                PlaceKeys(),
+            }).GetEnumerator());
+        }
 
-            List<Room> rooms = new List<Room>();
+        public IEnumerator GenerateRoomLocations()
+        {
+            if (level == null)
+                yield return null;
 
-            Vector2Int startPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
+            // Clear Generation Data
+            Reset(level.rootNode);
 
-            // Add Start Module
+            Stack<Node> queue = new ();
+            queue.Push(level.rootNode);
+
+            while(queue.Count > 0)
             {
-                var startModule = moduleManager.ModulePool[0];
-                Room startRoom = new Room()
+                Node currentNode = queue.Pop();
+
+                if(currentNode is RoomNode)
                 {
-                    Module = startModule,
-                    Position = startPosition,
-                };
-                rooms.Add(startRoom);
-                boundsTest.Add(startRoom.GetBounds(0));
-                start = startRoom;
-            }
-           
-
-            Room currentRoom = rooms[0];
-
-            int attempts = 0;
-
-            for(int i = 0; i < moduleManager.ModulePool.Length - 1; i++)
-            {
-                var module = moduleManager.ModulePool[i + 1];
-
-                Room room = new Room()
-                {
-                    Module = module,
-                };
-
-                var direction = GetRandomValidDirection(currentRoom, room, rooms);
-                var position = currentRoom.Position + GetOffset(0, direction);
-
-                if (direction == Vector2Int.zero)
-                {
-                    i--;
-                    currentRoom = currentRoom.Parent;
-                    attempts++;
-                    if(attempts > moduleManager.ModulePool.Length * moduleManager.ModulePool.Length || currentRoom == null)
+                    if(!GenerateRoomLocation(currentNode as RoomNode))
                     {
-                        Debug.Log("Something went wrong with the generation, please contact Level Generation Administrator");
-                        break;
+                        Reset(currentNode);
+                        queue.Push(currentNode.Parent);
+                    }                                        
+                }
+                currentNode.Children.ForEach((c) => queue.Push(c));
+                yield return null;
+            }   
+
+        }
+
+        private bool GenerateRoomLocation(RoomNode node)
+        {
+            var parent = node.GetParentRoom();
+            if (parent == null)
+            {
+                node.Position = Vector2Int.zero;
+                node.GeneratedModule = node.Module != null ? node.Module : RandomStartModule();
+                node.Size = new(node.GeneratedModule.Size.x + spaceBetweenRooms, node.GeneratedModule.Size.y + spaceBetweenRooms);
+                return true;
+            }
+
+            // This node has tried every direction and failed
+            if(node.TriedEveryDirection())
+            {
+                node.triedDirections.Clear();
+                return false;
+            }
+
+            Vector2Int position = parent.Position;
+            Vector2Int direction = Direction2D.GetRandomCardinalDirection();
+
+            RoomModule module = node.Module;
+            if(module == null)
+            {
+                if(node == level.GetEndRoom())
+                {
+                    module = RandomEndModule();
+                }
+                else
+                {
+                    module = RandomRoomModule();
+                }
+            }
+
+            Vector2Int moduleSize = new (module.Size.x + spaceBetweenRooms, module.Size.y + spaceBetweenRooms);
+            Vector2Int parentModuleSize = parent.Size;
+            Vector2Int spacing = direction * new Vector2Int(spaceBetweenRooms, spaceBetweenRooms);
+            Vector2Int offset = Direction2D.GetPerpendicular(direction)[Random.Range(0,1)] * randomWalkDrunkeness;
+
+            node.triedDirections.Add(direction);
+
+            direction *= (direction == Direction2D.NORTH  || direction == Direction2D.EAST) ? parentModuleSize : moduleSize;
+            direction += spacing;
+            direction += offset;
+
+            node.Position = position + direction;
+            node.Size = moduleSize;
+
+            if (!IsValidLocation(node))
+            {                
+                return GenerateRoomLocation(node);
+            }
+
+
+            node.GeneratedModule = module;
+
+            return true;
+        }
+
+        private bool IsValidLocation(RoomNode node)
+        {
+            Queue<Node> queue = new ();
+            queue.Enqueue(level.rootNode);
+
+            while(queue.Count > 0)
+            {
+                Node currentNode = queue.Dequeue();
+
+                RoomNode room = currentNode as RoomNode;
+                if(room)
+                {
+                    if(room.Size != Vector2Int.zero && room != node)
+                    {
+                        if (node.Intersects(room))
+                            return false;
+                    }                    
+                }
+
+                currentNode.Children.ForEach((c) => queue.Enqueue(c));
+            }
+
+            return true;
+        }
+
+        private void Reset(Node node)
+        {
+            Queue<Node> queue = new();
+            queue.Enqueue(node);
+
+            while (queue.Count > 0)
+            {
+                Node currentNode = queue.Dequeue();
+
+                currentNode.Size = Vector2Int.zero;
+                currentNode.Position = Vector2Int.zero;
+
+                RoomNode roomNode = currentNode as RoomNode;
+                if(roomNode != null)
+                    roomNode.GeneratedModule = roomNode.Module;
+
+                currentNode.Children.ForEach((c) => queue.Enqueue(c));
+            }
+        }
+
+        private IEnumerator GenerateRoomModules()
+        {
+            Queue<Node> queue = new();
+            queue.Enqueue(level.rootNode);
+
+            while (queue.Count > 0)
+            {
+                Node currentNode = queue.Dequeue();
+
+
+                RoomNode roomNode = currentNode as RoomNode;
+                if (roomNode != null)
+                {
+                    RoomModule module = Instantiate(roomNode.GeneratedModule, Vector3.zero, Quaternion.identity);
+                    module.CalculateBounds();
+                    Vector2Int roomCenter = roomNode.Position;
+
+                    module.transform.position = new Vector3(roomCenter.x - module.Bounds.x, 0, roomCenter.y - module.Bounds.z) * Tile.TILE_SIZE;
+                    module.transform.SetParent(transform, true);
+
+                    foreach(var tile in module.Tiles)
+                    {
+                        tiles.Add(new Tile(roomCenter - new Vector2Int(module.Bounds.x, module.Bounds.z) + tile.Position) { IsModule = true });
                     }
-                    continue;
+                }
+                   
+
+                currentNode.Children.ForEach((c) => queue.Enqueue(c));
+
+                yield return null;
+            }
+
+        }
+
+        private IEnumerator GenerateCorridors()
+        {           
+            Queue<Node> queue = new();
+            queue.Enqueue(level.rootNode);
+
+            while (queue.Count > 0)
+            {
+                Node currentNode = queue.Dequeue();
+
+                RoomNode roomNode = currentNode as RoomNode;
+                if (roomNode != null)
+                {
+                    var parent = roomNode.GetParentRoom();
+
+                    if(parent != null)
+                    {
+                        var corridor = GenerateCorridor(roomNode, parent);                      
+
+                        tiles.UnionWith(corridor);
+                    }                    
                 }
 
-                room.Parent = currentRoom;
-                room.Position = position;
-
-                rooms.Add(room);
-
-                currentRoom = room;
-                end = room;
+                currentNode.Children.ForEach((c) => queue.Enqueue(c));
+                yield return null;
             }
 
-            return rooms;
+            foreach(Tile tile in tiles)
+            {
+                if(tile.IsCorridor)
+                {
+                    RoomModule module = Instantiate(RandomCorridorModule(), Vector3.zero, Quaternion.identity);
+                    module.CalculateBounds();
+
+                    module.transform.position = new Vector3(tile.Position.x, 0, tile.Position.y) * Tile.TILE_SIZE;
+                    module.transform.SetParent(transform, true);
+                }
+            }
+
         }
 
-        private IEnumerable<Tile> SpawnRoomModule(Room room)
-        {
-            RoomModule module = Instantiate(room.Module, Vector3.zero, Quaternion.identity);
-            module.GenerateTiles();
-            Vector2Int roomCenter = room.Position;
-
-            module.transform.position = new Vector3(roomCenter.x, 0, roomCenter.y) * Tile.TILE_SIZE;
-            module.transform.SetParent(roomsObject.transform, true);
-
-            HashSet<Tile> tiles = new HashSet<Tile>();
-            foreach (var moduleTile in module.Tiles)
-            {
-                var position = roomCenter + moduleTile.Position;
-                tiles.Add(new Tile(position) { IsModule = true });
-            }
-            foreach (var moduleTile in module.Excluded)
-            {
-                var position = roomCenter + moduleTile.Position;
-                excluded.Add(new Tile(position) { IsModule = true });
-            }
-
-            return tiles;
-        }
-
-        private HashSet<Tile> ConnectRooms(List<Room> rooms)
-        {
-            HashSet<Tile> corridors = new HashSet<Tile>();
-            int index = 0;
-            for (int i = 1; i < rooms.Count; i++)
-            {
-                var currentRoom = rooms[index];
-                var nextRoom = rooms[i];
-
-                HashSet<Tile> corridor = CreateCorridor(currentRoom.GetRandomTile(), nextRoom.GetRandomTile());
-                corridors.UnionWith(corridor);
-
-                index = i;
-            }
-            return corridors;
-        }
-
-        private HashSet<Tile> CreateCorridor(Vector2Int currentRoomCenter, Vector2Int destination)
+        private HashSet<Tile> GenerateCorridor(RoomNode node, RoomNode parent)
         {
             HashSet<Tile> corridor = new HashSet<Tile>();
-            var position = currentRoomCenter;
-            corridor.Add(new Tile(position) { IsCorridor = true });
 
+            var connectionTiles = FindClosestTiles(node, parent);
+
+            var position = connectionTiles.Item2 - new Vector2Int(parent.GeneratedModule.Bounds.x, parent.GeneratedModule.Bounds.z) + parent.Position;
+            var destination = connectionTiles.Item1 - new Vector2Int(node.GeneratedModule.Bounds.x, node.GeneratedModule.Bounds.z) + node.Position;
+
+            Tile previous = null;
+
+            int id = corridorId++;
+
+            bool doorPlaced = false;
+            DoorNode door = node.GetDoorNode();
+
+            {
+                Tile tile = new Tile(position) { IsCorridor = true, id = id };
+                corridor.Add(tile);
+                previous = tile;
+            }
+            
             while (position.y != destination.y)
             {
                 if (destination.y > position.y)
@@ -234,7 +289,16 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     position += Vector2Int.down;
                 }
-                corridor.Add(new Tile(position) { IsCorridor = true });
+                Tile tile = new Tile(position) { IsCorridor = true, Previous = previous, id = id };                
+                if(door != null && !doorPlaced && !tiles.Contains(tile))
+                {
+                    tile.IsDoor = door != null;
+                    tile.keyType = door != null ? door.Key : Key.KeyType.None;
+                    doors.Add(tile);
+                    doorPlaced = true;
+                }
+                corridor.Add(tile);
+                previous = tile;
             }
             while (position.x != destination.x)
             {
@@ -246,278 +310,282 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     position += Vector2Int.left;
                 }
-                corridor.Add(new Tile(position) { IsCorridor = true });
+                Tile tile = new Tile(position) { IsCorridor = true, Previous = previous, id = id };
+                if (door != null && !doorPlaced && !tiles.Contains(tile))
+                {
+                    tile.IsDoor = door != null;
+                    tile.keyType = door != null ? door.Key : Key.KeyType.None;
+                    doors.Add(tile);
+                    doorPlaced = true;
+                }
+                corridor.Add(tile);
+                previous = tile;
             }
-            
-            
             return corridor;
         }
 
-        public void GenerateWalls(float tileSize)
+        private (Vector2Int, Vector2Int) FindClosestTiles(RoomNode first, RoomNode second)
         {
+            Vector2Int closestF = first.GeneratedModule.Tiles.ElementAt((int)Random.value * first.GeneratedModule.Tiles.Count) - new Vector2Int(first.GeneratedModule.Bounds.x, first.GeneratedModule.Bounds.z) + first.Position;
+            Vector2Int closestS = second.GeneratedModule.Tiles.ElementAt((int)Random.value * second.GeneratedModule.Tiles.Count) - new Vector2Int(second.GeneratedModule.Bounds.x, second.GeneratedModule.Bounds.z) + second.Position; ;
 
+            int closest = Math.Abs(closestS.x - closestF.x) + Math.Abs(closestS.y - closestF.y) + (int)(Random.value * corridorRandomness * first.GeneratedModule.Tiles.Count);
+
+            foreach (var f in first.GeneratedModule.Tiles)
+            {
+                foreach (var s in second.GeneratedModule.Tiles)
+                {
+                    var fPos = f - new Vector2Int(first.GeneratedModule.Bounds.x, first.GeneratedModule.Bounds.z) + first.Position;
+                    var sPos = s - new Vector2Int(second.GeneratedModule.Bounds.x, second.GeneratedModule.Bounds.z) + second.Position;
+
+                    var randomness = (int)(Random.value * corridorRandomness * first.GeneratedModule.Tiles.Count);
+                    var distance = Math.Abs(sPos.x - fPos.x) + Math.Abs(sPos.y - fPos.y) + randomness;
+                    if (closest > distance)
+                    {
+                        closest = distance;
+                        closestF = f;
+                        closestS = s;
+                    }
+                }
+            }
+
+            return (closestF, closestS);
+        }
+
+        private IEnumerator GenerateWalls()
+        {
+            foreach (Tile tile in tiles)
+            {
+                foreach (var direction in Direction2D.CARDINAL)
+                {
+                    var neighbourPosition = new Tile(tile.Position + direction);
+                    
+                    if (!tiles.TryGetValue(neighbourPosition, out Tile neighbour) || (tile.id != neighbour.id && tile.IsCorridor && neighbour.IsCorridor))
+                    {
+                        tile.Walls |= Wall.FromDirection(direction);
+                    }                    
+                }
+
+                if(tile.IsDoor)
+                {
+                    //var direction = tile.Previous.Position - tile.Position;
+                    //tile.Walls |= Wall.FromDirection(direction) << 0x4;                    
+                }
+
+                if (tile.HasWall(Wall.NORTH))
+                    CreateWall(tile, Wall.NORTH);
+                if (tile.HasWall(Wall.SOUTH))
+                    CreateWall(tile, Wall.SOUTH);
+                if (tile.HasWall(Wall.EAST))
+                    CreateWall(tile, Wall.EAST);
+                if (tile.HasWall(Wall.WEST))
+                    CreateWall(tile, Wall.WEST);
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator GenerateDoors()
+        {
+            var prefabPath = "Prefabs/Door/Door";
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
+
+            if(prefab == null)
+            {
+                Debug.LogError("Could not find Door prefab at location: " + prefabPath);
+                yield return null;
+            }
+
+            foreach (Tile tile in doors)
+            {
+                var direction = tile.Previous.Position - tile.Position;
+                tile.Walls |= Wall.FromDirection(direction) << 0x4;
+
+                Debug.Log("Creating door at: " + tile.Position);
+                CreateDoor(prefab, tile, Wall.NORTH_DOOR);
+                CreateDoor(prefab, tile, Wall.SOUTH_DOOR);
+                CreateDoor(prefab, tile, Wall.EAST_DOOR);
+                CreateDoor(prefab, tile, Wall.WEST_DOOR);
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator PlaceKeys()
+        {
+            foreach (var node in level.nodes)
+            {
+                RoomNode roomNode = node as RoomNode;
+                if(roomNode != null)
+                {
+                    if(roomNode.HasKey)
+                    {
+                        var prefabPath = "Prefabs/Keys/"+roomNode.Key+"Key";
+                        Key prefab = Resources.Load<Key>(prefabPath);
+
+                        Key key = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                        {
+                            key.transform.parent = transform;
+                            key.transform.position = new Vector3(roomNode.Position.x + (roomNode.Size.x * 0.5f), 0, roomNode.Position.y + (roomNode.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                            key.SetKeyType(roomNode.Key);
+                            Debug.Log("Placed " + roomNode.Key + " Key at " + key.transform.position);
+                        }
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        private GameObject CreateWall(Tile tile, int mask)
+        {
+            if(!tile.HasWall(mask))
+            {
+                return null;
+            }
+
+            float tileSize = TILE_SIZE;
+            float wallHeight = tileSize * 0.75f;
+            float wallThickness = tileSize / 10.0f;
+
+            float offsetX = mask == Wall.EAST ? 1.0f : 0.0f;
+            offsetX = mask == Wall.NORTH || mask == Wall.SOUTH ? 0.5f : offsetX;
+
+            float offsetY = mask == Wall.NORTH ? 1.0f : 0.0f;
+            offsetY = mask == Wall.EAST || mask == Wall.WEST ? 0.5f : offsetY;
+
+            float rotation = mask == Wall.SOUTH ? 180.0f : 0.0f;
+            rotation = mask == Wall.EAST ? 90.0f : rotation;
+            rotation = mask == Wall.WEST ? -90.0f : rotation;
+
+
+            GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            {
+                wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
+                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
+                wall.transform.rotation = Quaternion.Euler(0, rotation, 0);
+                wall.transform.parent = transform;
+                wall.tag = "Wall";
+                wall.name = "Wall";
+                wall.isStatic = true;
+                //wall.GetComponent<Collider>().material = wallPhysicMaterial;
+            }
+            return wall;
+        }
+
+        private GameObject CreateDoor(GameObject prefab, Tile tile, int mask)
+        {
+            if (!tile.HasWall(mask))
+            {
+                return null;
+            }
+
+            float tileSize = TILE_SIZE;
             float wallHeight = tileSize;
             float wallThickness = tileSize / 10.0f;
 
-            foreach (Tile tile in tiles)
-            {
-                float halfSize = tileSize * 0.5f;
+            float offsetX = mask == Wall.EAST_DOOR ? 1.0f : 0.0f;
+            offsetX = mask == Wall.NORTH_DOOR || mask == Wall.SOUTH_DOOR ? 0.5f : offsetX;
 
-                // Lol på denna koden, pallar inte snygga till den
-                if (tile.HasWall(Tile.Wall.NORTH))
-                {
-                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    {
-                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y + 1) * Tile.TILE_SIZE;
-                        wall.tag = "Wall";
-                        wall.name = "Wall";
-                        wall.isStatic = true;
-                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
-                    }
-                }
-                if (tile.HasWall(Tile.Wall.SOUTH))
-                {
-                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    {
-                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 0.5f, 0.5f, tile.Position.y) * Tile.TILE_SIZE;
-                        wall.transform.rotation = Quaternion.Euler(0, 180.0f, 0);
-                        wall.tag = "Wall";
-                        wall.name = "Wall";
-                        wall.isStatic = true;
-                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
-                    }
-                }
-                if (tile.HasWall(Tile.Wall.EAST))
-                {
-                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    {
-                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x + 1, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
-                        wall.transform.rotation = Quaternion.Euler(0, 90.0f, 0);
-                        wall.tag = "Wall";
-                        wall.name = "Wall";
-                        wall.isStatic = true;
-                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
-                    }
-                }
-                if (tile.HasWall(Tile.Wall.WEST))
-                {
-                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    {
-                        wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                        wall.transform.parent = wallsObject.transform;
-                        wall.transform.position = new Vector3(tile.Position.x, 0.5f, tile.Position.y + 0.5f) * Tile.TILE_SIZE;
-                        wall.transform.rotation = Quaternion.Euler(0, -90.0f, 0);
-                        wall.tag = "Wall";
-                        wall.name = "Wall";
-                        wall.isStatic = true;
-                        wall.GetComponent<Collider>().material = wallPhysicMaterial;
-                    }
-                }
+            float offsetY = mask == Wall.NORTH_DOOR ? 1.0f : 0.0f;
+            offsetY = mask == Wall.EAST_DOOR || mask == Wall.WEST_DOOR ? 0.5f : offsetY;
+
+            float rotation = mask == Wall.SOUTH_DOOR ? 180.0f : 0.0f;
+            rotation = mask == Wall.EAST_DOOR ? 90.0f : rotation;
+            rotation = mask == Wall.WEST_DOOR ? -90.0f : rotation;
+
+            GameObject door = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            {
+                door.transform.localScale = new Vector3(0.75f, 0.6f, 0.6f);
+                door.transform.parent = transform;
+                door.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, -0.5f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
+                door.transform.rotation = Quaternion.Euler(0, rotation + 90.0f, 0);
+                door.GetComponentInChildren<Door>().SetKeyType(tile.keyType);
             }
+            return door;
         }
 
-        private Vector2Int GetOffset(int offset, Vector2Int direction)
+        public static RoomModule RandomRoomModule()
         {
-            if (direction.x != 0)
-                return new Vector2Int(direction.x + offset, direction.y);
-            if (direction.y != 0)
-                return new Vector2Int(direction.x, direction.y + offset);
-
-            return direction;
+            return RoomManager.RoomModules[(int)(Random.value * RoomManager.RoomModules.Length)];
         }
-
-        private Vector2Int GetOverlap(int offset, Room from, Room to, Vector2Int direction)
+        public static RoomModule RandomStartModule()
         {
-            var fromBounds = from.GetBounds(offset);
-            var toBounds = to.GetBounds(offset);
-            if (direction.x > 0)
-            {
-                int fromRight = fromBounds.size.x - (from.Position.x - fromBounds.xMin);
-                int toLeft = to.Position.x - toBounds.xMin;
-                return new Vector2Int(direction.x * (fromRight + toLeft), 0);
-            }
-            if (direction.x < 0)
-            {
-                int fromLeft = from.Position.x - fromBounds.xMin; 
-                int toRight = toBounds.size.x - (to.Position.x - toBounds.xMin);
-                return new Vector2Int(direction.x * (fromLeft + toRight), 0);
-            }
-            if (direction.y > 0)
-            {
-                int fromTop = fromBounds.size.z - (from.Position.y - fromBounds.zMin);
-                int toBottom = to.Position.y - toBounds.zMin;
-                return new Vector2Int(0, direction.y * (fromTop + toBottom));
-            }
-            if (direction.y < 0)
-            {
-                int fromBottom = from.Position.y - fromBounds.zMin;
-                int toTop = toBounds.size.z - (to.Position.y - toBounds.zMin);
-                return new Vector2Int(0, direction.y * (fromBottom + toTop));
-            }
-
-            return Vector2Int.zero;
+            return RoomManager.StartModules[(int)(Random.value * RoomManager.StartModules.Length)];
         }
-
-        private Vector2Int GetRandomValidDirection(Room from, Room to, IEnumerable<Room> invalidPositions)
+        public static RoomModule RandomEndModule()
         {
-            List<Vector2Int> attempts = new List<Vector2Int>() { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0) };
-            do
-            {
-                int index =  Random.Range(0, attempts.Count);
-
-                Vector2Int direction = attempts[index];
-                attempts.RemoveAt(index);
-
-                Room test = new Room()
-                {
-                    Position = from.Position,
-                    Module = to.Module
-                };
-
-                var offset = direction;
-                var overlap = GetOverlap(1, from, test, direction);
-
-                test.Position += overlap;
-                var testBounds = test.GetBounds(1);
-
-                bool contains = false;
-                foreach(BoundsInt room in boundsTest)
-                {
-                    if(room.Intersects(testBounds))
-                    {
-                        contains = true;
-                        break;
-                    }
-                }
-                
-                if (contains)
-                    continue;
-                boundsTest.Add(testBounds);
-                return overlap;
-            }
-            while (attempts.Count > 0);
-
-            return Vector2Int.zero;
+            return RoomManager.EndModules[(int)(Random.value * RoomManager.EndModules.Length)];
         }
-
-        private void ClearTiles()
+        public static RoomModule RandomCorridorModule()
         {
-            var existing = GameObject.FindGameObjectsWithTag("Tile");
-            var existingWalls = GameObject.FindGameObjectsWithTag("Wall");
-
-            if (existing == null)
-                return;
-            if (existingWalls == null)
-                return;
-
-
-            //Array.ForEach(existing, child => {
-            //    EditorApplication.delayCall += () => { DestroyImmediate(child); };
-            //});
-            //Array.ForEach(existingWalls, child => {
-            //    EditorApplication.delayCall += () => { DestroyImmediate(child); };
-            //});
-        }
-
-        private void CombineFloorMeshes()
-        {
-            RoomFloor[] floors = FindObjectsOfType<RoomFloor>();
-            List<MeshFilter> meshFilters = new List<MeshFilter>();
-
-            foreach(RoomFloor floor in floors)
-            {
-                MeshFilter filter = floor.GetComponent<MeshFilter>();
-                if (filter != null)
-                    meshFilters.Add(filter);
-            }
-
-            CombineInstance[] combine = new CombineInstance[meshFilters.Count];
-
-            for (int i = 0; i < meshFilters.Count; i++)
-            {
-                
-                combine[i].mesh = meshFilters[i].sharedMesh;
-                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-                meshFilters[i].gameObject.SetActive(false);
-            }
-
-            Mesh mesh = new Mesh();
-            mesh.name = "Floors";
-            mesh.CombineMeshes(combine);
-
-            floorsObject.transform.GetComponent<MeshFilter>().sharedMesh = mesh;
-            floorsObject.transform.gameObject.SetActive(true);
-        }
-
-        private void BuildNavMesh()
-        {
-           
-            navmesh.BuildNavMesh();
+            return RoomManager.CorridorModules[(int)(Random.value * RoomManager.CorridorModules.Length)];
         }
 
         private void OnDrawGizmos()
         {
-            if (rooms == null || rooms.Count <= 0)
+            Gizmos.color = Color.green;
+            foreach(Node node in level.nodes)
+            {
+                var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
+
+                Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
+
+                RoomNode roomNode = node as RoomNode;
+                if (roomNode != null && roomNode.GeneratedModule != null)
+                    Handles.Label(position, "" + roomNode.GeneratedModule.name);
+
+                if (node.Parent == null)
+                    continue;
+
+                var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
+
+                Gizmos.DrawLine(position, parentPosition);                
+            }
+
+            if (tiles == null)
                 return;
-           
 
-            Vector3 north = new Vector3(0, 0, 1);
-            Vector3 south = new Vector3(0, 0, -1);
-            Vector3 east = new Vector3(1, 0, 0);
-            Vector3 west = new Vector3(-1, 0, 0);
-
-            float tileSize = Tile.TILE_SIZE;
-
+            
             foreach (var tile in tiles)
             {
-                Vector3 worldPosition = tile + new Vector3(0.5f, 0.25f, 0.5f);
-                Gizmos.color = tile.IsCorridor ? Color.red : Color.cyan;
-                Gizmos.DrawCube(transform.position + (worldPosition * tileSize), new Vector3(tileSize - 0.1f, 0.25f, tileSize - 0.1f));
+                if (tile == null)
+                    return;
 
-                /*
+                Gizmos.color = new Color(0.1f, 1.0f, 0.1f, 0.1f);
+                if (tile.IsCorridor)
+                    Gizmos.color = Color.red;
+                Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
+                //Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
+
+            }
+
+            foreach(Tile tile in doors)
+            {
                 Gizmos.color = Color.blue;
 
-                if (tile.HasWall(Tile.Wall.NORTH))
-                    Gizmos.DrawLine(transform.position + ((worldPosition + (north * 0.4f)) + (west * 0.4f) * tileSize), transform.position + ((worldPosition + (north * 0.4f)) + (east * 0.4f) * tileSize));
+                Vector3 north = new Vector3(0, 0, 1);
+                Vector3 south = new Vector3(0, 0, -1);
+                Vector3 east = new Vector3(1, 0, 0);
+                Vector3 west = new Vector3(-1, 0, 0);
 
-                if (tile.HasWall(Tile.Wall.SOUTH))
-                    Gizmos.DrawLine(transform.position + ((worldPosition + (south * 0.4f)) + (west * 0.4f) * tileSize), transform.position + ((worldPosition + (south * 0.4f)) + (east * 0.4f) * tileSize));
+                Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
 
-                if (tile.HasWall(Tile.Wall.EAST))
-                    Gizmos.DrawLine(transform.position + ((worldPosition + (east * 0.4f)) + (north * 0.4f) * tileSize), transform.position + ((worldPosition + (east * 0.4f)) + (south * 0.4f) * tileSize));
+                Gizmos.DrawCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
 
-                if (tile.HasWall(Tile.Wall.WEST))
-                    Gizmos.DrawLine(transform.position + ((worldPosition + (west * 0.4f)) + (north * 0.4f) * tileSize), transform.position + ((worldPosition + (west * 0.4f)) + (south * 0.4f) * tileSize));
-                */
+                if (tile.HasWall(Tile.Wall.NORTH_DOOR))
+                    Gizmos.DrawLine(((worldPosition + (north * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (north * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
+
+                if (tile.HasWall(Tile.Wall.SOUTH_DOOR))
+                    Gizmos.DrawLine(((worldPosition + (south * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (south * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
+
+                if (tile.HasWall(Tile.Wall.EAST_DOOR))
+                    Gizmos.DrawLine(((worldPosition + (east * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (east * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
+
+                if (tile.HasWall(Tile.Wall.WEST_DOOR))
+                    Gizmos.DrawLine(((worldPosition + (west * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (west * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
             }
 
-            foreach (BoundsInt bounds in boundsTest)
-            {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawWireCube(bounds.center * Tile.TILE_SIZE, new Vector3(bounds.size.x, 1, bounds.size.z) * Tile.TILE_SIZE);
-            }
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(start.GetBounds(0).center, new Vector3(1, 2, 1));
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(end.GetBounds(0).center, new Vector3(1, 2, 1));
-        }
-
-    }
-
-    public static class BoundsIntExt
-    {
-        public static bool Intersects(this BoundsInt a, BoundsInt b)
-        {
-            return (a.xMin < b.xMax) && (a.xMax > b.xMin) &&
-                (a.yMin <= b.yMax) && (a.yMax >= b.yMin) &&
-                (a.zMin < b.zMax) && (a.zMax > b.zMin);
         }
     }
 }

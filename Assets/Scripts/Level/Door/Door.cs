@@ -12,6 +12,11 @@ public class Door : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    public void SetKeyType(Key.KeyType type)
+    {
+        keyType = type;
+    }
+
     public Key.KeyType GetKeyType()
     {
         return keyType;
