@@ -1746,7 +1746,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1602041983}
-  - component: {fileID: 1602041982}
   - component: {fileID: 1602041981}
   m_Layer: 0
   m_Name: LevelGenerator
@@ -1767,34 +1766,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: {fileID: 11400000, guid: 61186093e27fe04418735612477f9bbf, type: 2}
   seed: 0
-  moduleManager: {fileID: 1602041982}
-  wallPhysicMaterial: {fileID: 0}
-  navmesh: {fileID: 1342520574}
---- !u!114 &1602041982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1602041980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944e68fbffbc5c44c83c27211a9b0371, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartModule: {fileID: 2925423135877620360, guid: 64f87196dd3d8484b873d4a7115557da, type: 3}
-  CorridorModule: {fileID: 2925423135877620360, guid: a660a45ec3f52d04fa73915e62b427fb, type: 3}
-  FinalModule: {fileID: 2925423135877620360, guid: 0e975cb61484e4147bfc06e6dd784aea, type: 3}
-  Randomize: 1
-  Modules:
-  - {fileID: 2925423135877620360, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
-  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
-  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
-  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
-  - {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
-  ModulePool: []
-  RoomsToGenerate: 6
+  spaceBetweenRooms: 1
+  randomWalkDrunkeness: 4
+  corridorRandomness: 0.5
 --- !u!4 &1602041983
 Transform:
   m_ObjectHideFlags: 0
