@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelGeneration/LevelGenererationTestScene.unity
     guid: 8852cd10f642f724085e38d7aad6875f
+  - enabled: 1
+    path: Assets/Scenes/Tool/SimulatorMenu.unity
+    guid: cdec06379cab73448961851ef317a712
+  - enabled: 1
+    path: Assets/Scenes/Tool/Simulator.unity
+    guid: dc21c11066a17414abee447ba1dacafd
   m_configObjects: {}
