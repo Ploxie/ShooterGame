@@ -1093,6 +1093,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIMenuScript, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 5655278445200600928, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1420712223}
+    - target: {fileID: 5655278445200600928, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowDescription
+      objectReference: {fileID: 0}
+    - target: {fileID: 6004263316404145072, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+      propertyPath: name
+      value: a
+      objectReference: {fileID: 0}
     - target: {fileID: 7250329308342882303, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
       propertyPath: m_Name
       value: CanvasPause
@@ -1559,6 +1571,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8601188921816985123, guid: 32b872faafcf97449b021ce17b423ce8, type: 3}
   m_PrefabInstance: {fileID: 1358952624}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1420712223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6004263316404145072, guid: eb2bbea73c03a0c47b1ba773bdfb81b2, type: 3}
+  m_PrefabInstance: {fileID: 973074767}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ba245f731671245919b8ecdf4df1ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1479648705
 GameObject:
   m_ObjectHideFlags: 0
