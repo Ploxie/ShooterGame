@@ -23,9 +23,9 @@ namespace Assets.Scripts.LevelGeneration
                              Mathf.Round(transform.position.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
 
             transform.localScale = new Vector3(
-                            Mathf.Round(transform.localScale.x),
+                            Mathf.Round(transform.localScale.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,
                              0.25f,
-                             Mathf.Round(transform.localScale.z));
+                             Mathf.Round(transform.localScale.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
         }
 
         public HashSet<Tile> CalculateTiles()
@@ -33,7 +33,7 @@ namespace Assets.Scripts.LevelGeneration
             HashSet<Tile> tiles = new();
 
             Vector2 position = new Vector2(transform.position.x / Tile.TILE_SIZE, transform.position.z / Tile.TILE_SIZE);
-            Vector2 size = new Vector2(transform.localScale.x, transform.localScale.z);
+            Vector2 size = new Vector2(transform.localScale.x / Tile.TILE_SIZE, transform.localScale.z / Tile.TILE_SIZE);
 
             for (float y = 0; y < size.y; y++)
             {
@@ -58,6 +58,7 @@ namespace Assets.Scripts.LevelGeneration
             floor.AddComponent<RoomFloor>();
             floor.name = "Floor";
             floor.isStatic = true;
+            floor.transform.localScale = new Vector3(Tile.TILE_SIZE, 1.0f, Tile.TILE_SIZE);
 
             string assetPath = "Assets/Resources/Meshes/TileBase.asset";
 

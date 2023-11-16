@@ -30,11 +30,6 @@ namespace Assets.Scripts.LevelGeneration
             private set;
         }
 
-        private void Awake()
-        {
-            transform.localScale = new Vector3(Tile.TILE_SIZE, 1, Tile.TILE_SIZE);
-        }
-
         private void Update()
         {
             CalculateTiles();
@@ -93,7 +88,7 @@ namespace Assets.Scripts.LevelGeneration
 
             foreach(var tile in Tiles)
             {
-                //Gizmos.DrawWireCube(new Vector3(tile.Position.x + 0.5f, 0.1f, tile.Position.y + 0.5f) * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0.25f, Tile.TILE_SIZE));
+                Gizmos.DrawWireCube(new Vector3(tile.Position.x + 0.5f, 0.0f, tile.Position.y + 0.5f) * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0.25f, Tile.TILE_SIZE));
             }
         }
 
