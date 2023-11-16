@@ -13,6 +13,8 @@ namespace Assets.Scripts.Entity
 
         public Sprite Icon { get; protected set; }
 
+        public string Description { get; protected set; }
+
         public Module()
         {
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Default");

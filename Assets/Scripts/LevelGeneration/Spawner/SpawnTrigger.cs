@@ -11,7 +11,7 @@ public class SpawnTrigger : MonoBehaviour
         {
             if (sibling.TryGetComponent(out EnemySpawner spawn))
             {
-                spawn.Activate();
+                 spawn.Activate();
             }
         }
         Destroy(gameObject);
