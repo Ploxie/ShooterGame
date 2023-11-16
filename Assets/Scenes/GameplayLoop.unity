@@ -1530,6 +1530,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Systems
       objectReference: {fileID: 0}
+    - target: {fileID: 6164470469662313269, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164470469662313269, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164470469662313269, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5268085170718567717, guid: 2795238b6c8afa94aa4477d654100728, type: 3}
@@ -1766,7 +1778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: 61186093e27fe04418735612477f9bbf, type: 2}
+  level: {fileID: 11400000, guid: 2835b5614c8a0874dbffeb295138e715, type: 2}
   seed: 0
   spaceBetweenRooms: 1
   randomWalkDrunkeness: 4

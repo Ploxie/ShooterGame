@@ -191,5 +191,20 @@ namespace Assets.Scripts.Entity
             }
         }
 
+        public ModuleHolder<Weapon> GetWeapons()
+        {
+            return weaponModules;
+        }
+        public ModuleHolder<StatusEffect> GetEffects()
+        {
+            return effectModules;
+        }
+        public ModuleHolder<ProjectileEffect> GetBullets()
+        {
+            return bulletModules;
+        }
+
     }
+
+   
 }

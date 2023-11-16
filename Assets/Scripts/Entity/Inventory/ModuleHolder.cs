@@ -30,6 +30,10 @@ public class ModuleHolder<T> where T : Module
     {
         return storage[accessPointer];
     }
+    public T Peek(int i)
+    {
+        return storage[i];
+    }
 
     public T Cycle()
     {
@@ -38,6 +42,11 @@ public class ModuleHolder<T> where T : Module
             accessPointer = 0;
 
         return storage[accessPointer];
+    }
+
+    public T[] GetArray()
+    {
+        return storage;
     }
 
 

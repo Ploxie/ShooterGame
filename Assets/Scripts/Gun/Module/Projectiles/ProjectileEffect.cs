@@ -68,7 +68,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Cluster";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_cluster_edit");
-            Description = "THe bullet bursts open on impact, creating a circle of bullets";
+            Description = "The bullet bursts open on impact, creating a circle of projectiles.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
