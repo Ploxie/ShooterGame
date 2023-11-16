@@ -15,6 +15,7 @@ namespace Assets.Scripts.Entity
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
+        public Vector3 moveDirection;
 
         public bool inWaveRoom;
 
