@@ -26,6 +26,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Slug";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_41Slug");
+            Description = "Heavy slugs weaken the enemy's defences, increasing damage taken.";
         }
     }
 
@@ -37,6 +38,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Radiation";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_62Radiation");
+            Description = "Devastating particles inflicts radiation poisoning to the enemy, dealing damage over time.";
         }
     }
 
@@ -48,6 +50,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Ice";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_31Ice");
+            Description = "Superchilled gases chills the enemy to it's bones, slowing it down.";
         }
     }
 
@@ -57,6 +60,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Stun";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_45Stun");
+            Description = "An electrical shock causes the enemy's nervous systems to go haywire, stunning them for a brief period of time.";
         }
     }
 
@@ -68,6 +72,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Debilitation";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_79Debilitation");
+            Description = "Viral agents infect the enemy, decreasing it's damage dealt.";
         }
     }
 }

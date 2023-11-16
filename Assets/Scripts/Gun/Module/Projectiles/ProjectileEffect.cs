@@ -29,6 +29,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Ricochet";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_ricochet");
+            Description = "Dynamic ballistics allow the bullet to bounce on impact.";
 
         }
 
@@ -48,6 +49,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Crystal";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_crystal");
+            Description = "After a moment, the bullet splits into two, moving directly away form one another.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -66,6 +68,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Cluster";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_cluster_edit");
+            Description = "THe bullet bursts open on impact, creating a circle of bullets";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -84,6 +87,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Explosive";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_57Explosive");
+            Description = "The bullet explodes on impact, dealing damage to all enemies within range.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -102,6 +106,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Black Hole";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_107BlackHole");
+            Description = "Exotic particles in the bullet destabilizes on impact, briefly creating a singularity than sucks in all nearby enemies.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -120,6 +125,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Piercing";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_piercing");
+            Description = "Reinforced alloys allow the bullets to continue their path through objects.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)

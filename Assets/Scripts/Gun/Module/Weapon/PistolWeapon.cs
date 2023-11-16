@@ -15,6 +15,7 @@ namespace Assets.Scripts.Entity
             Name = "Pistol";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Pistol");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_50Pistol");
+            Description = "The pistol is a reliable weapon in a pinch, but not the thing to take along if you expect any serious challenge.";
 
             Damage = 15.0f;
             ProjectileSpeed = 10.0f;

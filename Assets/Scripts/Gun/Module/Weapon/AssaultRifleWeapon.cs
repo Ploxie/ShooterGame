@@ -14,6 +14,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Assault Rifle";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_51AssaultRifle");
+            Description = "A perfect balance of speed and damage, the assault rifle can adapt to any situation.";
             Damage = 15.0f;
             ProjectileSpeed = 12.0f;
             Range = 15.0f;

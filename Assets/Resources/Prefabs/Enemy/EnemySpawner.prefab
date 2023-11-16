@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfa9f01fa0272749a5b8df437873b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies: []
-  ContinousSpawns: 0
+  Enemies:
+  - {fileID: 6784032201294740920, guid: 19863a1dedfccb8428806b4c982f863b, type: 3}
+  - {fileID: 6604629319892681356, guid: b042bc992fdc0044d970fa6db788716b, type: 3}
+  - {fileID: 6908275559297693039, guid: 0313cc5eba76b7b49a2939c18d0f6efc, type: 3}
+  ContinousSpawns: 1
   SpawnCooldown: 0
-  MaxActiveEnemies: 0
+  MaxActiveEnemies: 1
   <Active>k__BackingField: 0

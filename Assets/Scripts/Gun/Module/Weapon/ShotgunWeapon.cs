@@ -15,6 +15,7 @@ namespace Assets.Scripts.Entity
             Name = "Shotgun";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Shotgun");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_87Shotgun");
+            Description = "Firing a wave of bullets, the shotgun is unparalled when facing many foes.";
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;

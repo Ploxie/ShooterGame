@@ -14,6 +14,7 @@ namespace Assets.Scripts.Entity
             Name = "SMG";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_SMG");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_78SMG");
+            Description = "The SMG unleashes a hell of bullets upon your foes, killing them with a thousand cuts.";
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;

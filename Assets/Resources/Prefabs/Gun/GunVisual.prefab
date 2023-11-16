@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4356183093862383027}
-  m_Layer: 0
-  m_Name: BarrelPos
+  m_Layer: 7
+  m_Name: BoltActionBarrelPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1379890465892996688}
-  m_Layer: 0
-  m_Name: BarrelPos
+  m_Layer: 7
+  m_Name: SMGBarrelPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 5159193810948132437}
   - component: {fileID: 8220089556470118547}
   - component: {fileID: 6755517974793372037}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2301190681967315669}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: boltActionBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4693987945217537894}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: smgBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,8 +225,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651161510138714759}
-  m_Layer: 0
-  m_Name: BarrelPos
+  m_Layer: 7
+  m_Name: ShotgunBarrelPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 1280107682678785858}
   - component: {fileID: 7818977259758574149}
   - component: {fileID: 1536185804647599718}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 8902511240563484846}
   - component: {fileID: 4805262327887804958}
   - component: {fileID: 7001363860879562112}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2720037, y: 0.60659206, z: 0.8723691}
+  m_LocalScale: {x: 0.18133578, y: 0.40439472, z: 0.58157945}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5159193810948132437}
@@ -377,7 +377,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseModel: {fileID: 1087678699404347376}
-  Barrels: []
+  Barrels:
+  - BarrelObject: {fileID: 8854317212063111301}
+    FiringPosition: {fileID: 7945952678391557491}
+  - BarrelObject: {fileID: 1188746061942358507}
+    FiringPosition: {fileID: 148144041277724743}
+  - BarrelObject: {fileID: 1811197939336088930}
+    FiringPosition: {fileID: 1011717354397285429}
+  - BarrelObject: {fileID: 6608824530077105994}
+    FiringPosition: {fileID: 8817395268705537122}
+  - BarrelObject: {fileID: 5874015559669037923}
+    FiringPosition: {fileID: 1964219339830625595}
 --- !u!82 &7001363860879562112
 AudioSource:
   m_ObjectHideFlags: 0
@@ -485,7 +495,7 @@ GameObject:
   - component: {fileID: 2205312295840267649}
   - component: {fileID: 5283861658251086891}
   - component: {fileID: 1599037516662274900}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +578,7 @@ GameObject:
   - component: {fileID: 2230770545723707781}
   - component: {fileID: 1044117837568457458}
   - component: {fileID: 2298169280233823880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +661,7 @@ GameObject:
   - component: {fileID: 2998041967906701593}
   - component: {fileID: 3305334162419872872}
   - component: {fileID: 8533866756252153668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4395201212869399565}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shotGunBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +778,7 @@ GameObject:
   - component: {fileID: 1845997188426148292}
   - component: {fileID: 8462376094918248990}
   - component: {fileID: 7984025726800477580}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +861,7 @@ GameObject:
   - component: {fileID: 3837193036954223985}
   - component: {fileID: 9033682863399305181}
   - component: {fileID: 1193924754700245651}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8649464995274944591}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: automaticBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,8 +975,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1393352250613227137}
-  m_Layer: 0
-  m_Name: BarrelPos
+  m_Layer: 7
+  m_Name: PistolBarrelPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -996,8 +1006,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8491047651888261983}
-  m_Layer: 0
-  m_Name: BarrelPos
+  m_Layer: 7
+  m_Name: AutomaticBarrelPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1027,7 +1037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3413209630652472405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: pistolBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
