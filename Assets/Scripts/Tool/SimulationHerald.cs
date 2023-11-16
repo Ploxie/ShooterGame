@@ -31,13 +31,13 @@ public class SimulationHerald : MonoBehaviour
     //These examples would create the ID number 132 using the system outlined above.
     public Dictionary<int, CollectedData> ResultsDatabase;
 
+    public const int MAX_WEAPON_IDS = 5;
+    public const int MAX_STATUS_IDS = 5;
+    public const int MAX_EFFECT_IDS = 6;
+
     public WeaponID CurrentWeaponID;
     public StatusID CurrentStatusID;
     public EffectID CurrentEffectID;
-
-    public Weapon CurrentWeaponInstance;
-    public StatusEffect CurrentStatusInstance;
-    public ProjectileEffect CurrentEffectInstance;
 
     public float MissPercentage;
 
@@ -49,7 +49,30 @@ public class SimulationHerald : MonoBehaviour
         MissPercentage /= 100;
 
         CurrentWeaponID = WeaponID.Pistol;
-        CurrentWeaponInstance = ModuleRepresentation.CreateWeapon(CurrentWeaponID);
+        RunSimulations();
+    }
+
+    //Do not refactor -Hampus
+    public void Simulate(WeaponID weapon, StatusID status, EffectID effect)
+    {
+        Debug.Log($"{weapon} {status} {effect}");
+    }
+
+    //Do not refactor me, i swear to god 
+    //Cubic time complexity isnt a concern here because N is small.
+    //-Hampus
+    public void RunSimulations()
+    {
+        for (int weaponID = 1; weaponID <= MAX_WEAPON_IDS; weaponID++)
+        {
+            for (int statusID = 0; statusID <= MAX_STATUS_IDS; statusID++)
+            {
+                for (int effectID = 0; effectID <= MAX_EFFECT_IDS; effectID++)
+                {
+                    Simulate((WeaponID)weaponID, (StatusID)statusID, (EffectID)effectID);
+                }
+            }
+        }
     }
 
     void Update()
