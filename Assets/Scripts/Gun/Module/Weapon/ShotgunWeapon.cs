@@ -14,10 +14,11 @@ namespace Assets.Scripts.Entity
         {
             Name = "Shotgun";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Shotgun");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_87Shotgun");
 
             Damage = 1.0f;
             ProjectileSpeed = 10.0f;
-            Range = 10.0f;
+            Range = 20.0f;
 
             FireRate = 1.0f;
             ReloadTime = 3.0f;

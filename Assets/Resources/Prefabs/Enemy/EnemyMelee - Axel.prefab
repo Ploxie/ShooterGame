@@ -151,7 +151,7 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 6425753358773597613}
   enemyHealthBarBorder: {fileID: 382570802237422646}
   enemyMovingHealthBar: {fileID: 5348617641502429343}
-  enemyMovingHealth: 0
+  enemyMovingHealth: 10
   target: {fileID: 0}
   timer: 0
 --- !u!114 &6604629319892681356
@@ -178,8 +178,8 @@ MonoBehaviour:
     activeState: {fileID: 0}
   <AttackRange>k__BackingField: 5
   <JumpRange>k__BackingField: 10
-  <Damage>k__BackingField: 1
-  <JumpDamage>k__BackingField: 2
+  <Damage>k__BackingField: 10
+  <JumpDamage>k__BackingField: 20
   meleeDamageHitBox: {fileID: 3177056810037174350}
   jumpDamageHitBox: {fileID: 5846884138433985401}
   visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 100
-  <MaxHealth>k__BackingField: 100
-  <HealthRegen>k__BackingField: 0
+  <CurrentHealth>k__BackingField: 75
+  <MaxHealth>k__BackingField: 75
+  <HealthRegen>k__BackingField: 1
 --- !u!82 &1398768924454591360
 AudioSource:
   m_ObjectHideFlags: 0
@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 1381457775680785395}
   - component: {fileID: 5846884138433985401}
   - component: {fileID: 2178240755819692618}
+  - component: {fileID: 2546932926539360379}
   m_Layer: 0
   m_Name: HitBoxJumpAttack
   m_TagString: Untagged
@@ -362,6 +363,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!54 &2546932926539360379
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409549626452650265}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7711869086804975670
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +401,7 @@ GameObject:
   - component: {fileID: 4158436550279084084}
   - component: {fileID: 3177056810037174350}
   - component: {fileID: 9025283063298931971}
+  - component: {fileID: 1979983386901320224}
   m_Layer: 0
   m_Name: HitBoxMeleeAttack
   m_TagString: Untagged
@@ -430,6 +459,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 1.72}
+--- !u!54 &1979983386901320224
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711869086804975670}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3870588613019367437
 PrefabInstance:
   m_ObjectHideFlags: 0

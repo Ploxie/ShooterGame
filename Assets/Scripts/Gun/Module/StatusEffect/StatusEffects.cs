@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
@@ -23,6 +25,7 @@ namespace Assets.Scripts.Entity
         public DamageReceivedEffect()
         {
             Name = "Slug";
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_41Slug");
         }
     }
 
@@ -33,6 +36,7 @@ namespace Assets.Scripts.Entity
         public RadiationEffect()
         {
             Name = "Radiation";
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_62Radiation");
         }
     }
 
@@ -43,6 +47,7 @@ namespace Assets.Scripts.Entity
         public IceEffect()
         {
             Name = "Ice";
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_31Ice");
         }
     }
 
@@ -51,6 +56,7 @@ namespace Assets.Scripts.Entity
         public StunEffect()
         {
             Name = "Stun";
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_45Stun");
         }
     }
 
@@ -61,6 +67,7 @@ namespace Assets.Scripts.Entity
         public DebilitationEffect()
         {
             Name = "Debilitation";
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_79Debilitation");
         }
     }
 }

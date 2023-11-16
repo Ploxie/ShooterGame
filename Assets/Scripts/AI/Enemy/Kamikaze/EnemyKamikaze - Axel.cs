@@ -17,6 +17,7 @@ public class EnemyKamikaze : Enemy
     [SerializeField] private GameObject model;
     [SerializeField] private GameObject explosionVFX;
     [SerializeField] private GameObject healthBarVisual;
+    [SerializeField] public DissolveEffect DE;
 
     public bool HasRoared { get; private set; } = false;
 
@@ -26,7 +27,7 @@ public class EnemyKamikaze : Enemy
     protected override void Awake()
     {
         base.Awake();
-
+        DE.Effect.Stop();
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();
 
@@ -39,7 +40,6 @@ public class EnemyKamikaze : Enemy
         ExplosionDamageHitBox.gameObject.SetActive(true);
         explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
-        
         model.SetActive(false);
         Agent.isStopped = true;
     }
@@ -49,6 +49,7 @@ public class EnemyKamikaze : Enemy
         base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
         StateMachine.SetState(typeof(KamikazeDeath));
+        
     }
 
     private void Jank()

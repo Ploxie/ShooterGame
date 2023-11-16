@@ -71,6 +71,7 @@ public class Turret : Enemy
     protected override void OnDeath()
     {
         Boss.Turrets.Remove(this);
+        StateMachine.SetState(typeof(Death));
         //SpawnCartridgePickup(Module);
     }
 }

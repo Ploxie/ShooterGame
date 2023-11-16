@@ -15,13 +15,15 @@ public class EnemyMelee : Enemy
 
     [SerializeField] private GameObject visualCracks;
 
+    [SerializeField] public DissolveEffect DE;
+
     private Assets.Scripts.Entity.StatusEffect Effect { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
         Agent.speed = MovementSpeed;
-
+        DE.Effect.Stop();
         meleeDamageHitBox.Damage = Damage;
         meleeDamageHitBox.Effect = Effect;
         jumpDamageHitBox.Damage = JumpDamage;
@@ -37,7 +39,10 @@ public class EnemyMelee : Enemy
         base.OnDeath();
         PlaySound("deathmelee");
         SpawnCartridgePickup(Effect);
+        DE.enabled = true;
+        DE.Effect.Play();
         StateMachine.SetState(typeof(MeleeDeath));
+        
     }
 
     public void ToggleMeleeDamage(int value)

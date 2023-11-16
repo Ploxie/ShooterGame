@@ -48,3 +48,17 @@ public class AudioLoopEvent : GameEvent
         Key = key;
     }
 }
+
+public class PlayerChangeModuleEvent : GameEvent
+{
+    public Weapon weapon;
+    public ProjectileEffect projectile;
+    public StatusEffect statusEffect;
+
+    public PlayerChangeModuleEvent(Weapon weapon, ProjectileEffect projectile, StatusEffect statusEffect)
+    {
+        this.weapon = weapon;
+        this.projectile = projectile;
+        this.statusEffect = statusEffect;
+    }
+}

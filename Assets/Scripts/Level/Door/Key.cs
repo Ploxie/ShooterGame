@@ -15,6 +15,11 @@ public class Key : MonoBehaviour
         None
     }
 
+    public void SetKeyType(KeyType type)
+    {
+        keyType = type;
+    }
+
     public KeyType GetKeyType()
     {
         return keyType;

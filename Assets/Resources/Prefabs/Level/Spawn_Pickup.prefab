@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1709055399676970830}
   - component: {fileID: 8009340496091352671}
-  - component: {fileID: 6883926159358641551}
   m_Layer: 0
   m_Name: Spawn_Pickup
   m_TagString: Untagged
@@ -42,20 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3351091148437681894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6ecde517462834bbf8a37179efbb63, type: 3}
+  m_Script: {fileID: 11500000, guid: 14db694612452ca4f9c6cd9fb69f4612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
---- !u!114 &6883926159358641551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3351091148437681894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1da080fc5e0373c428dd0c8e048bce66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatingTextPrefab: {fileID: 1325027285587004135, guid: 6a05bfab9a2992245a7d711cf2bd8bab, type: 3}

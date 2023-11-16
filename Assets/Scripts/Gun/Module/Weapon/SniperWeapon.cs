@@ -13,6 +13,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Sniper";
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Sniper");
+            Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_65Sniper");
 
             Damage = 50.0f;
             ProjectileSpeed = 20.0f;

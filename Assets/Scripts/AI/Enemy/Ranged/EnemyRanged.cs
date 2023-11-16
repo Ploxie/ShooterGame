@@ -6,11 +6,12 @@ public class EnemyRanged : Enemy
 {
     private Gun Gun { get; set; }
     private Module Module { get; set; }
+    [SerializeField]public DissolveEffect DissolveEffect;// { get; set; }
 
     protected override void Awake()
     {
         base.Awake();
-        
+        DissolveEffect.Effect.Stop();
         Gun = GetComponent<Gun>();
         Module = Module.CreateRandomModule();
         Gun.ApplyModule(Module);
