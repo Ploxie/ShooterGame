@@ -6,18 +6,15 @@ using UnityEngine;
 public class AnimatorController : MonoBehaviour
 {
     Animator animator;
-    private int isWalkingHash;
-    private int isWalkingBackHash;
     private int isFiringHash;
-    Health health; //Om health-- så kör hit animation.
+    //Health health; //Om health-- så kör hit animation.
     Player player;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<Player>();
 
-        isWalkingHash = Animator.StringToHash("isWalking");
-        isWalkingBackHash = Animator.StringToHash("isWalkingBack");
         isFiringHash = Animator.StringToHash("isFiring");
     }
 
@@ -28,40 +25,39 @@ public class AnimatorController : MonoBehaviour
 
     private void Animation()
     {
+        
+        bool fire = Input.GetKey(KeyCode.Mouse0);
+        bool isFiring = animator.GetBool(isFiringHash);
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
-        bool fire = Input.GetKey(KeyCode.Mouse0);
-        bool isWalking = animator.GetBool(isWalkingHash);
-        bool isWalkingBack = animator.GetBool(isWalkingBackHash);
-        bool isFiring = animator.GetBool(isFiringHash);
-        if (!isWalking && (x > 0 || x < 0 || z > 0) && !(z < 0) && (fire || !fire))
+        Vector3 lookDirection = new Vector3(player.direction.x, 0f, player.direction.y).normalized;
+        float angle = Vector3.Dot(player.moveDirection, lookDirection);
+        
+        if (x != 0 || z != 0)
         {
-            animator.SetBool(isWalkingHash, true);
+            if (angle >= 0f)
+            {
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isWalkingBack", false);
+            }
+            else if (angle < 0f)
+            {
+                animator.SetBool("isWalkingBack", true);
+                animator.SetBool("isWalking", false);
+            } 
         }
-        if (isWalking && !(x > 0 || x < 0 || z > 0) && (fire || !fire) || (z < 0))
+        else
         {
-            animator.SetBool(isWalkingHash, false);
-        }
-        if (!isWalkingBack && ( (z < 0) && !(x > 0 || x < 0 || z > 0) || (z < 0) && (x > 0 || x < 0 || z > 0) ) && (fire || !fire))
-        {
-            animator.SetBool(isWalkingBackHash, true);
-        }
-        if (isWalkingBack && !(z < 0) && (fire || !fire))
-        {
-            animator.SetBool(isWalkingBackHash, false);
-        }
-        if ( (((z>0) && (z < 0)) || ((x > 0) && (x < 0))) && (fire || !fire))
-        {
-            animator.SetBool(isWalkingHash, false);
-            animator.SetBool(isWalkingBackHash, false);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isWalkingBack", false);
         }
         if (!isFiring && fire)
         {
-            animator.SetBool(isFiringHash, true);
+            animator.SetBool("isFiring", true);
         }
         if (isFiring && !fire)
         {
-            animator.SetBool(isFiringHash, false);
+            animator.SetBool("isFiring", false);
         }
     }
 }

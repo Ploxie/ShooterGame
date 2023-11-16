@@ -26,6 +26,7 @@ namespace Assets.Scripts.Entity
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
         public Vector3 moveDirection;
+        public Vector3 direction;
 
         private readonly ModuleHolder<Weapon> weaponModules = new();
         private readonly ModuleHolder<StatusEffect> effectModules = new();
@@ -40,11 +41,11 @@ namespace Assets.Scripts.Entity
 
             weaponModules.Insert(new ShotgunWeapon());
 
-            //Temporary debug code, dont bother refactoring it
-            WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
-            EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
-            BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
-            //
+            ////Temporary debug code, dont bother refactoring it
+            //WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
+            //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
+            //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
+            ////
 
             CycleWeapon();
             CycleEffect();
@@ -59,11 +60,11 @@ namespace Assets.Scripts.Entity
             Gun.ApplyModule(weaponModules.Cycle());
             if (weaponModules.Peek() != null)
             {
-                WeaponModDebugText.text = $"Weapon Module: {weaponModules.Peek().Name}";
+                //WeaponModDebugText.text = $"Weapon Module: {weaponModules.Peek().Name}";
                 EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
             }
-            else
-                WeaponModDebugText.text = "Weapon Module: None";
+            //else
+            //    WeaponModDebugText.text = "Weapon Module: None";
         }
 
         private void CycleEffect()
@@ -71,11 +72,11 @@ namespace Assets.Scripts.Entity
             Gun.ApplyModule(effectModules.Cycle());
             if (effectModules.Peek() != null)
             {
-                EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
+                //EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
                 EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
             }
-            else
-                EffectModDebugText.text = "Effect Module: None";
+            //else
+            //    EffectModDebugText.text = "Effect Module: None";
         }
 
         private void CycleBullet()
@@ -83,11 +84,11 @@ namespace Assets.Scripts.Entity
             Gun.ApplyModule(bulletModules.Cycle());
             if (bulletModules.Peek() != null)
             {
-                BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
+                //BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
                 EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
             }
-            else
-                BulletModDebugText.text = "Bullet Module: None";
+            //else
+            //    BulletModDebugText.text = "Bullet Module: None";
         }
         
         protected override void Update()
@@ -111,7 +112,7 @@ namespace Assets.Scripts.Entity
 
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
-            Vector3 moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
+            moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
             if (Input.GetKeyDown(KeyCode.Space))
                 Rigidbody.AddForce(moveDirection * DashForce);
@@ -137,7 +138,7 @@ namespace Assets.Scripts.Entity
                 }
             }
 
-            Vector3 direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             angle -= 90;
             transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
