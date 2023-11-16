@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
-    Animator animator;
+    private Animator animator;
     private int isFiringHash;
     //Health health; //Om health-- så kör hit animation.
-    Player player;
+    private Player player;
 
     void Start()
     {
@@ -35,8 +35,9 @@ public class AnimatorController : MonoBehaviour
         
         if (x != 0 || z != 0)
         {
-            if (angle >= 0f)
+            if (angle > 0f)
             {
+                Debug.Log("Angle: " + angle);
                 animator.SetBool("isWalking", true);
                 animator.SetBool("isWalkingBack", false);
             }
