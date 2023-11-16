@@ -36,7 +36,7 @@ namespace Assets.Scripts.Entity
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
                 damageMultiplier = debilitationEffect.DamageMultiplier;
-            
+
             if (gameObject.tag == "Player")
             {
                 Player player = Parent as Player;

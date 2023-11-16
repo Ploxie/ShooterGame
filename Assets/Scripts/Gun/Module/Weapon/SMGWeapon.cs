@@ -19,6 +19,7 @@ namespace Assets.Scripts.Entity
             Range = 10.0f;
 
             FireRate = 20.0f;
+            DefaultFireRate = FireRate;
             ReloadTime = 2.0f;
             MaxAmmo = 20;
             CurrentAmmo = MaxAmmo;

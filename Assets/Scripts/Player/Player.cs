@@ -19,6 +19,10 @@ namespace Assets.Scripts.Entity
         public bool inWaveRoom;
         public bool powerUpActive;
         public float powerUpTimer;
+        
+        private float fireRateMultiplier; 
+        private bool fireRateIncreased;
+        private int weaponCount;
 
         private ModuleHolder<Weapon> weaponModules = new();
         private ModuleHolder<StatusEffect> effectModules = new();
@@ -42,6 +46,9 @@ namespace Assets.Scripts.Entity
 
             inWaveRoom = false;
             powerUpActive = false;
+            fireRateIncreased = false;
+
+            fireRateMultiplier = 2.0f;
         }
 
         protected override void Update()
@@ -88,15 +95,31 @@ namespace Assets.Scripts.Entity
                     AvailablePickup?.Pickup();
                 }
             }
+            weaponCount = weaponModules.storage.Count(x => x != null);
             if (powerUpActive)
             {
                 powerUpTimer += Time.deltaTime;
+                if (!fireRateIncreased)
+                {
+                    fireRateIncreased = true;
+                    for(int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate *= fireRateMultiplier;
+                    }
+                }
+                
                 if(powerUpTimer >= 10)
                 {
                     powerUpActive = false;
                     powerUpTimer = 0;
+                    fireRateIncreased = false;
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate = weaponModules.Peek().DefaultFireRate;
+                    }
                 }
             }
+
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane floorPlane = new Plane(Vector3.up, transform.position);
 
