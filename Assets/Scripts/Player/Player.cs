@@ -22,6 +22,7 @@ namespace Assets.Scripts.Entity
         //
 
         public bool inWaveRoom;
+        private GunVisual gunVisual;
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
         public Vector3 AimPosition { get; set; }
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Entity
 
             gameObject.tag = "Player";
             Gun = GetComponent<Gun>();
+            gunVisual = GetComponentInChildren<GunVisual>();
 
             weaponModules.Insert(new ShotgunWeapon());
 
@@ -58,9 +60,33 @@ namespace Assets.Scripts.Entity
         private void CycleWeapon()
         {
             Gun.ApplyModule(weaponModules.Cycle());
-            if (weaponModules.Peek() != null)
+            Weapon temp = weaponModules.Peek();
+            if (temp != null)
             {
+                WeaponType type = WeaponType.Pistol;
+                switch (temp.Name)
+                {
+                    case "Pistol":
+                        type = WeaponType.Pistol;
+                        break;
+                    case "Sniper":
+                        type = WeaponType.BoltAction;
+                        break;
+                    case "SMG":
+                        type = WeaponType.SMG;
+                        break;
+                    case "Assault Rifle":
+                        type = WeaponType.Automatic;
+                        break;
+                    case "Shotgun":
+                        type = WeaponType.Shotgun;
+                        break;
+
+                }
+
+                
                 //WeaponModDebugText.text = $"Weapon Module: {weaponModules.Peek().Name}";
+                gunVisual.UpdateVisuals(type);
                 EventManager.GetInstance().TriggerEvent(new PlayerChangeModuleEvent(weaponModules.Peek(), bulletModules.Peek(), effectModules.Peek()));
             }
             //else
@@ -193,5 +219,20 @@ namespace Assets.Scripts.Entity
             }
         }
 
+        public ModuleHolder<Weapon> GetWeapons()
+        {
+            return weaponModules;
+        }
+        public ModuleHolder<StatusEffect> GetEffects()
+        {
+            return effectModules;
+        }
+        public ModuleHolder<ProjectileEffect> GetBullets()
+        {
+            return bulletModules;
+        }
+
     }
+
+   
 }

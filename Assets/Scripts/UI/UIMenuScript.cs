@@ -1,7 +1,9 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIMenuScript : MonoBehaviour
 {
@@ -11,11 +13,13 @@ public class UIMenuScript : MonoBehaviour
 
     bool isPaused = false;
     bool canPause = true;
+    
+
     // Start is called before the first frame update
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "LevelGenererationTestScene")
+        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop")
         {
             isPaused = false;
             pauseMenuUI.SetActive(false);
@@ -26,7 +30,7 @@ public class UIMenuScript : MonoBehaviour
     private void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "LevelGenererationTestScene")
+        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop")
         {
             if (canPause == true) // So you can't pause while in death screen
                 PauseGame();

@@ -50,7 +50,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Ice";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_31Ice");
-            Description = "Superchilled gases chills the enemy to it's bones, slowing it down.";
+            Description = "Superchilled gasses chills the enemy to its bones, slowing it down.";
         }
     }
 
