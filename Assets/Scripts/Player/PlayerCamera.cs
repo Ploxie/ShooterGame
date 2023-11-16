@@ -22,6 +22,8 @@ namespace Assets.Scripts.Player
         private Camera _camera;
         private Assets.Scripts.Entity.Player _player;
 
+        private Plane plane = new Plane(Vector2.down, 0f);
+
         private void Awake()
         {
             _camera = Camera.main;
@@ -30,9 +32,13 @@ namespace Assets.Scripts.Player
 
         private void LateUpdate()
         {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            plane.Raycast(ray, out float distance);
+            Vector3 worldPosition = ray.GetPoint(distance);
+
             Quaternion lookRotation = Quaternion.Euler(_pitch, _yaw, 0.0f);
 
-            Vector3 targetPosition = transform.position + ((_player.AimPosition - transform.position) * _aimInterpolation);
+            Vector3 targetPosition = transform.position + ((worldPosition - transform.position) * _aimInterpolation);
             Vector3 lookDirection = lookRotation * Vector3.forward;
             Vector3 lookPosition = targetPosition - lookDirection * _zoom;
 
