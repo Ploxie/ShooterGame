@@ -38,8 +38,8 @@ namespace Assets.Scripts.LevelGeneration
         public HashSet<Tile> CalculateTiles()
         {
             Tiles = new HashSet<Tile>();
-            var floors = GetComponentsInChildren<RoomFloor>();            
-            foreach(var floor in floors)
+            var floors = GetComponentsInChildren<RoomFloor>();
+            foreach (var floor in floors)
             {
                 Tiles.UnionWith(floor.CalculateTiles());
             }
@@ -68,15 +68,6 @@ namespace Assets.Scripts.LevelGeneration
             Bounds = new BoundsInt(min.x, 0, min.y, max.x - min.x, 0, max.y - min.y);
             Size = new Vector2Int(Bounds.size.x, Bounds.size.z);
             return Bounds;
-        }
-
-        public HashSet<Tile> CalculateOpenTiles()
-        {
-            HashSet<Tile> tiles = CalculateTiles();
-
-
-
-            return tiles;
         }
 
         private void OnDrawGizmos()

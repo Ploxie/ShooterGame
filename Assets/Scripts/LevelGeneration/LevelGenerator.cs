@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -22,12 +23,15 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField, Range(1, 10)] private int spaceBetweenRooms = 1;
         [SerializeField, Range(0, 10)] private int randomWalkDrunkeness = 4;
         [SerializeField, Range(0.0f, 1.0f)] private float corridorRandomness = 0.5f;
+        [SerializeField] private NavMeshSurface navMesh;
 
         private int corridorId = 0;
 
         public HashSet<Tile> tiles;
         public HashSet<Tile> corridors;
         public HashSet<Tile> doors;
+
+        private bool DoneGenerating;
 
         private void Awake()
         {
@@ -47,7 +51,8 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateWalls(),
                 GenerateDoors(),
                 PlaceKeys(),
-            }).GetEnumerator());
+                BuildNavMesh(),
+            }).GetEnumerator());            
         }
 
         public IEnumerator GenerateRoomLocations()
@@ -434,6 +439,12 @@ namespace Assets.Scripts.LevelGeneration
                 }
             }
 
+            yield return null;
+        }
+
+        private IEnumerator BuildNavMesh()
+        {
+            navMesh.BuildNavMesh();
             yield return null;
         }
 

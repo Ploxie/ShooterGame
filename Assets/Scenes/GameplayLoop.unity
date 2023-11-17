@@ -1286,8 +1286,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
+    m_Bits: 1
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -1801,11 +1801,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: 2835b5614c8a0874dbffeb295138e715, type: 2}
+  level: {fileID: 11400000, guid: 61186093e27fe04418735612477f9bbf, type: 2}
   seed: 0
   spaceBetweenRooms: 1
   randomWalkDrunkeness: 4
   corridorRandomness: 0.5
+  navMesh: {fileID: 1342520574}
 --- !u!4 &1602041983
 Transform:
   m_ObjectHideFlags: 0
