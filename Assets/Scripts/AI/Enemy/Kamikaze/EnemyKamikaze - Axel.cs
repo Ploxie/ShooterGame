@@ -28,6 +28,7 @@ public class EnemyKamikaze : Enemy
     {
         base.Awake();
         DE.Effect.Stop();
+        //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.d, this.transform.position);
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();
 
@@ -36,7 +37,7 @@ public class EnemyKamikaze : Enemy
     }
     public void Explode()
     {
-        
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.BoomAndDeathKamikaze, this.transform.position);
         ExplosionDamageHitBox.gameObject.SetActive(true);
         explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
@@ -49,7 +50,7 @@ public class EnemyKamikaze : Enemy
         base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
         StateMachine.SetState(typeof(KamikazeDeath));
-        
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.BoomAndDeathKamikaze, this.transform.position);
     }
 
     private void Jank()
@@ -58,6 +59,7 @@ public class EnemyKamikaze : Enemy
     }
     private void EndRoar()
     {
+        //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.roarKamikaze, this.transform.position);
         HasRoared = true;
     }
 }

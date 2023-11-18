@@ -17,7 +17,7 @@ public class KamikazeDeath : Death
         base.Enter();
         enemyKamikaze.Agent.isStopped = true;
         enemyKamikaze.Agent.updateRotation = false;
-        enemyKamikaze.PlaySound("explodekamikaze");
+        //enemyKamikaze.PlaySound("explodekamikaze");
         enemyKamikaze.DE.Effect.Play();
         enemyKamikaze.StartCoroutine(enemyKamikaze.DE.DissolveRoutine());
         enemyKamikaze.Explode();

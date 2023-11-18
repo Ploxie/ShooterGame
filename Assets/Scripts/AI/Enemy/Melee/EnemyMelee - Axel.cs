@@ -37,7 +37,7 @@ public class EnemyMelee : Enemy
     protected override void OnDeath()
     {
         base.OnDeath();
-        PlaySound("deathmelee");
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathMelee, this.transform.position);
         SpawnCartridgePickup(Effect);
         DE.enabled = true;
         DE.Effect.Play();
@@ -65,8 +65,8 @@ public class EnemyMelee : Enemy
         {
             jumpDamageHitBox.gameObject.SetActive(true);
             PlaceEffect();
-            PlaySound("attackgruntsmelee");
-            PlaySound("slammattackmelee");
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.slamsGround, this.transform.position);
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ScreamMelee, this.transform.position);
         }
         else
         {

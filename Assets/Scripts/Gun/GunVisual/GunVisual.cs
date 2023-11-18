@@ -28,11 +28,11 @@ public class GunVisual : MonoBehaviour
 
     private WeaponType selectedType;
 
-    private AudioSource audio;
+    //private AudioSource audio;
 
     private void Awake()
     {
-        audio = GetComponent<AudioSource>();
+        //audio = GetComponent<AudioSource>();
     }
 
     public Vector3 GetBarrelPosition()
@@ -52,7 +52,7 @@ public class GunVisual : MonoBehaviour
 
     public void PlaySound()
     {
-        audio.Play();
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.transform.position);
     }
 
 

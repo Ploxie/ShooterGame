@@ -8,10 +8,10 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Entity
 {
-    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar), typeof(AudioSource))]
+    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar))]
     public abstract class Enemy : Character
     {
-        public AudioSource AudioSource { get; private set; }
+        //public AudioSource AudioSource { get; private set; }
         public Animator Animator { get; protected set; }
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Entity
         protected override void Awake()
         {
             base.Awake();
-            AudioSource = GetComponent<AudioSource>();
+            //AudioSource = GetComponent<AudioSource>();
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
             waveSpawner = GetComponentInParent<WaveSpawner>();
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Entity
 
         public void PlaySound(string key)
         {
-            EventManager.GetInstance().TriggerEvent(new AudioEvent(AudioSource, key));
+            //EventManager.GetInstance().TriggerEvent(new AudioEvent(AudioSource, key));
         }
     }
 }

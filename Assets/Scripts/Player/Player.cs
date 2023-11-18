@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,11 @@ namespace Assets.Scripts.Entity
             //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
+
+
+            var listener = Camera.main.GetComponent<StudioListener>();
+
+            listener.attenuationObject = this.gameObject;
 
             CycleWeapon();
             CycleEffect();
