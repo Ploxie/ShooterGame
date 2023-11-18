@@ -28,6 +28,9 @@ public class FmodEvents : MonoBehaviour
 
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambienceTest { get; private set; }
+
+    [field: Header("GameLoopMusicBack")]
+    [field: SerializeField] public EventReference MusicLoop { get; private set; }
     // Start is called before the first frame update
     public static FmodEvents instance { get; private set; }
 

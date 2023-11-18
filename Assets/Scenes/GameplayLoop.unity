@@ -1818,11 +1818,11 @@ MonoBehaviour:
     Path: event:/Simple Events/RangedDeath
   <deathMelee>k__BackingField:
     Guid:
-      Data1: 1147253533
-      Data2: 1307732390
-      Data3: -1749877622
-      Data4: 1156904545
-    Path: event:/Simple Events/Death
+      Data1: 856657530
+      Data2: 1334514941
+      Data3: 19670415
+      Data4: 1032479851
+    Path: event:/Simple Events/Scream
   <roarKamikaze>k__BackingField:
     Guid:
       Data1: 361921635
@@ -1839,11 +1839,18 @@ MonoBehaviour:
     Path: event:/Simple Events/Scream
   <ambienceTest>k__BackingField:
     Guid:
-      Data1: -120143056
-      Data2: 1265504921
-      Data3: 585536936
-      Data4: -482548243
-    Path: event:/Ambience/SimpleExplore
+      Data1: 1058266512
+      Data2: 1207307655
+      Data3: -104322150
+      Data4: 3123213
+    Path: event:/Ambience/AMBIENCE_EMPTY_SPACE_LOOP
+  <MusicLoop>k__BackingField:
+    Guid:
+      Data1: 1899036729
+      Data2: 1115713160
+      Data3: -1132310360
+      Data4: 1773618464
+    Path: event:/GameLoop/ST_Gameplay
 --- !u!1 &1602041980
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,17 +4,19 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEditor.ShaderGraph.Internal;
+using Assets.Scripts.Entity;
 
 public class AudioFmodManager : MonoBehaviour
 {
     private List<EventInstance> eventInstanses;
 
-    private EventInstance eventInstanceAmb;
+    private EventInstance eventInstanceAmb, eventInstanceMusic;
 
     private EventInstance MusicInstance;
     private float area = 0;
 
     public static AudioFmodManager instance { get; private set; }
+    private int EnemiesInCombat = 0;
 
     private void Awake()
     {
@@ -25,10 +27,16 @@ public class AudioFmodManager : MonoBehaviour
         instance = this;
 
         eventInstanses = new List<EventInstance>();
+
+        EventManager.GetInstance().AddListener<EnemyEnterCombatEvent>(OnEnemyEnterCombat);
+        EventManager.GetInstance().AddListener<EnemyLeaveCombatEvent>(OnEnemyLeaveCombat);
+
     }
     private void Start()
     {
+        
         InitializeAmbience(FmodEvents.instance.ambienceTest);
+        InitializeMusic(FmodEvents.instance.MusicLoop);
     }
     public void PlayOneShot(EventReference sound, Vector3 worldPosition)
     {
@@ -38,6 +46,11 @@ public class AudioFmodManager : MonoBehaviour
     {
         eventInstanceAmb = CreateInstanceOfAudio(ambienceEventRef);
         eventInstanceAmb.start();
+    }
+    private void InitializeMusic(EventReference MusicEventRef)
+    {
+        eventInstanceMusic = CreateInstanceOfAudio(MusicEventRef);
+        eventInstanceMusic.start();
     }
     public void SetMusicArea(MusicFMOD MF)
     {
@@ -62,5 +75,16 @@ public class AudioFmodManager : MonoBehaviour
         CleanList();
 
     }
-
+    private void OnEnemyEnterCombat(EnemyEnterCombatEvent e)
+    {
+        //if(EnemiesInCombat)
+        EnemiesInCombat++;
+        eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
+    }
+    private void OnEnemyLeaveCombat(EnemyLeaveCombatEvent e)
+    {
+        if(EnemiesInCombat > 0)
+            EnemiesInCombat--;
+        eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
+    }
 }

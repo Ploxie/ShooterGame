@@ -24,9 +24,8 @@ public class KamikazeIdle : Idle
         }
     }
 
-    public override void Exit()
-    {
-    }
+    //public override void Exit()
+    //{}
 
     public override void Update()
     {

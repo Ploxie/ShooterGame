@@ -62,3 +62,11 @@ public class PlayerChangeModuleEvent : GameEvent
         this.statusEffect = statusEffect;
     }
 }
+public class EnemyEnterCombatEvent : GameEvent
+{
+
+}
+public class EnemyLeaveCombatEvent : GameEvent
+{
+
+}

@@ -24,10 +24,7 @@ public class RangedIdle : Idle
         enemyRanged.Animator.SetBool("WalkForward", false);
         enemyRanged.Animator.SetBool("WalkBackwards", false);
     }
-    public override void Exit()
-    {
-        
-    }
+    //public override void Exit(){}
 
     public override void Update()
     {

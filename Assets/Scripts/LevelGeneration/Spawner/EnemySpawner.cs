@@ -58,6 +58,7 @@ namespace Assets.Scripts.LevelGeneration
             }
         }
 
+
         public void Activate()
         {
             Active = true;
