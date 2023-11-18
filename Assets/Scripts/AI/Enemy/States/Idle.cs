@@ -24,11 +24,13 @@ public class Idle : State
     }
     public override void Enter()
     {
-       enemy.Agent.isStopped = true;
+        enemy.Agent.isStopped = true;
+        EventManager.GetInstance().TriggerEvent(new EnemyEnterCombatEvent());
     }
     public override void Exit()
     {
-        enemy.Agent.isStopped = false;
+        EventManager.GetInstance().TriggerEvent(new EnemyLeaveCombatEvent());
+        //enemy.Agent.isStopped = false;
     }
 
     public override void Update()
