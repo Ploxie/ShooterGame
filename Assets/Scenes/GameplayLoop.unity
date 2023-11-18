@@ -1148,26 +1148,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1779477854674446020, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2463828400560368797, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2733351616128294738, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3583472698512336265, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681991026071516092, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4664201009848333495, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1256,21 +1236,9 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
-    - target: {fileID: 5360166546796384107, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5576202700528875113, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
       propertyPath: m_Name
       value: SettingsCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5576202700528875113, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8065381658275025068, guid: 7ed146f3d8c5f6c409746947d4d898b6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1818,11 +1786,11 @@ MonoBehaviour:
     Path: event:/Simple Events/RangedDeath
   <deathMelee>k__BackingField:
     Guid:
-      Data1: 856657530
-      Data2: 1334514941
-      Data3: 19670415
-      Data4: 1032479851
-    Path: event:/Simple Events/Scream
+      Data1: 1147253533
+      Data2: 1307732390
+      Data3: -1749877622
+      Data4: 1156904545
+    Path: event:/Simple Events/Death
   <roarKamikaze>k__BackingField:
     Guid:
       Data1: 361921635
@@ -1839,18 +1807,11 @@ MonoBehaviour:
     Path: event:/Simple Events/Scream
   <ambienceTest>k__BackingField:
     Guid:
-      Data1: 1058266512
-      Data2: 1207307655
-      Data3: -104322150
-      Data4: 3123213
-    Path: event:/Ambience/AMBIENCE_EMPTY_SPACE_LOOP
-  <MusicLoop>k__BackingField:
-    Guid:
-      Data1: 1899036729
-      Data2: 1115713160
-      Data3: -1132310360
-      Data4: 1773618464
-    Path: event:/GameLoop/ST_Gameplay
+      Data1: -120143056
+      Data2: 1265504921
+      Data3: 585536936
+      Data4: -482548243
+    Path: event:/Ambience/SimpleExplore
 --- !u!1 &1602041980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2330,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
