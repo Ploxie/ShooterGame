@@ -30,6 +30,7 @@ namespace Assets.Scripts.Entity
         {
             if (!Weapon.CanShoot())
                 return;
+            
             GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
             

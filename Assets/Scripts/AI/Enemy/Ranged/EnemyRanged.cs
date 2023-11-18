@@ -25,7 +25,8 @@ public class EnemyRanged : Enemy
     protected override void OnDeath()
     {
         base.OnDeath();
-        PlaySound("deathranged");
+        //PlaySound("deathranged");
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathRanged, this.transform.position);
         SpawnCartridgePickup(Module);
         StateMachine.SetState(typeof(RangedDeath));
     }
