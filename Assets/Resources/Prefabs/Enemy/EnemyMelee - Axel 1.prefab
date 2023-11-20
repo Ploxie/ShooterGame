@@ -137,7 +137,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1238453961026415036
 MonoBehaviour:
@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 5
   CurrentMovementSpeed: 0
+  isSpecial: 0
+  weakness: 0
   waveSpawner: {fileID: 0}
   StateMachine:
     states:
@@ -182,8 +184,8 @@ MonoBehaviour:
     activeState: {fileID: 0}
   <AttackRange>k__BackingField: 5
   <JumpRange>k__BackingField: 10
-  <Damage>k__BackingField: 1
-  <JumpDamage>k__BackingField: 2
+  <Damage>k__BackingField: 10
+  <JumpDamage>k__BackingField: 20
   meleeDamageHitBox: {fileID: 3177056810037174350}
   jumpDamageHitBox: {fileID: 5846884138433985401}
   visualCracks: {fileID: 8069621160698312384, guid: d7d7f1fabda0a6d4b95fb3a23d8e21cb, type: 3}
@@ -396,6 +398,7 @@ MonoBehaviour:
   Effect: {fileID: -642118733350735103}
   dissolveRate: 0.0125
   refreshRate: 0.025
+  counter: 0
 --- !u!1 &7409549626452650265
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bde328fa222c346897d16325642771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 0
 --- !u!136 &2178240755819692618
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -509,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bde328fa222c346897d16325642771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 0
 --- !u!136 &9025283063298931971
 CapsuleCollider:
   m_ObjectHideFlags: 0

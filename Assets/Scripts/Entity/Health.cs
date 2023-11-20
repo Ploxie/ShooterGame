@@ -68,5 +68,10 @@ namespace Assets.Scripts.Entity
             CurrentHealth = Math.Clamp(CurrentHealth + amount, 0.0f, MaxHealth);
             OnHealthGained?.Invoke(amount);
         }
+        public void Multiply(int multiplier)
+        {
+            MaxHealth *= multiplier;
+            CurrentHealth *= multiplier;
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Assets.Scripts.Entity
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Crystal";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_crystal");
-            Description = "After a moment, the bullet splits into two, moving directly away form one another.";
+            Description = "After a moment, the bullet splits into two, moving directly away from one another.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)

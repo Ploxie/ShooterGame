@@ -8,20 +8,25 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Entity
 {
+
     [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar), typeof(AudioSource))]
+
     public abstract class Enemy : Character
     {
         public AudioSource AudioSource { get; private set; }
         public Animator Animator { get; protected set; }
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
+        private Material material;
+
+
 
         [HideInInspector]
         public WaveSpawner waveSpawner;
 
         [SerializeField] public StateMachine StateMachine = new StateMachine();
 
-       
+
         protected override void Awake()
         {
             base.Awake();
@@ -30,18 +35,19 @@ namespace Assets.Scripts.Entity
             Animator = GetComponent<Animator>();
             waveSpawner = GetComponentInParent<WaveSpawner>();
             StateMachine.Init(this);
+            material = GetComponentInChildren<SkinnedMeshRenderer>().material;
 
             Health.OnDeath += OnDeath;
         }
 
         protected virtual void Start()
         {
-            
+
         }
 
         protected override void Update()
         {
-            if(Player == null)
+            if (Player == null)
                 Player = FindObjectOfType<Player>();
 
             base.Update();
@@ -50,10 +56,7 @@ namespace Assets.Scripts.Entity
 
         protected virtual void OnDeath()
         {
-            //if (Player.inWaveRoom == true)//Ska göra detta bara om man är i rummet med waves
-            //{
-            //    waveSpawner.Waves[waveSpawner.CurrentWaveIndex].EnemiesLeft--;
-            //}
+            Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         protected void SpawnCartridgePickup(Module module)
@@ -74,5 +77,39 @@ namespace Assets.Scripts.Entity
         {
             EventManager.GetInstance().TriggerEvent(new AudioEvent(AudioSource, key));
         }
+
+        protected virtual void ModifyDamage(float multiplier)
+        {
+            Health.Multiply(10);
+            transform.localScale *= 1.5f;
+            switch (weakness)
+            {
+                case SpecialWeakness.Dense:
+                    material.SetColor("_BaseColour", Color.yellow);
+                    break;
+                case SpecialWeakness.Analytic:
+                    material.SetColor("_BaseColour", Color.cyan);
+                    break;
+                case SpecialWeakness.Intangible:
+                    material.SetColor("_BaseColour", Color.green);
+                    break;
+                case SpecialWeakness.Porous:
+                    material.SetColor("_BaseColour", Color.red);
+                    break;
+                case SpecialWeakness.Unstable:
+                    material.SetColor("_BaseColour", Color.magenta);
+                    break;
+                case SpecialWeakness.Armored:
+                    material.SetColor("_BaseColour", Color.gray);
+                    material.SetFloat("_Metallica", 0.75f);
+                    break;
+            }
+        }
+        public override void SetSpecial(SpecialWeakness weakness)
+        {
+            base.SetSpecial(weakness);
+            ModifyDamage(1.5f);
+        }
+
     }
 }

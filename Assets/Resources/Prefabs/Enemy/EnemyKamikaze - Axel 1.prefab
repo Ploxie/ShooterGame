@@ -1491,7 +1491,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6784032201294740920
 MonoBehaviour:
@@ -1507,6 +1507,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 5
   CurrentMovementSpeed: 0
+  isSpecial: 0
+  weakness: 0
   waveSpawner: {fileID: 0}
   StateMachine:
     states:
@@ -1517,7 +1519,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 86f5b433272ae9a418dce8c829278d7c, type: 2}
     activeState: {fileID: 0}
   <DiveRange>k__BackingField: 3
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 20
   ExplosionDamageHitBox: {fileID: 6981675018335404132}
   model: {fileID: -3168422337102530296}
   explosionVFX: {fileID: 1334732295689868075}
@@ -1749,6 +1751,7 @@ MonoBehaviour:
   Effect: {fileID: -2911679491177439809}
   dissolveRate: 0.0125
   refreshRate: 0.025
+  counter: 0
 --- !u!1 &919132149155446097
 GameObject:
   m_ObjectHideFlags: 0

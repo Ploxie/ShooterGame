@@ -42,6 +42,11 @@ public class EnemyRanged : Enemy
         }
         return false;
     }
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        Gun.Weapon.MultiplyDamage(multiplier);
+    }
 }
 
 //    [SerializeField] public float Range; // Maybe tie it to the weapon type (shotgun = shorter range?)

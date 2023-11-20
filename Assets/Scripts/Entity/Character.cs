@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
+    public enum SpecialWeakness
+    {
+        Dense, Analytic, Intangible, Porous, Unstable, Armored
+    }
     [RequireComponent(typeof(Health)), RequireComponent(typeof(Rigidbody))]
     public abstract class Character : MonoBehaviour
     {
@@ -15,10 +19,13 @@ namespace Assets.Scripts.Entity
         [SerializeField] protected float MovementSpeed = 2.0f;
         [HideInInspector] public float CurrentMovementSpeed;
 
-        private Dictionary<Type, StatusEffect> statusEffects = new ();
+        [SerializeField] protected bool isSpecial = false;
+        [SerializeField] protected SpecialWeakness weakness;
+
+        private Dictionary<Type, StatusEffect> statusEffects = new();
         public Rigidbody Rigidbody { get; private set; }
         public Collider Collider { get; private set; }
-                
+
         protected virtual void Awake()
         {
             Health = GetComponent<Health>();
@@ -57,7 +64,7 @@ namespace Assets.Scripts.Entity
 
             CurrentMovementSpeed = finalMovementSpeed;
 
-            for(int i = statusEffects.Count - 1; i >= 0; i--)
+            for (int i = statusEffects.Count - 1; i >= 0; i--)
             {
                 StatusEffect effect = statusEffects.ElementAt(i).Value;
                 effect.Duration -= Time.deltaTime;
@@ -82,20 +89,57 @@ namespace Assets.Scripts.Entity
         public T GetStatusEffect<T>() where T : StatusEffect
         {
             StatusEffect value;
-            if(statusEffects.TryGetValue(typeof(T), out value))
+            if (statusEffects.TryGetValue(typeof(T), out value))
             {
                 return (T)value;
             }
             return null;
         }
 
-        public virtual void OnHit(float damage, params StatusEffect[] statusEffects)
+        public virtual void OnHit(float damage, ProjectileEffect projectileEffect, params StatusEffect[] statusEffects)
         {
-            foreach(var effect in statusEffects)
+            int damageWeaknessMultiplier = 1;
+            foreach (var effect in statusEffects)
             {
                 AddStatusEffect(effect);
             }
-            Health.TakeDamage(damage);
+            if (isSpecial)
+            {
+                switch (projectileEffect)
+                {
+                    case RicochetEffect:
+                        if (weakness == SpecialWeakness.Dense)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case CrystalEffect:
+                        if (weakness == SpecialWeakness.Analytic)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case ClusterEffect:
+                        if (weakness == SpecialWeakness.Intangible)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case ExplosionEffect:
+                        if (weakness == SpecialWeakness.Porous)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case BlackHoleEffect:
+                        if (weakness == SpecialWeakness.Unstable)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case PiercingEffect:
+                        if (weakness == SpecialWeakness.Armored)
+                            damageWeaknessMultiplier = 5;
+                        break;
+
+                }
+            }
+            Health.TakeDamage(damage * damageWeaknessMultiplier);
+        }
+        public virtual void SetSpecial(SpecialWeakness weakness)
+        {
+            isSpecial = true;
+            this.weakness = weakness;
         }
     }
 }

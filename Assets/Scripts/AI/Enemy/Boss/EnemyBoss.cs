@@ -20,16 +20,21 @@ public class EnemyBoss : Enemy
         base.Start();
         InitialNumberOfTurrets = Turrets.Count;
     }
-    public override void OnHit(float damage, params StatusEffect[] statusEffects)
+    public override void OnHit(float damage, ProjectileEffect projectileEffect, params StatusEffect[] statusEffects)
     {
         if (!Shield.activeSelf)
-            base.OnHit(damage, statusEffects);
+            base.OnHit(damage, projectileEffect, statusEffects);
     }
 
 
     protected override void Update()
     {
         base.Update();
+    }
+
+    protected override void ModifyDamage(float multiplier)
+    {
+        throw new System.NotImplementedException();
     }
     //void WaveFSM()
     //{

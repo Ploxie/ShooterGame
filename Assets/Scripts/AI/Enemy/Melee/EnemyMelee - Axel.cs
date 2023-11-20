@@ -82,6 +82,19 @@ public class EnemyMelee : Enemy
         temp.transform.Rotate(0, Random.Range(0, 360f), 0);
     }
 
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        meleeDamageHitBox.Damage *= multiplier;
+        jumpDamageHitBox.Damage *= multiplier;
+    }
+
+    public override void SetSpecial(SpecialWeakness weakness)
+    {
+        base.SetSpecial(weakness);
+        ModifyDamage(1.5f);
+    }
+
 }
     //EnemyManager enemyManager;
     //ScoreManager scoreManager;

@@ -74,4 +74,9 @@ public class Turret : Enemy
         StateMachine.SetState(typeof(Death));
         //SpawnCartridgePickup(Module);
     }
+
+    protected override void ModifyDamage(float multiplier)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -46,5 +46,9 @@ namespace Assets.Scripts.Entity
 
             return projectile;
         }
+        public void MultiplyDamage(float multiplier)
+        {
+            Damage *= multiplier;
+        }
     }
 }

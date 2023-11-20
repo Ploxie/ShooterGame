@@ -52,7 +52,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - None
   - Floor
   m_SortingLayers:
   - name: Default

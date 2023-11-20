@@ -49,6 +49,10 @@ namespace Assets.Scripts.Entity
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
+            
+        }
+        protected void Start()
+        {
             CycleWeapon();
             CycleEffect();
             CycleBullet();
@@ -56,7 +60,6 @@ namespace Assets.Scripts.Entity
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
         }
-        
         private void CycleWeapon()
         {
             Gun.ApplyModule(weaponModules.Cycle());
