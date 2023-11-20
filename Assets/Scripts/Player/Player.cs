@@ -55,6 +55,9 @@ namespace Assets.Scripts.Entity
 
             listener.attenuationObject = this.gameObject;
 
+            AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
+            AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
+
             CycleWeapon();
             CycleEffect();
             CycleBullet();
