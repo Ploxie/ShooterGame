@@ -27,6 +27,8 @@ namespace Assets.Scripts.LevelGeneration
 
         private int corridorId = 0;
 
+        [SerializeField] private bool isTutorial;        
+
         public HashSet<Tile> tiles;
         public HashSet<Tile> corridors;
         public HashSet<Tile> doors;
@@ -43,6 +45,17 @@ namespace Assets.Scripts.LevelGeneration
 
         private void Start()
         {
+            if (isTutorial)
+            {
+                StartCoroutine((new[] {
+                    GenerateTutorial(),
+                    GenerateWalls(),
+                    BuildNavMesh(),
+                }).GetEnumerator());
+                return;
+            }
+
+
             UnityEngine.Random.InitState(seed);
             StartCoroutine((new[] {
                 GenerateRoomLocations(),
@@ -54,6 +67,30 @@ namespace Assets.Scripts.LevelGeneration
                 BuildNavMesh(),
             }).GetEnumerator());            
         }
+
+        private IEnumerator GenerateTutorial()
+        {
+
+            RoomModule[] rooms = GetComponentsInChildren<RoomModule>();
+            foreach(var room in rooms)
+            {
+
+                var bounds = room.CalculateBounds();
+
+                var roomCenter = new Vector2Int(bounds.x, bounds.y);
+                foreach (var tile in room.Tiles)
+                {
+                    var t = new Tile(tile.Position) { IsModule = true, IsDoor = room.IsDoor, Previous = new Tile(tile.Position.x-1, tile.Position.y) };
+                    tiles.Add(t);
+                    if (room.IsDoor)
+                        doors.Add(t);
+                }
+
+            }
+
+            yield return null;
+        }
+
 
         public IEnumerator GenerateRoomLocations()
         {
@@ -455,7 +492,7 @@ namespace Assets.Scripts.LevelGeneration
                 return null;
             }
 
-            float tileSize = TILE_SIZE;
+            float tileSize = TILE_SIZE + 0.5f;
             float wallHeight = tileSize * 0.75f;
             float wallThickness = tileSize / 10.0f;
 
@@ -516,19 +553,19 @@ namespace Assets.Scripts.LevelGeneration
             return door;
         }
 
-        public static RoomModule RandomRoomModule()
+        public RoomModule RandomRoomModule()
         {
             return RoomManager.RoomModules[(int)(Random.value * RoomManager.RoomModules.Length)];
         }
-        public static RoomModule RandomStartModule()
+        public RoomModule RandomStartModule()
         {
             return RoomManager.StartModules[(int)(Random.value * RoomManager.StartModules.Length)];
         }
-        public static RoomModule RandomEndModule()
+        public RoomModule RandomEndModule()
         {
             return RoomManager.EndModules[(int)(Random.value * RoomManager.EndModules.Length)];
         }
-        public static RoomModule RandomCorridorModule()
+        public RoomModule RandomCorridorModule()
         {
             return RoomManager.CorridorModules[(int)(Random.value * RoomManager.CorridorModules.Length)];
         }
@@ -536,22 +573,26 @@ namespace Assets.Scripts.LevelGeneration
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            foreach(Node node in level.nodes)
+
+            if (level != null)
             {
-                var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                foreach (Node node in level.nodes)
+                {
+                    var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
+                    Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
 
-                RoomNode roomNode = node as RoomNode;
-                if (roomNode != null && roomNode.GeneratedModule != null)
-                    Handles.Label(position, "" + roomNode.GeneratedModule.name);
+                    RoomNode roomNode = node as RoomNode;
+                    if (roomNode != null && roomNode.GeneratedModule != null)
+                        Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
-                if (node.Parent == null)
-                    continue;
+                    if (node.Parent == null)
+                        continue;
 
-                var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                    var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                Gizmos.DrawLine(position, parentPosition);                
+                    Gizmos.DrawLine(position, parentPosition);
+                }
             }
 
             if (tiles == null)
@@ -567,7 +608,7 @@ namespace Assets.Scripts.LevelGeneration
                 if (tile.IsCorridor)
                     Gizmos.color = Color.red;
                 Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
-                //Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
+                Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
 
             }
 

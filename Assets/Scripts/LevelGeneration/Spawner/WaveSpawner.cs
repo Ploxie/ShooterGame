@@ -13,34 +13,39 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> doors;
 
     public Wave[] Waves;
-    public Player player;
+    private Player player;
 
     public int CurrentWaveIndex = 0;
     private bool readyToCountDown;
 
-    [SerializeField]
-    private NavMeshSurface navmesh;//Tas bort sen
 
     private void Start()
     {
-        navmesh.BuildNavMesh();//Tas bort sen
         readyToCountDown = true;
 
         for (int i = 0; i < Waves.Length; i++)
         {
             Waves[i].EnemiesLeft = Waves[i].Enemies.Length * spawnPoints.Count;
         }
+
+        
     }
 
     private void Update()
     {
+        if(player == null)
+        {
+            player = FindAnyObjectByType<Player>();
+            return;
+        }
+
         if (player.inWaveRoom == true)
         {
             if (CurrentWaveIndex >= Waves.Length)
             {
                 foreach (GameObject doors in doors)
                 {
-                    Door door = doors.GetComponent<Door>();
+                    Door door = doors.GetComponentInChildren<Door>();
                     door.OpenDoor();
                 }
                 player.inWaveRoom = false;

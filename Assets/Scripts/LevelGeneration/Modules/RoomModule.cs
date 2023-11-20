@@ -30,6 +30,9 @@ namespace Assets.Scripts.LevelGeneration
             private set;
         }
 
+        public bool IsDoor;
+        public bool IsBoss;
+
         private void Update()
         {
             CalculateTiles();
