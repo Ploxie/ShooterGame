@@ -35,7 +35,8 @@ namespace Assets.Scripts.Entity
             Animator = GetComponent<Animator>();
             waveSpawner = GetComponentInParent<WaveSpawner>();
             StateMachine.Init(this);
-            material = GetComponentInChildren<SkinnedMeshRenderer>().material;
+            if (TryGetComponent<SkinnedMeshRenderer>(out SkinnedMeshRenderer skinnedMeshRenderer))
+                material = skinnedMeshRenderer.material;
 
             Health.OnDeath += OnDeath;
         }
