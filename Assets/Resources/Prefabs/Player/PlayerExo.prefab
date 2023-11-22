@@ -126,12 +126,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 4
   CurrentMovementSpeed: 0
+  isSpecial: 0
+  weakness: 0
   DashTimeWindow: 0
   DashForce: 0
   WeaponModDebugText: {fileID: 0}
   EffectModDebugText: {fileID: 0}
   BulletModDebugText: {fileID: 0}
   inWaveRoom: 0
+  powerUpActive: 0
   moveDirection: {x: 0, y: 0, z: 0}
   direction: {x: 0, y: 0, z: 0}
 --- !u!54 &7389277599738227763

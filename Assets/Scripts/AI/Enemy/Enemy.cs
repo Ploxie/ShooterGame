@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 
 namespace Assets.Scripts.Entity
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Entity
         public Player Player { get; private set; }
 
         private PowerUpPickUp powerUpPickUp;
+        private Key key;
         private Material material;
 
 
@@ -37,6 +39,7 @@ namespace Assets.Scripts.Entity
             Animator = GetComponent<Animator>();
             waveSpawner = GetComponentInParent<WaveSpawner>();
             powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
+            key = Resources.Load<Key>("Prefabs/Keys/BlueKey");
             StateMachine.Init(this);
            
 
@@ -64,6 +67,11 @@ namespace Assets.Scripts.Entity
             {
                 PowerUpPickUp temp = Instantiate(powerUpPickUp);
                 temp.transform.position = transform.position;
+                if (SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    Key key = Instantiate(this.key);
+                    key.transform.position = transform.position;
+                }
             }
         }
 
