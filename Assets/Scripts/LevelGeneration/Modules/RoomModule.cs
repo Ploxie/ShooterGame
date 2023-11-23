@@ -32,7 +32,7 @@ namespace Assets.Scripts.LevelGeneration
 
         private void Update()
         {
-            CalculateTiles();
+            //CalculateTiles();
         }
 
         public HashSet<Tile> CalculateTiles()

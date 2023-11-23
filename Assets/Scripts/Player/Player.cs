@@ -208,7 +208,7 @@ namespace Assets.Scripts.Entity
                     }
                 }
             }
-            Debug.Log(weaponModules.Peek().FireRate);
+            //Debug.Log(weaponModules.Peek().FireRate);
 
             direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

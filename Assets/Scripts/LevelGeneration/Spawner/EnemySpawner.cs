@@ -15,7 +15,7 @@ namespace Assets.Scripts.LevelGeneration
         public int MaxActiveEnemies;
         private double lastSpawn;
         private double activeEnemies;
-        [SerializeField] private bool spawnSpecialEnemy = false;
+        [SerializeField] public bool SpawnSpecialEnemy = false;
         [SerializeField] private SpecialWeakness weakness;
 
         [field: SerializeField] private bool Active { get; set; } = false;
@@ -53,8 +53,8 @@ namespace Assets.Scripts.LevelGeneration
             {
                 Entity.Enemy enemyToSpawn = Enemies[Random.Range(0, Enemies.Length)];
                 Enemy enemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
-                if (spawnSpecialEnemy)
-                    enemy.SetSpecial(weakness);
+                if (SpawnSpecialEnemy)
+                    enemy.SetSpecial((SpecialWeakness)(Random.value*5));
             }
         }
 
