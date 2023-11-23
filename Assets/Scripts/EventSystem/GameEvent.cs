@@ -62,3 +62,17 @@ public class PlayerChangeModuleEvent : GameEvent
         this.statusEffect = statusEffect;
     }
 }
+
+public class ScreenShakeEvent : GameEvent
+{
+    public float Intensity;
+    public float Frequency;
+    public float Duration;
+
+    public ScreenShakeEvent(float intensity, float frequency, float duration)
+    {
+        Intensity = intensity;
+        Frequency = frequency;
+        Duration = duration;
+    }
+}

@@ -938,6 +938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8154340847012923131}
   - component: {fileID: 4667490979079603571}
+  - component: {fileID: 9102857472190497701}
   - component: {fileID: 5270458296326681636}
   m_Layer: 0
   m_Name: Cinemachine
@@ -980,6 +981,22 @@ MonoBehaviour:
   player: {fileID: 0}
   target: {fileID: 7000125238557217589}
   aimInterpolation: 0.2
+--- !u!114 &9102857472190497701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072720878660147259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f69bbece9e47d34da1735e11be8ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingIntensity: 1
+  shakingFrequency: 1
+  shakeTimerTotal: 1
+  debugShakeTimer: 0
 --- !u!114 &5270458296326681636
 MonoBehaviour:
   m_ObjectHideFlags: 0

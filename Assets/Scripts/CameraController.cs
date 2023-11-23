@@ -34,7 +34,6 @@ public class CameraController : Singleton<CameraController>
         Vector3 worldPosition = ray.GetPoint(distance);
 
         Vector3 targetPosition = player.transform.position + ((worldPosition - player.transform.position) * aimInterpolation);
-
         target.transform.position = targetPosition;
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -51,6 +50,6 @@ public class CameraController : Singleton<CameraController>
 
     private void SetPlayer()
     {
-        this.player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 }
