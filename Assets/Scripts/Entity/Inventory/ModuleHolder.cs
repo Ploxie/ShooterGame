@@ -7,7 +7,7 @@ public class ModuleHolder<T> where T : Module
 
     private int accessPointer;
     private int insertionPointer;
-    public T[] storage;
+    private T[] storage;
 
 
     public ModuleHolder()

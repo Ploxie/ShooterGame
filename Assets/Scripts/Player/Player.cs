@@ -22,6 +22,11 @@ namespace Assets.Scripts.Entity
         //
 
         public bool inWaveRoom;
+        public bool powerUpActive;
+        private float powerUpTimer;
+        private float fireRateMultiplier;
+        private bool fireRateIncreased;
+        private int weaponCount;
         private GunVisual gunVisual;
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
@@ -43,13 +48,17 @@ namespace Assets.Scripts.Entity
 
             weaponModules.Insert(new ShotgunWeapon());
 
+            fireRateIncreased = false;
+            powerUpActive = false;
+
+            fireRateMultiplier = 2.0f;
             ////Temporary debug code, dont bother refactoring it
             //WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
             //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
-            
+
         }
         protected void Start()
         {
@@ -163,9 +172,43 @@ namespace Assets.Scripts.Entity
                         Health.Heal(healthPack.Healing);
                     }
 
+                    PowerUpPickUp powerUp = AvailablePickup as PowerUpPickUp;
+                    if(powerUp != null)
+                    {
+                        powerUp.Pickup();
+                        powerUpActive = true;
+                    }
+
                     AvailablePickup?.Pickup();
                 }
+                
             }
+
+            weaponCount = weaponModules.GetArray().Count(x => x != null);
+            if (powerUpActive)
+            {
+                powerUpTimer += Time.deltaTime;
+                if (!fireRateIncreased)
+                {
+                    fireRateIncreased = true;
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate *= fireRateMultiplier;
+                    }
+                }
+
+                if (powerUpTimer >= 10)
+                {
+                    powerUpActive = false;
+                    powerUpTimer = 0;
+                    fireRateIncreased = false;
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate = weaponModules.Peek().DefaultFireRate;
+                    }
+                }
+            }
+            Debug.Log(weaponModules.Peek().FireRate);
 
             direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
