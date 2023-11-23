@@ -58,7 +58,7 @@ namespace Assets.Scripts.Entity
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
-
+            
         }
         protected void Start()
         {
