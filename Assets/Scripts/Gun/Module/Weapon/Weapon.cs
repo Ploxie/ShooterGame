@@ -13,7 +13,9 @@ namespace Assets.Scripts.Entity
         [field: SerializeField] public float Damage { get; protected set; }
         public float ProjectileSpeed { get; protected set; }
         public float Range { get; protected set; }
-        public float FireRate { get; protected set; }
+        public float FireRate { get; set; }
+
+        public float DefaultFireRate { get; set; }
         public float ReloadTime { get; protected set; }
         public int MaxAmmo { get; protected set; }
         public int CurrentAmmo { get; protected set; }
