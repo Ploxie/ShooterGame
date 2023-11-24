@@ -21,7 +21,7 @@ namespace Assets.Scripts.Entity
             {
                 time += Time.deltaTime;
 
-                if (time > timer / 2)
+                if (time > timer / 1.5f)
                 {
                     hiddenText.SetActive(true);
                     foreach (Light light in lights)
