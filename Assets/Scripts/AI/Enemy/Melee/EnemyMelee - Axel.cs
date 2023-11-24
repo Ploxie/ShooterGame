@@ -14,6 +14,7 @@ public class EnemyMelee : Enemy
     [SerializeField] private Hitbox jumpDamageHitBox;
 
     [SerializeField] private GameObject visualCracks;
+    private GameObject slash;
 
     [SerializeField] public DissolveEffect DE;
 
@@ -29,6 +30,7 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.Damage = JumpDamage;
         jumpDamageHitBox.Effect = Effect;
         Effect = Module.CreateRandomStatusEffectModule();
+        slash = Resources.Load<GameObject>("Prefabs/VFX/Slash");
 
         meleeDamageHitBox.Effect = Effect;
         jumpDamageHitBox.Effect = Effect;
@@ -50,6 +52,7 @@ public class EnemyMelee : Enemy
         if (value != 0)
         {
             meleeDamageHitBox.gameObject.SetActive(true);
+            GameObject temp = Instantiate(slash, transform);
         }
         else
         {

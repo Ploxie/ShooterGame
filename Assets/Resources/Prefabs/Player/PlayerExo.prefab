@@ -124,12 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de09eee945b3b754c85659e380215242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 4
+  MovementSpeed: 12
   CurrentMovementSpeed: 0
   isSpecial: 0
   weakness: 0
   DashTimeWindow: 0
-  DashForce: 0
+  DashForce: 5000
   WeaponModDebugText: {fileID: 0}
   EffectModDebugText: {fileID: 0}
   BulletModDebugText: {fileID: 0}

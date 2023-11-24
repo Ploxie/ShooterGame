@@ -4958,6 +4958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6517296475578673041}
+  - component: {fileID: -4544072080631408053}
   m_Layer: 0
   m_Name: ExplosionRound
   m_TagString: Untagged
@@ -4983,6 +4984,19 @@ Transform:
   - {fileID: 1454135129389527867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4544072080631408053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651553016269798904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd965e992d9860418c4c35be2122bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 5000
 --- !u!1 &6773364312679082037
 GameObject:
   m_ObjectHideFlags: 0

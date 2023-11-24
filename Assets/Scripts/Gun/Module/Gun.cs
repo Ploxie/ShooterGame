@@ -18,12 +18,15 @@ namespace Assets.Scripts.Entity
         public Weapon Weapon { get; set; }
         private Character Parent { get; set; }
 
+        private GameObject muzzleFlash;
+
         private void Awake()
         {            
             GunVisual = GetComponentInChildren<GunVisual>();
             Parent = GetComponent<Character>();
 
             Weapon = new PistolWeapon();
+            muzzleFlash = Resources.Load<GameObject>("Prefabs/VFX/MuzzelFlash");
         }
 
         public void Shoot()
@@ -52,6 +55,10 @@ namespace Assets.Scripts.Entity
                 Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * transform.rotation * Vector3.forward;
 
                 Vector3 barrelPosition = GunVisual != null ? GunVisual.GetBarrelPosition() : transform.position;
+
+                GameObject muzzleFlash = Instantiate(this.muzzleFlash, transform);
+                muzzleFlash.transform.position = barrelPosition;
+                //muzzleFlash.transform.rotation = Quaternion.LookRotation(rotatedFireDirection, Vector3.up);
 
                 Projectile projectile;
                 if (ProjectileEffect != null)
