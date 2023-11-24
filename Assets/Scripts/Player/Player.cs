@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,9 @@ namespace Assets.Scripts.Entity
         public Vector3 moveDirection;
         public Vector3 direction;
 
+        StudioListener sl;
+        AudioFmodManager AFM;
+
         private readonly ModuleHolder<Weapon> weaponModules = new();
         private readonly ModuleHolder<StatusEffect> effectModules = new();
         private readonly ModuleHolder<ProjectileEffect> bulletModules = new();
@@ -41,10 +45,13 @@ namespace Assets.Scripts.Entity
         protected override void Awake()
         {
             base.Awake();
-
+            sl = FindObjectOfType<StudioListener>();
+            AFM = FindObjectOfType<AudioFmodManager>();
             gameObject.tag = "Player";
             Gun = GetComponent<Gun>();
             gunVisual = GetComponentInChildren<GunVisual>();
+
+            sl.attenuationObject = this.gameObject;
 
             weaponModules.Insert(new ShotgunWeapon());
 
@@ -65,6 +72,9 @@ namespace Assets.Scripts.Entity
             CycleWeapon();
             CycleEffect();
             CycleBullet();
+
+            AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
+            AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;

@@ -9,7 +9,7 @@ using UnityEngine.AI;
 namespace Assets.Scripts.Entity
 {
 
-    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar), typeof(AudioSource))]
+    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar))]
 
     public abstract class Enemy : Character
     {

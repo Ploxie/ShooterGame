@@ -71,8 +71,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/.vscode/
+
 # Never ignore DLLs in the FMOD subfolder.
-!/[Aa]ssets/Plugins/FMOD/**/*.dll
+!/[Aa]ssets/Plugins/FMOD/**/lib/*
 
 # Don't ignore images and gizmos used by FMOD in the Unity Editor.
 !/[Aa]ssets/Gizmos/FMOD/*
@@ -88,7 +90,3 @@ crashlytics-build.properties
 # If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
 # Log files can be ignored.
 fmod_editor.log
-
-/.vscode/
-
-
