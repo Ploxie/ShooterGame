@@ -17,9 +17,9 @@ namespace Assets.Scripts.Entity
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_87Shotgun");
             Description = "Firing a wave of bullets, the shotgun is unparalled when facing many foes.";
 
-            Damage = 1.0f;
+            Damage = 5.0f;
             ProjectileSpeed = 10.0f;
-            Range = 20.0f;
+            Range = 50.0f;
 
             FireRate = 1.0f;
             DefaultFireRate = FireRate;

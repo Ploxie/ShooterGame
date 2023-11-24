@@ -27,6 +27,8 @@ public class KeySystem : MonoBehaviour
 
     public bool ContainsKey(Key.KeyType keyType)
     {
+        if (keyType == Key.KeyType.None)
+            return true;
         return keyList.Contains(keyType);
     }
 

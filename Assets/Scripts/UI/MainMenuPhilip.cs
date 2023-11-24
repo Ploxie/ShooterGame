@@ -13,11 +13,11 @@ public class MainMenuPhilip : MonoBehaviour
     {
         if (m_toggle.isOn)
         {
-            SceneManager.LoadScene("LevelGenererationTestScene"); // Change to Play scene
+            SceneManager.LoadScene("GamePlayLoop"); // Change to Play scene
         }
         else
         {
-            SceneManager.LoadScene("GameOver"); // Change to tutorial scene
+            SceneManager.LoadScene("Tutorial"); // Change to tutorial scene
         }
     }
     public void BackToMenu()
