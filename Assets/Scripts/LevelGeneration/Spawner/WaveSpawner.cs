@@ -9,8 +9,8 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float countdown;
-    [SerializeField] private List<GameObject> spawnPoints;
-    [SerializeField] private List<GameObject> doors;
+    [SerializeField] public List<GameObject> spawnPoints;
+    [SerializeField] public List<GameObject> doors;
 
     public Wave[] Waves;
     private Player player;
@@ -57,7 +57,7 @@ public class WaveSpawner : MonoBehaviour
             if (readyToCountDown == true)
                 countdown -= Time.deltaTime;
 
-            if (countdown < 0)
+            if (countdown <= 0)
             {
                 readyToCountDown = false;
                 countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
@@ -78,14 +78,10 @@ public class WaveSpawner : MonoBehaviour
         {
             for (int i = 0; i < Waves[CurrentWaveIndex].Enemies.Length; i++)
             {
-                foreach (GameObject spawnPoint in spawnPoints)
-                {
-                    Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i], spawnPoint.transform);
-
-                    enemy.transform.SetParent(spawnPoint.transform);
-
-                    yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy);
-                }
+                var spawnPoint = spawnPoints[(int)(UnityEngine.Random.value * spawnPoints.Count)];
+                Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i]);
+                enemy.transform.position = spawnPoint.transform.position;
+                yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy + 1.0f);
             }
         }
     }
