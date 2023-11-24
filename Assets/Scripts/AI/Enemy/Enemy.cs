@@ -17,6 +17,8 @@ namespace Assets.Scripts.Entity
         public Animator Animator { get; protected set; }
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
+
+        private PowerUpPickUp powerUpPickUp;
         private Material material;
 
 
@@ -34,9 +36,9 @@ namespace Assets.Scripts.Entity
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
             waveSpawner = GetComponentInParent<WaveSpawner>();
+            powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
             StateMachine.Init(this);
-            if (TryGetComponent<SkinnedMeshRenderer>(out SkinnedMeshRenderer skinnedMeshRenderer))
-                material = skinnedMeshRenderer.material;
+           
 
             Health.OnDeath += OnDeath;
         }
@@ -58,6 +60,11 @@ namespace Assets.Scripts.Entity
         protected virtual void OnDeath()
         {
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            if (isSpecial)
+            {
+                PowerUpPickUp temp = Instantiate(powerUpPickUp);
+                temp.transform.position = transform.position;
+            }
         }
 
         protected void SpawnCartridgePickup(Module module)
@@ -83,6 +90,8 @@ namespace Assets.Scripts.Entity
         {
             Health.Multiply(10);
             transform.localScale *= 1.5f;
+                if (material == null)
+                    material = GetComponentInChildren<SkinnedMeshRenderer>().material;
             switch (weakness)
             {
                 case SpecialWeakness.Dense:

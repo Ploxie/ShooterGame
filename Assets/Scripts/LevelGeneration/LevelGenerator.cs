@@ -47,6 +47,7 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateDoors(),
                 PlaceKeys(),
                 BuildNavMesh(),
+                PlaceSpecialObjects()
             }).GetEnumerator());            
         }
 
@@ -444,8 +445,36 @@ namespace Assets.Scripts.LevelGeneration
             navMesh.BuildNavMesh();
             yield return null;
         }
+        private IEnumerator PlaceSpecialObjects()
+        {
+            GameObject[] specialEnemySpawnPoints = GameObject.FindGameObjectsWithTag("SpecialEnemySpawnPoint");
+            EnemySpawner enemySpawner = Resources.Load<EnemySpawner>("Prefabs/Enemy/EnemySpawner");
 
+            int numberOfSpecialEnemySpawns = 5;
+            int specialEnemyRange = specialEnemySpawnPoints.Length / numberOfSpecialEnemySpawns;
+            for (int i = 0; i < specialEnemyRange * numberOfSpecialEnemySpawns; i += specialEnemyRange)
+            {
+                int index = i + (int)((specialEnemyRange - 1) * Random.value);
+                EnemySpawner enemySpawner1 = Instantiate(enemySpawner, specialEnemySpawnPoints[index].transform);
+                enemySpawner1.SpawnSpecialEnemy = true;
+                enemySpawner1.ContinousSpawns = false;
+                enemySpawner1.Activate();
+            }
 
+            GameObject[] powerUpSpawnPoints = GameObject.FindGameObjectsWithTag("PowerUpSpawnPoint");
+            PowerUpPickUp powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
+
+            int numberOfPickUpSpawns = 5;
+            int powerUprange = powerUpSpawnPoints.Length / numberOfPickUpSpawns;
+            for (int i = 0; i < powerUprange * numberOfPickUpSpawns; i += powerUprange)
+            {
+                int index = i + (int)((powerUprange - 1) * Random.value);
+                PowerUpPickUp powerUpPickUp1 = Instantiate(powerUpPickUp);
+                powerUpPickUp1.transform.position = powerUpSpawnPoints[index].transform.position;
+            }
+            
+            yield return null;
+        }
 
         private GameObject CreateWall(Tile tile, int mask)
         {

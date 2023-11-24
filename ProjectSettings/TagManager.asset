@@ -21,6 +21,8 @@ TagManager:
   - Keys
   - Door
   - Prop
+  - SpecialEnemySpawnPoint
+  - PowerUpSpawnPoint
   layers:
   - Default
   - TransparentFX

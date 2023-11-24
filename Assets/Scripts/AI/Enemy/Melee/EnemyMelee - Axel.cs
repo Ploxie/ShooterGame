@@ -89,12 +89,6 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.Damage *= multiplier;
     }
 
-    public override void SetSpecial(SpecialWeakness weakness)
-    {
-        base.SetSpecial(weakness);
-        ModifyDamage(1.5f);
-    }
-
 }
     //EnemyManager enemyManager;
     //ScoreManager scoreManager;
