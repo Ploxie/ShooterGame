@@ -19,7 +19,7 @@ public class UIMenuScript : MonoBehaviour
     private void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop")
+        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop" || currentScene.name == "Tutorial")
         {
             isPaused = false;
             pauseMenuUI.SetActive(false);
@@ -30,7 +30,7 @@ public class UIMenuScript : MonoBehaviour
     private void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop")
+        if (currentScene.name == "LevelGenererationTestScene" || currentScene.name == "GameplayLoop" || currentScene.name == "Tutorial")
         {
             if (canPause == true) // So you can't pause while in death screen
                 PauseGame();

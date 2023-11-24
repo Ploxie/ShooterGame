@@ -11,6 +11,8 @@ public class PopUpConsumable : MonoBehaviour
     public static bool thereCanOnlyBeOne = false;
     private GameObject floatingTextPrefab;
     private GameObject floatingTextInstance;
+    private GameObject floatingCharacterPrefab;
+    private GameObject floatingCharacterInstance;
     private TMP_Text text;
     private Image image;
 
@@ -19,18 +21,23 @@ public class PopUpConsumable : MonoBehaviour
     private void Awake()
     {
         //floatingTextInstance = Instantiate(floatingTextPrefab/*, transform.position, Quaternion.identity, transform*/);
-        
+
         floatingTextPrefab = Resources.Load<GameObject>("Prefabs/UI/CanvasPopUpPrefab");
         floatingTextInstance = Instantiate(floatingTextPrefab, transform);
+
+        floatingCharacterPrefab = Resources.Load<GameObject>("Prefabs/UI/PopUpCharacter");
+        floatingCharacterInstance = Instantiate(floatingCharacterPrefab, transform);
 
         text = GetComponentInChildren<TextMeshProUGUI>();
         image = GetComponentInChildren<Image>();
         floatingTextInstance.SetActive(false);
+
+        floatingCharacterInstance.SetActive(false);
     }
 
     private void Start()
     {
-        
+
         if (CartridgePickup.Module is Weapon)
         {
             image.color = Color.green;
@@ -51,6 +58,8 @@ public class PopUpConsumable : MonoBehaviour
         {
             floatingTextInstance.transform.rotation = Camera.main.transform.rotation;
             floatingTextInstance.SetActive(true);
+            floatingCharacterInstance.transform.rotation = Camera.main.transform.rotation;
+            floatingCharacterInstance.SetActive(true);
             text.text = $"{CartridgePickup.Module.Name} Module";
             thereCanOnlyBeOne = true;
         }
@@ -61,6 +70,7 @@ public class PopUpConsumable : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             floatingTextInstance.SetActive(false);
+            floatingCharacterInstance.SetActive(false);
             thereCanOnlyBeOne = false;
         }
     }
