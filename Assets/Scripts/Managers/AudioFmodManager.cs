@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
-//using UnityEditor.ShaderGraph.Internal;
+using UnityEditor.ShaderGraph.Internal;
 using Assets.Scripts.Entity;
-using FMOD;
 
 public class AudioFmodManager : MonoBehaviour
 {
     private List<EventInstance> eventInstanses;
 
     private EventInstance eventInstanceAmb, eventInstanceMusic;
-    private Camera cam;
 
     private EventInstance MusicInstance;
     private float area = 0;
@@ -24,7 +22,7 @@ public class AudioFmodManager : MonoBehaviour
     {
         if(instance != null)
         {
-            UnityEngine.Debug.Log("More then one audioManager");
+            Debug.LogError("More then one audioManager");
         }
         instance = this;
 
@@ -32,10 +30,13 @@ public class AudioFmodManager : MonoBehaviour
 
         EventManager.GetInstance().AddListener<EnemyEnterCombatEvent>(OnEnemyEnterCombat);
         EventManager.GetInstance().AddListener<EnemyLeaveCombatEvent>(OnEnemyLeaveCombat);
+
     }
     private void Start()
     {
         
+        //InitializeAmbience(FmodEvents.instance.ambienceTest);
+        //InitializeMusic(FmodEvents.instance.MusicLoop);
     }
     public void PlayOneShot(EventReference sound, Vector3 worldPosition)
     {
@@ -43,16 +44,13 @@ public class AudioFmodManager : MonoBehaviour
     }
     public void InitializeAmbience(EventReference ambienceEventRef)
     {
-        eventInstanceAmb = RuntimeManager.CreateInstance(ambienceEventRef);
+        eventInstanceAmb = CreateInstanceOfAudio(ambienceEventRef);
         eventInstanceAmb.start();
-        eventInstanceAmb.release();
     }
     public void InitializeMusic(EventReference MusicEventRef)
     {
-        eventInstanceMusic = RuntimeManager.CreateInstance(MusicEventRef);//CreateInstanceOfAudio(MusicEventRef);
+        eventInstanceMusic = CreateInstanceOfAudio(MusicEventRef);
         eventInstanceMusic.start();
-        eventInstanceMusic.release();
-        //UnityEngine.Debug.Log()
     }
     public void SetMusicArea(MusicFMOD MF)
     {
@@ -82,13 +80,11 @@ public class AudioFmodManager : MonoBehaviour
         //if(EnemiesInCombat)
         EnemiesInCombat++;
         eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
-        print(EnemiesInCombat);
     }
     private void OnEnemyLeaveCombat(EnemyLeaveCombatEvent e)
     {
         if(EnemiesInCombat > 0)
             EnemiesInCombat--;
         eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
-        print(EnemiesInCombat);
     }
 }
