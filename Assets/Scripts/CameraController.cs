@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class CameraController : Singleton<CameraController>
 {
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject target;
+    [SerializeField] private float aimInterpolation = 0.1f;
+
     private CinemachineFreeLook freeLookCamera;
     private CinemachineBrain cinemachineBrain;
-    //private Camera camera;
-
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject target;
-    [SerializeField] private float aimInterpolation = 0.1f;
 
     private float rotation = 0f;
 
@@ -20,12 +19,10 @@ public class CameraController : Singleton<CameraController>
     private void Awake()
     {
         freeLookCamera = GetComponent<CinemachineFreeLook>();
-        //cinemachineBrain = GetComponent<CinemachineBrain>();
         freeLookCamera.Follow = target.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (player == null) SetPlayer();
 
@@ -36,12 +33,12 @@ public class CameraController : Singleton<CameraController>
         Vector3 targetPosition = player.transform.position + ((worldPosition - player.transform.position) * aimInterpolation);
         target.transform.position = targetPosition;
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             rotation += 90 % 360;
             freeLookCamera.m_XAxis.Value = rotation;
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             rotation -= 90;
             freeLookCamera.m_XAxis.Value = rotation;

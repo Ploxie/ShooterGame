@@ -1,26 +1,26 @@
 using UnityEngine;
 using Cinemachine;
 
-//1: attach this script to the virtual camera
-//2: enable noise on the virtual camera
-//  2.1: find the "Noise" setting on the virtual camera
-//  2.2: select "Basic Multi Channel Perlin"
-//  2.3: select a noise profile (6D shake is good)
-//  2.4: set "Amplitude Gain" and "Frequency Gain" to 0
+//1: attach this script to the freelook camera (prefab/object called cinemachine)
+//2: enable noise on the freelook camera
+//  2.1: scroll down to the different rig settings (top rig, middle rig, bottom rig)
+//  2.2: select the top rig
+//  2.3: click on the noise setting
+//  2.4: select "Basic Multi Channel Perlin"
+//  2.5: select a noise profile (6D shake is good)
+//  2.6: set "Amplitude Gain" and "Frequency Gain" to 0
 
 public class ScreenShakeController : MonoBehaviour
 {
     private CinemachineFreeLook freeLookCamera;
     private CinemachineBasicMultiChannelPerlin cameraPerlin;
 
-    [SerializeField] private float startingIntensity;
-    [SerializeField] private float shakingFrequency;
-    [SerializeField] private float shakeTimerTotal;
-    [SerializeField] private float debugShakeTimer;
-
+    private float startingIntensity;
+    private float shakingFrequency;
+    private float shakeTimerTotal;
     private float shakeTimer;
 
-    private void Awake()
+    private void Start()
     {
         freeLookCamera = GetComponent<CinemachineFreeLook>();
         cameraPerlin = freeLookCamera.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -33,18 +33,11 @@ public class ScreenShakeController : MonoBehaviour
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
-            debugShakeTimer = shakeTimer;
 
             cameraPerlin.m_AmplitudeGain = Mathf.Lerp(startingIntensity, 0.0f, 1 - (shakeTimer / shakeTimerTotal));
         }
     }
 
-    /// <summary>
-    /// Shakes the (cinemachine) camera
-    /// </summary>
-    /// <param name="intensity"></param>
-    /// <param name="frequency"></param>
-    /// <param name="time"></param>
     private void ShakeCamera(ScreenShakeEvent e)
     {
         cameraPerlin.m_AmplitudeGain = e.Intensity;
