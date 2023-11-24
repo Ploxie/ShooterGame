@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static Assets.Scripts.LevelGeneration.Tile;
 using Random = UnityEngine.Random;
@@ -359,6 +354,8 @@ namespace Assets.Scripts.LevelGeneration
 
         private IEnumerator GenerateWalls()
         {
+            
+
             foreach (Tile tile in tiles)
             {
                 foreach (var direction in Direction2D.CARDINAL)
@@ -448,16 +445,22 @@ namespace Assets.Scripts.LevelGeneration
             yield return null;
         }
 
+
+
         private GameObject CreateWall(Tile tile, int mask)
         {
+
+
             if(!tile.HasWall(mask))
             {
                 return null;
             }
 
+            
+
             float tileSize = TILE_SIZE;
             float wallHeight = tileSize * 0.75f;
-            float wallThickness = tileSize / 10.0f;
+            float wallThickness = tileSize / 10.0f;           
 
             float offsetX = mask == Wall.EAST ? 1.0f : 0.0f;
             offsetX = mask == Wall.NORTH || mask == Wall.SOUTH ? 0.5f : offsetX;
@@ -469,18 +472,25 @@ namespace Assets.Scripts.LevelGeneration
             rotation = mask == Wall.EAST ? 90.0f : rotation;
             rotation = mask == Wall.WEST ? -90.0f : rotation;
 
-
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             {
                 wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
+                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);               
+
                 wall.transform.rotation = Quaternion.Euler(0, rotation, 0);
-                wall.transform.parent = transform;
+                wall.transform.SetParent(transform);
                 wall.tag = "Wall";
                 wall.name = "Wall";
                 wall.isStatic = true;
                 //wall.GetComponent<Collider>().material = wallPhysicMaterial;
             }
+
+            if (wall.TryGetComponent(out MeshRenderer renderer))
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.material = Resources.Load<Material>("Materials/Office/Ground Mats/Epoxy/Epoxy Ground 20m");
+            }
+
             return wall;
         }
 
@@ -544,7 +554,7 @@ namespace Assets.Scripts.LevelGeneration
 
                 RoomNode roomNode = node as RoomNode;
                 if (roomNode != null && roomNode.GeneratedModule != null)
-                    Handles.Label(position, "" + roomNode.GeneratedModule.name);
+                    //Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
                 if (node.Parent == null)
                     continue;

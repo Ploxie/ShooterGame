@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEditor.VersionControl;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.LevelGeneration
@@ -28,6 +23,17 @@ namespace Assets.Scripts.LevelGeneration
         {
             get;
             private set;
+        }
+        private void Awake()
+        {
+            var floors = GetComponentsInChildren<RoomFloor>();
+            foreach (var floor in floors)
+            {
+                if (floor.TryGetComponent(out MeshRenderer renderer))
+                {
+                    renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                }
+            }
         }
 
         private void Update()
