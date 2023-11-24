@@ -53,8 +53,9 @@ namespace Assets.Scripts.Entity
             totalAmount *= damageMultiplier;
             CurrentHealth = Math.Clamp(CurrentHealth - amount, 0.0f, MaxHealth);
             OnDamageTaken?.Invoke(amount);
+
             Vector3 randomness = new Vector3(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
-            DamagePopUpGenerator.Instance.CreatePopUp(transform.position + randomness + new Vector3(0, 4, 0), amount.ToString());
+            DamagePopUpGenerator.Instance.CreatePopUp(transform.position + randomness + new Vector3(0, 4, 0), ((int)amount).ToString());      
 
             if (CurrentHealth <= 0.0f)
             {
@@ -67,6 +68,11 @@ namespace Assets.Scripts.Entity
         {
             CurrentHealth = Math.Clamp(CurrentHealth + amount, 0.0f, MaxHealth);
             OnHealthGained?.Invoke(amount);
+        }
+        public void Multiply(int multiplier)
+        {
+            MaxHealth *= multiplier;
+            CurrentHealth *= multiplier;
         }
     }
 }

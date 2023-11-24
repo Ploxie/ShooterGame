@@ -62,6 +62,11 @@ public class EnemyKamikaze : Enemy
         //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.roarKamikaze, this.transform.position);
         HasRoared = true;
     }
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        ExplosionDamageHitBox.Damage *= multiplier;
+    }
 }
 //EnemyManager enemyManager;
 //ScoreManager scoreManager;

@@ -21,6 +21,8 @@ TagManager:
   - Keys
   - Door
   - Prop
+  - SpecialEnemySpawnPoint
+  - PowerUpSpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -52,7 +54,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - None
   - Floor
   m_SortingLayers:
   - name: Default

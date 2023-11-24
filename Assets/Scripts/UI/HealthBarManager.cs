@@ -10,10 +10,8 @@ using Assets.Scripts.Entity;
 public class HealthBarManager : MonoBehaviour
 {
     public Image healthBar;
-    public Image movingHealthBar;
+    [SerializeField] private Image movingHealthBar;
     public TMP_Text HealthText;
-
-    private float lastHealth;
 
     private void Start()
     {
@@ -22,16 +20,18 @@ public class HealthBarManager : MonoBehaviour
 
     private void Update()
     {
-        movingHealthBar.fillAmount = Mathf.Lerp(lastHealth, healthBar.fillAmount, Time.deltaTime);
+        
+        movingHealthBar.fillAmount = Mathf.Lerp(movingHealthBar.fillAmount, healthBar.fillAmount, Time.deltaTime * 5.0f);
     }
 
     private void SetHealth(PlayerHealthChangeEvent e)
     {
         var health = e.Health;
 
-        lastHealth = healthBar.fillAmount;
-        healthBar.fillAmount = health.CurrentHealth / health.MaxHealth;
-        HealthText.text = $"{health.CurrentHealth}/{health.MaxHealth}";        
+        var currentHealthPercentage = health.CurrentHealth / health.MaxHealth;
+
+        healthBar.fillAmount = currentHealthPercentage;
+        HealthText.text = $"{(int)Mathf.Ceil(health.CurrentHealth)}/{health.MaxHealth}";        
     }
 
 

@@ -32,12 +32,20 @@ namespace Assets.Scripts.Entity
                 return;
             
             GunVisual.PlaySound();
-
             float damageMultiplier = 1.0f;
-
+            
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
                 damageMultiplier = debilitationEffect.DamageMultiplier;
+
+            if (gameObject.tag == "Player")
+            {
+                Player player = Parent as Player;
+                if (player.powerUpActive)
+                {
+                    damageMultiplier = 2.0f;
+                }
+            }
 
             foreach(float launchAngle in Weapon.LaunchAngles)
             {

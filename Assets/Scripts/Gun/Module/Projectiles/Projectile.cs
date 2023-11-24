@@ -58,7 +58,7 @@ namespace Assets.Scripts.Entity
 
         protected virtual void OnCharacterCollision(Character character)
         {
-            character.OnHit(Damage, StatusEffects.ToArray());            
+            character.OnHit(Damage, ProjectileEffect, StatusEffects.ToArray());            
             Destroy(gameObject);
         }
 

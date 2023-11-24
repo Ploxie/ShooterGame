@@ -7,7 +7,11 @@ namespace Assets.Scripts.Entity
 {
     public class TestEnemy : Enemy
     {
-        
+        protected override void ModifyDamage(float multiplier)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void OnDeath()
         {
             base.OnDeath();
