@@ -38,6 +38,8 @@ namespace Assets.Scripts.Entity
         private readonly ModuleHolder<StatusEffect> effectModules = new();
         private readonly ModuleHolder<ProjectileEffect> bulletModules = new();
 
+        private Plane plane = new Plane(Vector2.down, 0f);
+        
         protected override void Awake()
         {
             base.Awake();
@@ -58,7 +60,7 @@ namespace Assets.Scripts.Entity
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
-
+            
         }
         protected void Start()
         {
@@ -136,6 +138,9 @@ namespace Assets.Scripts.Entity
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Gun?.Shoot();
+
+                //should probably be moved to
+                EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(7, 0.5f, 0.2f));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -210,11 +215,18 @@ namespace Assets.Scripts.Entity
             }
             //Debug.Log(weaponModules.Peek().FireRate);
 
-            direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle -= 90;
-            transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
-            
+            //direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //angle -= 90;
+            //transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            plane.Raycast(ray, out float distance);
+            Vector3 position = ray.GetPoint(distance);
+            transform.LookAt(new Vector3(position.x, transform.position.y, position.z));
+
+            direction = position - transform.position;
+
             Rigidbody.velocity = moveDirection * CurrentMovementSpeed;
         }
 
