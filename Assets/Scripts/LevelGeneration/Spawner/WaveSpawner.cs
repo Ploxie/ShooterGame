@@ -18,6 +18,13 @@ public class WaveSpawner : MonoBehaviour
     public int CurrentWaveIndex = 0;
     private bool readyToCountDown;
 
+    private List<Enemy> spawnedEnemies;
+
+    private void Awake()
+    {
+        spawnedEnemies = new();
+    }
+
 
     private void Start()
     {
@@ -26,6 +33,7 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < Waves.Length; i++)
         {
             Waves[i].EnemiesLeft = Waves[i].Enemies.Length * spawnPoints.Count;
+            Debug.Log(Waves[i].EnemiesLeft);
         }
 
         
@@ -37,6 +45,14 @@ public class WaveSpawner : MonoBehaviour
         {
             player = FindAnyObjectByType<Player>();
             return;
+        }
+
+        for(int i = spawnedEnemies.Count-1; i >= 0; i--)
+        {
+            if (spawnedEnemies[i].Health.IsDead)
+            {
+                spawnedEnemies.Remove(spawnedEnemies[i]);
+            }
         }
 
         if (player.inWaveRoom == true)
@@ -57,7 +73,7 @@ public class WaveSpawner : MonoBehaviour
             if (readyToCountDown == true)
                 countdown -= Time.deltaTime;
 
-            if (countdown <= 0)
+            if (spawnedEnemies.Count <= 0)
             {
                 readyToCountDown = false;
                 countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
@@ -80,8 +96,11 @@ public class WaveSpawner : MonoBehaviour
             {
                 var spawnPoint = spawnPoints[(int)(UnityEngine.Random.value * spawnPoints.Count)];
                 Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i]);
-                enemy.transform.position = spawnPoint.transform.position;
-                yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy + 1.0f);
+                enemy.transform.position = new Vector3(95.4f, 2.0f, -141.9f);// spawnPoint.transform.position;
+
+                spawnedEnemies.Add(enemy);
+                Debug.Log("Spawning enemy: "+spawnPoint.transform.position);
+                yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy + 5.0f);
             }
         }
     }

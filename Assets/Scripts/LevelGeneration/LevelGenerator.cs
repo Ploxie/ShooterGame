@@ -505,7 +505,7 @@ namespace Assets.Scripts.LevelGeneration
                     var spawnPoints = module.GetComponentsInChildren<EnemySpawner>(true);
 
                     var waveSpawner = new GameObject("Wave Spawner").AddComponent<WaveSpawner>();
-                    waveSpawner.transform.parent = module.transform;
+                    //waveSpawner.transform.parent = module.transform;
                     waveSpawner.spawnPoints = new();
                     foreach(var spawnPoint in spawnPoints)
                     {
