@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3486570035842746748}
   - component: {fileID: 4494045085942434541}
   m_Layer: 0
-  m_Name: Pickup_Default
+  m_Name: Pickup_Weapon
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8081996948172e458d1c8f3629c588a, type: 2}
+  - {fileID: 2100000, guid: 2d2f70b31cf4e194a90c6e41805baf53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

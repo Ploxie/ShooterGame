@@ -24,6 +24,11 @@ namespace Assets.Scripts.Entity
 
         protected float LastShootTime { get; set; }
 
+        public Weapon()
+        {
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Weapon");
+        }
+
         public bool CanShoot()
         {
             float timeSinceLastShot = (Time.time - LastShootTime);

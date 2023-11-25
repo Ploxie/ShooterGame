@@ -12,7 +12,10 @@ namespace Assets.Scripts.Entity
         public const string BULLET_PREFAB_PATH = "Prefabs/Gun/Projectile_Crystal";
 
         public GameObject BulletPrefab { get; protected set; }
-
+        public ProjectileEffect()
+        {
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_ProjectileEffect");
+        }
 
         public abstract Projectile CreateProjectile(Vector3 barrelPosition);
 

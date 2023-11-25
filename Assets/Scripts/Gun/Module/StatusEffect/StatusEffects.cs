@@ -12,6 +12,11 @@ namespace Assets.Scripts.Entity
     {
         public float Duration { get; set; } = 1.0f;
 
+        public StatusEffect()
+        {
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_StatusEffect");
+        }
+
         public StatusEffect Copy()
         {
             return (StatusEffect)MemberwiseClone();
