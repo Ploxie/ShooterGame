@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8adab9cc-d144-4158-86a7-b6b75a2dab18}">
+		<property name="assetPath">
+			<value>Misc/Ranged/Death.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.82185941043083899</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>

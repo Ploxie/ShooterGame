@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{c7aebfc8-3ab3-4513-9142-af9b28b465ba}">
+		<property name="note" />
+		<property name="assetPath">
+			<value>MusicForGame/CK_Stinger_Level_Complete_v1.m4a</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>
