@@ -24,24 +24,27 @@ public class CameraController : Singleton<CameraController>
 
     private void Update()
     {
-        if (player == null) SetPlayer();
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        plane.Raycast(ray, out float distance);
-        Vector3 worldPosition = ray.GetPoint(distance);
-
-        Vector3 targetPosition = player.transform.position + ((worldPosition - player.transform.position) * aimInterpolation);
-        target.transform.position = targetPosition;
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (player == null)
+            SetPlayer();
+        else
         {
-            rotation += 90 % 360;
-            freeLookCamera.m_XAxis.Value = rotation;
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            rotation -= 90;
-            freeLookCamera.m_XAxis.Value = rotation;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            plane.Raycast(ray, out float distance);
+            Vector3 worldPosition = ray.GetPoint(distance);
+
+            Vector3 targetPosition = player.transform.position + ((worldPosition - player.transform.position) * aimInterpolation);
+            target.transform.position = targetPosition;
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                rotation += 90 % 360;
+                freeLookCamera.m_XAxis.Value = rotation;
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                rotation -= 90;
+                freeLookCamera.m_XAxis.Value = rotation;
+            }
         }
     }
 

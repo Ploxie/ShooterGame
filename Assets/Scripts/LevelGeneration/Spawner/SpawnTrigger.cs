@@ -8,11 +8,11 @@ namespace Assets.Scripts.Entity
 {
     public class SpawnTrigger : MonoBehaviour
     {
-        protected void OnCollisionEnter(Collision collision)
+        protected void OnTriggerEnter(Collider collider)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (collider.gameObject.CompareTag("Player"))
             {
-                if (collision.gameObject.TryGetComponent(out Player p))
+                if (collider.gameObject.TryGetComponent(out Player p))
             {
                 foreach (Transform sibling in transform.parent)
                 {

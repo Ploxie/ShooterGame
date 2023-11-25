@@ -80,13 +80,17 @@ namespace Assets.Scripts.Entity
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 0.0f;
 
-            GameObject prefab = Instantiate(module.DropPrefab, spawnPosition, Quaternion.identity);
-            CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
+            if (module != null)
             {
-                pickup.Module = module;
+                GameObject prefab = Instantiate(module.DropPrefab, spawnPosition, Quaternion.identity);
+                CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
+                {
+                    pickup.Module = module;
+                }
+                PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
+                popUp.CartridgePickup = pickup;
             }
-            PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
-            popUp.CartridgePickup = pickup;
+            
         }
 
         public void PlaySound(string key)
