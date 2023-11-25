@@ -12,7 +12,7 @@ namespace Assets.Scripts.Entity
         public SniperWeapon()
         {
             Name = "Sniper";
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Sniper");
+            //DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Sniper");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_65Sniper");
             Description = "The sniper rifle packs a powerful punch from a long distance, but is lacking in the fire rate department.";
 

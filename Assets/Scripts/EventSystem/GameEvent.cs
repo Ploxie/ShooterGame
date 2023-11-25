@@ -63,6 +63,16 @@ public class PlayerChangeModuleEvent : GameEvent
     }
 }
 
+public class PlayerPickUpModuleEvent : GameEvent
+{
+    public Module module;
+
+    public PlayerPickUpModuleEvent(Module module)
+    {
+        this.module = module;
+    }
+}
+
 public class ScreenShakeEvent : GameEvent
 {
     public float Intensity;

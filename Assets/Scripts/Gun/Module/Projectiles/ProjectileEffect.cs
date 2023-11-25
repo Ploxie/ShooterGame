@@ -13,6 +13,7 @@ namespace Assets.Scripts.Entity
 
         public GameObject BulletPrefab { get; protected set; }
 
+
         public abstract Projectile CreateProjectile(Vector3 barrelPosition);
 
         public static Projectile CreateDefaultProjectile(Vector3 barrelPosition)

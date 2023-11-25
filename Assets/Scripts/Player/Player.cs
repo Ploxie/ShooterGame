@@ -41,6 +41,8 @@ namespace Assets.Scripts.Entity
         private readonly ModuleHolder<StatusEffect> effectModules = new();
         private readonly ModuleHolder<ProjectileEffect> bulletModules = new();
 
+        private List<Module> pickedUpModules;
+
         private Plane plane = new Plane(Vector2.down, 0f);
         
         protected override void Awake()
@@ -55,6 +57,8 @@ namespace Assets.Scripts.Entity
             sl.attenuationObject = this.gameObject;
 
             weaponModules.Insert(new ShotgunWeapon());
+
+            pickedUpModules = new List<Module>();
 
             fireRateIncreased = false;
             powerUpActive = false;
@@ -178,6 +182,11 @@ namespace Assets.Scripts.Entity
                     {
                         //Gun?.ApplyModule(cartridgePickup.Module);
                         PickupModule(cartridgePickup.Module);
+                        if (!pickedUpModules.Contains(cartridgePickup.Module))
+                        {
+                            pickedUpModules.Add(cartridgePickup.Module);
+                            EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
+                        }
                     }
 
                     HealthPack healthPack = AvailablePickup as HealthPack;

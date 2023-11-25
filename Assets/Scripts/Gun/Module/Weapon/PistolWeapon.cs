@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
         public PistolWeapon()
         {
             Name = "Pistol";
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Pistol");
+            //DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Pistol");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_50Pistol");
             Description = "The pistol is a reliable weapon in a pinch, but not the thing to take along if you expect any serious challenge.";
 
@@ -26,10 +26,7 @@ namespace Assets.Scripts.Entity
             ReloadTime = 1.0f;
             MaxAmmo = 10;
             CurrentAmmo = MaxAmmo;
-
-            
-
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickup_Pistol");            
+           
         }
 
     }

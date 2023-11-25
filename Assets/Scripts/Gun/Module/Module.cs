@@ -20,6 +20,35 @@ namespace Assets.Scripts.Entity
             DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Default");
         }
 
+        public static Module CreateRandomWeaponModule()
+        {
+            Module[] modules = new Module[]
+            {
+                new SniperWeapon(),
+                new SMGWeapon(),
+                new ShotgunWeapon(),
+                new PistolWeapon(),
+                new AssaultRifleWeapon()
+            };
+
+            return modules[UnityEngine.Random.Range(0, modules.Length)];
+        }
+
+        public static Module CreateRandomProjectileEffectModule()
+        {
+            Module[] modules = new Module[]
+            {
+                new BlackHoleEffect(),
+                new ClusterEffect(),
+                new CrystalEffect(),
+                new ExplosionEffect(),
+                new PiercingEffect(),
+                new RicochetEffect()
+            };
+
+            return modules[UnityEngine.Random.Range(0, modules.Length)];
+        }
+
         public static StatusEffect CreateRandomStatusEffectModule()
         {
             StatusEffect[] modules = new StatusEffect[]
@@ -58,5 +87,6 @@ namespace Assets.Scripts.Entity
 
             return modules[UnityEngine.Random.Range(0, modules.Length)];
         }
+        
     }
 }

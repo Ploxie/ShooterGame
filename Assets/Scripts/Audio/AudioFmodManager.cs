@@ -30,12 +30,12 @@ public class AudioFmodManager : MonoBehaviour
 
         eventInstanses = new List<EventInstance>();
 
-        EventManager.GetInstance().AddListener<EnemyEnterCombatEvent>(OnEnemyEnterCombat);
-        EventManager.GetInstance().AddListener<EnemyLeaveCombatEvent>(OnEnemyLeaveCombat);
+        
     }
     private void Start()
     {
-        
+        EventManager.GetInstance().AddListener<EnemyEnterCombatEvent>(OnEnemyEnterCombat);
+        EventManager.GetInstance().AddListener<EnemyLeaveCombatEvent>(OnEnemyLeaveCombat);
     }
     public void PlayOneShot(EventReference sound, Vector3 worldPosition)
     {

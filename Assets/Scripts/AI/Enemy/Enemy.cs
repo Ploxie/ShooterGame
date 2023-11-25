@@ -23,6 +23,8 @@ namespace Assets.Scripts.Entity
         private Key key;
         private Material material;
 
+        
+
 
 
         [HideInInspector]

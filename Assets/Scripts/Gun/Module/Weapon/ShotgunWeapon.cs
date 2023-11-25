@@ -13,7 +13,7 @@ namespace Assets.Scripts.Entity
         public ShotgunWeapon()
         {
             Name = "Shotgun";
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Shotgun");
+            //DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_Shotgun");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_87Shotgun");
             Description = "Firing a wave of bullets, the shotgun is unparalled when facing many foes.";
 
