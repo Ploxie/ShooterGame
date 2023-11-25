@@ -76,3 +76,11 @@ public class ScreenShakeEvent : GameEvent
         Duration = duration;
     }
 }
+public class EnemyEnterCombatEvent : GameEvent
+{
+
+}
+public class EnemyLeaveCombatEvent : GameEvent
+{
+
+}
