@@ -17,6 +17,7 @@ public class MeleeDeath : Death
         enemy.Agent.isStopped = true;
         enemy.Animator.SetTrigger("Die");
         enemyMelee.DE.Effect.Play();
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathMelee, enemyMelee.transform.position);
         enemyMelee.DE.StartCoroutine(enemyMelee.DE.DissolveRoutine());
 
     }

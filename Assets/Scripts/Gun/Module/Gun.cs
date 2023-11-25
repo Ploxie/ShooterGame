@@ -33,7 +33,8 @@ namespace Assets.Scripts.Entity
         {
             if (!Weapon.CanShoot())
                 return;
-            GunVisual.PlaySound();
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.gameObject.transform.position);
+            //GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
             
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
