@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{381a17b5-a0d3-4193-b5cd-b9f90c840c30}">
+		<property name="assetPath">
+			<value>MusicForGame/CK_Level_Complete_v2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.3170833333333336</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>

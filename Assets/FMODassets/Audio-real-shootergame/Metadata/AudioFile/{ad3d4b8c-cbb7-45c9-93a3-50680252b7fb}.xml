@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ad3d4b8c-cbb7-45c9-93a3-50680252b7fb}">
+		<property name="assetPath">
+			<value>MusicForGame/CK_GP_Combat3.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>80.842104166666672</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{346e3807-e305-4403-83ae-c716c3814a40}">
+		<property name="assetPath">
+			<value>Misc/Melee/SlamAttack.mp3.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>
