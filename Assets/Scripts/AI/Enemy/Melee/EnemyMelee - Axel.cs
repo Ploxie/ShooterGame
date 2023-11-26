@@ -36,6 +36,12 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.Effect = Effect;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
+
     protected override void OnDeath()
     {
         base.OnDeath();
@@ -92,6 +98,12 @@ public class EnemyMelee : Enemy
         base.ModifyDamage(multiplier);
         meleeDamageHitBox.Damage *= multiplier;
         jumpDamageHitBox.Damage *= multiplier;
+    }
+
+    protected override void UpdateDamage(float multiplier)
+    {
+        meleeDamageHitBox.Damage = Damage * multiplier;
+        jumpDamageHitBox.Damage = JumpDamage * multiplier;
     }
 
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
-    public abstract class ProjectileEffect : Module
+    public abstract class ProjectileEffect : Module // Alla Fungerar
     {
         public const string BULLET_PREFAB_PATH = "Prefabs/Gun/Projectile_Crystal";
 
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class RicochetEffect : ProjectileEffect
+    public class RicochetEffect : ProjectileEffect // Fungerar
     {
         public RicochetEffect()
         {
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class CrystalEffect : ProjectileEffect
+    public class CrystalEffect : ProjectileEffect // Fungerar
     {
         public CrystalEffect()
         {
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class ClusterEffect : ProjectileEffect
+    public class ClusterEffect : ProjectileEffect // Fungerar
     {
         public ClusterEffect()
         {
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class ExplosionEffect : ProjectileEffect
+    public class ExplosionEffect : ProjectileEffect // Fungerar
     {
         public ExplosionEffect()
         {
@@ -103,7 +103,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class BlackHoleEffect : ProjectileEffect
+    public class BlackHoleEffect : ProjectileEffect // Fungerar
     {
         public BlackHoleEffect()
         {
@@ -122,7 +122,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class PiercingEffect : ProjectileEffect
+    public class PiercingEffect : ProjectileEffect // Fungerar
     {
         public PiercingEffect()
         {

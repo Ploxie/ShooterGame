@@ -17,6 +17,12 @@ public class EnemyRanged : Enemy
         Gun.ApplyModule(Module);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
+
     public void Shoot()
     {
         Gun?.Shoot();

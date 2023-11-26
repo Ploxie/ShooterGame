@@ -9,7 +9,7 @@ namespace Assets.Scripts.Entity
 {
     public class BlackHole : MonoBehaviour
     {
-        public float Radius { get; set; } = 5.0f;
+        public float Radius { get; set; } = 7.0f;
         public float PullsPerSecond { get; set; } = 1.0f;
         public float Duration { get; set; } = 0.5f;
         private float AttractCooldown { get; set; }
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Entity
                     Vector3 direction = (transform.position - character.transform.position);
                     float strength = (direction.magnitude / Radius);
                     direction.y = 0.0f;
-                    character.Rigidbody.AddForce(direction * 100);
+                    character.Rigidbody.AddForce(direction * 300);
                 }
             }
         }

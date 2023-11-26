@@ -25,8 +25,10 @@ public class UIIcon : MonoBehaviour
 
     }
 
-    public void SetModule(Module module)
+    public void SetModule(Module module) //Oklar bugg.
     {
+        if (module == null)
+            return;
         image.sprite = module.Icon;
         descriptionText = module.Description;
     }

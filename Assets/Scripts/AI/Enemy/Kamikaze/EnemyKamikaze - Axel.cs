@@ -34,6 +34,12 @@ public class EnemyKamikaze : Enemy
         ExplosionDamageHitBox.Damage = Damage;
         ExplosionDamageHitBox.Effect = StatusEffect;
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
     public void Explode()
     {
         
@@ -64,6 +70,10 @@ public class EnemyKamikaze : Enemy
     {
         base.ModifyDamage(multiplier);
         ExplosionDamageHitBox.Damage *= multiplier;
+    }
+    protected override void UpdateDamage(float multiplier)
+    {
+        ExplosionDamageHitBox.Damage = Damage * multiplier;
     }
 }
 //EnemyManager enemyManager;

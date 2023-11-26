@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde43f173bd92714186bb88c30ad34b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 3
+  MovementSpeed: 6
   CurrentMovementSpeed: 0
   isSpecial: 0
   weakness: 0
@@ -392,8 +392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 1
-  <MaxHealth>k__BackingField: 1
+  <CurrentHealth>k__BackingField: 75
+  <MaxHealth>k__BackingField: 75
   <HealthRegen>k__BackingField: 0
 --- !u!54 &4488209455237467229
 Rigidbody:

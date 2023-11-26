@@ -43,6 +43,7 @@ namespace Assets.Scripts.Entity
         protected virtual void Update()
         {
             float finalMovementSpeed = MovementSpeed;
+            float damageMultiplier = 1;
 
             // Maybe swap this to the old way: Effect handling itself and not in character?
             // TODO: Tick rate instead
@@ -67,8 +68,16 @@ namespace Assets.Scripts.Entity
                 if (stunEffect != null)
                     finalMovementSpeed = 0.0f;
             }
+            // Damage Done
+            {
+                DebilitationEffect debilitationEffect = GetStatusEffect<DebilitationEffect>();
+                if (debilitationEffect != null)
+                    damageMultiplier = debilitationEffect.DamageMultiplier;
+                    
+            }
 
             CurrentMovementSpeed = finalMovementSpeed;
+            UpdateDamage(damageMultiplier);
 
             for (int i = statusEffects.Count - 1; i >= 0; i--)
             {
@@ -100,6 +109,11 @@ namespace Assets.Scripts.Entity
                 return (T)value;
             }
             return null;
+        }
+
+        protected virtual void UpdateDamage(float multiplier)
+        {
+
         }
 
         public virtual void OnHit(float damage, ProjectileEffect projectileEffect, params StatusEffect[] statusEffects)
