@@ -43,6 +43,8 @@ namespace Assets.Scripts.Entity
 
         private List<Module> pickedUpModules;
 
+        private bool oneshot = true;
+
         private Plane plane = new Plane(Vector2.down, 0f);
 
         public float DashCooldown { get; private set; } = 3;
@@ -77,10 +79,6 @@ namespace Assets.Scripts.Entity
         }
         protected void Start()
         {
-            CycleWeapon();
-            CycleEffect();
-            CycleBullet();
-
             AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
             AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
 
@@ -150,6 +148,14 @@ namespace Assets.Scripts.Entity
         protected override void Update()
         {
             base.Update();
+
+            if (oneshot)
+            {
+                oneshot = false;
+                CycleWeapon();
+                CycleEffect();
+                CycleBullet();
+            }
 
             if (DashCooldownTimer <= DashCooldown)
                 DashCooldownTimer += Time.deltaTime;

@@ -7,6 +7,7 @@ public class ModuleHolder<T> where T : Module
 
     private int accessPointer;
     private int insertionPointer;
+    private int amount;
     private T[] storage;
 
 
@@ -14,6 +15,7 @@ public class ModuleHolder<T> where T : Module
     {
         accessPointer = 0;
         insertionPointer = 0;
+        amount = 0;
         storage = new T[MODULE_STORAGE_CAPACITY];
     }
 
@@ -23,6 +25,8 @@ public class ModuleHolder<T> where T : Module
             insertionPointer = 0;
 
         storage[insertionPointer] = module;
+        amount++;
+        amount = Math.Clamp(amount, 0, MODULE_STORAGE_CAPACITY);
         insertionPointer++;
     }
 
@@ -33,7 +37,7 @@ public class ModuleHolder<T> where T : Module
     public T Cycle()
     {
         accessPointer++;
-        if (accessPointer > MODULE_STORAGE_CAPACITY - 1)
+        if (accessPointer > amount - 1)
             accessPointer = 0;
 
         return storage[accessPointer];
