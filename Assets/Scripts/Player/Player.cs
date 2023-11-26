@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,11 @@ namespace Assets.Scripts.Entity
         //
 
         public bool inWaveRoom;
+        public bool powerUpActive;
+        private float powerUpTimer;
+        private float fireRateMultiplier;
+        private bool fireRateIncreased;
+        private int weaponCount;
         private GunVisual gunVisual;
         private Gun Gun { get; set; }
         private PickupAble AvailablePickup { get; set; }
@@ -31,10 +37,16 @@ namespace Assets.Scripts.Entity
         public Vector3 moveDirection;
         public Vector3 direction;
 
+        StudioListener sl;
+
         private readonly ModuleHolder<Weapon> weaponModules = new();
         private readonly ModuleHolder<StatusEffect> effectModules = new();
         private readonly ModuleHolder<ProjectileEffect> bulletModules = new();
 
+        private List<Module> pickedUpModules;
+
+        private Plane plane = new Plane(Vector2.down, 0f);
+        
         protected override void Awake()
         {
             base.Awake();
@@ -43,22 +55,37 @@ namespace Assets.Scripts.Entity
             Gun = GetComponent<Gun>();
             gunVisual = GetComponentInChildren<GunVisual>();
 
+            sl = FindObjectOfType<StudioListener>();
+            sl.attenuationObject = this.gameObject;
+
             weaponModules.Insert(new ShotgunWeapon());
 
+            pickedUpModules = new List<Module>();
+
+            fireRateIncreased = false;
+            powerUpActive = false;
+
+            fireRateMultiplier = 2.0f;
             ////Temporary debug code, dont bother refactoring it
             //WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
             //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
+            
+        }
+        protected void Start()
+        {
             CycleWeapon();
             CycleEffect();
             CycleBullet();
 
+            AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
+            AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
+
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
         }
-        
         private void CycleWeapon()
         {
             Gun.ApplyModule(weaponModules.Cycle());
@@ -129,6 +156,9 @@ namespace Assets.Scripts.Entity
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Gun?.Shoot();
+
+                //should probably be moved to
+                EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(7, 0.5f, 0.2f));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -157,6 +187,11 @@ namespace Assets.Scripts.Entity
                     {
                         //Gun?.ApplyModule(cartridgePickup.Module);
                         PickupModule(cartridgePickup.Module);
+                        if (!pickedUpModules.Contains(cartridgePickup.Module))
+                        {
+                            pickedUpModules.Add(cartridgePickup.Module);
+                            EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
+                        }
                     }
 
                     HealthPack healthPack = AvailablePickup as HealthPack;
@@ -165,15 +200,56 @@ namespace Assets.Scripts.Entity
                         Health.Heal(healthPack.Healing);
                     }
 
+                    PowerUpPickUp powerUp = AvailablePickup as PowerUpPickUp;
+                    if(powerUp != null)
+                    {
+                        powerUp.Pickup();
+                        powerUpActive = true;
+                    }
+
                     AvailablePickup?.Pickup();
                 }
+                
             }
 
-            direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            angle -= 90;
-            transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
-            
+            weaponCount = weaponModules.GetArray().Count(x => x != null);
+            if (powerUpActive)
+            {
+                powerUpTimer += Time.deltaTime;
+                if (!fireRateIncreased)
+                {
+                    fireRateIncreased = true;
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate *= fireRateMultiplier;
+                    }
+                }
+
+                if (powerUpTimer >= 10)
+                {
+                    powerUpActive = false;
+                    powerUpTimer = 0;
+                    fireRateIncreased = false;
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        weaponModules.Cycle().FireRate = weaponModules.Peek().DefaultFireRate;
+                    }
+                }
+            }
+            //Debug.Log(weaponModules.Peek().FireRate);
+
+            //direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //angle -= 90;
+            //transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            plane.Raycast(ray, out float distance);
+            Vector3 position = ray.GetPoint(distance);
+            transform.LookAt(new Vector3(position.x, transform.position.y, position.z));
+
+            direction = position - transform.position;
+
             Rigidbody.velocity = moveDirection * CurrentMovementSpeed;
         }
 

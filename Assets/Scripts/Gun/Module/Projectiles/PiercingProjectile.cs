@@ -11,7 +11,7 @@ namespace Assets.Scripts.Entity
     {
         protected override void OnCharacterCollision(Character character)
         {
-            character.OnHit(Damage, StatusEffects.ToArray());
+            character.OnHit(Damage, ProjectileEffect, StatusEffects.ToArray());
         }
         protected override void OnWallCollision(Collision collision)
         {

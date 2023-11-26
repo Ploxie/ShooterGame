@@ -29,6 +29,11 @@ public class EnemyKamikaze : Enemy
         ExplosionDamageHitBox.Effect = StatusEffect;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
     public void Explode()
     {
         
@@ -54,6 +59,15 @@ public class EnemyKamikaze : Enemy
     private void EndRoar()
     {
         HasRoared = true;
+    }
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        ExplosionDamageHitBox.Damage *= multiplier;
+    }
+    protected override void UpdateDamage(float multiplier)
+    {
+        ExplosionDamageHitBox.Damage = Damage * multiplier;
     }
 }
 //EnemyManager enemyManager;

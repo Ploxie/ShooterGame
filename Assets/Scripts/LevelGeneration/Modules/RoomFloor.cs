@@ -13,19 +13,19 @@ namespace Assets.Scripts.LevelGeneration
     [ExecuteAlways]
     public class RoomFloor : MonoBehaviour
     {
-                
+
         // ONLY IN PREFAB MODE
         private void Update()
         {
-            transform.position = new Vector3(
-                            Mathf.Round(transform.position.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,
-                             -0.625f,
-                             Mathf.Round(transform.position.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
+            //transform.position = new Vector3(
+            //                Mathf.Round(transform.position.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,
+            //                 -0.625f,
+            //                 Mathf.Round(transform.position.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
 
-            transform.localScale = new Vector3(
-                            Mathf.Round(transform.localScale.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,
-                             0.25f,
-                             Mathf.Round(transform.localScale.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
+            //transform.localScale = new Vector3(
+            //                Mathf.Round(transform.localScale.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,
+            //                 0.25f,
+            //                 Mathf.Round(transform.localScale.z / Tile.TILE_SIZE) * Tile.TILE_SIZE);
         }
 
         public HashSet<Tile> CalculateTiles()

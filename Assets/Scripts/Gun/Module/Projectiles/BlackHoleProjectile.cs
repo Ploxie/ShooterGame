@@ -21,7 +21,7 @@ namespace Assets.Scripts.Entity
 
         protected override void OnCharacterCollision(Character character)
         {
-            character.OnHit(Damage, StatusEffects.ToArray());
+            character.OnHit(Damage, ProjectileEffect, StatusEffects.ToArray());
             SpawnBlackHole();
             Destroy(gameObject);
         }
@@ -37,6 +37,10 @@ namespace Assets.Scripts.Entity
             BlackHole blackHole = new GameObject().AddComponent<BlackHole>();
             blackHole.transform.position = transform.position;
             blackHole.tag = tag;
+            GameObject visual = Instantiate(Resources.Load<GameObject>("Prefabs/VFX/BlackHole"), blackHole.transform);
+            Vector3 temp = transform.position;
+            temp.y = 1.7f;
+            visual.transform.position = temp;
         }
 
         private IEnumerator Attract()

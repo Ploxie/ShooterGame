@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{8f8d4a6f-b6cc-4b23-8c8d-02016a159e84}">
+		<property name="assetPath">
+			<value>Attack/Melee/Dark Fantasy Studio-Monster-86.mp3.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e8c04d34-502f-4217-8f47-41ef5aa1918f}</destination>
+		</relationship>
+	</object>
+</objects>

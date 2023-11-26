@@ -8,9 +8,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
-    public abstract class StatusEffect : Module
+    public abstract class StatusEffect : Module // Alla fungerar
     {
-        public float Duration { get; set; } = 1.0f;
+        public float Duration { get; set; } = 5.0f;
+
+        public StatusEffect()
+        {
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_StatusEffect");
+        }
 
         public StatusEffect Copy()
         {
@@ -18,7 +23,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class DamageReceivedEffect : StatusEffect
+    public class DamageReceivedEffect : StatusEffect // Fungerar
     {
         public float DamageMultiplier { get; set; } = 1.5f;
 
@@ -30,9 +35,9 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class RadiationEffect : StatusEffect
+    public class RadiationEffect : StatusEffect // Fungerar
     {
-        public float Damage { get; set; } = 10.0f;
+        public float Damage { get; set; } = 5.0f;
 
         public RadiationEffect()
         {
@@ -42,7 +47,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class IceEffect : StatusEffect
+    public class IceEffect : StatusEffect //Fungerar
     {
         public float MovementSpeedMultiplier { get; set; } = 0.1f;
 
@@ -54,7 +59,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class StunEffect : StatusEffect
+    public class StunEffect : StatusEffect //Fungerar
     {
         public StunEffect()
         {
@@ -64,7 +69,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class DebilitationEffect : StatusEffect
+    public class DebilitationEffect : StatusEffect //Fungerar
     {
         public float DamageMultiplier { get; set; } = 0.5f;
 
@@ -72,7 +77,7 @@ namespace Assets.Scripts.Entity
         {
             Name = "Debilitation";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_79Debilitation");
-            Description = "Viral agents infect the enemy, decreasing it's damage dealt.";
+            Description = "Viral agents infect the enemy, decreasing its damage dealt.";
         }
     }
 }

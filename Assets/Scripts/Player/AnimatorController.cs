@@ -42,7 +42,7 @@ public class AnimatorController : MonoBehaviour
         {
             if (angle > 0f)
             {
-                Debug.Log("Angle: " + angle);
+                //Debug.Log("Angle: " + angle);
                 animator.SetBool("isWalking", true);
                 animator.SetBool("isWalkingBack", false);
             }

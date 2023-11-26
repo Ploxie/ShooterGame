@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Enemy
   - Wall
-  - player
   - EnemyJumpAttack
   - EnemyMeleeAttack
   - HealthPack
@@ -21,6 +20,8 @@ TagManager:
   - Keys
   - Door
   - Prop
+  - SpecialEnemySpawnPoint
+  - PowerUpSpawnPoint
   - Simulation Surface
   layers:
   - Default
@@ -32,6 +33,7 @@ TagManager:
   - Shield
   - Player
   - SpawnTrigger
+  - Wall
   - 
   - 
   - 
@@ -52,8 +54,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - None
   - Floor
   m_SortingLayers:
   - name: Default

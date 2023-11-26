@@ -18,25 +18,37 @@ namespace Assets.Scripts.Entity
         public Weapon Weapon { get; set; }
         private Character Parent { get; set; }
 
+        private GameObject muzzleFlash;
+
         private void Awake()
         {            
             GunVisual = GetComponentInChildren<GunVisual>();
             Parent = GetComponent<Character>();
 
             Weapon = new PistolWeapon();
+            muzzleFlash = Resources.Load<GameObject>("Prefabs/VFX/MuzzelFlash");
         }
 
         public void Shoot()
         {
             if (!Weapon.CanShoot())
                 return;
-            GunVisual.PlaySound();
-
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.gameObject.transform.position);
+            //GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
-
+            
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
                 damageMultiplier = debilitationEffect.DamageMultiplier;
+
+            if (gameObject.tag == "Player")
+            {
+                Player player = Parent as Player;
+                if (player.powerUpActive)
+                {
+                    damageMultiplier = 2.0f;
+                }
+            }
 
             foreach(float launchAngle in Weapon.LaunchAngles)
             {
@@ -44,6 +56,10 @@ namespace Assets.Scripts.Entity
                 Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * transform.rotation * Vector3.forward;
 
                 Vector3 barrelPosition = GunVisual != null ? GunVisual.GetBarrelPosition() : transform.position;
+
+                GameObject muzzleFlash = Instantiate(this.muzzleFlash, transform);
+                muzzleFlash.transform.position = barrelPosition;
+                //muzzleFlash.transform.rotation = Quaternion.LookRotation(rotatedFireDirection, Vector3.up);
 
                 Projectile projectile;
                 if (ProjectileEffect != null)

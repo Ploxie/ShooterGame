@@ -11,25 +11,34 @@ namespace Assets.Scripts.Entity
     {
         protected override void OnWallCollision(Collision collision)
         {
-            base.OnWallCollision(collision);
             Explode();
+            base.OnWallCollision(collision);
         }
 
         protected override void OnCharacterCollision(Character character)
         {
-            base.OnCharacterCollision(character);
             Explode();
+            base.OnCharacterCollision(character);
         }
 
         protected override void OnEndOfRange()
         {
-            base.OnEndOfRange();
             Explode();
+            base.OnEndOfRange();
         }
 
         private void Explode()
         {
-
+            GameObject explosion = Instantiate(Resources.Load<GameObject>("Prefabs/VFX/ExplosionRound"));
+            explosion.transform.position = transform.position;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 3);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent(out Character character) && !character.CompareTag(tag))
+                {
+                    character.OnHit(Damage, ProjectileEffect, StatusEffects.ToArray());
+                }
+            }
         }
     }
 }

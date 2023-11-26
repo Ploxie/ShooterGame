@@ -7,11 +7,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
-    public abstract class ProjectileEffect : Module
+    public abstract class ProjectileEffect : Module // Alla Fungerar
     {
         public const string BULLET_PREFAB_PATH = "Prefabs/Gun/Projectile_Crystal";
 
         public GameObject BulletPrefab { get; protected set; }
+        public ProjectileEffect()
+        {
+            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_ProjectileEffect");
+        }
 
         public abstract Projectile CreateProjectile(Vector3 barrelPosition);
 
@@ -22,7 +26,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class RicochetEffect : ProjectileEffect
+    public class RicochetEffect : ProjectileEffect // Fungerar
     {
         public RicochetEffect()
         {
@@ -42,14 +46,14 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class CrystalEffect : ProjectileEffect
+    public class CrystalEffect : ProjectileEffect // Fungerar
     {
         public CrystalEffect()
         {
             BulletPrefab = Resources.Load<GameObject>(BULLET_PREFAB_PATH);
             Name = "Crystal";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Bullet/Tex_skill_41_crystal");
-            Description = "After a moment, the bullet splits into two, moving directly away form one another.";
+            Description = "After a moment, the bullet splits into two, moving directly away from one another.";
         }
 
         public override Projectile CreateProjectile(Vector3 barrelPosition)
@@ -61,7 +65,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class ClusterEffect : ProjectileEffect
+    public class ClusterEffect : ProjectileEffect // Fungerar
     {
         public ClusterEffect()
         {
@@ -80,7 +84,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class ExplosionEffect : ProjectileEffect
+    public class ExplosionEffect : ProjectileEffect // Fungerar
     {
         public ExplosionEffect()
         {
@@ -99,7 +103,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class BlackHoleEffect : ProjectileEffect
+    public class BlackHoleEffect : ProjectileEffect // Fungerar
     {
         public BlackHoleEffect()
         {
@@ -118,7 +122,7 @@ namespace Assets.Scripts.Entity
         }
     }
 
-    public class PiercingEffect : ProjectileEffect
+    public class PiercingEffect : ProjectileEffect // Fungerar
     {
         public PiercingEffect()
         {

@@ -17,6 +17,12 @@ public class EnemyRanged : Enemy
         Gun.ApplyModule(Module);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
+
     public void Shoot()
     {
         Gun?.Shoot();
@@ -25,7 +31,7 @@ public class EnemyRanged : Enemy
     protected override void OnDeath()
     {
         base.OnDeath();
-        PlaySound("deathranged");
+        //PlaySound("deathranged");
         SpawnCartridgePickup(Module);
         StateMachine.SetState(typeof(RangedDeath));
     }
@@ -41,6 +47,11 @@ public class EnemyRanged : Enemy
             }
         }
         return false;
+    }
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        Gun.Weapon.MultiplyDamage(multiplier);
     }
 }
 

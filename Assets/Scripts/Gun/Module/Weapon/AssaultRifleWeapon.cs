@@ -17,9 +17,10 @@ namespace Assets.Scripts.Entity
             Description = "A perfect balance of speed and damage, the assault rifle can adapt to any situation.";
             Damage = 15.0f;
             ProjectileSpeed = 12.0f;
-            Range = 15.0f;
+            Range = 5.0f; // ÄNDRA
 
             FireRate = 10.0f;
+            DefaultFireRate = FireRate;
             ReloadTime = 2.0f;
             MaxAmmo = 30;
             CurrentAmmo = MaxAmmo;

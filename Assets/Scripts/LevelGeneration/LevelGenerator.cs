@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
+using Unity.AI.Navigation;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static Assets.Scripts.LevelGeneration.Tile;
 using Random = UnityEngine.Random;
@@ -22,12 +18,17 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField, Range(1, 10)] private int spaceBetweenRooms = 1;
         [SerializeField, Range(0, 10)] private int randomWalkDrunkeness = 4;
         [SerializeField, Range(0.0f, 1.0f)] private float corridorRandomness = 0.5f;
+        [SerializeField] private NavMeshSurface navMesh;
 
         private int corridorId = 0;
+
+        [SerializeField] private bool isTutorial;        
 
         public HashSet<Tile> tiles;
         public HashSet<Tile> corridors;
         public HashSet<Tile> doors;
+
+        private bool DoneGenerating;
 
         private void Awake()
         {
@@ -39,6 +40,17 @@ namespace Assets.Scripts.LevelGeneration
 
         private void Start()
         {
+            if (isTutorial)
+            {
+                StartCoroutine((new[] {
+                    GenerateTutorial(),
+                    GenerateWalls(),
+                    BuildNavMesh(),
+                }).GetEnumerator());
+                return;
+            }
+
+
             UnityEngine.Random.InitState(seed);
             StartCoroutine((new[] {
                 GenerateRoomLocations(),
@@ -47,8 +59,34 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateWalls(),
                 GenerateDoors(),
                 PlaceKeys(),
-            }).GetEnumerator());
+                BuildNavMesh(),
+                PlaceSpecialObjects()
+            }).GetEnumerator());            
         }
+
+        private IEnumerator GenerateTutorial()
+        {
+
+            RoomModule[] rooms = GetComponentsInChildren<RoomModule>();
+            foreach(var room in rooms)
+            {
+
+                var bounds = room.CalculateBounds();
+
+                var roomCenter = new Vector2Int(bounds.x, bounds.y);
+                foreach (var tile in room.Tiles)
+                {
+                    var t = new Tile(tile.Position) { IsModule = true, IsDoor = room.IsDoor, Previous = new Tile(tile.Position.x-1, tile.Position.y) };
+                    tiles.Add(t);
+                    if (room.IsDoor)
+                        doors.Add(t);
+                }
+
+            }
+
+            yield return null;
+        }
+
 
         public IEnumerator GenerateRoomLocations()
         {
@@ -354,6 +392,8 @@ namespace Assets.Scripts.LevelGeneration
 
         private IEnumerator GenerateWalls()
         {
+            
+
             foreach (Tile tile in tiles)
             {
                 foreach (var direction in Direction2D.CARDINAL)
@@ -437,16 +477,54 @@ namespace Assets.Scripts.LevelGeneration
             yield return null;
         }
 
+        private IEnumerator BuildNavMesh()
+        {
+            navMesh.BuildNavMesh();
+            yield return null;
+        }
+        private IEnumerator PlaceSpecialObjects()
+        {
+            GameObject[] specialEnemySpawnPoints = GameObject.FindGameObjectsWithTag("SpecialEnemySpawnPoint");
+            EnemySpawner enemySpawner = Resources.Load<EnemySpawner>("Prefabs/Enemy/EnemySpawner");
+
+            int numberOfSpecialEnemySpawns = 5;
+            int specialEnemyRange = specialEnemySpawnPoints.Length / numberOfSpecialEnemySpawns;
+            for (int i = 0; i < specialEnemyRange * numberOfSpecialEnemySpawns; i += specialEnemyRange)
+            {
+                int index = i + (int)((specialEnemyRange - 1) * Random.value);
+                EnemySpawner enemySpawner1 = Instantiate(enemySpawner, specialEnemySpawnPoints[index].transform);
+                enemySpawner1.SpawnSpecialEnemy = true;
+                enemySpawner1.ContinousSpawns = false;
+                enemySpawner1.Activate();
+            }
+
+            GameObject[] powerUpSpawnPoints = GameObject.FindGameObjectsWithTag("PowerUpSpawnPoint");
+            PowerUpPickUp powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
+
+            int numberOfPickUpSpawns = 5;
+            int powerUprange = powerUpSpawnPoints.Length / numberOfPickUpSpawns;
+            for (int i = 0; i < powerUprange * numberOfPickUpSpawns; i += powerUprange)
+            {
+                int index = i + (int)((powerUprange - 1) * Random.value);
+                PowerUpPickUp powerUpPickUp1 = Instantiate(powerUpPickUp);
+                powerUpPickUp1.transform.position = powerUpSpawnPoints[index].transform.position;
+            }
+            
+            yield return null;
+        }
+
         private GameObject CreateWall(Tile tile, int mask)
         {
+
+
             if(!tile.HasWall(mask))
             {
                 return null;
             }
 
-            float tileSize = TILE_SIZE;
+            float tileSize = TILE_SIZE + 0.5f;
             float wallHeight = tileSize * 0.75f;
-            float wallThickness = tileSize / 10.0f;
+            float wallThickness = tileSize / 10.0f;           
 
             float offsetX = mask == Wall.EAST ? 1.0f : 0.0f;
             offsetX = mask == Wall.NORTH || mask == Wall.SOUTH ? 0.5f : offsetX;
@@ -458,18 +536,25 @@ namespace Assets.Scripts.LevelGeneration
             rotation = mask == Wall.EAST ? 90.0f : rotation;
             rotation = mask == Wall.WEST ? -90.0f : rotation;
 
-
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             {
                 wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
+                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);               
+
                 wall.transform.rotation = Quaternion.Euler(0, rotation, 0);
-                wall.transform.parent = transform;
+                wall.transform.SetParent(transform);
                 wall.tag = "Wall";
                 wall.name = "Wall";
                 wall.isStatic = true;
                 //wall.GetComponent<Collider>().material = wallPhysicMaterial;
             }
+
+            if (wall.TryGetComponent(out MeshRenderer renderer))
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.material = Resources.Load<Material>("Materials/Office/Ground Mats/Epoxy/Epoxy Ground 20m");
+            }
+
             return wall;
         }
 
@@ -505,19 +590,19 @@ namespace Assets.Scripts.LevelGeneration
             return door;
         }
 
-        public static RoomModule RandomRoomModule()
+        public RoomModule RandomRoomModule()
         {
             return RoomManager.RoomModules[(int)(Random.value * RoomManager.RoomModules.Length)];
         }
-        public static RoomModule RandomStartModule()
+        public RoomModule RandomStartModule()
         {
             return RoomManager.StartModules[(int)(Random.value * RoomManager.StartModules.Length)];
         }
-        public static RoomModule RandomEndModule()
+        public RoomModule RandomEndModule()
         {
             return RoomManager.EndModules[(int)(Random.value * RoomManager.EndModules.Length)];
         }
-        public static RoomModule RandomCorridorModule()
+        public RoomModule RandomCorridorModule()
         {
             return RoomManager.CorridorModules[(int)(Random.value * RoomManager.CorridorModules.Length)];
         }
@@ -525,22 +610,26 @@ namespace Assets.Scripts.LevelGeneration
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            foreach(Node node in level.nodes)
+
+            if (level != null)
             {
-                var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                foreach (Node node in level.nodes)
+                {
+                    var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
+                    Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
 
-                RoomNode roomNode = node as RoomNode;
-                if (roomNode != null && roomNode.GeneratedModule != null)
-                    Handles.Label(position, "" + roomNode.GeneratedModule.name);
+                    RoomNode roomNode = node as RoomNode;
+                    if (roomNode != null && roomNode.GeneratedModule != null)
+                        Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
-                if (node.Parent == null)
-                    continue;
+                    if (node.Parent == null)
+                        continue;
 
-                var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                    var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                Gizmos.DrawLine(position, parentPosition);                
+                    Gizmos.DrawLine(position, parentPosition);
+                }
             }
 
             if (tiles == null)
@@ -556,7 +645,7 @@ namespace Assets.Scripts.LevelGeneration
                 if (tile.IsCorridor)
                     Gizmos.color = Color.red;
                 Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
-                //Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
+                Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
 
             }
 

@@ -18,6 +18,7 @@ public class RangedDeath : Death
         enemy.Animator.SetTrigger("Die");
         enemyRange.DissolveEffect.Effect.Play();
         enemyRange.DissolveEffect.StartCoroutine(enemyRange.DissolveEffect.DissolveRoutine());
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathRanged, enemyRange.transform.position);
     }
     public override void Update()
     {

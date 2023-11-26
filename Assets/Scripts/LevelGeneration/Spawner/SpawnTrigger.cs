@@ -3,17 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnTrigger : MonoBehaviour
+namespace Assets.Scripts.Entity
+
 {
-    protected void OnCollisionEnter(Collision collision)
+    public class SpawnTrigger : MonoBehaviour
     {
-        foreach (Transform sibling in transform.parent)
+        protected void OnTriggerEnter(Collider collider)
         {
-            if (sibling.TryGetComponent(out EnemySpawner spawn))
+            if (collider.gameObject.CompareTag("Player"))
             {
-                 spawn.Activate();
+                if (collider.gameObject.TryGetComponent(out Player p))
+            {
+                foreach (Transform sibling in transform.parent)
+                {
+                    if (sibling.TryGetComponent(out EnemySpawner spawn))
+                    {
+                        spawn.Activate();
+                    }
+                }
+                Destroy(gameObject);
+            }
             }
         }
-        Destroy(gameObject);
     }
 }

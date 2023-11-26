@@ -10,6 +10,7 @@ namespace Assets.Scripts.LevelGeneration
         public static RoomModule[] StartModules;
         public static RoomModule[] EndModules;
         public static RoomModule[] CorridorModules;
+        public static RoomModule[] TutorialModules;
 
         public static void LoadPrefabs()
         {
@@ -19,6 +20,7 @@ namespace Assets.Scripts.LevelGeneration
             StartModules = LoadPrefabs(roomsPath + "Start");
             EndModules = LoadPrefabs(roomsPath + "End");
             CorridorModules = LoadPrefabs(roomsPath + "Corridor");
+            TutorialModules = LoadPrefabs(roomsPath + "Tutorial");
 
             int roomCount = RoomModules.Length + StartModules.Length + EndModules.Length + CorridorModules.Length;
             Debug.Log("Loaded " + roomCount + " Room Modules");

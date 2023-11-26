@@ -1,3 +1,4 @@
+using Assets.Scripts.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -14,6 +15,9 @@ namespace Assets.Scripts.LevelGeneration
         public int MaxActiveEnemies;
         private double lastSpawn;
         private double activeEnemies;
+        [SerializeField] public bool SpawnSpecialEnemy = false;
+        [SerializeField] public bool RandomEnemyWeakness = true;
+        [SerializeField] private SpecialWeakness weakness;
 
         [field: SerializeField] private bool Active { get; set; } = false;
 
@@ -49,7 +53,20 @@ namespace Assets.Scripts.LevelGeneration
             if (activeEnemies <= MaxActiveEnemies)
             {
                 Entity.Enemy enemyToSpawn = Enemies[Random.Range(0, Enemies.Length)];
-                Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+                Enemy enemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+                if (SpawnSpecialEnemy)
+                {
+                    if (RandomEnemyWeakness)
+                    {
+                        enemy.SetSpecial((SpecialWeakness)(Random.value * 5));
+                    }
+                    else
+                    {
+                        enemy.SetSpecial(weakness);
+                    }
+                }
+
+
             }
         }
 

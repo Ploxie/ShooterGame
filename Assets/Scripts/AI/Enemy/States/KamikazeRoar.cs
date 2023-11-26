@@ -22,7 +22,8 @@ public class KamikazeRoar : State
 
     public override void Enter()
     {
-        enemyKamikaze.PlaySound("roarkamikaze");
+        //enemyKamikaze.PlaySound("roarkamikaze");
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.roarKamikaze, enemyKamikaze.transform.position);
         enemyKamikaze.Animator.SetTrigger("Roar");
     }
 

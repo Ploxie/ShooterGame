@@ -14,6 +14,7 @@ public class EnemyMelee : Enemy
     [SerializeField] private Hitbox jumpDamageHitBox;
 
     [SerializeField] private GameObject visualCracks;
+    private GameObject slash;
 
     [SerializeField] public DissolveEffect DE;
 
@@ -29,15 +30,22 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.Damage = JumpDamage;
         jumpDamageHitBox.Effect = Effect;
         Effect = Module.CreateRandomStatusEffectModule();
+        slash = Resources.Load<GameObject>("Prefabs/VFX/Slash");
 
         meleeDamageHitBox.Effect = Effect;
         jumpDamageHitBox.Effect = Effect;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        Agent.speed = CurrentMovementSpeed;
+    }
+
     protected override void OnDeath()
     {
         base.OnDeath();
-        PlaySound("deathmelee");
+        //PlaySound("deathmelee");
         SpawnCartridgePickup(Effect);
         DE.enabled = true;
         DE.Effect.Play();
@@ -50,6 +58,7 @@ public class EnemyMelee : Enemy
         if (value != 0)
         {
             meleeDamageHitBox.gameObject.SetActive(true);
+            GameObject temp = Instantiate(slash, transform);
         }
         else
         {
@@ -65,8 +74,10 @@ public class EnemyMelee : Enemy
         {
             jumpDamageHitBox.gameObject.SetActive(true);
             PlaceEffect();
-            PlaySound("attackgruntsmelee");
-            PlaySound("slammattackmelee");
+            //PlaySound("attackgruntsmelee");
+            //PlaySound("slammattackmelee");
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ScreamMelee, this.transform.position);
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.slamsGround, this.transform.position);
         }
         else
         {
@@ -80,6 +91,19 @@ public class EnemyMelee : Enemy
         GameObject temp = Instantiate(visualCracks);
         temp.transform.position = transform.position;
         temp.transform.Rotate(0, Random.Range(0, 360f), 0);
+    }
+
+    protected override void ModifyDamage(float multiplier)
+    {
+        base.ModifyDamage(multiplier);
+        meleeDamageHitBox.Damage *= multiplier;
+        jumpDamageHitBox.Damage *= multiplier;
+    }
+
+    protected override void UpdateDamage(float multiplier)
+    {
+        meleeDamageHitBox.Damage = Damage * multiplier;
+        jumpDamageHitBox.Damage = JumpDamage * multiplier;
     }
 
 }

@@ -13,7 +13,7 @@ public class EnemyHealthBar : MonoBehaviour
     public float enemyMovingHealth;
     public Transform target;
     public float timer;
-
+        
     private Health health;
     void Start()
     {
@@ -27,19 +27,9 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyMovingHealthBar.fillAmount = enemyMovingHealth / health.MaxHealth;
-        if (enemyMovingHealth > health.CurrentHealth)
-        {
-            timer += Time.deltaTime;
-            if (timer > 0.5f)
-            {
-                enemyMovingHealth -= 0.25f;
-            }
-            if (enemyMovingHealth <= health.CurrentHealth)
-            {
-                timer = 0;
-            }
-        }
+
+        enemyMovingHealthBar.fillAmount = Mathf.Lerp(enemyMovingHealthBar.fillAmount, enemyHealthBar.fillAmount, Time.deltaTime * 5.0f);
+
         //enemyHealthBarBorder.transform.LookAt(target);
         enemyHealthBarBorder.transform.rotation = target.rotation;
     }

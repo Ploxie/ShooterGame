@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
+    public enum SpecialWeakness
+    {
+        Dense, Analytic, Intangible, Porous, Unstable, Armored
+    }
     [RequireComponent(typeof(Health)), RequireComponent(typeof(Rigidbody))]
     public abstract class Character : MonoBehaviour
     {
@@ -15,10 +19,16 @@ namespace Assets.Scripts.Entity
         [SerializeField] protected float MovementSpeed = 2.0f;
         [HideInInspector] public float CurrentMovementSpeed;
 
-        private Dictionary<Type, StatusEffect> statusEffects = new ();
+        [SerializeField] protected bool isSpecial = false;
+        [SerializeField] protected SpecialWeakness weakness;
+
+        private double tickTimer = 1000;
+        private double tickTimerStart;
+
+        private Dictionary<Type, StatusEffect> statusEffects = new();
         public Rigidbody Rigidbody { get; private set; }
         public Collider Collider { get; private set; }
-                
+
         protected virtual void Awake()
         {
             Health = GetComponent<Health>();
@@ -26,20 +36,24 @@ namespace Assets.Scripts.Entity
             Collider = GetComponentInChildren<Collider>();
 
             CurrentMovementSpeed = MovementSpeed;
+            tickTimerStart = Utils.GetUnixMillis();
         }
 
 
         protected virtual void Update()
         {
             float finalMovementSpeed = MovementSpeed;
+            float damageMultiplier = 1;
 
             // Maybe swap this to the old way: Effect handling itself and not in character?
             // TODO: Tick rate instead
             // Radiation
+            if (Utils.GetUnixMillis() - tickTimerStart >= tickTimer)
             {
+                tickTimerStart = Utils.GetUnixMillis();
                 RadiationEffect radiationEffect = GetStatusEffect<RadiationEffect>();
                 if (radiationEffect != null)
-                    Health.TakeDamage(radiationEffect.Damage * Time.deltaTime);
+                    Health.TakeDamage(radiationEffect.Damage);
             }
 
             // Ice 
@@ -54,10 +68,18 @@ namespace Assets.Scripts.Entity
                 if (stunEffect != null)
                     finalMovementSpeed = 0.0f;
             }
+            // Damage Done
+            {
+                DebilitationEffect debilitationEffect = GetStatusEffect<DebilitationEffect>();
+                if (debilitationEffect != null)
+                    damageMultiplier = debilitationEffect.DamageMultiplier;
+                    
+            }
 
             CurrentMovementSpeed = finalMovementSpeed;
+            UpdateDamage(damageMultiplier);
 
-            for(int i = statusEffects.Count - 1; i >= 0; i--)
+            for (int i = statusEffects.Count - 1; i >= 0; i--)
             {
                 StatusEffect effect = statusEffects.ElementAt(i).Value;
                 effect.Duration -= Time.deltaTime;
@@ -82,20 +104,62 @@ namespace Assets.Scripts.Entity
         public T GetStatusEffect<T>() where T : StatusEffect
         {
             StatusEffect value;
-            if(statusEffects.TryGetValue(typeof(T), out value))
+            if (statusEffects.TryGetValue(typeof(T), out value))
             {
                 return (T)value;
             }
             return null;
         }
 
-        public virtual void OnHit(float damage, params StatusEffect[] statusEffects)
+        protected virtual void UpdateDamage(float multiplier)
         {
-            foreach(var effect in statusEffects)
+
+        }
+
+        public virtual void OnHit(float damage, ProjectileEffect projectileEffect, params StatusEffect[] statusEffects)
+        {
+            int damageWeaknessMultiplier = 1;
+            foreach (var effect in statusEffects)
             {
                 AddStatusEffect(effect);
             }
-            Health.TakeDamage(damage);
+            if (isSpecial)
+            {
+                switch (projectileEffect)
+                {
+                    case RicochetEffect:
+                        if (weakness == SpecialWeakness.Dense)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case CrystalEffect:
+                        if (weakness == SpecialWeakness.Analytic)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case ClusterEffect:
+                        if (weakness == SpecialWeakness.Intangible)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case ExplosionEffect:
+                        if (weakness == SpecialWeakness.Porous)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case BlackHoleEffect:
+                        if (weakness == SpecialWeakness.Unstable)
+                            damageWeaknessMultiplier = 5;
+                        break;
+                    case PiercingEffect:
+                        if (weakness == SpecialWeakness.Armored)
+                            damageWeaknessMultiplier = 5;
+                        break;
+
+                }
+            }
+            Health.TakeDamage(damage * damageWeaknessMultiplier);
+        }
+        public virtual void SetSpecial(SpecialWeakness weakness)
+        {
+            isSpecial = true;
+            this.weakness = weakness;
         }
     }
 }

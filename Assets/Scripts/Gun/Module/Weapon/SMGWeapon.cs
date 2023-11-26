@@ -12,7 +12,7 @@ namespace Assets.Scripts.Entity
         public SMGWeapon()
         {
             Name = "SMG";
-            DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_SMG");
+            //DropPrefab = Resources.Load<GameObject>("Prefabs/Pickups/Pickup_SMG");
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_78SMG");
             Description = "The SMG unleashes a hell of bullets upon your foes, killing them with a thousand cuts.";
 
@@ -21,6 +21,7 @@ namespace Assets.Scripts.Entity
             Range = 10.0f;
 
             FireRate = 20.0f;
+            DefaultFireRate = FireRate;
             ReloadTime = 2.0f;
             MaxAmmo = 20;
             CurrentAmmo = MaxAmmo;
