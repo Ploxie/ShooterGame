@@ -16,6 +16,8 @@ namespace Assets.Scripts.Entity
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
 
+        public bool SimulationEnabled;
+
         [HideInInspector]
         public WaveSpawner waveSpawner;
 
@@ -41,6 +43,9 @@ namespace Assets.Scripts.Entity
 
         protected override void Update()
         {
+            if (SimulationEnabled)
+                return;
+
             if(Player == null)
                 Player = FindObjectOfType<Player>();
 

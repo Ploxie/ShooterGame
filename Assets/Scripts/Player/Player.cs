@@ -15,6 +15,8 @@ namespace Assets.Scripts.Entity
         public double DashTimeWindow;
         public float DashForce;
 
+        public bool SimulationEnabled;
+
         //Temporary debug code, dont bother refactoring it
         public TMP_Text WeaponModDebugText;
         public TMP_Text EffectModDebugText;
@@ -120,6 +122,9 @@ namespace Assets.Scripts.Entity
         protected override void Update()
         {
             base.Update();
+
+            if (SimulationEnabled)
+                return;
 
             if (Input.GetKey(KeyCode.Mouse0))
             {

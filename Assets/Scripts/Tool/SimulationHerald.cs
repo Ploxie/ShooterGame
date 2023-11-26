@@ -5,16 +5,22 @@ using UnityEngine;
 
 public struct CollectedData
 {
-    public int BaseBulletDamage;
-    public int BaseTotalBulletDamage;
-    public int BulletSpeed;
-    public int FireRate;
+    public int BaseBulletDamage; //The immediate damage of one bullet
+    public int BaseTotalBulletDamage; //The total immediate damage of all bullets that hit the target
+    public int BulletSpeed; //Speed of the bullet
+    public int FireRate; //The cooldown in milliseconds between each bullet
 
-    public int BulletsPerSecond;
-    public int BulletsPerMinute;
+    public int BulletsPerSecond; //How many bullets are fired per second
+    public int BulletsPerMinute; //How many bullets are fired per minute
 
-    public int CombinedDamage;
-    public int TotalCombinedDamage;
+    public int CombinedBulletDamage; //The immediate damage and over time damage of one bullet
+    public int TotalCombinedBulletDamage; //The total immediate damage and over time damage of all bullets that hit the target
+
+    public int DamagePerSecond; //The immediate and over time damage per second of all bullets that hit the target combined
+
+    public int PlayerSustainedDamagePerSecond; //The immediate and over time damage per second that the player would theoretically sustain from the selected enemy composition.
+
+    public float DamageDealtToTakenRatio; //The ratio of damage dealt vs damage taken. 
 }
 
 //Please do not refactor me -Hampus
@@ -35,11 +41,9 @@ public class SimulationHerald : MonoBehaviour
     public const int MAX_STATUS_IDS = 5;
     public const int MAX_EFFECT_IDS = 6;
 
-    public WeaponID CurrentWeaponID;
-    public StatusID CurrentStatusID;
-    public EffectID CurrentEffectID;
-
     public float MissPercentage;
+
+    public Gun Gun;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +52,6 @@ public class SimulationHerald : MonoBehaviour
         MissPercentage = Mathf.Round(MissPercentage * 100);
         MissPercentage /= 100;
 
-        CurrentWeaponID = WeaponID.Pistol;
         RunSimulations();
     }
 
@@ -77,6 +80,6 @@ public class SimulationHerald : MonoBehaviour
 
     void Update()
     {
-        
+        Gun.Shoot();
     }
 }

@@ -21,6 +21,7 @@ TagManager:
   - Keys
   - Door
   - Prop
+  - Simulation Surface
   layers:
   - Default
   - TransparentFX

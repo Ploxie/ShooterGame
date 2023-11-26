@@ -1,15 +1,9 @@
-
 using Assets.Scripts.Entity;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class EnemyKamikaze : Enemy
 {
-
-    
-    
-    
     [field: SerializeField] public float DiveRange { get; private set; } = 3f;
     [field: SerializeField] public float Damage { get; set; } = 10.0f;
 
@@ -34,6 +28,7 @@ public class EnemyKamikaze : Enemy
         ExplosionDamageHitBox.Damage = Damage;
         ExplosionDamageHitBox.Effect = StatusEffect;
     }
+
     public void Explode()
     {
         

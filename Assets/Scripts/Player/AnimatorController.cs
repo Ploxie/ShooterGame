@@ -10,6 +10,10 @@ public class AnimatorController : MonoBehaviour
     //Health health; //Om health-- så kör hit animation.
     private Player player;
 
+    public bool SimulationEnabled;
+
+    public bool Fire;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -25,8 +29,9 @@ public class AnimatorController : MonoBehaviour
 
     private void Animation()
     {
-        
-        bool fire = Input.GetKey(KeyCode.Mouse0);
+        if (!SimulationEnabled)
+            Fire = Input.GetKey(KeyCode.Mouse0);
+
         bool isFiring = animator.GetBool(isFiringHash);
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
@@ -52,11 +57,11 @@ public class AnimatorController : MonoBehaviour
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBack", false);
         }
-        if (!isFiring && fire)
+        if (!isFiring && Fire)
         {
             animator.SetBool("isFiring", true);
         }
-        if (isFiring && !fire)
+        if (isFiring && !Fire)
         {
             animator.SetBool("isFiring", false);
         }
