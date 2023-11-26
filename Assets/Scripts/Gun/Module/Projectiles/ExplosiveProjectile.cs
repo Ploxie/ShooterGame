@@ -29,7 +29,7 @@ namespace Assets.Scripts.Entity
 
         private void Explode()
         {
-            GameObject explosion = Instantiate(Resources.Load<GameObject>("Prefabs/VFX/Explosion"));
+            GameObject explosion = Instantiate(Resources.Load<GameObject>("Prefabs/VFX/ExplosionRound"));
             explosion.transform.position = transform.position;
             Collider[] colliders = Physics.OverlapSphere(transform.position, 3);
             foreach (Collider collider in colliders)

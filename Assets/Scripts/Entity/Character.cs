@@ -22,6 +22,9 @@ namespace Assets.Scripts.Entity
         [SerializeField] protected bool isSpecial = false;
         [SerializeField] protected SpecialWeakness weakness;
 
+        private double tickTimer = 1000;
+        private double tickTimerStart;
+
         private Dictionary<Type, StatusEffect> statusEffects = new();
         public Rigidbody Rigidbody { get; private set; }
         public Collider Collider { get; private set; }
@@ -33,6 +36,7 @@ namespace Assets.Scripts.Entity
             Collider = GetComponentInChildren<Collider>();
 
             CurrentMovementSpeed = MovementSpeed;
+            tickTimerStart = Utils.GetUnixMillis();
         }
 
 
@@ -43,10 +47,12 @@ namespace Assets.Scripts.Entity
             // Maybe swap this to the old way: Effect handling itself and not in character?
             // TODO: Tick rate instead
             // Radiation
+            if (Utils.GetUnixMillis() - tickTimerStart >= tickTimer)
             {
+                tickTimerStart = Utils.GetUnixMillis();
                 RadiationEffect radiationEffect = GetStatusEffect<RadiationEffect>();
                 if (radiationEffect != null)
-                    Health.TakeDamage(radiationEffect.Damage * Time.deltaTime);
+                    Health.TakeDamage(radiationEffect.Damage);
             }
 
             // Ice 
