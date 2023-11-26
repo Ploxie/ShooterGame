@@ -191,10 +191,10 @@ namespace Assets.Scripts.Entity
                     {
                         //Gun?.ApplyModule(cartridgePickup.Module);
                         PickupModule(cartridgePickup.Module);
+                        EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
                         if (!pickedUpModules.Contains(cartridgePickup.Module))
                         {
                             pickedUpModules.Add(cartridgePickup.Module);
-                            EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
                         }
                     }
 

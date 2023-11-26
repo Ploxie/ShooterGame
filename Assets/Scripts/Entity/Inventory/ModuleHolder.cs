@@ -30,15 +30,10 @@ public class ModuleHolder<T> where T : Module
     {
         return storage[accessPointer];
     }
-    public T Peek(int i)
-    {
-        return storage[i];
-    }
-
     public T Cycle()
     {
         accessPointer++;
-        if (accessPointer >= insertionPointer)
+        if (accessPointer > MODULE_STORAGE_CAPACITY - 1)
             accessPointer = 0;
 
         return storage[accessPointer];

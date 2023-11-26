@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class UIIcon : MonoBehaviour
 {
-    private Image image;
+    [SerializeField] private Image image;
     public TextMeshProUGUI description;
     public string descriptionText;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        //image = GetComponent<Image>();
     }
     void Start()
     {
