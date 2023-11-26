@@ -44,6 +44,9 @@ namespace Assets.Scripts.Entity
         private List<Module> pickedUpModules;
 
         private Plane plane = new Plane(Vector2.down, 0f);
+
+        public float DashCooldown { get; private set; } = 3;
+        [field: SerializeField] public float DashCooldownTimer { get; private set; } = 0;
         
         protected override void Awake()
         {
@@ -148,6 +151,9 @@ namespace Assets.Scripts.Entity
         {
             base.Update();
 
+            if (DashCooldownTimer <= DashCooldown)
+                DashCooldownTimer += Time.deltaTime;
+
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Gun?.Shoot();
@@ -170,8 +176,11 @@ namespace Assets.Scripts.Entity
             float z = Input.GetAxisRaw("Vertical");
             moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && DashCooldownTimer >= DashCooldown)
+            {
                 Rigidbody.AddForce(moveDirection * DashForce);
+                DashCooldownTimer = 0;
+            }
 
             if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
