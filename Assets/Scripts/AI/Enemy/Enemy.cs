@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 namespace Assets.Scripts.Entity
 {
 
-    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar), typeof(AudioSource))]
+    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar))]//, typeof(AudioSource))]
 
     public abstract class Enemy : Character
     {
