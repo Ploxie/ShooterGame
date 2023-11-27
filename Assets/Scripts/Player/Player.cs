@@ -83,6 +83,12 @@ namespace Assets.Scripts.Entity
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+            {
+                Vector3 newPos = new Vector3(transform.position.x, hit.point.y + 1.658768f, transform.position.z);
+                transform.transform.position = newPos;
+            }
         }
         private void CycleWeapon()
         {
@@ -231,6 +237,9 @@ namespace Assets.Scripts.Entity
                     }
                 }
             }
+
+            
+
             //Debug.Log(weaponModules.Peek().FireRate);
 
             //direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
