@@ -614,13 +614,14 @@ namespace Assets.Scripts.LevelGeneration
                 wall.tag = "Wall";
                 wall.name = "Wall";
                 wall.isStatic = true;
+                wall.layer = 9;
                 //wall.GetComponent<Collider>().material = wallPhysicMaterial;
             }
 
             if (wall.TryGetComponent(out MeshRenderer renderer))
             {
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                renderer.material = wallMaterial;
+                renderer.material = Resources.Load<Material>("Materials/Office/Ground Mats/Epoxy/Epoxy Ground 20m");
             }
 
             return wall;

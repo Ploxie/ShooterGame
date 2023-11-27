@@ -391,6 +391,26 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
   Position: {x: 11, y: -27}
   Size: {x: 10, y: 10}
   Module: {fileID: 0}
@@ -439,6 +459,11 @@ MonoBehaviour:
   - {fileID: 7869146786210101573}
   Parent: {fileID: -2452874900001802426}
   triedDirections:
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
@@ -572,6 +597,11 @@ MonoBehaviour:
   - {fileID: -2452874900001802426}
   Parent: {fileID: 8485316916017822955}
   triedDirections:
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
@@ -811,6 +841,11 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
   Position: {x: 15, y: -46}
   Size: {x: 20, y: 18}
   Module: {fileID: 0}
@@ -818,7 +853,7 @@ MonoBehaviour:
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
-  IsWaveRoom: 0
+  IsWaveRoom: 1
   Key: 0
 --- !u!114 &6884084794622231231
 MonoBehaviour:
@@ -892,6 +927,11 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: -1, y: 0}
   - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
   Position: {x: 4, y: -42}
   Size: {x: 10, y: 10}
   Module: {fileID: 0}
@@ -918,6 +958,11 @@ MonoBehaviour:
   Children: []
   Parent: {fileID: -525705513387844702}
   triedDirections:
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: 1}
@@ -1055,6 +1100,11 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
   Position: {x: 3, y: 4}
   Size: {x: 10, y: 10}
   Module: {fileID: 0}
@@ -1062,5 +1112,5 @@ MonoBehaviour:
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
-  IsWaveRoom: 1
+  IsWaveRoom: 0
   Key: 0

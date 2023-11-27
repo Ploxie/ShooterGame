@@ -45,7 +45,7 @@ namespace Assets.Scripts.Entity
             StateMachine.Init(this);
 
             Rigidbody rb = GetComponent<Rigidbody>();
-            rb.mass = 1000f;
+            //rb.mass = 1000f;
 
             Health.OnDeath += OnDeath;
         }
