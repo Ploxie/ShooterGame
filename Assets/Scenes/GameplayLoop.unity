@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -1978,6 +1978,114 @@ MonoBehaviour:
       Data3: 262248855
       Data4: 1958298757
     Path: event:/NewLoops/ST_Gameplay
+  <ToggleProj>k__BackingField:
+    Guid:
+      Data1: -157289384
+      Data2: 1316151079
+      Data3: -1555283323
+      Data4: -385175170
+    Path: event:/Simple Events/Moduels/ProjectileToggle
+  <PickUpProj>k__BackingField:
+    Guid:
+      Data1: 1409973984
+      Data2: 1271392754
+      Data3: 1698782342
+      Data4: -251651572
+    Path: event:/Simple Events/Moduels/ProjectilePickUp
+  <ToggleStatus>k__BackingField:
+    Guid:
+      Data1: 391267326
+      Data2: 1275326991
+      Data3: 218125744
+      Data4: -1079282773
+    Path: event:/Simple Events/Moduels/StatusEffectToggle
+  <PickUpStatus>k__BackingField:
+    Guid:
+      Data1: -522701386
+      Data2: 1339428422
+      Data3: -331416415
+      Data4: 1251561175
+    Path: event:/Simple Events/Moduels/StatusEffectPickUp
+  <ToggleWeapon>k__BackingField:
+    Guid:
+      Data1: 566226232
+      Data2: 1260115775
+      Data3: -1733576281
+      Data4: -1644966260
+    Path: event:/Simple Events/Moduels/WeaponToggle
+  <PickUpWeapon>k__BackingField:
+    Guid:
+      Data1: -1775982596
+      Data2: 1260663921
+      Data3: -875960190
+      Data4: 1694835117
+    Path: event:/Simple Events/Moduels/WeaponPickUp
+  <Sniper>k__BackingField:
+    Guid:
+      Data1: 1551613549
+      Data2: 1097247845
+      Data3: 1968591259
+      Data4: 1837334040
+    Path: event:/Weapons/Sniper/SniperShuffle
+  <Pistol>k__BackingField:
+    Guid:
+      Data1: -1354240713
+      Data2: 1297907368
+      Data3: 989121152
+      Data4: -2018957887
+    Path: event:/Weapons/Pistol/PistolShuffle
+  <SMG>k__BackingField:
+    Guid:
+      Data1: -1147785873
+      Data2: 1239094830
+      Data3: 1942945412
+      Data4: 2085396987
+    Path: event:/Weapons/SMG/SMGShuffle
+  <Shotgun>k__BackingField:
+    Guid:
+      Data1: 2003355043
+      Data2: 1133922500
+      Data3: -865555794
+      Data4: -1206766095
+    Path: event:/Weapons/Shotgun/ShotgunShuffle
+  <Assualt>k__BackingField:
+    Guid:
+      Data1: 1511866554
+      Data2: 1294749520
+      Data3: 1667682994
+      Data4: 1865990651
+    Path: event:/Weapons/Assault Rifle/Assult Rifle shuffle
+  GunSound:
+  - Guid:
+      Data1: -1354240713
+      Data2: 1297907368
+      Data3: 989121152
+      Data4: -2018957887
+    Path: event:/Weapons/Pistol/PistolShuffle
+  - Guid:
+      Data1: 1551613549
+      Data2: 1097247845
+      Data3: 1968591259
+      Data4: 1837334040
+    Path: event:/Weapons/Sniper/SniperShuffle
+  - Guid:
+      Data1: -1147785873
+      Data2: 1239094830
+      Data3: 1942945412
+      Data4: 2085396987
+    Path: event:/Weapons/SMG/SMGShuffle
+  - Guid:
+      Data1: 1511866554
+      Data2: 1294749520
+      Data3: 1667682994
+      Data4: 1865990651
+    Path: event:/Weapons/Assault Rifle/Assult Rifle shuffle
+  - Guid:
+      Data1: 2003355043
+      Data2: 1133922500
+      Data3: -865555794
+      Data4: -1206766095
+    Path: event:/Weapons/Shotgun/ShotgunShuffle
 --- !u!1 &1751009614
 GameObject:
   m_ObjectHideFlags: 0

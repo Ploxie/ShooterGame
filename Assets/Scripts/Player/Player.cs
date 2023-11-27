@@ -83,6 +83,7 @@ namespace Assets.Scripts.Entity
         private void CycleWeapon()
         {
             Gun.ApplyModule(weaponModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleWeapon, this.transform.position);
             Weapon temp = weaponModules.Peek();
             if (temp != null)
             {
@@ -119,6 +120,7 @@ namespace Assets.Scripts.Entity
         private void CycleEffect()
         {
             Gun.ApplyModule(effectModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleStatus, this.transform.position);
             if (effectModules.Peek() != null)
             {
                 //EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
@@ -131,6 +133,7 @@ namespace Assets.Scripts.Entity
         private void CycleBullet()
         {
             Gun.ApplyModule(bulletModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleProj, this.transform.position);
             if (bulletModules.Peek() != null)
             {
                 //BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
@@ -244,6 +247,7 @@ namespace Assets.Scripts.Entity
             if (module is Weapon weapon)
             {
                 weaponModules.Insert(weapon);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpWeapon, this.transform.position);
                 CycleWeapon();
                 return;
             }
@@ -251,6 +255,7 @@ namespace Assets.Scripts.Entity
             if (module is StatusEffect statusEffect)
             {
                 effectModules.Insert(statusEffect);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpStatus, this.transform.position);
                 CycleEffect();
                 return;
             }
@@ -258,6 +263,7 @@ namespace Assets.Scripts.Entity
             if (module is ProjectileEffect projectileEffect)
             {
                 bulletModules.Insert(projectileEffect);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpProj, this.transform.position);
                 CycleBullet();
                 return;
             }
