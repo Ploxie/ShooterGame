@@ -1,6 +1,7 @@
 
 using Assets.Scripts.Entity;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyMelee : Enemy
 {
@@ -15,6 +16,8 @@ public class EnemyMelee : Enemy
 
     [SerializeField] private GameObject visualCracks;
     private GameObject slash;
+
+    //[SerializeField] public VisualEffect VFXGraph;
 
     [SerializeField] public DissolveEffect DE;
 
