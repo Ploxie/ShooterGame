@@ -19,6 +19,7 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField, Range(0, 10)] private int randomWalkDrunkeness = 4;
         [SerializeField, Range(0.0f, 1.0f)] private float corridorRandomness = 0.5f;
         [SerializeField] private NavMeshSurface navMesh;
+        private Material wallMaterial;
 
         private int corridorId = 0;
 
@@ -37,6 +38,9 @@ namespace Assets.Scripts.LevelGeneration
             doors = new HashSet<Tile>();
             waveSpawners = new();
             RoomManager.LoadPrefabs();
+            seed = (int)Utils.GetUnixMillis();
+            wallMaterial = Resources.Load<Material>("Materials/SeeThrough/SeeThrough");
+
         }
 
         private void Start()
@@ -616,7 +620,7 @@ namespace Assets.Scripts.LevelGeneration
             if (wall.TryGetComponent(out MeshRenderer renderer))
             {
                 renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                renderer.material = Resources.Load<Material>("Materials/Office/Ground Mats/Epoxy/Epoxy Ground 20m");
+                renderer.material = wallMaterial;
             }
 
             return wall;
