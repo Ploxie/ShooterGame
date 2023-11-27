@@ -43,7 +43,9 @@ namespace Assets.Scripts.Entity
             powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
             key = Resources.Load<Key>("Prefabs/Keys/BlueKey");
             StateMachine.Init(this);
-           
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.mass = 1000f;
 
             Health.OnDeath += OnDeath;
         }

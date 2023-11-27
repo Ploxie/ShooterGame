@@ -44,11 +44,13 @@ namespace Assets.Scripts.LevelGeneration
 
         private bool isCorridor;
         private bool isModule;
-        private bool isDoor;
+        private bool isDoor;       
         private int walls;
         private Tile previous;
         public int id;
         public Key.KeyType keyType;
+        public bool isWave;
+        public RoomModule room;
 
         
 

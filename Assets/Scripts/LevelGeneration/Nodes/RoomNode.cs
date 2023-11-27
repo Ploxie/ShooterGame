@@ -12,9 +12,11 @@ namespace Assets.Scripts.LevelGeneration
 
         public RoomModule Module;
         public RoomModule GeneratedModule;
+        public RoomModule CreatedModule;
 
         public bool IsEnd;
         public bool HasKey;
+        public bool IsWaveRoom;
         public Key.KeyType Key;
 
         public bool Intersects(RoomNode other)

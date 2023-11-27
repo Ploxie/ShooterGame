@@ -17,7 +17,6 @@ public class CloseDoor : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent<Player>(out var player))
         {
-            Debug.Log("ASD");
             player.inWaveRoom = true;
             WaveSpawner.SetActive(true);
             door.CloseDoor();
