@@ -18,8 +18,8 @@ namespace Assets.Scripts.Entity
             Description = "Firing a wave of bullets, the shotgun is unparalled when facing many foes.";
 
             Damage = 5.0f;
-            ProjectileSpeed = 10.0f;
-            Range = 50.0f;
+            ProjectileSpeed = 20.0f;
+            Range = 30.0f;
 
             FireRate = 1.0f;
             DefaultFireRate = FireRate;

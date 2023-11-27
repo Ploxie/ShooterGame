@@ -16,9 +16,9 @@ namespace Assets.Scripts.Entity
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_78SMG");
             Description = "The SMG unleashes a hell of bullets upon your foes, killing them with a thousand cuts.";
 
-            Damage = 1.0f;
-            ProjectileSpeed = 10.0f;
-            Range = 10.0f;
+            Damage = 5.0f;
+            ProjectileSpeed = 20.0f;
+            Range = 20.0f;
 
             FireRate = 20.0f;
             DefaultFireRate = FireRate;

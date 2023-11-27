@@ -10,7 +10,7 @@ namespace Assets.Scripts.Entity
 {
     public abstract class StatusEffect : Module // Alla fungerar
     {
-        public float Duration { get; set; } = 5.0f;
+        public float Duration { get; set; } = 1.0f;
 
         public StatusEffect()
         {
@@ -44,12 +44,13 @@ namespace Assets.Scripts.Entity
             Name = "Radiation";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_62Radiation");
             Description = "Devastating particles inflicts radiation poisoning to the enemy, dealing damage over time.";
+            Duration = 5;
         }
     }
 
     public class IceEffect : StatusEffect //Fungerar
     {
-        public float MovementSpeedMultiplier { get; set; } = 0.1f;
+        public float MovementSpeedMultiplier { get; set; } = 0.5f;
 
         public IceEffect()
         {
@@ -66,6 +67,7 @@ namespace Assets.Scripts.Entity
             Name = "Stun";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_45Stun");
             Description = "An electrical shock causes the enemy's nervous systems to go haywire, stunning them for a brief period of time.";
+            Duration = 0.5f;
         }
     }
 
@@ -78,6 +80,7 @@ namespace Assets.Scripts.Entity
             Name = "Debilitation";
             Icon = Resources.Load<Sprite>("Sprites/Modules/Effects/Tex_skill_79Debilitation");
             Description = "Viral agents infect the enemy, decreasing its damage dealt.";
+            Duration = 5f;
         }
     }
 }
