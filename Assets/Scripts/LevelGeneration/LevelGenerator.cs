@@ -521,10 +521,12 @@ namespace Assets.Scripts.LevelGeneration
                         Resources.Load<Entity.Enemy>("Prefabs/Enemy/EnemyRangedDisolve")
                     };
 
+                    int[] numberOfEnemiesPerWave = {5, 10, 15};
+
                     for(int i = 0; i < waveSpawner.Waves.Length; i++)
                     {
                         waveSpawner.Waves[i] = new Wave();
-                        waveSpawner.Waves[i].Enemies = new Entity.Enemy[i+1];
+                        waveSpawner.Waves[i].Enemies = new Entity.Enemy[numberOfEnemiesPerWave[i]];
                         for(int j = 0; j < waveSpawner.Waves[i].Enemies.Length; j++)
                         {
                             waveSpawner.Waves[i].Enemies[j] = enemyPrefabs[Random.Range(0, 3)];
