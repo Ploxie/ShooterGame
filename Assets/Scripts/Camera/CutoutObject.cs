@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class CutoutObject : MonoBehaviour
 {
-    private GameObject target;
-    private Player player;
+    [SerializeField] private GameObject target;
 
     [SerializeField] private LayerMask wallMask;
 
