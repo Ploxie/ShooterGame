@@ -5,18 +5,26 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float countdown;
-    [SerializeField] private List<GameObject> spawnPoints;
-    [SerializeField] private List<GameObject> doors;
+    [SerializeField] public List<GameObject> spawnPoints;
+    [SerializeField] public List<GameObject> doors;
 
     public Wave[] Waves;
     private Player player;
 
     public int CurrentWaveIndex = 0;
     private bool readyToCountDown;
+
+    private List<Enemy> spawnedEnemies;
+
+    private void Awake()
+    {
+        spawnedEnemies = new();
+    }
 
 
     private void Start()
@@ -25,7 +33,8 @@ public class WaveSpawner : MonoBehaviour
 
         for (int i = 0; i < Waves.Length; i++)
         {
-            Waves[i].EnemiesLeft = Waves[i].Enemies.Length * spawnPoints.Count;
+            Waves[i].EnemiesLeft = Waves[i].Enemies.Length;
+            Debug.Log(Waves[i].EnemiesLeft);
         }
 
         
@@ -37,6 +46,15 @@ public class WaveSpawner : MonoBehaviour
         {
             player = FindAnyObjectByType<Player>();
             return;
+        }
+
+        for(int i = spawnedEnemies.Count-1; i >= 0; i--)
+        {
+            if (spawnedEnemies[i].Health.IsDead)
+            {
+                Waves[CurrentWaveIndex].EnemiesLeft--;
+                spawnedEnemies.Remove(spawnedEnemies[i]);
+            }
         }
 
         if (player.inWaveRoom == true)
@@ -57,7 +75,7 @@ public class WaveSpawner : MonoBehaviour
             if (readyToCountDown == true)
                 countdown -= Time.deltaTime;
 
-            if (countdown < 0)
+            if (spawnedEnemies.Count <= 0)
             {
                 readyToCountDown = false;
                 countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
@@ -78,14 +96,23 @@ public class WaveSpawner : MonoBehaviour
         {
             for (int i = 0; i < Waves[CurrentWaveIndex].Enemies.Length; i++)
             {
-                foreach (GameObject spawnPoint in spawnPoints)
+                var spawnPoint = spawnPoints[(int)(UnityEngine.Random.value * spawnPoints.Count)];
+                Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i]);
+
+
+                enemy.GetComponent<NavMeshAgent>().enabled = false;
+                enemy.transform.position = spawnPoint.transform.position;
+                enemy.GetComponent<NavMeshAgent>().enabled = true;
+
+                var idleState = enemy.StateMachine.GetState() as Idle;
+                if(idleState != null)
                 {
-                    Enemy enemy = Instantiate(Waves[CurrentWaveIndex].Enemies[i], spawnPoint.transform);
-
-                    enemy.transform.SetParent(spawnPoint.transform);
-
-                    yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy);
+                    idleState.detectionRange = 10000.0f;
                 }
+
+                spawnedEnemies.Add(enemy);
+                Debug.Log("Spawning enemy: "+spawnPoint.transform.position);
+                yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy + 0.5f);
             }
         }
     }

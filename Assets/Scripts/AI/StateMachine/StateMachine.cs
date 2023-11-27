@@ -39,6 +39,12 @@ public class StateMachine
         activeState.Init(parent);
         activeState.Enter();
     }
+
+    public State GetState()
+    {
+        return activeState;
+    }
+
     public void Update()
     {
         activeState.Update();
