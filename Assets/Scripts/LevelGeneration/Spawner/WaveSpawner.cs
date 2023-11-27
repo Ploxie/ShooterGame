@@ -13,6 +13,8 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] public List<GameObject> spawnPoints;
     [SerializeField] public List<GameObject> doors;
 
+    private double waveStart;
+
     public Wave[] Waves;
     private Player player;
 
@@ -29,6 +31,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
+        waveStart = Utils.GetUnixMillis();
         readyToCountDown = true;
 
         for (int i = 0; i < Waves.Length; i++)
@@ -37,18 +40,18 @@ public class WaveSpawner : MonoBehaviour
             Debug.Log(Waves[i].EnemiesLeft);
         }
 
-        
+
     }
 
     private void Update()
     {
-        if(player == null)
+        if (player == null)
         {
             player = FindAnyObjectByType<Player>();
             return;
         }
 
-        for(int i = spawnedEnemies.Count-1; i >= 0; i--)
+        for (int i = spawnedEnemies.Count - 1; i >= 0; i--)
         {
             if (spawnedEnemies[i].Health.IsDead)
             {
@@ -59,6 +62,13 @@ public class WaveSpawner : MonoBehaviour
 
         if (player.inWaveRoom == true)
         {
+            if (Waves[CurrentWaveIndex].EnemiesLeft == 0)
+            {
+                readyToCountDown = true;
+                waveStart = Utils.GetUnixMillis();
+                CurrentWaveIndex++;
+            }
+
             if (CurrentWaveIndex >= Waves.Length)
             {
                 foreach (GameObject doors in doors)
@@ -71,22 +81,17 @@ public class WaveSpawner : MonoBehaviour
                 return;
             }
 
-
-            if (readyToCountDown == true)
-                countdown -= Time.deltaTime;
-
             if (spawnedEnemies.Count <= 0)
             {
-                readyToCountDown = false;
-                countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
-                StartCoroutine(SpawnWave());
+                if (Utils.GetUnixMillis() - waveStart > 5000)
+                {
+                    readyToCountDown = false;
+                    countdown = Waves[CurrentWaveIndex].TimeToNextEnemy;
+                    StartCoroutine(SpawnWave());
+                }
             }
 
-            if (Waves[CurrentWaveIndex].EnemiesLeft == 0)
-            {
-                readyToCountDown = true;
-                CurrentWaveIndex++;
-            }
+
         }
     }
 
@@ -94,6 +99,7 @@ public class WaveSpawner : MonoBehaviour
     {
         if (CurrentWaveIndex < Waves.Length)
         {
+
             for (int i = 0; i < Waves[CurrentWaveIndex].Enemies.Length; i++)
             {
                 var spawnPoint = spawnPoints[(int)(UnityEngine.Random.value * spawnPoints.Count)];
@@ -105,13 +111,13 @@ public class WaveSpawner : MonoBehaviour
                 enemy.GetComponent<NavMeshAgent>().enabled = true;
 
                 var idleState = enemy.StateMachine.GetState() as Idle;
-                if(idleState != null)
+                if (idleState != null)
                 {
                     idleState.detectionRange = 10000.0f;
                 }
 
                 spawnedEnemies.Add(enemy);
-                Debug.Log("Spawning enemy: "+spawnPoint.transform.position);
+                Debug.Log("Spawning enemy: " + spawnPoint.transform.position);
                 yield return new WaitForSeconds(Waves[CurrentWaveIndex].TimeToNextEnemy + 0.5f);
             }
         }

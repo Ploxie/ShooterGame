@@ -375,10 +375,27 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 1, y: 0}
   - {x: 0, y: -1}
-  Position: {x: 11, y: -20}
-  Size: {x: 4, y: 4}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  Position: {x: 11, y: -27}
+  Size: {x: 10, y: 10}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 5032166218533781095, guid: 62d437f6dc04b684883f18975275087a, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: 5eb6d3f2db8743c468c3cd6fd1b7decf, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
   IsWaveRoom: 0
@@ -473,10 +490,15 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
-  Position: {x: 28, y: -11}
-  Size: {x: 22, y: 20}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  Position: {x: 30, y: -12}
+  Size: {x: 10, y: 10}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 1185101363626133886, guid: 80b420d9c3c91df47a5b752d19138fe0, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: fbb4f8e2045ac3b4c8945b514cbaa2b4, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
   IsWaveRoom: 0
@@ -526,6 +548,7 @@ MonoBehaviour:
   Size: {x: 2, y: 2}
   Module: {fileID: 0}
   GeneratedModule: {fileID: 4095127512141978448, guid: 2f36fcc661fffb84599072b0280876cf, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
   IsWaveRoom: 0
@@ -600,10 +623,15 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
-  Position: {x: 7, y: -15}
-  Size: {x: 20, y: 18}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  Position: {x: 7, y: -16}
+  Size: {x: 22, y: 19}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 7339896824431597120, guid: 225e01ce4a2057e409c3e4c3efafc802, type: 3}
+  GeneratedModule: {fileID: 7339896824431597120, guid: 3a44df94c5b118540b9db7fda742e2f9, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
   IsWaveRoom: 0
@@ -779,13 +807,18 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: -1}
-  Position: {x: 15, y: -39}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  Position: {x: 15, y: -46}
   Size: {x: 20, y: 18}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 7339896824431597120, guid: 225e01ce4a2057e409c3e4c3efafc802, type: 3}
+  GeneratedModule: {fileID: 7339896824431597120, guid: 67548d29b7e07074ab679cae128e6048, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
-  IsWaveRoom: 1
+  IsWaveRoom: 0
   Key: 0
 --- !u!114 &6884084794622231231
 MonoBehaviour:
@@ -855,10 +888,15 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
-  Position: {x: 19, y: -64}
-  Size: {x: 24, y: 24}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  Position: {x: 4, y: -42}
+  Size: {x: 10, y: 10}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 8687897499384190641, guid: 197cd9ae1d3d0d149b9ccd0b6d59b89c, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: 5eb6d3f2db8743c468c3cd6fd1b7decf, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 1
   IsWaveRoom: 0
@@ -931,10 +969,15 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: 1}
-  Position: {x: 32, y: 10}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  Position: {x: 34, y: -1}
   Size: {x: 20, y: 16}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 156635531980477306, guid: 0e975cb61484e4147bfc06e6dd784aea, type: 3}
+  GeneratedModule: {fileID: 156635531980477306, guid: 010b6b0191322d443a67c86bf938e0d0, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 1
   HasKey: 0
   IsWaveRoom: 0
@@ -1008,11 +1051,16 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 1, y: 0}
   Position: {x: 3, y: 4}
-  Size: {x: 20, y: 18}
+  Size: {x: 10, y: 10}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 7339896824431597120, guid: 225e01ce4a2057e409c3e4c3efafc802, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: 2193e9786c12d714891a357cbff5ebe7, type: 3}
+  CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
-  IsWaveRoom: 0
+  IsWaveRoom: 1
   Key: 0

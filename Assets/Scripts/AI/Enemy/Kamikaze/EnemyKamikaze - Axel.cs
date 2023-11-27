@@ -48,6 +48,7 @@ public class EnemyKamikaze : Enemy
         healthBarVisual.SetActive(false);
         model.SetActive(false);
         Agent.isStopped = true;
+        Health.SetDead();
     }
 
     protected override void OnDeath()
@@ -55,6 +56,7 @@ public class EnemyKamikaze : Enemy
         base.OnDeath();
         SpawnCartridgePickup(StatusEffect);
         StateMachine.SetState(typeof(KamikazeDeath));
+        
         
     }
 

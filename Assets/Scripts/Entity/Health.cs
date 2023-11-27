@@ -74,5 +74,10 @@ namespace Assets.Scripts.Entity
             MaxHealth *= multiplier;
             CurrentHealth *= multiplier;
         }
+
+        public void SetDead()
+        {
+            IsDead = true;
+        }
     }
 }
