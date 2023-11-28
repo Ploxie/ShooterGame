@@ -52,7 +52,7 @@ public class GunVisual : MonoBehaviour
 
     public void PlaySound()
     {
-        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.GunSound[(int)selectedType], this.gameObject.transform.position);
+        //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.GunSound[(int)selectedType], this.gameObject.transform.position);
         //audio.Play();
     }
 

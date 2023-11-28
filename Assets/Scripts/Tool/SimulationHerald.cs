@@ -76,6 +76,8 @@ public class SimulationHerald : MonoBehaviour
 
         spawnedEnemies = new List<Enemy>();
 
+        ResultsDatabase = new Dictionary<int, CollectedData>();
+
         simTime = Utils.GetUnixMillis();
     }
 
@@ -103,8 +105,9 @@ public class SimulationHerald : MonoBehaviour
 
         damageAccumulator = 0;
 
-        fileName = $"{DateTime.Now.ToString("yyyy-MM-dd_HH.mm.simdata.txt")}";
-
+        
+        fileName = $"{DateTime.Now.ToString("yyyy-MM-dd_HH.mm")}.simdata.txt";
+        Debug.Log(fileName);
         Gun.ApplyModule(ModuleRepresentation.CreateWeapon((WeaponID)weaponID));
         Gun.ApplyModule(ModuleRepresentation.CreateStatus((StatusID)statusID));
         Gun.ApplyModule(ModuleRepresentation.CreateEffect((EffectID)effectID));
