@@ -17,8 +17,8 @@ namespace Assets.Scripts.Entity
             Description = "The sniper rifle packs a powerful punch from a long distance, but is lacking in the fire rate department.";
 
             Damage = 50.0f;
-            ProjectileSpeed = 20.0f;
-            Range = 20.0f;
+            ProjectileSpeed = 30.0f;
+            Range = 30.0f;
 
             FireRate = 0.5f;
             DefaultFireRate = FireRate;

@@ -127,9 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 1
   CurrentMovementSpeed: 0
+  VFXGraph: {fileID: 0}
+  isSpecial: 0
+  weakness: 0
+  waveSpawner: {fileID: 0}
   StateMachine:
     states: []
     activeState: {fileID: 0}
+  DissolveEffect: {fileID: 0}
 --- !u!195 &4317466770689025497
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -166,6 +171,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthBar: {fileID: 6374284456253317412}
   enemyHealthBarBorder: {fileID: 294413258925861055}
+  enemyMovingHealthBar: {fileID: 0}
+  enemyMovingHealth: 0
+  target: {fileID: 0}
+  timer: 0
 --- !u!114 &7273168504874103076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +384,7 @@ PrefabInstance:
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: baseModel
       value: 
-      objectReference: {fileID: 2110032257543815889}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.size
       value: 5
@@ -387,23 +396,23 @@ PrefabInstance:
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[0]
       value: 
-      objectReference: {fileID: 4332409352477992222}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[1]
       value: 
-      objectReference: {fileID: 6233074188422872176}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[2]
       value: 
-      objectReference: {fileID: 6907887562743738617}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[3]
       value: 
-      objectReference: {fileID: 2110032257543815889}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[4]
       value: 
-      objectReference: {fileID: 1692130571344496376}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.size
       value: 5
@@ -411,63 +420,63 @@ PrefabInstance:
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[0].BarrelObject
       value: 
-      objectReference: {fileID: 4332409352477992222}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[1].BarrelObject
       value: 
-      objectReference: {fileID: 6233074188422872176}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[2].BarrelObject
       value: 
-      objectReference: {fileID: 6907887562743738617}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[3].BarrelObject
       value: 
-      objectReference: {fileID: 2110032257543815889}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[4].BarrelObject
       value: 
-      objectReference: {fileID: 1692130571344496376}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.data[0]
       value: 
-      objectReference: {fileID: 2934838500244476136}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.data[1]
       value: 
-      objectReference: {fileID: 4967828786802517468}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.data[2]
       value: 
-      objectReference: {fileID: 5257181117228990894}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.data[3]
       value: 
-      objectReference: {fileID: 4369260791070110201}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: BarrelFiringPositions.Array.data[4]
       value: 
-      objectReference: {fileID: 6754654902807394464}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[0].FiringPosition
       value: 
-      objectReference: {fileID: 2934838500244476136}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[1].FiringPosition
       value: 
-      objectReference: {fileID: 4967828786802517468}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[2].FiringPosition
       value: 
-      objectReference: {fileID: 5257181117228990894}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[3].FiringPosition
       value: 
-      objectReference: {fileID: 4369260791070110201}
+      objectReference: {fileID: 0}
     - target: {fileID: 4805262327887804958, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: Barrels.Array.data[4].FiringPosition
       value: 
-      objectReference: {fileID: 6754654902807394464}
+      objectReference: {fileID: 0}
     - target: {fileID: 5159193810948132437, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.82916963
@@ -551,58 +560,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
---- !u!1 &1692130571344496376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5874015559669037923, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2110032257543815889 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6608824530077105994, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2934838500244476136 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7945952678391557491, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4332409352477992222 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8854317212063111301, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4369260791070110201 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8817395268705537122, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4427890571374531893 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8902511240563484846, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4967828786802517468 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 148144041277724743, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5257181117228990894 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1011717354397285429, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6233074188422872176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1188746061942358507, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6754654902807394464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1964219339830625595, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
-  m_PrefabInstance: {fileID: 5115831674170637723}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6907887562743738617 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1811197939336088930, guid: 0c58a95e04681f349bc4638657dd3884, type: 3}
   m_PrefabInstance: {fileID: 5115831674170637723}
   m_PrefabAsset: {fileID: 0}

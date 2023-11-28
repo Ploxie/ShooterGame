@@ -56,8 +56,8 @@ public class AudioFileManager : MonoBehaviour
     }
     private void Start()
     {
-        EventManager.GetInstance().AddListener<AudioEvent>(PlaySound);
-        EventManager.GetInstance().AddListener<AudioLoopEvent>(PlayAmbience);
+        //EventManager.GetInstance().AddListener<AudioEvent>(PlaySound);
+        //EventManager.GetInstance().AddListener<AudioLoopEvent>(PlayAmbience);
     }
     private void LoadAudioFromFolder(string name, string path)
     {

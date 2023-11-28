@@ -19,23 +19,28 @@ namespace Assets.Scripts.LevelGeneration
         [SerializeField, Range(0, 10)] private int randomWalkDrunkeness = 4;
         [SerializeField, Range(0.0f, 1.0f)] private float corridorRandomness = 0.5f;
         [SerializeField] private NavMeshSurface navMesh;
+        private Material wallMaterial;
 
         private int corridorId = 0;
 
-        [SerializeField] private bool isTutorial;        
+        [SerializeField] private bool isTutorial;
 
         public HashSet<Tile> tiles;
         public HashSet<Tile> corridors;
         public HashSet<Tile> doors;
 
-        private bool DoneGenerating;
+        private Dictionary<RoomModule, WaveSpawner> waveSpawners;
 
         private void Awake()
         {
             tiles = new HashSet<Tile>();
             corridors = new HashSet<Tile>();
             doors = new HashSet<Tile>();
+            waveSpawners = new();
             RoomManager.LoadPrefabs();
+            seed = (int)Utils.GetUnixMillis();
+            wallMaterial = Resources.Load<Material>("Materials/SeeThrough/SeeThrough");
+
         }
 
         private void Start()
@@ -57,18 +62,19 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateRoomModules(),
                 GenerateCorridors(),
                 GenerateWalls(),
+                GenerateWaveRooms(),
                 GenerateDoors(),
                 PlaceKeys(),
                 BuildNavMesh(),
                 PlaceSpecialObjects()
-            }).GetEnumerator());            
+            }).GetEnumerator());
         }
 
         private IEnumerator GenerateTutorial()
         {
 
             RoomModule[] rooms = GetComponentsInChildren<RoomModule>();
-            foreach(var room in rooms)
+            foreach (var room in rooms)
             {
 
                 var bounds = room.CalculateBounds();
@@ -76,7 +82,7 @@ namespace Assets.Scripts.LevelGeneration
                 var roomCenter = new Vector2Int(bounds.x, bounds.y);
                 foreach (var tile in room.Tiles)
                 {
-                    var t = new Tile(tile.Position) { IsModule = true, IsDoor = room.IsDoor, Previous = new Tile(tile.Position.x-1, tile.Position.y) };
+                    var t = new Tile(tile.Position) { IsModule = true, IsDoor = room.IsDoor, Previous = new Tile(tile.Position.x - 1, tile.Position.y) };
                     tiles.Add(t);
                     if (room.IsDoor)
                         doors.Add(t);
@@ -96,24 +102,24 @@ namespace Assets.Scripts.LevelGeneration
             // Clear Generation Data
             Reset(level.rootNode);
 
-            Stack<Node> queue = new ();
+            Stack<Node> queue = new();
             queue.Push(level.rootNode);
 
-            while(queue.Count > 0)
+            while (queue.Count > 0)
             {
                 Node currentNode = queue.Pop();
 
-                if(currentNode is RoomNode)
+                if (currentNode is RoomNode)
                 {
-                    if(!GenerateRoomLocation(currentNode as RoomNode))
+                    if (!GenerateRoomLocation(currentNode as RoomNode))
                     {
                         Reset(currentNode);
                         queue.Push(currentNode.Parent);
-                    }                                        
+                    }
                 }
                 currentNode.Children.ForEach((c) => queue.Push(c));
                 yield return null;
-            }   
+            }
 
         }
 
@@ -129,7 +135,7 @@ namespace Assets.Scripts.LevelGeneration
             }
 
             // This node has tried every direction and failed
-            if(node.TriedEveryDirection())
+            if (node.TriedEveryDirection())
             {
                 node.triedDirections.Clear();
                 return false;
@@ -139,9 +145,9 @@ namespace Assets.Scripts.LevelGeneration
             Vector2Int direction = Direction2D.GetRandomCardinalDirection();
 
             RoomModule module = node.Module;
-            if(module == null)
+            if (module == null)
             {
-                if(node == level.GetEndRoom())
+                if (node == level.GetEndRoom())
                 {
                     module = RandomEndModule();
                 }
@@ -151,14 +157,14 @@ namespace Assets.Scripts.LevelGeneration
                 }
             }
 
-            Vector2Int moduleSize = new (module.Size.x + spaceBetweenRooms, module.Size.y + spaceBetweenRooms);
+            Vector2Int moduleSize = new(module.Size.x + spaceBetweenRooms, module.Size.y + spaceBetweenRooms);
             Vector2Int parentModuleSize = parent.Size;
             Vector2Int spacing = direction * new Vector2Int(spaceBetweenRooms, spaceBetweenRooms);
-            Vector2Int offset = Direction2D.GetPerpendicular(direction)[Random.Range(0,1)] * randomWalkDrunkeness;
+            Vector2Int offset = Direction2D.GetPerpendicular(direction)[Random.Range(0, 1)] * randomWalkDrunkeness;
 
             node.triedDirections.Add(direction);
 
-            direction *= (direction == Direction2D.NORTH  || direction == Direction2D.EAST) ? parentModuleSize : moduleSize;
+            direction *= (direction == Direction2D.NORTH || direction == Direction2D.EAST) ? parentModuleSize : moduleSize;
             direction += spacing;
             direction += offset;
 
@@ -166,7 +172,7 @@ namespace Assets.Scripts.LevelGeneration
             node.Size = moduleSize;
 
             if (!IsValidLocation(node))
-            {                
+            {
                 return GenerateRoomLocation(node);
             }
 
@@ -178,21 +184,21 @@ namespace Assets.Scripts.LevelGeneration
 
         private bool IsValidLocation(RoomNode node)
         {
-            Queue<Node> queue = new ();
+            Queue<Node> queue = new();
             queue.Enqueue(level.rootNode);
 
-            while(queue.Count > 0)
+            while (queue.Count > 0)
             {
                 Node currentNode = queue.Dequeue();
 
                 RoomNode room = currentNode as RoomNode;
-                if(room)
+                if (room)
                 {
-                    if(room.Size != Vector2Int.zero && room != node)
+                    if (room.Size != Vector2Int.zero && room != node)
                     {
                         if (node.Intersects(room))
                             return false;
-                    }                    
+                    }
                 }
 
                 currentNode.Children.ForEach((c) => queue.Enqueue(c));
@@ -214,7 +220,7 @@ namespace Assets.Scripts.LevelGeneration
                 currentNode.Position = Vector2Int.zero;
 
                 RoomNode roomNode = currentNode as RoomNode;
-                if(roomNode != null)
+                if (roomNode != null)
                     roomNode.GeneratedModule = roomNode.Module;
 
                 currentNode.Children.ForEach((c) => queue.Enqueue(c));
@@ -241,12 +247,14 @@ namespace Assets.Scripts.LevelGeneration
                     module.transform.position = new Vector3(roomCenter.x - module.Bounds.x, 0, roomCenter.y - module.Bounds.z) * Tile.TILE_SIZE;
                     module.transform.SetParent(transform, true);
 
-                    foreach(var tile in module.Tiles)
+                    foreach (var tile in module.Tiles)
                     {
                         tiles.Add(new Tile(roomCenter - new Vector2Int(module.Bounds.x, module.Bounds.z) + tile.Position) { IsModule = true });
                     }
+
+                    roomNode.CreatedModule = module;
                 }
-                   
+
 
                 currentNode.Children.ForEach((c) => queue.Enqueue(c));
 
@@ -256,7 +264,7 @@ namespace Assets.Scripts.LevelGeneration
         }
 
         private IEnumerator GenerateCorridors()
-        {           
+        {
             Queue<Node> queue = new();
             queue.Enqueue(level.rootNode);
 
@@ -269,21 +277,21 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     var parent = roomNode.GetParentRoom();
 
-                    if(parent != null)
+                    if (parent != null)
                     {
-                        var corridor = GenerateCorridor(roomNode, parent);                      
+                        var corridor = GenerateCorridor(roomNode, parent);
 
                         tiles.UnionWith(corridor);
-                    }                    
+                    }
                 }
 
                 currentNode.Children.ForEach((c) => queue.Enqueue(c));
                 yield return null;
             }
 
-            foreach(Tile tile in tiles)
+            foreach (Tile tile in tiles)
             {
-                if(tile.IsCorridor)
+                if (tile.IsCorridor)
                 {
                     RoomModule module = Instantiate(RandomCorridorModule(), Vector3.zero, Quaternion.identity);
                     module.CalculateBounds();
@@ -316,7 +324,7 @@ namespace Assets.Scripts.LevelGeneration
                 corridor.Add(tile);
                 previous = tile;
             }
-            
+
             while (position.y != destination.y)
             {
                 if (destination.y > position.y)
@@ -327,11 +335,20 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     position += Vector2Int.down;
                 }
-                Tile tile = new Tile(position) { IsCorridor = true, Previous = previous, id = id };                
-                if(door != null && !doorPlaced && !tiles.Contains(tile))
+                Tile tile = new Tile(position) { IsCorridor = true, Previous = previous, id = id };
+                if (door != null && !doorPlaced && !tiles.Contains(tile))
                 {
                     tile.IsDoor = door != null;
                     tile.keyType = door != null ? door.Key : Key.KeyType.None;
+                    doors.Add(tile);
+                    doorPlaced = true;
+                }
+                if ((node.IsWaveRoom || parent.IsWaveRoom) && !doorPlaced && !tiles.Contains(tile))
+                {
+                    tile.IsDoor = true;
+                    tile.keyType = node.IsWaveRoom ? Key.KeyType.None : Key.KeyType.Boss;
+                    tile.isWave = true;
+                    tile.room = node.IsWaveRoom ? node.GeneratedModule : parent.GeneratedModule;
                     doors.Add(tile);
                     doorPlaced = true;
                 }
@@ -353,6 +370,16 @@ namespace Assets.Scripts.LevelGeneration
                 {
                     tile.IsDoor = door != null;
                     tile.keyType = door != null ? door.Key : Key.KeyType.None;
+                    doors.Add(tile);
+                    doorPlaced = true;
+                }
+                if ((node.IsWaveRoom || parent.IsWaveRoom) && !doorPlaced && !tiles.Contains(tile)) // Entry
+                {
+                    tile.IsDoor = true;
+                    tile.keyType = node.IsWaveRoom ? Key.KeyType.None : Key.KeyType.Boss;
+
+                    tile.isWave = true;
+                    tile.room = node.IsWaveRoom ? node.GeneratedModule : parent.GeneratedModule;
                     doors.Add(tile);
                     doorPlaced = true;
                 }
@@ -392,21 +419,21 @@ namespace Assets.Scripts.LevelGeneration
 
         private IEnumerator GenerateWalls()
         {
-            
+
 
             foreach (Tile tile in tiles)
             {
                 foreach (var direction in Direction2D.CARDINAL)
                 {
                     var neighbourPosition = new Tile(tile.Position + direction);
-                    
+
                     if (!tiles.TryGetValue(neighbourPosition, out Tile neighbour) || (tile.id != neighbour.id && tile.IsCorridor && neighbour.IsCorridor))
                     {
                         tile.Walls |= Wall.FromDirection(direction);
-                    }                    
+                    }
                 }
 
-                if(tile.IsDoor)
+                if (tile.IsDoor)
                 {
                     //var direction = tile.Previous.Position - tile.Position;
                     //tile.Walls |= Wall.FromDirection(direction) << 0x4;                    
@@ -427,14 +454,6 @@ namespace Assets.Scripts.LevelGeneration
 
         private IEnumerator GenerateDoors()
         {
-            var prefabPath = "Prefabs/Door/Door";
-            GameObject prefab = Resources.Load<GameObject>(prefabPath);
-
-            if(prefab == null)
-            {
-                Debug.LogError("Could not find Door prefab at location: " + prefabPath);
-                yield return null;
-            }
 
             foreach (Tile tile in doors)
             {
@@ -442,10 +461,10 @@ namespace Assets.Scripts.LevelGeneration
                 tile.Walls |= Wall.FromDirection(direction) << 0x4;
 
                 Debug.Log("Creating door at: " + tile.Position);
-                CreateDoor(prefab, tile, Wall.NORTH_DOOR);
-                CreateDoor(prefab, tile, Wall.SOUTH_DOOR);
-                CreateDoor(prefab, tile, Wall.EAST_DOOR);
-                CreateDoor(prefab, tile, Wall.WEST_DOOR);
+                CreateDoor(tile, Wall.NORTH_DOOR);
+                CreateDoor(tile, Wall.SOUTH_DOOR);
+                CreateDoor(tile, Wall.EAST_DOOR);
+                CreateDoor(tile, Wall.WEST_DOOR);
             }
 
             yield return null;
@@ -456,11 +475,11 @@ namespace Assets.Scripts.LevelGeneration
             foreach (var node in level.nodes)
             {
                 RoomNode roomNode = node as RoomNode;
-                if(roomNode != null)
+                if (roomNode != null)
                 {
-                    if(roomNode.HasKey)
+                    if (roomNode.HasKey)
                     {
-                        var prefabPath = "Prefabs/Keys/"+roomNode.Key+"Key";
+                        var prefabPath = "Prefabs/Keys/" + roomNode.Key + "Key";
                         Key prefab = Resources.Load<Key>(prefabPath);
 
                         Key key = Instantiate(prefab, Vector3.zero, Quaternion.identity);
@@ -473,6 +492,55 @@ namespace Assets.Scripts.LevelGeneration
                     }
                 }
             }
+
+            yield return null;
+        }
+
+        private IEnumerator GenerateWaveRooms()
+        {
+            foreach (var node in level.nodes)
+            {
+                RoomNode roomNode = node as RoomNode;
+                if (roomNode != null && roomNode.IsWaveRoom)
+                {
+                    RoomModule module = roomNode.CreatedModule;
+                    var spawnPoints = module.GetComponentsInChildren<EnemySpawner>(true);
+
+                    var waveSpawner = new GameObject("Wave Spawner").AddComponent<WaveSpawner>();
+                    //waveSpawner.transform.parent = module.transform;
+                    waveSpawner.spawnPoints = new();
+                    foreach (var spawnPoint in spawnPoints)
+                    {
+                        waveSpawner.spawnPoints.Add(spawnPoint.gameObject);
+                        spawnPoint.gameObject.SetActive(false);
+                    }
+
+
+                    waveSpawner.Waves = new Wave[3];
+                    var enemyPrefabs = new[] {
+                        Resources.Load<Entity.Enemy>("Prefabs/Enemy/EnemyKamikaze - Axel 1"),
+                        Resources.Load<Entity.Enemy>("Prefabs/Enemy/EnemyMelee - Axel 1"),
+                        Resources.Load<Entity.Enemy>("Prefabs/Enemy/EnemyRangedDisolve")
+                    };
+
+                    int[] numberOfEnemiesPerWave = { 5, 10, 15};
+
+                    for (int i = 0; i < waveSpawner.Waves.Length; i++)
+                    {
+                        waveSpawner.Waves[i] = new Wave();
+                        waveSpawner.Waves[i].Enemies = new Entity.Enemy[numberOfEnemiesPerWave[i]];
+                        for (int j = 0; j < waveSpawner.Waves[i].Enemies.Length; j++)
+                        {
+                            waveSpawner.Waves[i].Enemies[j] = enemyPrefabs[Random.Range(0, 3)];
+                        }
+                    }
+
+                    waveSpawner.gameObject.SetActive(false);
+                    waveSpawners.TryAdd(roomNode.GeneratedModule, waveSpawner);
+
+                }
+            }
+
 
             yield return null;
         }
@@ -509,7 +577,7 @@ namespace Assets.Scripts.LevelGeneration
                 PowerUpPickUp powerUpPickUp1 = Instantiate(powerUpPickUp);
                 powerUpPickUp1.transform.position = powerUpSpawnPoints[index].transform.position;
             }
-            
+
             yield return null;
         }
 
@@ -517,14 +585,14 @@ namespace Assets.Scripts.LevelGeneration
         {
 
 
-            if(!tile.HasWall(mask))
+            if (!tile.HasWall(mask))
             {
                 return null;
             }
 
             float tileSize = TILE_SIZE + 0.5f;
             float wallHeight = tileSize * 0.75f;
-            float wallThickness = tileSize / 10.0f;           
+            float wallThickness = tileSize / 10.0f;
 
             float offsetX = mask == Wall.EAST ? 1.0f : 0.0f;
             offsetX = mask == Wall.NORTH || mask == Wall.SOUTH ? 0.5f : offsetX;
@@ -539,13 +607,14 @@ namespace Assets.Scripts.LevelGeneration
             GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             {
                 wall.transform.localScale = new Vector3(tileSize, wallHeight, wallThickness);
-                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);               
+                wall.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, 0.75f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
 
                 wall.transform.rotation = Quaternion.Euler(0, rotation, 0);
                 wall.transform.SetParent(transform);
                 wall.tag = "Wall";
                 wall.name = "Wall";
                 wall.isStatic = true;
+                wall.layer = 9;
                 //wall.GetComponent<Collider>().material = wallPhysicMaterial;
             }
 
@@ -558,12 +627,30 @@ namespace Assets.Scripts.LevelGeneration
             return wall;
         }
 
-        private GameObject CreateDoor(GameObject prefab, Tile tile, int mask)
+        private GameObject CreateDoor(Tile tile, int mask)
         {
             if (!tile.HasWall(mask))
             {
                 return null;
             }
+
+            var prefabPath = "Prefabs/Door/Door";
+
+            if (tile.isWave && tile.keyType == Key.KeyType.None)
+            {
+                prefabPath = "Prefabs/Door/BossDoor";
+            }
+
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
+
+
+            if (prefab == null)
+            {
+                Debug.LogError("Could not find Door prefab at location: " + prefabPath);
+                return null;
+            }
+
+
 
             float tileSize = TILE_SIZE;
             float wallHeight = tileSize;
@@ -586,6 +673,22 @@ namespace Assets.Scripts.LevelGeneration
                 door.transform.position = new Vector3((tile.Position.x + offsetX) * Tile.TILE_SIZE, -0.5f, (tile.Position.y + offsetY) * Tile.TILE_SIZE);
                 door.transform.rotation = Quaternion.Euler(0, rotation + 90.0f, 0);
                 door.GetComponentInChildren<Door>().SetKeyType(tile.keyType);
+            }
+            if (tile.isWave)
+            {
+                if (waveSpawners.TryGetValue(tile.room, out WaveSpawner spawner))
+                {
+                    if (door.GetComponentInChildren<CloseDoor>() != null)
+                    {
+                        door.GetComponentInChildren<CloseDoor>().WaveSpawner = spawner.gameObject;
+                    }
+                        
+                    if (spawner.doors == null)
+                    {
+                        spawner.doors = new();
+                    }
+                    spawner.doors.Add(door);
+                }
             }
             return door;
         }
@@ -635,7 +738,7 @@ namespace Assets.Scripts.LevelGeneration
             if (tiles == null)
                 return;
 
-            
+
             foreach (var tile in tiles)
             {
                 if (tile == null)
@@ -649,7 +752,7 @@ namespace Assets.Scripts.LevelGeneration
 
             }
 
-            foreach(Tile tile in doors)
+            foreach (Tile tile in doors)
             {
                 Gizmos.color = Color.blue;
 

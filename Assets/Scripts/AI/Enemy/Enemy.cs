@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 namespace Assets.Scripts.Entity
 {
 
-    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar), typeof(AudioSource))]
+    [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealthBar))]//, typeof(AudioSource))]
 
     public abstract class Enemy : Character
     {
@@ -41,7 +41,9 @@ namespace Assets.Scripts.Entity
             powerUpPickUp = Resources.Load<PowerUpPickUp>("Prefabs/Pickups/PowerUp");
             key = Resources.Load<Key>("Prefabs/Keys/BlueKey");
             StateMachine.Init(this);
-           
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            //rb.mass = 1000f;
 
             Health.OnDeath += OnDeath;
         }

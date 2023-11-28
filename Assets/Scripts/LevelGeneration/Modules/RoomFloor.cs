@@ -15,7 +15,7 @@ namespace Assets.Scripts.LevelGeneration
     {
 
         // ONLY IN PREFAB MODE
-        private void Update()
+        private void Update() //REMOVE THIS WHEN BUILDING
         {
             //transform.position = new Vector3(
             //                Mathf.Round(transform.position.x / Tile.TILE_SIZE) * Tile.TILE_SIZE,

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Assets.Scripts.Entity
 {
@@ -28,13 +29,14 @@ namespace Assets.Scripts.Entity
         private Dictionary<Type, StatusEffect> statusEffects = new();
         public Rigidbody Rigidbody { get; private set; }
         public Collider Collider { get; private set; }
+        public MeshToMesh VFXGraph;
 
         protected virtual void Awake()
         {
             Health = GetComponent<Health>();
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponentInChildren<Collider>();
-
+            VFXGraph = GetComponentInChildren<MeshToMesh>();
             CurrentMovementSpeed = MovementSpeed;
             tickTimerStart = Utils.GetUnixMillis();
         }
@@ -91,14 +93,52 @@ namespace Assets.Scripts.Entity
 
         public void AddStatusEffect(StatusEffect effect)
         {
+            playEffect(effect);
             statusEffects[effect.GetType()] = effect;
             Debug.Log("Status Effect Added: " + effect.GetType());
         }
 
         private void RemoveStatusEffect(StatusEffect effect)
         {
+            stopEffect(effect);
             statusEffects.Remove(effect.GetType());
             Debug.Log("Status Effect Removed: " + effect.GetType());
+        }
+
+        private void playEffect(StatusEffect effectPlay)
+        {
+            StatusEffect value;
+            if (effectPlay.GetType() == typeof(RadiationEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnRadioStop");
+                VFXGraph.VFXGraph.SendEvent("OnRadioPlay");
+            }
+            if (effectPlay.GetType() == typeof(StunEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+                VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
+            }
+            if (effectPlay.GetType() == typeof(IceEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnIceStop");
+                VFXGraph.VFXGraph.SendEvent("OnIcePlay");
+            }
+        }
+
+        private void stopEffect(StatusEffect effectPlay)
+        {
+            if (effectPlay.GetType() == typeof(RadiationEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnRadioStop");
+            }
+            if (effectPlay.GetType() == typeof(StunEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+            }
+            if (effectPlay.GetType() == typeof(IceEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnIceStop");
+            }
         }
 
         public T GetStatusEffect<T>() where T : StatusEffect

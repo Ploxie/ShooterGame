@@ -14,7 +14,8 @@ public class Idle : State
 
     protected Assets.Scripts.Entity.Player player;
 
-     [SerializeField] protected float detectionRange = 10;
+
+    [SerializeField] public float detectionRange = 31;
 
 
     public override void Init(object parent)

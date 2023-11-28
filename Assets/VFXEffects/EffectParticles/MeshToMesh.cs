@@ -6,12 +6,12 @@ using UnityEngine.VFX;
 public class MeshToMesh : MonoBehaviour
 {
     // Start is called before the first frame update
-    private SkinnedMeshRenderer SkinnedMeshRenderer;
+    [SerializeField]public SkinnedMeshRenderer SkinnedMeshRenderer;
     public VisualEffect VFXGraph;
     public float refreshRate;
     void Start()
     {
-        SkinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+        //SkinnedMeshRenderer = GetComponentInParent<SkinnedMeshRenderer>();
         StartCoroutine(UpdateVFXGraph());
     }
     IEnumerator UpdateVFXGraph()

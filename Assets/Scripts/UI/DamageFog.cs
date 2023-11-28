@@ -57,7 +57,7 @@ public class DamageFog : MonoBehaviour
         {
             if (health.CurrentHealth < health.MaxHealth / 1.5)
             {
-                Debug.Log(((health.MaxHealth / 1.5f) - health.CurrentHealth) / (health.MaxHealth / 1.5f));
+                //Debug.Log(((health.MaxHealth / 1.5f) - health.CurrentHealth) / (health.MaxHealth / 1.5f));
                 speed = speedCurve.Evaluate(((health.MaxHealth / 1.5f) - health.CurrentHealth) / 20);
                 intensity = intensityCurve.Evaluate(((health.MaxHealth / 1.5f) - health.CurrentHealth) / 20);
 

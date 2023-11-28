@@ -45,7 +45,12 @@ namespace Assets.Scripts.Entity
 
         private List<Module> pickedUpModules;
 
+        private bool oneshot = true;
+
         private Plane plane = new Plane(Vector2.down, 0f);
+
+        public float DashCooldown { get; private set; } = 3;
+        [field: SerializeField] public float DashCooldownTimer { get; private set; } = 0;
         
         protected override void Awake()
         {
@@ -79,10 +84,6 @@ namespace Assets.Scripts.Entity
         }
         protected void Start()
         {
-            CycleWeapon();
-            CycleEffect();
-            CycleBullet();
-
             if (!SimulationEnabled)
             {
                 AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
@@ -91,10 +92,17 @@ namespace Assets.Scripts.Entity
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+            {
+                Vector3 newPos = new Vector3(transform.position.x, hit.point.y + 1.658768f, transform.position.z);
+                transform.transform.position = newPos;
+            }
         }
         private void CycleWeapon()
         {
             Gun.ApplyModule(weaponModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleWeapon, this.transform.position);
             Weapon temp = weaponModules.Peek();
             if (temp != null)
             {
@@ -131,6 +139,7 @@ namespace Assets.Scripts.Entity
         private void CycleEffect()
         {
             Gun.ApplyModule(effectModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleStatus, this.transform.position);
             if (effectModules.Peek() != null)
             {
                 //EffectModDebugText.text = $"Effect Module: {effectModules.Peek().Name}";
@@ -143,6 +152,7 @@ namespace Assets.Scripts.Entity
         private void CycleBullet()
         {
             Gun.ApplyModule(bulletModules.Cycle());
+            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ToggleProj, this.transform.position);
             if (bulletModules.Peek() != null)
             {
                 //BulletModDebugText.text = $"Bullet Module: {bulletModules.Peek().Name}";
@@ -158,6 +168,17 @@ namespace Assets.Scripts.Entity
 
             if (SimulationEnabled)
                 return;
+
+            if (oneshot)
+            {
+                oneshot = false;
+                CycleWeapon();
+                CycleEffect();
+                CycleBullet();
+            }
+
+            if (DashCooldownTimer <= DashCooldown)
+                DashCooldownTimer += Time.deltaTime;
 
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -181,8 +202,11 @@ namespace Assets.Scripts.Entity
             float z = Input.GetAxisRaw("Vertical");
             moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && DashCooldownTimer >= DashCooldown)
+            {
                 Rigidbody.AddForce(moveDirection * DashForce);
+                DashCooldownTimer = 0;
+            }
 
             if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {
@@ -193,10 +217,10 @@ namespace Assets.Scripts.Entity
                     {
                         //Gun?.ApplyModule(cartridgePickup.Module);
                         PickupModule(cartridgePickup.Module);
+                        EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
                         if (!pickedUpModules.Contains(cartridgePickup.Module))
                         {
                             pickedUpModules.Add(cartridgePickup.Module);
-                            EventManager.GetInstance().TriggerEvent(new PlayerPickUpModuleEvent(cartridgePickup.Module));
                         }
                     }
 
@@ -242,6 +266,9 @@ namespace Assets.Scripts.Entity
                     }
                 }
             }
+
+            
+
             //Debug.Log(weaponModules.Peek().FireRate);
 
             //direction = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
@@ -264,6 +291,7 @@ namespace Assets.Scripts.Entity
             if (module is Weapon weapon)
             {
                 weaponModules.Insert(weapon);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpWeapon, this.transform.position);
                 CycleWeapon();
                 return;
             }
@@ -271,6 +299,7 @@ namespace Assets.Scripts.Entity
             if (module is StatusEffect statusEffect)
             {
                 effectModules.Insert(statusEffect);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpStatus, this.transform.position);
                 CycleEffect();
                 return;
             }
@@ -278,6 +307,7 @@ namespace Assets.Scripts.Entity
             if (module is ProjectileEffect projectileEffect)
             {
                 bulletModules.Insert(projectileEffect);
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.PickUpProj, this.transform.position);
                 CycleBullet();
                 return;
             }
