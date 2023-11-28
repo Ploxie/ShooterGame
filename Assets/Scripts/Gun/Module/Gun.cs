@@ -11,7 +11,9 @@ using UnityEngine.UIElements;
 namespace Assets.Scripts.Entity
 {
     public class Gun : MonoBehaviour
-    {        
+    {
+        public bool SimulationEnabled;
+
         private GunVisual GunVisual { get; set; }
         public StatusEffect StatusEffect { get; set; }
         public ProjectileEffect ProjectileEffect { get; set; }
@@ -33,7 +35,10 @@ namespace Assets.Scripts.Entity
         {
             if (!Weapon.CanShoot())
                 return;
-            AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.gameObject.transform.position);
+
+            if (!SimulationEnabled)
+                AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.gameObject.transform.position);
+            
             //GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
             

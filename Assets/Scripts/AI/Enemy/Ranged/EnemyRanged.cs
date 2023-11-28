@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Gun))]
 public class EnemyRanged : Enemy
 {
-    private Gun Gun { get; set; }
+    public Gun Gun { get; set; }
     private Module Module { get; set; }
     [SerializeField]public DissolveEffect DissolveEffect;// { get; set; }
 

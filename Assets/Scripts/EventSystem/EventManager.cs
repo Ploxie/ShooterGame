@@ -79,7 +79,7 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Event: " + e.GetType() + " has no listeners");
+            //Debug.Log("Event: " + e.GetType() + " has no listeners");
         }
     }
 }

@@ -55,8 +55,11 @@ namespace Assets.Scripts.Entity
             Gun = GetComponent<Gun>();
             gunVisual = GetComponentInChildren<GunVisual>();
 
-            sl = FindObjectOfType<StudioListener>();
-            sl.attenuationObject = this.gameObject;
+            if (!SimulationEnabled)
+            {
+                sl = FindObjectOfType<StudioListener>();
+                sl.attenuationObject = this.gameObject;
+            }
 
             weaponModules.Insert(new ShotgunWeapon());
 
@@ -80,8 +83,11 @@ namespace Assets.Scripts.Entity
             CycleEffect();
             CycleBullet();
 
-            AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
-            AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
+            if (!SimulationEnabled)
+            {
+                AudioFmodManager.instance.InitializeAmbience(FmodEvents.instance.ambienceTest);
+                AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MusicLoop);
+            }
 
             Health.OnDamageTaken += OnHealthChanged;
             Health.OnHealthGained += OnHealthChanged;
