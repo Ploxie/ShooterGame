@@ -1296,6 +1296,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyMelee>k__BackingField.Path
+      value: event:/Footsetps/MeleeFotsteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyRanged>k__BackingField.Path
+      value: event:/Footsetps/RobotFotsteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyKamikaze>k__BackingField.Path
+      value: event:/Footsetps/KamikazeFotsteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyMelee>k__BackingField.Guid.Data1
+      value: 171852083
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyMelee>k__BackingField.Guid.Data2
+      value: 1225408253
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyMelee>k__BackingField.Guid.Data3
+      value: 826982332
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyMelee>k__BackingField.Guid.Data4
+      value: 529885596
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyRanged>k__BackingField.Guid.Data1
+      value: -1840467832
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyRanged>k__BackingField.Guid.Data2
+      value: 1322560479
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyRanged>k__BackingField.Guid.Data3
+      value: 1421774254
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyRanged>k__BackingField.Guid.Data4
+      value: -14111578
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyKamikaze>k__BackingField.Guid.Data1
+      value: -824273522
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyKamikaze>k__BackingField.Guid.Data2
+      value: 1320105508
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyKamikaze>k__BackingField.Guid.Data3
+      value: 590912140
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <RunEnemyKamikaze>k__BackingField.Guid.Data4
+      value: -2004561953
+      objectReference: {fileID: 0}
     - target: {fileID: 8349536453117235500, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
       propertyPath: m_Name
       value: FmodAudioManager
