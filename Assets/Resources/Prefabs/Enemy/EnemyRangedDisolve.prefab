@@ -228,6 +228,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6065328355615292598}
     - target: {fileID: 5876160299526719479, guid: 1d6b60a251ea47d488b1716553c54e9b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876160299526719479, guid: 1d6b60a251ea47d488b1716553c54e9b, type: 3}
       propertyPath: SkinnedMeshRenderer
       value: 
       objectReference: {fileID: 6672186406212284535}
@@ -448,6 +452,7 @@ MonoBehaviour:
   isSpecial: 0
   weakness: 0
   VFXGraph: {fileID: 0}
+  SimulationEnabled: 0
   waveSpawner: {fileID: 0}
   StateMachine:
     states:
@@ -488,6 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8d7ce5d504408409ed2935ec0797eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SimulationEnabled: 0
 --- !u!114 &473521877123624648
 MonoBehaviour:
   m_ObjectHideFlags: 0
