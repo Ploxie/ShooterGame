@@ -1,9 +1,11 @@
+using FMOD.Studio;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Ranged/RunToPlayer")]
 public class RangedRunToPlayer : RunToPlayer
 {
     protected EnemyRanged enemyRanged;
+    EventInstance PlayaRun;
 
     public override void Init(object other)
     {
@@ -26,11 +28,14 @@ public class RangedRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
+        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
+        PlayaRun.start();
         enemyRanged.Animator.SetBool("WalkForward", true);
     }
 
     public override void Exit()
     {
+        PlayaRun.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         enemyRanged.Animator.SetBool("WalkForward", false);
     }
 
