@@ -54,6 +54,13 @@ public class AudioFmodManager : MonoBehaviour
         eventInstanceMusic.release();
         //UnityEngine.Debug.Log()
     }
+
+    public EventInstance CreateFootstepInst(EventReference stepping)
+    {
+        EventInstance EI = RuntimeManager.CreateInstance(stepping);
+        return EI;
+    }
+
     public void SetMusicArea(MusicFMOD MF)
     {
         MusicInstance.setParameterByName("Area", (float)area);
