@@ -36,6 +36,12 @@ public class EnemyBoss : Enemy
     {
         throw new System.NotImplementedException();
     }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        SceneManager.LoadScene("VictoryScreen");
+    }
     //void WaveFSM()
     //{
     //    switch (state)

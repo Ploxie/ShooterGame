@@ -68,6 +68,7 @@ namespace Assets.Scripts.Entity
 
         protected virtual void OnDeath()
         {
+            SceneManager.LoadScene("VictoryScreen");
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             if (isSpecial)
             {

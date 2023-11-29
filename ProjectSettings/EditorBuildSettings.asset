@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameplayLoop.unity
     guid: cd873f04c80ef1e459b6b224dc81cda5
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 6405f6f7e933de249833dfe354fc1116
   m_configObjects: {}
