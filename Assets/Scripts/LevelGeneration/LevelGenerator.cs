@@ -485,7 +485,11 @@ namespace Assets.Scripts.LevelGeneration
                         Key key = Instantiate(prefab, Vector3.zero, Quaternion.identity);
                         {
                             key.transform.parent = transform;
-                            key.transform.position = new Vector3(roomNode.Position.x + (roomNode.Size.x * 0.5f), 0, roomNode.Position.y + (roomNode.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                            
+                            var keySpawns = roomNode.CreatedModule.GetComponentsInChildren<EnemySpawner>(true);
+                            var position = new Vector3(roomNode.Position.x + (roomNode.Size.x * 0.5f), 0, roomNode.Position.y + (roomNode.Size.y * 0.5f)) * Tile.TILE_SIZE;
+
+                            key.transform.position = keySpawns != null ? keySpawns[(int)(Random.value * keySpawns.Length)].transform.position : position;
                             key.SetKeyType(roomNode.Key);
                             Debug.Log("Placed " + roomNode.Key + " Key at " + key.transform.position);
                         }
