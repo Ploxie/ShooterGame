@@ -67,7 +67,7 @@ namespace Assets.Scripts.Entity
                 sl.attenuationObject = this.gameObject;
             }
 
-            weaponModules.Insert(new ShotgunWeapon());
+            weaponModules.Insert(new PistolWeapon());
 
             pickedUpModules = new List<Module>();
 
