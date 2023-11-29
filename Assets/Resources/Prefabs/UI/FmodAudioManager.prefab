@@ -184,6 +184,27 @@ MonoBehaviour:
       Data3: 1667682994
       Data4: 1865990651
     Path: event:/Weapons/Assault Rifle/Assult Rifle shuffle
+  <RunEnemyMelee>k__BackingField:
+    Guid:
+      Data1: 171852083
+      Data2: 1225408253
+      Data3: 826982332
+      Data4: 529885596
+    Path: event:/Footsetps/MeleeFotsteps
+  <RunEnemyRanged>k__BackingField:
+    Guid:
+      Data1: -1840467832
+      Data2: 1322560479
+      Data3: 1421774254
+      Data4: -14111578
+    Path: event:/Footsetps/RobotFotsteps
+  <RunEnemyKamikaze>k__BackingField:
+    Guid:
+      Data1: -824273522
+      Data2: 1320105508
+      Data3: 590912140
+      Data4: -2004561953
+    Path: event:/Footsetps/KamikazeFotsteps
   GunSound:
   - Guid:
       Data1: -1354240713

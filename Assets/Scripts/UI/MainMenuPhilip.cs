@@ -7,11 +7,19 @@ using UnityEngine.UI;
 
 public class MainMenuPhilip : MonoBehaviour
 {
-    public Toggle m_toggle;
+    public static bool isToggled;
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            isToggled = false;
+        }
+    }
 
     public void PlayGame()
     {
-        if (m_toggle.isOn)
+        if (isToggled)
         {
             SceneManager.LoadScene("GamePlayLoop"); // Change to Play scene
         }
@@ -19,6 +27,7 @@ public class MainMenuPhilip : MonoBehaviour
         {
             SceneManager.LoadScene("Tutorial"); // Change to tutorial scene
         }
+
     }
     public void BackToMenu()
     {
@@ -28,5 +37,17 @@ public class MainMenuPhilip : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+    public void SetToggle()
+    {
+        if (!isToggled)
+        {
+            isToggled = true;
+        }
+        else
+        {
+            isToggled = false;
+        }
+        Debug.Log(isToggled);
     }
 }

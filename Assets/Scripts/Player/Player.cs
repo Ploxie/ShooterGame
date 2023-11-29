@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Entity
 {
@@ -74,13 +75,14 @@ namespace Assets.Scripts.Entity
             powerUpActive = false;
 
             fireRateMultiplier = 2.0f;
+            Health.OnDeath += OnDeath;
             ////Temporary debug code, dont bother refactoring it
             //WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
             //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
             //BulletModDebugText = GameObject.Find("bulletModDebugText").GetComponent<TMP_Text>();
             ////
 
-            
+
         }
         protected void Start()
         {
@@ -311,6 +313,11 @@ namespace Assets.Scripts.Entity
                 CycleBullet();
                 return;
             }
+        }
+
+        private void OnDeath()
+        {
+            SceneManager.LoadScene("GameOver");
         }
 
         private void OnHealthChanged(float _)
