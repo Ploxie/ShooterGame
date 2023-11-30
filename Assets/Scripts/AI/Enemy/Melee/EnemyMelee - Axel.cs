@@ -50,6 +50,7 @@ public class EnemyMelee : Enemy
         base.OnDeath();
         //PlaySound("deathmelee");
         SpawnCartridgePickup(Effect);
+
         DE.enabled = true;
         DE.Effect.Play();
         StateMachine.SetState(typeof(MeleeDeath));

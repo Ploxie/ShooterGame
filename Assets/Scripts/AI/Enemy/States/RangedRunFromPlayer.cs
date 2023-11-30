@@ -26,7 +26,7 @@ public class RangedRunFromPlayer : State
     {
         enemyRanged.Agent.isStopped = false;
         enemyRanged.Agent.updateRotation = false;
-        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
+        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyRanged);
         PlayaRun.start();
         enemyRanged.Animator.SetBool("WalkBackwards", true);
     }

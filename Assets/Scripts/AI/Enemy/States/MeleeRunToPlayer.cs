@@ -40,7 +40,7 @@ public class MeleeRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
-        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
+        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyMelee);
         PlayaRun.start();
         enemyMelee.Animator.SetBool("IsWalking", true);
     }
