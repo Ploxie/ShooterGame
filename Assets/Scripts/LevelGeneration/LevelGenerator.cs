@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.AI.Navigation;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using static Assets.Scripts.LevelGeneration.Tile;
 using Random = UnityEngine.Random;
@@ -727,8 +727,8 @@ namespace Assets.Scripts.LevelGeneration
                     Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
 
                     RoomNode roomNode = node as RoomNode;
-                    if (roomNode != null && roomNode.GeneratedModule != null)
-                        Handles.Label(position, "" + roomNode.GeneratedModule.name);
+                    //if (roomNode != null && roomNode.GeneratedModule != null)
+                    //    Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
                     if (node.Parent == null)
                         continue;

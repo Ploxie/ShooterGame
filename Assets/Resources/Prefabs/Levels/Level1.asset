@@ -420,6 +420,59 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 0
   Key: 0
+--- !u!114 &-4857991731195834558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: 5c1c8b1ace96a2247b9f7b67f64db7e8
+  GraphPosition: {x: 707, y: 61.90251}
+  Children:
+  - {fileID: -4785909753732492269}
+  Parent: {fileID: 6884084794622231231}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 0}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 0
+  Key: 0
+--- !u!114 &-4785909753732492269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: fd15e05886af41c4db4f6c52ba289a05
+  GraphPosition: {x: 870.20496, y: 49.999985}
+  Children: []
+  Parent: {fileID: -4857991731195834558}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 0}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 0
+  Key: 0
 --- !u!114 &-2452874900001802426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +604,35 @@ MonoBehaviour:
   - {fileID: -2452874900001802426}
   - {fileID: -525705513387844702}
   - {fileID: 7869146786210101573}
+  - {fileID: -4857991731195834558}
+  - {fileID: -4785909753732492269}
+  - {fileID: 1034139916466252244}
+--- !u!114 &1034139916466252244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: f2dfddfa82b0b394b9e5ee771fe0607f
+  GraphPosition: {x: 0, y: 0}
+  Children: []
+  Parent: {fileID: 0}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 0}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 0
+  Key: 0
 --- !u!114 &1802768911556862656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +951,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 877bbe5181ac8b945989d1caabbe9c5e
   GraphPosition: {x: 503, y: 126.99999}
-  Children: []
+  Children:
+  - {fileID: -4857991731195834558}
   Parent: {fileID: 5799838475926886784}
   triedDirections:
   - {x: 0, y: -1}

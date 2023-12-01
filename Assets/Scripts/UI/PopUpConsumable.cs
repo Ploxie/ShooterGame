@@ -44,11 +44,11 @@ public class PopUpConsumable : MonoBehaviour
         }
         else if (CartridgePickup.Module is ProjectileEffect)
         {
-            image.color = Color.blue;
+            image.color = Color.red;
         }
         else if (CartridgePickup.Module is StatusEffect)
         {
-            image.color = Color.red;
+            image.color = Color.blue;
         }
     }
 

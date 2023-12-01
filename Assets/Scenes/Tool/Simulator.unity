@@ -2388,7 +2388,7 @@ PrefabInstance:
       objectReference: {fileID: 1029095843}
     - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
       propertyPath: SimulationTime
-      value: 1000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
       propertyPath: AnimationController

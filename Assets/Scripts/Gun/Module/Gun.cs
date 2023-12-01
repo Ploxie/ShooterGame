@@ -36,7 +36,7 @@ namespace Assets.Scripts.Entity
             if (!Weapon.CanShoot())
                 return;
             //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.ShootSound, this.gameObject.transform.position);
-            if (!SimulationEnabled)
+            if (!SimulationEnabled && GunVisual != null)
                 GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
             
