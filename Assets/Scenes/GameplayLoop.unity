@@ -1915,7 +1915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: 61186093e27fe04418735612477f9bbf, type: 2}
+  level: {fileID: 11400000, guid: da3067fe45c2dcb45aa617a9a4702956, type: 2}
   seed: 1
   spaceBetweenRooms: 1
   randomWalkDrunkeness: 4
