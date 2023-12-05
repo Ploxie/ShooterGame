@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.AI.Navigation;
-//using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using static Assets.Scripts.LevelGeneration.Tile;
 using Random = UnityEngine.Random;
@@ -114,7 +114,7 @@ namespace Assets.Scripts.LevelGeneration
                     if (!GenerateRoomLocation(currentNode as RoomNode))
                     {
                         Reset(currentNode);
-                        queue.Push(currentNode.Parent);
+                        queue.Push(currentNode.GetParentRoom());
                     }
                 }
                 currentNode.Children.ForEach((c) => queue.Push(c));
@@ -138,11 +138,12 @@ namespace Assets.Scripts.LevelGeneration
             if (node.TriedEveryDirection())
             {
                 node.triedDirections.Clear();
+                Debug.Log("Tried every direction");
                 return false;
             }
 
             Vector2Int position = parent.Position;
-            Vector2Int direction = Direction2D.GetRandomCardinalDirection();
+            Vector2Int direction = Direction2D.GetRandomCardinalDirection(node.triedDirections.ToArray());
 
             RoomModule module = node.Module;
             if (module == null)
@@ -170,10 +171,11 @@ namespace Assets.Scripts.LevelGeneration
 
             node.Position = position + direction;
             node.Size = moduleSize;
+            node.Module = module;
 
             if (!IsValidLocation(node))
             {
-                Debug.Log(" was not valid!");
+                Debug.Log(module.name+" was not valid! "+direction);
                 return GenerateRoomLocation(node);
             }
 
@@ -219,6 +221,7 @@ namespace Assets.Scripts.LevelGeneration
 
                 currentNode.Size = Vector2Int.zero;
                 currentNode.Position = Vector2Int.zero;
+                currentNode.triedDirections.Clear();
 
                 RoomNode roomNode = currentNode as RoomNode;
                 if (roomNode != null)
@@ -728,13 +731,13 @@ namespace Assets.Scripts.LevelGeneration
                     Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
 
                     RoomNode roomNode = node as RoomNode;
-                    //if (roomNode != null && roomNode.GeneratedModule != null)
-                    //    Handles.Label(position, "" + roomNode.GeneratedModule.name);
+                    if (roomNode != null && roomNode.GeneratedModule != null)
+                        Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
-                    if (node.Parent == null)
+                    if (node.GetParentRoom() == null)
                         continue;
 
-                    var parentPosition = new Vector3(node.Parent.Position.x + (node.Parent.Size.x * 0.5f), 0, node.Parent.Position.y + (node.Parent.Size.y * 0.5f)) * Tile.TILE_SIZE;
+                    var parentPosition = new Vector3(node.GetParentRoom().Position.x + (node.GetParentRoom().Size.x * 0.5f), 0, node.GetParentRoom().Position.y + (node.GetParentRoom().Size.y * 0.5f)) * Tile.TILE_SIZE;
 
                     Gizmos.DrawLine(position, parentPosition);
                 }

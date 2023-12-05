@@ -21,6 +21,19 @@ namespace Assets.Scripts.LevelGeneration
             return CARDINAL[Random.Range(0, CARDINAL.Length)];
         }
 
+        public static Vector2Int GetRandomCardinalDirection(Vector2Int[] except)
+        {
+            List<Vector2Int> available = new();
+            foreach(var direction in CARDINAL)
+            {
+                if(!except.Contains(direction))
+                {
+                    available.Add(direction);
+                }
+            }
+            return available[Random.Range(0, available.Count)];
+        }
+
         public static Vector2Int[] GetPerpendicular(Vector2Int direction)
         {
             if (direction == NORTH || direction == SOUTH)
