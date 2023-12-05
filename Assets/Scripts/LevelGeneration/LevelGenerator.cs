@@ -38,7 +38,7 @@ namespace Assets.Scripts.LevelGeneration
             doors = new HashSet<Tile>();
             waveSpawners = new();
             RoomManager.LoadPrefabs();
-            seed = (int)Utils.GetUnixMillis();
+            seed = (int)(Utils.GetUnixMillis() % 100000);
             wallMaterial = Resources.Load<Material>("Materials/SeeThrough/SeeThrough");
 
         }
@@ -64,9 +64,9 @@ namespace Assets.Scripts.LevelGeneration
                 GenerateWalls(),
                 GenerateWaveRooms(),
                 GenerateDoors(),
-                PlaceKeys(),
                 BuildNavMesh(),
-                PlaceSpecialObjects()
+                PlaceSpecialObjects(),
+                PlaceKeys(),
             }).GetEnumerator());
         }
 
@@ -173,6 +173,7 @@ namespace Assets.Scripts.LevelGeneration
 
             if (!IsValidLocation(node))
             {
+                Debug.Log(" was not valid!");
                 return GenerateRoomLocation(node);
             }
 
@@ -489,7 +490,7 @@ namespace Assets.Scripts.LevelGeneration
                             var keySpawns = roomNode.CreatedModule.GetComponentsInChildren<EnemySpawner>(true);
                             var position = new Vector3(roomNode.Position.x + (roomNode.Size.x * 0.5f), 0, roomNode.Position.y + (roomNode.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                            key.transform.position = keySpawns != null ? keySpawns[(int)(Random.value * keySpawns.Length)].transform.position : position;
+                            key.transform.position = keySpawns.Length > 0 ? keySpawns[(int)(Random.value * keySpawns.Length)].transform.position : position;
                             key.SetKeyType(roomNode.Key);
                             Debug.Log("Placed " + roomNode.Key + " Key at " + key.transform.position);
                         }

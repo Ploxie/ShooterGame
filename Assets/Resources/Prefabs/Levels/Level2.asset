@@ -419,6 +419,57 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 0
   Key: 0
+--- !u!114 &-8203420845657636926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: 93066b839370a5d4f9697a8b89513dc3
+  GraphPosition: {x: 311, y: 693.6927}
+  Children: []
+  Parent: {fileID: 2199853203090574255}
+  triedDirections:
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: -1, y: 0}
+  Position: {x: -58, y: 8}
+  Size: {x: 25, y: 23}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 1185101363626133886, guid: 5ec0435dce15fc245ac982cd161be281, type: 3}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 0
+  Key: 0
+--- !u!114 &-6735476787719675234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dee234ac7e3d43b83d52c8ba9a383, type: 3}
+  m_Name: DoorNode
+  m_EditorClassIdentifier: 
+  Guid: 7a2ef7dcd95132d4a98d30ca8253f968
+  GraphPosition: {x: 607.5, y: 185.87001}
+  Children:
+  - {fileID: 6958059221696313143}
+  Parent: {fileID: -4214788739582552267}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Key: 2
 --- !u!114 &-4857991731195834558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,9 +535,11 @@ MonoBehaviour:
   m_Name: RoomNode
   m_EditorClassIdentifier: 
   Guid: b73046533f0d16d4fab7ae5cdc446988
-  GraphPosition: {x: 0, y: 0}
-  Children: []
-  Parent: {fileID: 0}
+  GraphPosition: {x: 288.50006, y: 358}
+  Children:
+  - {fileID: -4214788739582552267}
+  - {fileID: 5683174717141814429}
+  Parent: {fileID: -1725527915578987751}
   triedDirections: []
   Position: {x: 0, y: 0}
   Size: {x: 0, y: 0}
@@ -497,6 +550,54 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 0
   Key: 0
+--- !u!114 &-4214788739582552267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: 93a51b5d916feba4babbc4e6c8cc7ba6
+  GraphPosition: {x: 436.49997, y: 185.87001}
+  Children:
+  - {fileID: -6735476787719675234}
+  Parent: {fileID: -4715565937244705387}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 0}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 0
+  Key: 0
+--- !u!114 &-2535471461634451151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dee234ac7e3d43b83d52c8ba9a383, type: 3}
+  m_Name: DoorNode
+  m_EditorClassIdentifier: 
+  Guid: b728bbec6c65ad143b71821725cff9ac
+  GraphPosition: {x: 779.58325, y: 358.00003}
+  Children:
+  - {fileID: 7869146786210101573}
+  Parent: {fileID: 5683174717141814429}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Key: 2
 --- !u!114 &-2452874900001802426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,9 +631,9 @@ MonoBehaviour:
   m_Name: DoorNode
   m_EditorClassIdentifier: 
   Guid: e756fcd74050e0046b1b2564e079bcb7
-  GraphPosition: {x: 321.13004, y: 358}
+  GraphPosition: {x: 207.26503, y: 358}
   Children:
-  - {fileID: -158788487615991619}
+  - {fileID: -4715565937244705387}
   Parent: {fileID: 1802768911556862656}
   triedDirections: []
   Position: {x: 0, y: 0}
@@ -624,27 +725,6 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 0
   Key: 0
---- !u!114 &-158788487615991619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000dee234ac7e3d43b83d52c8ba9a383, type: 3}
-  m_Name: DoorNode
-  m_EditorClassIdentifier: 
-  Guid: bba65f2ab496d8e4f86f5767b1198a5d
-  GraphPosition: {x: 452.00006, y: 229.99998}
-  Children:
-  - {fileID: 7869146786210101573}
-  Parent: {fileID: -1725527915578987751}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
-  Key: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,10 +742,15 @@ MonoBehaviour:
   - {fileID: 1802768911556862656}
   - {fileID: 7869146786210101573}
   - {fileID: -1725527915578987751}
-  - {fileID: -158788487615991619}
-  - {fileID: 5383583504308652217}
   - {fileID: 2199853203090574255}
   - {fileID: -4715565937244705387}
+  - {fileID: 6071989464985219744}
+  - {fileID: -4214788739582552267}
+  - {fileID: 5683174717141814429}
+  - {fileID: -2535471461634451151}
+  - {fileID: -6735476787719675234}
+  - {fileID: 6958059221696313143}
+  - {fileID: -8203420845657636926}
 --- !u!114 &1034139916466252244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,12 +793,11 @@ MonoBehaviour:
   GraphPosition: {x: 18.939987, y: 358}
   Children:
   - {fileID: -1725527915578987751}
-  - {fileID: 5383583504308652217}
   - {fileID: 2199853203090574255}
   Parent: {fileID: 0}
   triedDirections: []
   Position: {x: 0, y: 0}
-  Size: {x: 2, y: 2}
+  Size: {x: 5, y: 5}
   Module: {fileID: 0}
   GeneratedModule: {fileID: 4095127512141978448, guid: 2f36fcc661fffb84599072b0280876cf, type: 3}
   CreatedModule: {fileID: 0}
@@ -734,14 +818,22 @@ MonoBehaviour:
   m_Name: RoomNode
   m_EditorClassIdentifier: 
   Guid: ee7e56cbccd4d054495f9cfbe22dbba6
-  GraphPosition: {x: 207.99997, y: 474.03687}
-  Children: []
+  GraphPosition: {x: 165, y: 565.7098}
+  Children:
+  - {fileID: 6071989464985219744}
+  - {fileID: -8203420845657636926}
   Parent: {fileID: 1802768911556862656}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
+  triedDirections:
+  - {x: 1, y: 0}
+  - {x: 0, y: 1}
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  Position: {x: -29, y: 4}
+  Size: {x: 25, y: 23}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 0}
+  GeneratedModule: {fileID: 1185101363626133886, guid: 5ec0435dce15fc245ac982cd161be281, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -833,7 +925,7 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 0
   Key: 0
---- !u!114 &5383583504308652217
+--- !u!114 &5683174717141814429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -845,15 +937,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
   m_Name: RoomNode
   m_EditorClassIdentifier: 
-  Guid: 43259a683c72b7e44a6f981c45b0b675
-  GraphPosition: {x: 79.00001, y: 204.87251}
-  Children: []
-  Parent: {fileID: 1802768911556862656}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
+  Guid: e920e19c15f2b75438751ab54e883635
+  GraphPosition: {x: 601.5568, y: 357.99997}
+  Children:
+  - {fileID: -2535471461634451151}
+  Parent: {fileID: -4715565937244705387}
+  triedDirections:
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  Position: {x: 4, y: -11}
+  Size: {x: 7, y: 7}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 0}
+  GeneratedModule: {fileID: 5032166218533781095, guid: 8d4462cc1d4e8a342ab650969593d486, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -1047,6 +1147,42 @@ MonoBehaviour:
   HasKey: 0
   IsWaveRoom: 1
   Key: 0
+--- !u!114 &6071989464985219744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: 13a8be5450eadc549b50e66f82394d3d
+  GraphPosition: {x: 330, y: 566}
+  Children: []
+  Parent: {fileID: 2199853203090574255}
+  triedDirections:
+  - {x: 0, y: -1}
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  - {x: 0, y: -1}
+  Position: {x: -25, y: -13}
+  Size: {x: 13, y: 13}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 2143825494440835909, guid: fbb4f8e2045ac3b4c8945b514cbaa2b4, type: 3}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 1
+  IsWaveRoom: 0
+  Key: 1
 --- !u!114 &6884084794622231231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,6 +1269,32 @@ MonoBehaviour:
   HasKey: 1
   IsWaveRoom: 0
   Key: 0
+--- !u!114 &6958059221696313143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  Guid: 982e141c905eec5468dd419fb3abf1c5
+  GraphPosition: {x: 731, y: 185.99997}
+  Children: []
+  Parent: {fileID: -6735476787719675234}
+  triedDirections: []
+  Position: {x: 0, y: 0}
+  Size: {x: 0, y: 0}
+  Module: {fileID: 0}
+  GeneratedModule: {fileID: 0}
+  CreatedModule: {fileID: 0}
+  IsEnd: 0
+  HasKey: 0
+  IsWaveRoom: 1
+  Key: 0
 --- !u!114 &7869146786210101573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,73 +1308,14 @@ MonoBehaviour:
   m_Name: RoomNode
   m_EditorClassIdentifier: 
   Guid: 2dff59ee66f3ed04d8c2b3806a870330
-  GraphPosition: {x: 649.9926, y: 358}
+  GraphPosition: {x: 893.47754, y: 358.00006}
   Children: []
-  Parent: {fileID: -158788487615991619}
+  Parent: {fileID: -2535471461634451151}
   triedDirections:
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
-  - {x: 0, y: 1}
+  - {x: 0, y: -1}
   - {x: 1, y: 0}
-  Position: {x: 3, y: 4}
-  Size: {x: 20, y: 16}
+  Position: {x: 15, y: -7}
+  Size: {x: 23, y: 19}
   Module: {fileID: 0}
   GeneratedModule: {fileID: 156635531980477306, guid: 010b6b0191322d443a67c86bf938e0d0, type: 3}
   CreatedModule: {fileID: 0}

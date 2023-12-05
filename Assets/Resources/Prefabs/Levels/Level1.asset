@@ -411,63 +411,14 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: -1}
-  Position: {x: 11, y: -27}
-  Size: {x: 10, y: 10}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  Position: {x: 13, y: -30}
+  Size: {x: 11, y: 11}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 2143825494440835909, guid: 5eb6d3f2db8743c468c3cd6fd1b7decf, type: 3}
-  CreatedModule: {fileID: 0}
-  IsEnd: 0
-  HasKey: 0
-  IsWaveRoom: 0
-  Key: 0
---- !u!114 &-4857991731195834558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
-  m_Name: RoomNode
-  m_EditorClassIdentifier: 
-  Guid: 5c1c8b1ace96a2247b9f7b67f64db7e8
-  GraphPosition: {x: 707, y: 61.90251}
-  Children:
-  - {fileID: -4785909753732492269}
-  Parent: {fileID: 6884084794622231231}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
-  Module: {fileID: 0}
-  GeneratedModule: {fileID: 0}
-  CreatedModule: {fileID: 0}
-  IsEnd: 0
-  HasKey: 0
-  IsWaveRoom: 0
-  Key: 0
---- !u!114 &-4785909753732492269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
-  m_Name: RoomNode
-  m_EditorClassIdentifier: 
-  Guid: fd15e05886af41c4db4f6c52ba289a05
-  GraphPosition: {x: 870.20496, y: 49.999985}
-  Children: []
-  Parent: {fileID: -4857991731195834558}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
-  Module: {fileID: 0}
-  GeneratedModule: {fileID: 0}
+  GeneratedModule: {fileID: 2143825494440835909, guid: fbb4f8e2045ac3b4c8945b514cbaa2b4, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -572,10 +523,11 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
-  Position: {x: 30, y: -12}
-  Size: {x: 10, y: 10}
+  - {x: 1, y: 0}
+  Position: {x: 32, y: -13}
+  Size: {x: 13, y: 16}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 2143825494440835909, guid: fbb4f8e2045ac3b4c8945b514cbaa2b4, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: 6f9b02309b280cb4da81b91b36c9ec5a, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -604,35 +556,6 @@ MonoBehaviour:
   - {fileID: -2452874900001802426}
   - {fileID: -525705513387844702}
   - {fileID: 7869146786210101573}
-  - {fileID: -4857991731195834558}
-  - {fileID: -4785909753732492269}
-  - {fileID: 1034139916466252244}
---- !u!114 &1034139916466252244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7ad62723d98c14fbc94a24f4e84a68, type: 3}
-  m_Name: RoomNode
-  m_EditorClassIdentifier: 
-  Guid: f2dfddfa82b0b394b9e5ee771fe0607f
-  GraphPosition: {x: 0, y: 0}
-  Children: []
-  Parent: {fileID: 0}
-  triedDirections: []
-  Position: {x: 0, y: 0}
-  Size: {x: 0, y: 0}
-  Module: {fileID: 0}
-  GeneratedModule: {fileID: 0}
-  CreatedModule: {fileID: 0}
-  IsEnd: 0
-  HasKey: 0
-  IsWaveRoom: 0
-  Key: 0
 --- !u!114 &1802768911556862656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,7 +575,7 @@ MonoBehaviour:
   Parent: {fileID: 0}
   triedDirections: []
   Position: {x: 0, y: 0}
-  Size: {x: 2, y: 2}
+  Size: {x: 3, y: 3}
   Module: {fileID: 0}
   GeneratedModule: {fileID: 4095127512141978448, guid: 2f36fcc661fffb84599072b0280876cf, type: 3}
   CreatedModule: {fileID: 0}
@@ -739,10 +662,11 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
-  Position: {x: 7, y: -16}
-  Size: {x: 22, y: 19}
+  - {x: 0, y: -1}
+  Position: {x: 9, y: -17}
+  Size: {x: 21, y: 19}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 7339896824431597120, guid: 3a44df94c5b118540b9db7fda742e2f9, type: 3}
+  GeneratedModule: {fileID: 7339896824431597120, guid: 67548d29b7e07074ab679cae128e6048, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -928,10 +852,11 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: -1}
   - {x: 0, y: -1}
-  Position: {x: 15, y: -46}
-  Size: {x: 20, y: 18}
+  - {x: 0, y: -1}
+  Position: {x: 17, y: -48}
+  Size: {x: 13, y: 16}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 7339896824431597120, guid: 67548d29b7e07074ab679cae128e6048, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: 537ac8383dd82d444953041c8d8b4c1f, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
@@ -951,8 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 877bbe5181ac8b945989d1caabbe9c5e
   GraphPosition: {x: 503, y: 126.99999}
-  Children:
-  - {fileID: -4857991731195834558}
+  Children: []
   Parent: {fileID: 5799838475926886784}
   triedDirections:
   - {x: 0, y: -1}
@@ -1015,10 +939,11 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: -1, y: 0}
   - {x: -1, y: 0}
-  Position: {x: 4, y: -42}
-  Size: {x: 10, y: 10}
+  - {x: -1, y: 0}
+  Position: {x: 4, y: -44}
+  Size: {x: 11, y: 11}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 2143825494440835909, guid: 5eb6d3f2db8743c468c3cd6fd1b7decf, type: 3}
+  GeneratedModule: {fileID: 2143825494440835909, guid: fbb4f8e2045ac3b4c8945b514cbaa2b4, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 1
@@ -1101,8 +1026,9 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: 1}
-  Position: {x: 34, y: -1}
-  Size: {x: 20, y: 16}
+  - {x: 0, y: 1}
+  Position: {x: 36, y: 5}
+  Size: {x: 21, y: 17}
   Module: {fileID: 0}
   GeneratedModule: {fileID: 156635531980477306, guid: 010b6b0191322d443a67c86bf938e0d0, type: 3}
   CreatedModule: {fileID: 0}
@@ -1188,10 +1114,11 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 0}
-  Position: {x: 3, y: 4}
-  Size: {x: 10, y: 10}
+  - {x: 1, y: 0}
+  Position: {x: 5, y: 4}
+  Size: {x: 21, y: 19}
   Module: {fileID: 0}
-  GeneratedModule: {fileID: 2143825494440835909, guid: 2193e9786c12d714891a357cbff5ebe7, type: 3}
+  GeneratedModule: {fileID: 7339896824431597120, guid: 67548d29b7e07074ab679cae128e6048, type: 3}
   CreatedModule: {fileID: 0}
   IsEnd: 0
   HasKey: 0
