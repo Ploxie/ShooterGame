@@ -79,6 +79,13 @@ public class FmodEvents : MonoBehaviour
 
     [field: Header("RunEnemyKamikaze")]
     [field: SerializeField] public EventReference RunEnemyKamikaze { get; private set; }
+
+    [field: Header("DeathMenu")]
+    [field: SerializeField] public EventReference DeathMenu { get; private set; }
+
+    [field: Header("MainMenu")]
+    [field: SerializeField] public EventReference MainMenu { get; private set; }
+
     [SerializeField] public List<EventReference> GunSound = new List<EventReference>();
     // Start is called before the first frame update
     public static FmodEvents instance { get; private set; }

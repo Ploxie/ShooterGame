@@ -2197,6 +2197,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <MainMenu>k__BackingField.Path
+      value: event:/NewLoops/ST_Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <DeathMenu>k__BackingField.Path
+      value: event:/NewLoops/ST_Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <MainMenu>k__BackingField.Guid.Data1
+      value: -544794268
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <MainMenu>k__BackingField.Guid.Data2
+      value: 1196926113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <MainMenu>k__BackingField.Guid.Data3
+      value: -1191340363
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <MainMenu>k__BackingField.Guid.Data4
+      value: 331174922
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <DeathMenu>k__BackingField.Guid.Data1
+      value: -1994105787
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <DeathMenu>k__BackingField.Guid.Data2
+      value: 1243777824
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <DeathMenu>k__BackingField.Guid.Data3
+      value: -491930726
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416438634535916984, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
+      propertyPath: <DeathMenu>k__BackingField.Guid.Data4
+      value: -1297696330
+      objectReference: {fileID: 0}
     - target: {fileID: 8349536453117235500, guid: 5ad20f06e40ac7a45bb5e7b90ae80b88, type: 3}
       propertyPath: m_Name
       value: FmodAudioManager

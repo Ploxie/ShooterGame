@@ -109,7 +109,14 @@ public class AudioFmodManager : MonoBehaviour
         eventInstanceMusic.release();
         //UnityEngine.Debug.Log()
     }
-
+    public void StopMusic()
+    {
+        eventInstanceMusic.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+    public void StopAmbient()
+    {
+        eventInstanceAmb.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
     public EventInstance CreateFootstepInst(EventReference stepping)
     {
         EventInstance EI = RuntimeManager.CreateInstance(stepping);

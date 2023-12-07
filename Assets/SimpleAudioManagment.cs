@@ -6,10 +6,12 @@ public class SimpleAudioManagment : MonoBehaviour
 {
     // Start is called before the first frame update
     private AudioFmodManager AFM;
+    
     void Start()
     {
         AFM = FindObjectOfType<AudioFmodManager>();
     }
+
     public void SetMasterVolume(float value)
     {
         AFM.masterVolume = value;
@@ -26,10 +28,6 @@ public class SimpleAudioManagment : MonoBehaviour
     public void SetEffectVolume(float value)
     {
         AFM.Effects = value;
-    }
-    public void SetGameLoopVolume(float value)
-    {
-        AFM.GameLoops = value;
     }
     // Update is called once per frame
 }
