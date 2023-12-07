@@ -34,14 +34,14 @@ public class MeleeRunToPlayer : RunToPlayer
 
     public override void Exit()
     {
-        PlayaRun.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        //PlayaRun.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
     public override void Enter()
     {
         base.Enter();
-        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
-        PlayaRun.start();
+        //PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
+        //PlayaRun.start();
         enemyMelee.Animator.SetBool("IsWalking", true);
     }
 }

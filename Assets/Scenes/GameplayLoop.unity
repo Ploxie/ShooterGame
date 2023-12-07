@@ -1955,7 +1955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ae2f2dfa7ffa54f994d0ebd069042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: 598853b6922fee144a6da61663355f8c, type: 2}
+  level: {fileID: 11400000, guid: 61186093e27fe04418735612477f9bbf, type: 2}
   seed: 1
   spaceBetweenRooms: 5
   randomWalkDrunkeness: 4

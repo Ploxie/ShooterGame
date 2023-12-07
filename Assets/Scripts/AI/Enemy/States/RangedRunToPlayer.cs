@@ -28,8 +28,8 @@ public class RangedRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
-        PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
-        PlayaRun.start();
+        //PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
+        //PlayaRun.start();
         enemyRanged.Animator.SetBool("WalkForward", true);
     }
 
