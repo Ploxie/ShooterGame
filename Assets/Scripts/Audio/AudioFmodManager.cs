@@ -6,6 +6,8 @@ using FMOD.Studio;
 //using UnityEditor.ShaderGraph.Internal;
 using Assets.Scripts.Entity;
 using FMOD;
+using Unity.VisualScripting;
+using UnityEngine.PlayerLoop;
 
 public class AudioFmodManager : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class AudioFmodManager : MonoBehaviour
     private float area = 0;
 
     public static AudioFmodManager instance { get; private set; }
-    private int EnemiesInCombat = 0;
+    private float EnemiesInCombat = 0f;
 
     private void Awake()
     {
@@ -88,7 +90,7 @@ public class AudioFmodManager : MonoBehaviour
     {
         //if(EnemiesInCombat)
         EnemiesInCombat++;
-        eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
+        eventInstanceMusic.setParameterByName("Enemies", EnemiesInCombat);
         print(EnemiesInCombat);
     }
     private void OnEnemyLeaveCombat(EnemyLeaveCombatEvent e)

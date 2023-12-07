@@ -214,10 +214,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 0
-  HasPlatforms: 0
+  HasSourceProject: 1
+  HasPlatforms: 1
   sourceProjectPath: ../Documents/FMOD Studio/Audio-real-shootergame/Audio-real-shootergame.fspro
-  sourceBankPath: Assets/FMODassets/Audio-real-shootergame/Build/Desktop
+  sourceBankPath: ../Documents/FMOD Studio/Audio-real-shootergame/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
