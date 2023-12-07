@@ -19,6 +19,7 @@ public class CloseDoor : MonoBehaviour
         {
             player.inWaveRoom = true;
             WaveSpawner.SetActive(true);
+            //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.doorSlam, door.transform.position);
             door.CloseDoor();
             Destroy(this.gameObject);
         }

@@ -11,6 +11,27 @@ using UnityEngine.PlayerLoop;
 
 public class AudioFmodManager : MonoBehaviour
 {
+    [Header("Volume")]
+    [Range(0, 1)]
+
+    public float masterVolume = 1f;
+    [Range(0, 1)]
+    public float Effects = 1f;
+    [Range(0, 1)]
+    public float GameLoops = 1f;
+    [Range(0, 1)]
+    public float Music = 1f;
+    [Range(0, 1)]
+    public float Ambient = 1f;
+    [Range(0, 1)]
+
+    private Bus MasterBus;
+    private Bus GameLoopBus;
+    private Bus EffectBus;
+    private Bus MusicBus;
+    private Bus AmbientBus;
+
+
     private List<EventInstance> eventInstanses;
 
     private EventInstance eventInstanceAmb, eventInstanceMusic;
@@ -32,13 +53,45 @@ public class AudioFmodManager : MonoBehaviour
 
         eventInstanses = new List<EventInstance>();
 
-        
+        MasterBus = RuntimeManager.GetBus("bus:/");
+        GameLoopBus = RuntimeManager.GetBus("bus:/GameLoop");
+        EffectBus = RuntimeManager.GetBus("bus:/Effects");
+        MusicBus = RuntimeManager.GetBus("bus:/Music");
+        AmbientBus = RuntimeManager.GetBus("bus:/Ambience");
     }
     private void Start()
     {
         EventManager.GetInstance().AddListener<EnemyEnterCombatEvent>(OnEnemyEnterCombat);
         EventManager.GetInstance().AddListener<EnemyLeaveCombatEvent>(OnEnemyLeaveCombat);
     }
+    private void Update()
+    {
+        MasterBus.setVolume(masterVolume);
+        AmbientBus.setVolume(Ambient);
+        MusicBus.setVolume(Music);
+        EffectBus.setVolume(Effects);
+        GameLoopBus.setVolume(GameLoops);
+    }
+    //public void SetMasterVolume(float value)
+    //{
+    //    masterVolume = value;
+    //}
+    //public void SetMusicVolume(float value)
+    //{
+    //    Music = value;
+    //}
+    //public void SetAmbienceVolume(float value)
+    //{
+    //    Ambient = value;
+    //}
+    //public void SetEffectVolume(float value)
+    //{
+    //    Effects = value;
+    //}
+    //public void SetGameLoopVolume(float value)
+    //{
+    //    GameLoops = value;
+    //}
     public void PlayOneShot(EventReference sound, Vector3 worldPosition)
     {
         RuntimeManager.PlayOneShot(sound, worldPosition);

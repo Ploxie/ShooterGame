@@ -51,6 +51,20 @@ MonoBehaviour:
       Data3: -341429070
       Data4: 1797717901
     Path: event:/Simple Events/Slam
+  <doorSlam>k__BackingField:
+    Guid:
+      Data1: 2065990393
+      Data2: 1207486270
+      Data3: -1025115760
+      Data4: -2142624626
+    Path: event:/Simple Events/Moduels/DoorSlam
+  <doorOpen>k__BackingField:
+    Guid:
+      Data1: 867446244
+      Data2: 1078971031
+      Data3: -468165750
+      Data4: 254394937
+    Path: event:/Simple Events/Moduels/DoorOpen
   <BoomAndDeathKamikaze>k__BackingField:
     Guid:
       Data1: -1692250686
