@@ -25,11 +25,13 @@ public class Door : MonoBehaviour
     public void OpenDoor()
     {
         Debug.Log("Open Door");
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.doorSlam, this.transform.position);
         anim.SetTrigger("DoorOpen");
     }
     public void CloseDoor()
     {
         Debug.Log("Close Door");
+        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.doorOpen, this.transform.position);
         anim.SetTrigger("Reset");
     }
 }

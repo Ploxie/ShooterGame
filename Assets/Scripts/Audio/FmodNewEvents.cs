@@ -8,6 +8,12 @@ public class FmodEvents : MonoBehaviour
     [field: Header("Slam")]
     [field: SerializeField] public EventReference slamsGround { get; private set; }
 
+    [field: Header("DoorSlam")]
+    [field: SerializeField] public EventReference doorSlam { get; private set; }
+
+    [field: Header("DoorOpen")]
+    [field: SerializeField] public EventReference doorOpen { get; private set; }
+
     [field: Header("Death kamikaze")]
     [field: SerializeField] public EventReference BoomAndDeathKamikaze { get; private set; }
 

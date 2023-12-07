@@ -40,6 +40,7 @@ public class Death : State
 
     public override void Enter()
     {
+        EventManager.GetInstance().TriggerEvent(new EnemyLeaveCombatEvent());
         deathTimerStarted = Utils.GetUnixMillis();
         enemy.Agent.isStopped = true;
         enemy.GetComponent<Collider>().enabled = false;
