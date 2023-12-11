@@ -67,6 +67,7 @@ namespace Assets.Scripts.LevelGeneration
                 BuildNavMesh(),
                 PlaceSpecialObjects(),
                 PlaceKeys(),
+                ConfigureFloors(),
             }).GetEnumerator());
         }
 
@@ -498,6 +499,26 @@ namespace Assets.Scripts.LevelGeneration
                             Debug.Log("Placed " + roomNode.Key + " Key at " + key.transform.position);
                         }
                     }
+                }
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator ConfigureFloors()
+        {
+
+            Material material = Resources.Load<Material>("Materials/Office/Ground Mats/Epoxy/Epoxy Ground 20m");
+
+            RoomFloor[] floors = GetComponentsInChildren<RoomFloor>();
+            foreach(var floor in floors)
+            {
+                MeshRenderer renderer = floor.GetComponent<MeshRenderer>();
+                if(renderer != null)
+                {
+                    renderer.material = material;
+                    var tiling = new Vector2(floor.transform.localScale.x / TILE_SIZE, floor.transform.localScale.z / TILE_SIZE);
+                    renderer.material.mainTextureScale = tiling;
                 }
             }
 
