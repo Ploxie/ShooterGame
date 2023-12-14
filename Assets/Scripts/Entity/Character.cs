@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -29,14 +30,14 @@ namespace Assets.Scripts.Entity
         private Dictionary<Type, StatusEffect> statusEffects = new();
         public Rigidbody Rigidbody { get; private set; }
         public Collider Collider { get; private set; }
-        public MeshToMesh VFXGraph;
+        public ChangeColourAndPlayEffect VFXGraph;
 
         protected virtual void Awake()
         {
             Health = GetComponent<Health>();
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponentInChildren<Collider>();
-            VFXGraph = GetComponentInChildren<MeshToMesh>();
+            VFXGraph = GetComponentInChildren<ChangeColourAndPlayEffect>();
             CurrentMovementSpeed = MovementSpeed;
             tickTimerStart = Utils.GetUnixMillis();
         }
@@ -107,38 +108,53 @@ namespace Assets.Scripts.Entity
 
         private void playEffect(StatusEffect effectPlay)
         {
-            //StatusEffect value;
-            //if (effectPlay.GetType() == typeof(RadiationEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnRadioStop");
-            //    VFXGraph.VFXGraph.SendEvent("OnRadioPlay");
-            //}
-            //if (effectPlay.GetType() == typeof(StunEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnHazardStop");
-            //    VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
-            //}
-            //if (effectPlay.GetType() == typeof(IceEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnIceStop");
-            //    VFXGraph.VFXGraph.SendEvent("OnIcePlay");
-            //}
+            StatusEffect value;
+            if (effectPlay.GetType() == typeof(RadiationEffect))
+            {
+                VFXGraph.gameObject.SetActive(true);
+                VFXGraph.circleObject.SetActive(true);
+                VFXGraph.setColour(Color.green);
+                //VFXGraph.VFXGraph.SendEvent("OnRadiationStop");
+                VFXGraph.VFXGraph.SendEvent("OnRadiationPlay");
+            }
+            if (effectPlay.GetType() == typeof(StunEffect))
+            {
+                VFXGraph.gameObject.SetActive(true);
+                VFXGraph.circleObject.SetActive(true);
+                VFXGraph.setColour(Color.yellow);
+                //VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+                VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
+            }
+            if (effectPlay.GetType() == typeof(IceEffect))
+            {
+                VFXGraph.gameObject.SetActive(true);
+                VFXGraph.circleObject.SetActive(true);
+                VFXGraph.setColour(Color.blue);
+                //VFXGraph.VFXGraph.SendEvent("OnIceStop");
+                VFXGraph.VFXGraph.SendEvent("OnIcePlay");
+            }
         }
 
         private void stopEffect(StatusEffect effectPlay)
         {
-            //if (effectPlay.GetType() == typeof(RadiationEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnRadioStop");
-            //}
-            //if (effectPlay.GetType() == typeof(StunEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnHazardStop");
-            //}
-            //if (effectPlay.GetType() == typeof(IceEffect))
-            //{
-            //    VFXGraph.VFXGraph.SendEvent("OnIceStop");
-            //}
+            if (effectPlay.GetType() == typeof(RadiationEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnRadioStop");
+                VFXGraph.circleObject.SetActive(false);
+                VFXGraph.gameObject.SetActive(false);
+            }
+            if (effectPlay.GetType() == typeof(StunEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+                VFXGraph.circleObject.SetActive(false);
+                VFXGraph.gameObject.SetActive(false);
+            }
+            if (effectPlay.GetType() == typeof(IceEffect))
+            {
+                VFXGraph.VFXGraph.SendEvent("OnIceStop");
+                VFXGraph.circleObject.SetActive(false);
+                VFXGraph.gameObject.SetActive(false);
+            }
         }
 
         public T GetStatusEffect<T>() where T : StatusEffect
