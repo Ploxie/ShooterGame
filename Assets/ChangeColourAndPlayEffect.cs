@@ -8,7 +8,7 @@ public class ChangeColourAndPlayEffect : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] public VisualEffect VFXGraph;
     [SerializeField] public GameObject circleObject;
-    [SerializeField] public Material mat;
+    public Material mat;
     void Start()
     {
         this.gameObject.SetActive(false);
@@ -16,9 +16,10 @@ public class ChangeColourAndPlayEffect : MonoBehaviour
         VFXGraph.SendEvent("OnHazardStop");
         VFXGraph.SendEvent("OnIceStop");
         VFXGraph.SendEvent("OnRadiationStop");
+        mat = GetComponent<Renderer>().material;
     }
     public void setColour(Color color)
     {
-        mat.color = color;
+        mat.SetColor("_EmissionColor",color);
     }
 }
