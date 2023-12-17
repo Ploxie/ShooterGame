@@ -26,7 +26,11 @@ namespace Assets.Scripts.Entity
             MaxAmmo = 20;
             CurrentAmmo = MaxAmmo;
 
-            AngleDeviation = 10.0f;            
+            AngleDeviation = 10.0f;
+            
+            ShakeIntensity = 3.0f;
+            ShakeFrequency = 0.5f;
+            ShakeDuration = 0.2f;
         }
     }
 }

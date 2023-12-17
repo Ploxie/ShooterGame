@@ -185,9 +185,6 @@ namespace Assets.Scripts.Entity
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 Gun?.Shoot();
-
-                //should probably be moved to
-                EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(7, 0.5f, 0.2f));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))

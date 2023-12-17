@@ -39,7 +39,9 @@ namespace Assets.Scripts.Entity
             if (!SimulationEnabled && GunVisual != null)
                 GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
-            
+
+            EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(Weapon.ShakeIntensity, Weapon.ShakeFrequency, Weapon.ShakeDuration));
+
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
                 damageMultiplier = debilitationEffect.DamageMultiplier;
