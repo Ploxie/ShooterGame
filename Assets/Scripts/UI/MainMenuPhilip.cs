@@ -11,10 +11,11 @@ public class MainMenuPhilip : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
+        if (SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Demo1")
         {
             isToggled = false;
         }
+        Debug.Log(isToggled);
     }
 
     public void PlayGame()
