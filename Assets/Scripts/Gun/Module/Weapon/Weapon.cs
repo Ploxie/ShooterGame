@@ -22,6 +22,10 @@ namespace Assets.Scripts.Entity
         public float[] LaunchAngles { get; set; } = new float[] { 0.0f };
         public float AngleDeviation { get; set; }
 
+        public float ShakeIntensity { get; set; }
+        public float ShakeFrequency { get; set; }
+        public float ShakeDuration  { get; set; }
+
         protected float LastShootTime { get; set; }
 
         public Weapon()

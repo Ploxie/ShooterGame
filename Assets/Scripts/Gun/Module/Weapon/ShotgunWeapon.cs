@@ -29,6 +29,10 @@ namespace Assets.Scripts.Entity
 
             LaunchAngles = new float[] { 0, 5.625f, -5.625f, 11.25f, -11.25f };
             AngleDeviation = 10.0f;
+
+            ShakeIntensity = 3.0f;
+            ShakeFrequency = 0.5f;
+            ShakeDuration = 0.2f;
         }
     }
 }

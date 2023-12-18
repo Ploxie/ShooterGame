@@ -24,8 +24,11 @@ namespace Assets.Scripts.Entity
             DefaultFireRate = FireRate;
             ReloadTime = 5.0f;
             MaxAmmo = 5;
-
             CurrentAmmo = MaxAmmo;
+
+            ShakeIntensity = 3.0f;
+            ShakeFrequency = 0.5f;
+            ShakeDuration = 0.2f;
         }
 
     }

@@ -24,6 +24,10 @@ namespace Assets.Scripts.Entity
             ReloadTime = 2.0f;
             MaxAmmo = 30;
             CurrentAmmo = MaxAmmo;
+
+            ShakeIntensity = 3.0f;
+            ShakeFrequency = 0.5f;
+            ShakeDuration = 0.2f;
         }
 
     }
