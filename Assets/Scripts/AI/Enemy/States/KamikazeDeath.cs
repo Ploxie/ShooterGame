@@ -4,12 +4,13 @@ using UnityEngine;
 public class KamikazeDeath : Death
 {
     protected EnemyKamikaze enemyKamikaze;
-    protected float explosionSize = 0;
+
 
     public override void Init(object parent)
     {
         base.Init(parent);
         enemyKamikaze = (EnemyKamikaze)parent;
+        deathTimerDuration = 2000;
     }
 
     public override void Enter()

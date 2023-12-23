@@ -30,8 +30,10 @@ public class EnemyMelee : Enemy
         DE.Effect.Stop();
         meleeDamageHitBox.Damage = Damage;
         meleeDamageHitBox.Effect = Effect;
+        meleeDamageHitBox.SetMelee();
         jumpDamageHitBox.Damage = JumpDamage;
         jumpDamageHitBox.Effect = Effect;
+        jumpDamageHitBox.SetMelee();
         Effect = Module.CreateRandomStatusEffectModule();
         slash = Resources.Load<GameObject>("Prefabs/VFX/Slash");
 
