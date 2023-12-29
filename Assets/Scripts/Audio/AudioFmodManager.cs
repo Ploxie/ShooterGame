@@ -41,7 +41,7 @@ public class AudioFmodManager : MonoBehaviour
     private float area = 0;
 
     public static AudioFmodManager instance { get; private set; }
-    private float EnemiesInCombat = 0f;
+    private float EnemiesInCombat = 0f, dealingWithenemies = 0f;
 
     private void Awake()
     {
@@ -149,15 +149,18 @@ public class AudioFmodManager : MonoBehaviour
     private void OnEnemyEnterCombat(EnemyEnterCombatEvent e)
     {
         //if(EnemiesInCombat)
-        EnemiesInCombat++;
+        EnemiesInCombat+=0.5f;
+        dealingWithenemies++;
         eventInstanceMusic.setParameterByName("Enemies", EnemiesInCombat);
-        print(EnemiesInCombat);
+        print(EnemiesInCombat + " " + dealingWithenemies);
     }
     private void OnEnemyLeaveCombat(EnemyLeaveCombatEvent e)
     {
-        if(EnemiesInCombat > 0)
-            EnemiesInCombat--;
-        eventInstanceMusic.setParameterByName("Enemies", (float)EnemiesInCombat);
-        print(EnemiesInCombat);
+        dealingWithenemies--;
+        if(dealingWithenemies <= 0f)
+            dealingWithenemies = 0f;
+            eventInstanceMusic.setParameterByName("Enemies", 0f);
+
+        print(EnemiesInCombat + " " + dealingWithenemies);
     }
 }

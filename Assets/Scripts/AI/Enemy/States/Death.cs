@@ -1,5 +1,6 @@
 
 using Assets.Scripts.Entity;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "States/Enemy/Generic/Death")]
