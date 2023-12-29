@@ -4280,7 +4280,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Left Click - Shoot
 
-    Space - Dash
+    Shift - Dash
 
     Q - Rotate Camera'
   m_isRightToLeft: 0

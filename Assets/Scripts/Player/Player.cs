@@ -201,7 +201,7 @@ namespace Assets.Scripts.Entity
             float z = Input.GetAxisRaw("Vertical");
             moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
-            if (Input.GetKeyDown(KeyCode.Space) && DashCooldownTimer >= DashCooldown)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && DashCooldownTimer >= DashCooldown)
             {
                 Rigidbody.AddForce(moveDirection * DashForce);
                 DashCooldownTimer = 0;
