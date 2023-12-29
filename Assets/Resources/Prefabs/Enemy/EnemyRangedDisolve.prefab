@@ -152,6 +152,14 @@ PrefabInstance:
       value: EffectUnderEnemy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7779169646438024711, guid: 41ced8a24708b3d469eba0c43803c408, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779169646438024711, guid: 41ced8a24708b3d469eba0c43803c408, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779169646438024711, guid: 41ced8a24708b3d469eba0c43803c408, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}

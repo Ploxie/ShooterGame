@@ -29,6 +29,7 @@ public class KamikazeRunToPlayer : RunToPlayer
     public override void Enter()
     {
         base.Enter();
+        EventManager.GetInstance().TriggerEvent(new EnemyLeaveCombatEvent());
         //PlayaRun = AudioFmodManager.instance.CreateFootstepInst(FmodEvents.instance.RunEnemyKamikaze);
         //PlayaRun.start();
         enemyKamikaze.Animator.SetBool("IsWalking", true);

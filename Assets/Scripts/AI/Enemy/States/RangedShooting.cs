@@ -24,6 +24,7 @@ public class RangedShooting : State
 
     public override void Enter()
     {
+        EventManager.GetInstance().TriggerEvent(new EnemyEnterCombatEvent());
         enemyRanged.Agent.isStopped = true;
         enemyRanged.Animator.SetBool("IdleState", true);
     }
