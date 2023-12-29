@@ -24,7 +24,7 @@ namespace Assets.Scripts.Entity
         private Material material;
 
         public bool SimulationEnabled;
-
+        private float dropRate;
         [HideInInspector]
         public WaveSpawner waveSpawner;
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Entity
 
             Rigidbody rb = GetComponent<Rigidbody>();
             //rb.mass = 1000f;
-
+            dropRate = 0.1f; //10% drop rate maybe change
             Health.OnDeath += OnDeath;
         }
 
@@ -86,17 +86,20 @@ namespace Assets.Scripts.Entity
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 0.0f;
 
-            if (module != null)
+            float random = Random.Range(0f, 1f);
+            if (random < dropRate)
             {
-                GameObject prefab = Instantiate(module.DropPrefab, spawnPosition, Quaternion.identity);
-                CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
+                if (module != null)
                 {
-                    pickup.Module = module;
+                    GameObject prefab = Instantiate(module.DropPrefab, spawnPosition, Quaternion.identity);
+                    CartridgePickup pickup = prefab.AddComponent<CartridgePickup>();
+                    {
+                        pickup.Module = module;
+                    }
+                    PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
+                    popUp.CartridgePickup = pickup;
                 }
-                PopUpConsumable popUp = prefab.AddComponent<PopUpConsumable>();
-                popUp.CartridgePickup = pickup;
             }
-            
         }
 
         public void PlaySound(string key)
