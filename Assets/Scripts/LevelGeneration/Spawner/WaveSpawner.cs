@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,6 +14,9 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] public List<GameObject> spawnPoints;
     [SerializeField] public List<GameObject> doors;
 
+
+    public GameObject prefab;
+    public Transform target;
     private double waveStart;
 
     public Wave[] Waves;
@@ -26,6 +30,8 @@ public class WaveSpawner : MonoBehaviour
     private void Awake()
     {
         spawnedEnemies = new();
+        target = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        prefab = (GameObject)Resources.Load("Prefabs/UI/WaveRoomFinishText");
     }
 
 
@@ -43,8 +49,19 @@ public class WaveSpawner : MonoBehaviour
 
     }
 
+    public void CreatePopUp(Vector3 position, string text)
+    {
+        
+        var popup = Instantiate(prefab, position, Quaternion.LookRotation(prefab.transform.forward));
+        var temp = popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        temp.text = text;
+
+        Destroy(popup, 5f);
+    }
+
     private void Update()
     {
+        prefab.transform.forward = target.forward;
         if (player == null)
         {
             player = FindAnyObjectByType<Player>();
@@ -77,6 +94,7 @@ public class WaveSpawner : MonoBehaviour
                     door.OpenDoor();
                 }
                 player.inWaveRoom = false;
+                CreatePopUp(player.transform.position + new Vector3(0, 2, 0), "The doors have opened");
                 Debug.Log("GG you clear all waves");
                 return;
             }
