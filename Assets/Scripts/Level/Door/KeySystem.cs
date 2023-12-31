@@ -49,6 +49,21 @@ public class KeySystem : MonoBehaviour
                 RemoveKey(keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
             }
+            else if (keyDoor.GetKeyType() != Key.KeyType.Boss)
+            {
+                Key[] keys = FindObjectsOfType<Key>();
+                Key actualKey = keys[0];
+                foreach (Key potentialKey in keys)
+                {
+                    if (potentialKey.GetKeyType() == keyDoor.GetKeyType())
+                        actualKey = potentialKey;
+                }
+                if (actualKey != null)
+                {
+                    EventManager.GetInstance().TriggerEvent(new KeyNeededEvent(actualKey, keyDoor));
+                }
+            }
         }
+       
     }
 }

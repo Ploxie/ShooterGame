@@ -14,6 +14,7 @@ public class PowerUpPickUp : PickupAble
     {
         floatingCharacterPrefab = Resources.Load<GameObject>("Prefabs/UI/PopUpCharacter");
         floatingCharacterInstance = Instantiate(floatingCharacterPrefab, transform);
+        floatingCharacterInstance.SetActive(false);
     }
     public override void Pickup()
     {

@@ -349,7 +349,7 @@ MonoBehaviour:
   weakness: 0
   VFXGraph: {fileID: 0}
   DashTimeWindow: 0
-  DashForce: 10000
+  DashForce: 1000
   SimulationEnabled: 0
   WeaponModDebugText: {fileID: 0}
   EffectModDebugText: {fileID: 0}

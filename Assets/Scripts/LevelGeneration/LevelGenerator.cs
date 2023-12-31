@@ -739,74 +739,74 @@ namespace Assets.Scripts.LevelGeneration
             return RoomManager.CorridorModules[(int)(Random.value * RoomManager.CorridorModules.Length)];
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
+        //private void OnDrawGizmos()
+        //{
+        //    Gizmos.color = Color.green;
 
-            if (level != null)
-            {
-                foreach (Node node in level.nodes)
-                {
-                    var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
+        //    if (level != null)
+        //    {
+        //        foreach (Node node in level.nodes)
+        //        {
+        //            var position = new Vector3(node.Position.x + (node.Size.x * 0.5f), 0, node.Position.y + (node.Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                    Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
+        //            Gizmos.DrawWireCube(position, new Vector3(node.Size.x, 0, node.Size.y) * Tile.TILE_SIZE);
 
-                    RoomNode roomNode = node as RoomNode;
-                    if (roomNode != null && roomNode.GeneratedModule != null)
-                        Handles.Label(position, "" + roomNode.GeneratedModule.name);
+        //            RoomNode roomNode = node as RoomNode;
+        //            if (roomNode != null && roomNode.GeneratedModule != null)
+        //                Handles.Label(position, "" + roomNode.GeneratedModule.name);
 
-                    if (node.GetParentRoom() == null)
-                        continue;
+        //            if (node.GetParentRoom() == null)
+        //                continue;
 
-                    var parentPosition = new Vector3(node.GetParentRoom().Position.x + (node.GetParentRoom().Size.x * 0.5f), 0, node.GetParentRoom().Position.y + (node.GetParentRoom().Size.y * 0.5f)) * Tile.TILE_SIZE;
+        //            var parentPosition = new Vector3(node.GetParentRoom().Position.x + (node.GetParentRoom().Size.x * 0.5f), 0, node.GetParentRoom().Position.y + (node.GetParentRoom().Size.y * 0.5f)) * Tile.TILE_SIZE;
 
-                    Gizmos.DrawLine(position, parentPosition);
-                }
-            }
+        //            Gizmos.DrawLine(position, parentPosition);
+        //        }
+        //    }
 
-            if (tiles == null)
-                return;
+        //    if (tiles == null)
+        //        return;
 
 
-            foreach (var tile in tiles)
-            {
-                if (tile == null)
-                    return;
+        //    foreach (var tile in tiles)
+        //    {
+        //        if (tile == null)
+        //            return;
 
-                Gizmos.color = new Color(0.1f, 1.0f, 0.1f, 0.1f);
-                if (tile.IsCorridor)
-                    Gizmos.color = Color.red;
-                Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
-                Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
+        //        Gizmos.color = new Color(0.1f, 1.0f, 0.1f, 0.1f);
+        //        if (tile.IsCorridor)
+        //            Gizmos.color = Color.red;
+        //        Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
+        //        Gizmos.DrawWireCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
 
-            }
+        //    }
 
-            foreach (Tile tile in doors)
-            {
-                Gizmos.color = Color.blue;
+        //    foreach (Tile tile in doors)
+        //    {
+        //        Gizmos.color = Color.blue;
 
-                Vector3 north = new Vector3(0, 0, 1);
-                Vector3 south = new Vector3(0, 0, -1);
-                Vector3 east = new Vector3(1, 0, 0);
-                Vector3 west = new Vector3(-1, 0, 0);
+        //        Vector3 north = new Vector3(0, 0, 1);
+        //        Vector3 south = new Vector3(0, 0, -1);
+        //        Vector3 east = new Vector3(1, 0, 0);
+        //        Vector3 west = new Vector3(-1, 0, 0);
 
-                Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
+        //        Vector3 worldPosition = tile + new Vector3(0.5f, 0.0f, 0.5f);
 
-                Gizmos.DrawCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
+        //        Gizmos.DrawCube(worldPosition * Tile.TILE_SIZE, new Vector3(Tile.TILE_SIZE, 0f, Tile.TILE_SIZE));
 
-                if (tile.HasWall(Tile.Wall.NORTH_DOOR))
-                    Gizmos.DrawLine(((worldPosition + (north * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (north * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
+        //        if (tile.HasWall(Tile.Wall.NORTH_DOOR))
+        //            Gizmos.DrawLine(((worldPosition + (north * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (north * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
 
-                if (tile.HasWall(Tile.Wall.SOUTH_DOOR))
-                    Gizmos.DrawLine(((worldPosition + (south * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (south * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
+        //        if (tile.HasWall(Tile.Wall.SOUTH_DOOR))
+        //            Gizmos.DrawLine(((worldPosition + (south * 0.4f)) + (west * 0.4f)) * TILE_SIZE, ((worldPosition + (south * 0.4f)) + (east * 0.4f)) * TILE_SIZE);
 
-                if (tile.HasWall(Tile.Wall.EAST_DOOR))
-                    Gizmos.DrawLine(((worldPosition + (east * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (east * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
+        //        if (tile.HasWall(Tile.Wall.EAST_DOOR))
+        //            Gizmos.DrawLine(((worldPosition + (east * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (east * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
 
-                if (tile.HasWall(Tile.Wall.WEST_DOOR))
-                    Gizmos.DrawLine(((worldPosition + (west * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (west * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
-            }
+        //        if (tile.HasWall(Tile.Wall.WEST_DOOR))
+        //            Gizmos.DrawLine(((worldPosition + (west * 0.4f)) + (north * 0.4f)) * TILE_SIZE, ((worldPosition + (west * 0.4f)) + (south * 0.4f)) * TILE_SIZE);
+        //    }
 
-        }
+        //}
     }
 }

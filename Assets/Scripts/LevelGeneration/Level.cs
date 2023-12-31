@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor; // Not for build
+//using UnityEditor; // Not for build
 
 namespace Assets.Scripts.LevelGeneration
 {
@@ -16,19 +16,19 @@ namespace Assets.Scripts.LevelGeneration
         {
             Node node = CreateInstance(type) as Node;
             node.name = type.Name;
-            node.Guid = GUID.Generate().ToString();
+            //node.Guid = GUID.Generate().ToString();
             nodes.Add(node);
 
-            AssetDatabase.AddObjectToAsset(node, this);
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.AddObjectToAsset(node, this);
+            //AssetDatabase.SaveAssets();
             return node;
         }
 
         public void DeleteNode(Node node)
         {
             nodes.Remove(node);
-            AssetDatabase.RemoveObjectFromAsset(node);
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.RemoveObjectFromAsset(node);
+            //AssetDatabase.SaveAssets();
         }
 
         public void AddChild(Node parent, Node child)

@@ -50,7 +50,12 @@ namespace Assets.Scripts.Entity
 
         private Plane plane = new Plane(Vector2.down, 0f);
 
-        public float DashCooldown { get; private set; } = 3;
+        public bool IsDashing { get; private set; } = false;
+
+        private float DashDuration = 0.3f;
+        private float DashDurationTimer = 0f;
+
+        public float DashCooldown { get; private set; } = 1;
         [field: SerializeField] public float DashCooldownTimer { get; private set; } = 0;
         
         protected override void Awake()
@@ -76,6 +81,7 @@ namespace Assets.Scripts.Entity
 
             fireRateMultiplier = 2.0f;
             Health.OnDeath += OnDeath;
+            DashCooldownTimer = DashCooldown;
             ////Temporary debug code, dont bother refactoring it
             //WeaponModDebugText = GameObject.Find("weaponModDebugText").GetComponent<TMP_Text>();
             //EffectModDebugText = GameObject.Find("effectModDebugText").GetComponent<TMP_Text>();
@@ -195,17 +201,33 @@ namespace Assets.Scripts.Entity
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 CycleBullet();
-                
-
-            float x = Input.GetAxisRaw("Horizontal");
-            float z = Input.GetAxisRaw("Vertical");
-            moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && DashCooldownTimer >= DashCooldown)
             {
-                Rigidbody.AddForce(moveDirection * DashForce);
                 DashCooldownTimer = 0;
+                IsDashing = true;
             }
+
+            if (!IsDashing)
+            {
+                float x = Input.GetAxisRaw("Horizontal");
+                float z = Input.GetAxisRaw("Vertical");
+                moveDirection = Quaternion.Euler(0.0f, Camera.main.transform.localEulerAngles.y, 0.0f) * new Vector3(x, 0.0f, z).normalized;
+            }
+            else
+            {
+                DashDurationTimer += Time.deltaTime;
+                Rigidbody.AddForce(moveDirection * DashForce * Time.deltaTime, ForceMode.Impulse);
+                if (DashDurationTimer >= DashDuration)
+                {
+                    DashDurationTimer = 0;
+                    IsDashing = false;
+                }
+            }
+
+           
+
+            
 
             if (Input.GetKeyDown(KeyCode.E)) // All Keycodes should be keybound via unity
             {

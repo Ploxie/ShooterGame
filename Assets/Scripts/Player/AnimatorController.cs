@@ -32,38 +32,70 @@ public class AnimatorController : MonoBehaviour
         if (!SimulationEnabled)
             Fire = Input.GetKey(KeyCode.Mouse0);
 
-        bool isFiring = animator.GetBool(isFiringHash);
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-        Vector3 lookDirection = new Vector3(player.direction.x, 0f, player.direction.y).normalized;
-        float angle = Vector3.Dot(player.moveDirection, lookDirection);
-        
-        if (x != 0 || z != 0)
+       
+
+        if (player.IsDashing)
         {
-            if (angle > 0f)
-            {
-                //Debug.Log("Angle: " + angle);
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isWalkingBack", false);
-            }
-            else if (angle < 0f)
-            {
-                animator.SetBool("isWalkingBack", true);
-                animator.SetBool("isWalking", false);
-            } 
+            animator.speed = 0f;
         }
         else
         {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isWalkingBack", false);
-        }
-        if (!isFiring && Fire)
-        {
-            animator.SetBool("isFiring", true);
-        }
-        if (isFiring && !Fire)
-        {
-            animator.SetBool("isFiring", false);
+            bool isFiring = animator.GetBool(isFiringHash);
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+            Vector3 lookDirection = new Vector3(player.direction.x, 0f, player.direction.y).normalized;
+            float angle = Vector3.Dot(player.moveDirection, lookDirection);
+            // Debug.Log(angle);
+            Vector3 temp = transform.InverseTransformDirection(player.moveDirection);
+            animator.speed = 1f;
+            if (x != 0 || z != 0)
+            {
+                Debug.Log(temp);
+                if (temp.x > 0.75f)
+                {
+                    animator.SetBool("isWalking", false);
+                    animator.SetBool("isWalkingBack", false);
+                    animator.SetBool("isStrafingLeft", false);
+                    animator.SetBool("isStrafingRight", true);
+                }
+                else if (temp.x < -0.75f)
+                {
+                    animator.SetBool("isWalking", false);
+                    animator.SetBool("isWalkingBack", false);
+                    animator.SetBool("isStrafingLeft", true);
+                    animator.SetBool("isStrafingRight", false);
+                }
+                else if (angle > 0f)
+                {
+                    //Debug.Log("Angle: " + angle);
+                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isWalkingBack", false);
+                    animator.SetBool("isStrafingLeft", false);
+                    animator.SetBool("isStrafingRight", false);
+                }
+                else if (angle < 0f)
+                {
+                    animator.SetBool("isWalkingBack", true);
+                    animator.SetBool("isWalking", false);
+                    animator.SetBool("isStrafingLeft", false);
+                    animator.SetBool("isStrafingRight", false);
+                }
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isWalkingBack", false);
+                animator.SetBool("isStrafingLeft", false);
+                animator.SetBool("isStrafingRight", false);
+            }
+            if (!isFiring && Fire)
+            {
+                animator.SetBool("isFiring", true);
+            }
+            if (isFiring && !Fire)
+            {
+                animator.SetBool("isFiring", false);
+            }
         }
     }
 }

@@ -94,3 +94,15 @@ public class EnemyLeaveCombatEvent : GameEvent
 {
 
 }
+
+public class KeyNeededEvent : GameEvent 
+{
+    public Key key;
+
+    public Door door;
+    public KeyNeededEvent(Key key, Door door)
+    {
+        this.key = key;
+        this.door = door;
+    }
+}
