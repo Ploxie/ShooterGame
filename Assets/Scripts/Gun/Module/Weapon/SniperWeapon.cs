@@ -20,7 +20,7 @@ namespace Assets.Scripts.Entity
             ProjectileSpeed = 30.0f;
             Range = 30.0f;
 
-            FireRate = 0.5f;
+            FireRate = 0.85f;
             DefaultFireRate = FireRate;
             ReloadTime = 5.0f;
             MaxAmmo = 5;

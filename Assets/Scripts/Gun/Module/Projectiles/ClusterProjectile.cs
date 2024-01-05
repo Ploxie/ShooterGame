@@ -9,7 +9,7 @@ namespace Assets.Scripts.Entity
     {
 
         public const int DISTANCE_FROM_CENTER = 1;
-        public const int PROJECTILE_COUNT = 50;
+        public const int PROJECTILE_COUNT = 30;
         public const int PROJECTILE_COUNT_INCREMENT = 1;
 
         private bool HasExploded;
