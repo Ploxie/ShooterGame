@@ -11,7 +11,7 @@ public class MainMenuPhilip : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
+        if (SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Demo1")
         {
             isToggled = false;
             AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MainMenu);
@@ -20,6 +20,7 @@ public class MainMenuPhilip : MonoBehaviour
         {
             AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.DeathMenu);
         }
+        Debug.Log(isToggled);
     }
 
     public void PlayGame()
