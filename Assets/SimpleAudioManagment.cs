@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,9 +15,17 @@ public class SimpleAudioManagment : MonoBehaviour
     void Start()
     {
         AFM = FindObjectOfType<AudioFmodManager>();
-        sliderMusic.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        sliderAmbience.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        sliderEffect.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        sliderMusic.onValueChanged.AddListener(delegate { ValueChangeCheckMusic(); });
+        sliderAmbience.onValueChanged.AddListener(delegate { ValueChangeCheckAmbience(); });
+        sliderEffect.onValueChanged.AddListener(delegate { ValueChangeCheckEffect(); });
+        sliderMusic.value = musicValue;
+        sliderAmbience.value = ambienceValue;
+        sliderEffect.value = effectValue;
+    }
+
+    private void Update()
+    {
+        Debug.Log(musicValue);
     }
 
     public void SetMasterVolume()
@@ -36,10 +45,16 @@ public class SimpleAudioManagment : MonoBehaviour
     {
         AFM.Effects = effectValue;
     }
-    public void ValueChangeCheck()
+    public void ValueChangeCheckMusic()
     {
         musicValue = sliderMusic.value;
+    }
+    public void ValueChangeCheckAmbience()
+    {
         ambienceValue = sliderAmbience.value;
+    }
+    public void ValueChangeCheckEffect()
+    {
         effectValue = sliderEffect.value;
     }
 }
