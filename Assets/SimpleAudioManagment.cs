@@ -9,10 +9,14 @@ public class SimpleAudioManagment : MonoBehaviour
     // Start is called before the first frame update
     private AudioFmodManager AFM;
     public Slider sliderMusic, sliderAmbience, sliderEffect;
+    public static float musicValue, ambienceValue, effectValue;
     
     void Start()
     {
         AFM = FindObjectOfType<AudioFmodManager>();
+        sliderMusic.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        sliderAmbience.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        sliderEffect.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
     }
 
     public void SetMasterVolume()
@@ -21,16 +25,21 @@ public class SimpleAudioManagment : MonoBehaviour
     }
     public void SetMusicVolume()
     {
-        AFM.Music = sliderMusic.value; 
-        AFM.GameLoops = sliderMusic.value;
+        AFM.Music = musicValue; 
+        AFM.GameLoops = musicValue;
     }
     public void SetAmbienceVolume()
     {
-        AFM.Ambient = sliderAmbience.value;
+        AFM.Ambient = ambienceValue;
     }
     public void SetEffectVolume()
     {
-        AFM.Effects = sliderEffect.value;
+        AFM.Effects = effectValue;
     }
-    // Update is called once per frame
+    public void ValueChangeCheck()
+    {
+        musicValue = sliderMusic.value;
+        ambienceValue = sliderAmbience.value;
+        effectValue = sliderEffect.value;
+    }
 }

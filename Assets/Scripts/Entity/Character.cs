@@ -108,53 +108,53 @@ namespace Assets.Scripts.Entity
 
         private void playEffect(StatusEffect effectPlay)
         {
-            StatusEffect value;
-            if (effectPlay.GetType() == typeof(RadiationEffect))
-            {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.green);
-                //VFXGraph.VFXGraph.SendEvent("OnRadiationStop");
-                VFXGraph.VFXGraph.SendEvent("OnRadiationPlay");
-            }
-            if (effectPlay.GetType() == typeof(StunEffect))
-            {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.yellow);
-                //VFXGraph.VFXGraph.SendEvent("OnHazardStop");
-                VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
-            }
-            if (effectPlay.GetType() == typeof(IceEffect))
-            {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.blue);
-                //VFXGraph.VFXGraph.SendEvent("OnIceStop");
-                VFXGraph.VFXGraph.SendEvent("OnIcePlay");
-            }
+            //StatusEffect value;
+            //if (effectPlay.GetType() == typeof(RadiationEffect))
+            //{
+            //    VFXGraph.gameObject.SetActive(true);
+            //    VFXGraph.circleObject.SetActive(true);
+            //    VFXGraph.setColour(Color.green);
+            //    //VFXGraph.VFXGraph.SendEvent("OnRadiationStop");
+            //    VFXGraph.VFXGraph.SendEvent("OnRadiationPlay");
+            //}
+            //if (effectPlay.GetType() == typeof(StunEffect))
+            //{
+            //    VFXGraph.gameObject.SetActive(true);
+            //    VFXGraph.circleObject.SetActive(true);
+            //    VFXGraph.setColour(Color.yellow);
+            //    //VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+            //    VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
+            //}
+            //if (effectPlay.GetType() == typeof(IceEffect))
+            //{
+            //    VFXGraph.gameObject.SetActive(true);
+            //    VFXGraph.circleObject.SetActive(true);
+            //    VFXGraph.setColour(Color.blue);
+            //    //VFXGraph.VFXGraph.SendEvent("OnIceStop");
+            //    VFXGraph.VFXGraph.SendEvent("OnIcePlay");
+            //}
         }
 
         private void stopEffect(StatusEffect effectPlay)
         {
-            if (effectPlay.GetType() == typeof(RadiationEffect))
-            {
-                VFXGraph.VFXGraph.SendEvent("OnRadioStop");
-                VFXGraph.circleObject.SetActive(false);
-                VFXGraph.gameObject.SetActive(false);
-            }
-            if (effectPlay.GetType() == typeof(StunEffect))
-            {
-                VFXGraph.VFXGraph.SendEvent("OnHazardStop");
-                VFXGraph.circleObject.SetActive(false);
-                VFXGraph.gameObject.SetActive(false);
-            }
-            if (effectPlay.GetType() == typeof(IceEffect))
-            {
-                VFXGraph.VFXGraph.SendEvent("OnIceStop");
-                VFXGraph.circleObject.SetActive(false);
-                VFXGraph.gameObject.SetActive(false);
-            }
+            //if (effectPlay.GetType() == typeof(RadiationEffect))
+            //{
+            //    VFXGraph.VFXGraph.SendEvent("OnRadioStop");
+            //    VFXGraph.circleObject.SetActive(false);
+            //    VFXGraph.gameObject.SetActive(false);
+            //}
+            //if (effectPlay.GetType() == typeof(StunEffect))
+            //{
+            //    VFXGraph.VFXGraph.SendEvent("OnHazardStop");
+            //    VFXGraph.circleObject.SetActive(false);
+            //    VFXGraph.gameObject.SetActive(false);
+            //}
+            //if (effectPlay.GetType() == typeof(IceEffect))
+            //{
+            //    VFXGraph.VFXGraph.SendEvent("OnIceStop");
+            //    VFXGraph.circleObject.SetActive(false);
+            //    VFXGraph.gameObject.SetActive(false);
+            //}
         }
 
         public T GetStatusEffect<T>() where T : StatusEffect
