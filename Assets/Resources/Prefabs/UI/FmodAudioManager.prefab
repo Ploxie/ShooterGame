@@ -219,6 +219,20 @@ MonoBehaviour:
       Data3: 590912140
       Data4: -2004561953
     Path: event:/Footsetps/KamikazeFotsteps
+  <DeathMenu>k__BackingField:
+    Guid:
+      Data1: -1994105787
+      Data2: 1243777824
+      Data3: -491930726
+      Data4: -1297696330
+    Path: event:/NewLoops/ST_Death
+  <MainMenu>k__BackingField:
+    Guid:
+      Data1: -544794268
+      Data2: 1196926113
+      Data3: -1191340363
+      Data4: 331174922
+    Path: event:/NewLoops/ST_Menu
   GunSound:
   - Guid:
       Data1: -1354240713
@@ -295,3 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c918638da005edd4cbff3416980afb41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
+  Effects: 1
+  GameLoops: 1
+  Music: 1
+  Ambient: 1

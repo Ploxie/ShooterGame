@@ -34,7 +34,7 @@ public class AudioFmodManager : MonoBehaviour
 
     private List<EventInstance> eventInstanses;
 
-    private EventInstance eventInstanceAmb, eventInstanceMusic;
+    public EventInstance eventInstanceAmb, eventInstanceMusic;
     private Camera cam;
 
     private EventInstance MusicInstance;

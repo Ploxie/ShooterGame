@@ -336,6 +336,7 @@ namespace Assets.Scripts.Entity
 
         private void OnDeath()
         {
+            AudioFmodManager.instance.StopMusic();
             SceneManager.LoadScene("GameOver");
         }
 

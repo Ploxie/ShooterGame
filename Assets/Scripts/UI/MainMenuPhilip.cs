@@ -11,7 +11,7 @@ public class MainMenuPhilip : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Demo1")
+        if (SceneManager.GetActiveScene().name == "MainMenuNew")
         {
             isToggled = false;
             AudioFmodManager.instance.InitializeMusic(FmodEvents.instance.MainMenu);
@@ -28,7 +28,7 @@ public class MainMenuPhilip : MonoBehaviour
         AudioFmodManager.instance.StopMusic();
         if (isToggled)
         {
-            SceneManager.LoadScene("GamePlayLoop"); // Change to Play scene
+            SceneManager.LoadScene("GameplayLoop"); // Change to Play scene
         }
         else
         {
@@ -39,7 +39,8 @@ public class MainMenuPhilip : MonoBehaviour
     }
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        AudioFmodManager.instance.StopMusic();
+        SceneManager.LoadScene("MainMenuNew");
     }
     public void QuitGame()
     {
