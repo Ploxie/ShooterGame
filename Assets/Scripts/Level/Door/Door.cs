@@ -7,6 +7,39 @@ public class Door : MonoBehaviour
     private Animator anim;
     [SerializeField] private Key.KeyType keyType;
 
+
+    private void Start()
+    {
+
+        var renderers = GetComponentsInChildren<Renderer>();
+
+        if (renderers == null)
+            return;
+
+        foreach (var renderer in renderers)
+        {
+            if (renderer == null)
+                continue;
+
+            if (renderer.name == "Frame")
+                continue;
+
+            switch (keyType)
+            {
+                case Key.KeyType.Red:
+                    renderer.material.color = Color.red;
+                    break;
+                case Key.KeyType.Blue:
+                    renderer.material.color = Color.blue;
+                    break;
+                case Key.KeyType.Green:
+                    renderer.material.color = Color.green;
+                    break;
+            }
+        }
+
+    }
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -15,6 +48,10 @@ public class Door : MonoBehaviour
     public void SetKeyType(Key.KeyType type)
     {
         keyType = type;
+
+
+       
+        
     }
 
     public Key.KeyType GetKeyType()
