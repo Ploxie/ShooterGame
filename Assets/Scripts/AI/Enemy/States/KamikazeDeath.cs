@@ -16,10 +16,11 @@ public class KamikazeDeath : Death
     public override void Enter()
     {
         base.Enter();
-        enemyKamikaze.Agent.isStopped = true;
+        if (!enemyKamikaze.SimulationEnabled)
+            enemyKamikaze.Agent.isStopped = true;
         enemyKamikaze.Agent.updateRotation = false;
         //enemyKamikaze.PlaySound("explodekamikaze");
-        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.BoomAndDeathKamikaze, enemyKamikaze.transform.position);
+        //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.BoomAndDeathKamikaze, enemyKamikaze.transform.position);
         enemyKamikaze.DE.Effect.Play();
         enemyKamikaze.StartCoroutine(enemyKamikaze.DE.DissolveRoutine());
         enemyKamikaze.Explode();

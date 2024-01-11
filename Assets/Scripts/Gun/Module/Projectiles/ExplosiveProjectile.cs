@@ -20,7 +20,7 @@ namespace Assets.Scripts.Entity
 
         public ExplosiveProjectile()
         {
-            Data = JsonConvert.DeserializeObject<ExplosionData>(File.ReadAllText($"{PROJECTILE_DATA_PATH}/Cluster.json"));
+            Data = JsonConvert.DeserializeObject<ExplosionData>(File.ReadAllText($"{PROJECTILE_DATA_PATH}/Explosive.json"));
         }
 
         protected override void OnWallCollision(Collision collision)

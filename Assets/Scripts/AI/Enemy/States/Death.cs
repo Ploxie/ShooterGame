@@ -43,7 +43,8 @@ public class Death : State
     {
         EventManager.GetInstance().TriggerEvent(new EnemyLeaveCombatEvent());
         deathTimerStarted = Utils.GetUnixMillis();
-        enemy.Agent.isStopped = true;
+        if (!enemy.SimulationEnabled)
+            enemy.Agent.isStopped = true;
         enemy.GetComponent<Collider>().enabled = false;
     }
 }

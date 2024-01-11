@@ -34,6 +34,16 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.Damage = JumpDamage;
         jumpDamageHitBox.Effect = Effect;
         jumpDamageHitBox.SetMelee();
+
+        if (SimulationEnabled)
+        {
+            meleeDamageHitBox.SimulationEnabled = true;
+            meleeDamageHitBox.Herald = Herald;
+
+            jumpDamageHitBox.SimulationEnabled = true;
+            jumpDamageHitBox.Herald = Herald;
+        }
+
         Effect = Module.CreateRandomStatusEffectModule();
         slash = Resources.Load<GameObject>("Prefabs/VFX/Slash");
 

@@ -1,4 +1,5 @@
 using Assets.Scripts.Entity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,10 +86,15 @@ public class SimulationCamera : MonoBehaviour
             {
                 if (hitInfo.collider.gameObject.CompareTag("Simulation Surface"))
                 {
-                    GameObject enemyObject = Instantiate(enemies[enemyIndex], hitInfo.point, Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
-                    Enemy enemyController = enemyObject.GetComponent<Enemy>();
-                    enemyController.SimulationEnabled = true;
-                    Herald.RegisterEnemy(enemyController);
+                    try
+                    {
+                        GameObject enemyObject = Instantiate(enemies[enemyIndex], hitInfo.point, Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+                        Enemy enemyController = enemyObject.GetComponent<Enemy>();
+                        enemyController.SimulationEnabled = true;
+                        enemyController.Herald = Herald;
+                        Herald.RegisterEnemy((SimEnemy)enemyIndex, enemyIndex, hitInfo.point);
+                    }
+                    catch (Exception) { }
                 }
             }
         }

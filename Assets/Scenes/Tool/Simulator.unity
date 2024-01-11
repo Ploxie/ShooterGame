@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &82362940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -753,7 +753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &116884598
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3027,9 +3027,9 @@ RectTransform:
   - {fileID: 249882394}
   m_Father: {fileID: 985065969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -476.65283, y: 318.7}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 148, y: -56.600006}
   m_SizeDelta: {x: 192.6944, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755170305
@@ -3618,7 +3618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &961139370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4526,6 +4526,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187859705}
   m_CullTransparentMesh: 1
+--- !u!1 &1228594092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228594094}
+  - component: {fileID: 1228594093}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1228594093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228594092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82702532d7303744ad5c36c39345aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5278892520174994976, guid: a314e0ec5b5034543acc90514c77143d, type: 3}
+  target: {fileID: 0}
+--- !u!4 &1228594094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228594092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 728.9174, y: 593.5287, z: -754.0722}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1317470803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7556,13 +7602,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1029095843}
     - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1029095841}
+    - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
       propertyPath: SimulationTime
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
+      propertyPath: enemies.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
       propertyPath: AnimationController
       value: 
       objectReference: {fileID: 1029095845}
+    - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 566266523723854114, guid: 19863a1dedfccb8428806b4c982f863b, type: 3}
+    - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 566266523723854114, guid: b042bc992fdc0044d970fa6db788716b, type: 3}
+    - target: {fileID: 6384056807012430107, guid: 6793f58105953394ebf22fef819187eb, type: 3}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 6672186406215466359, guid: 0313cc5eba76b7b49a2939c18d0f6efc, type: 3}
     - target: {fileID: 8902522991341084608, guid: 6793f58105953394ebf22fef819187eb, type: 3}
       propertyPath: m_Name
       value: SimulationHerald
@@ -7733,6 +7799,10 @@ PrefabInstance:
       value: SimulationCamera
       objectReference: {fileID: 0}
     - target: {fileID: 1518663586207580171, guid: bb91c57c5cb93fc4ebbebe2a25d17f68, type: 3}
+      propertyPath: Herald
+      value: 
+      objectReference: {fileID: 2080431598}
+    - target: {fileID: 1518663586207580171, guid: bb91c57c5cb93fc4ebbebe2a25d17f68, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1029095841}
@@ -7823,3 +7893,4 @@ SceneRoots:
   - {fileID: 3809438213205261502}
   - {fileID: 985065969}
   - {fileID: 2054805714}
+  - {fileID: 1228594094}

@@ -24,6 +24,8 @@ namespace Assets.Scripts.Entity
         private Material material;
 
         public bool SimulationEnabled;
+        public SimulationHerald Herald;
+
         private float dropRate;
         [HideInInspector]
         public WaveSpawner waveSpawner;

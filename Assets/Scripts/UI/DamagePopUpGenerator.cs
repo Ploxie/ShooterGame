@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,17 +21,21 @@ public class DamagePopUpGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            CreatePopUp(new Vector3(0, 4), Random.Range(0, 1000).ToString());
+            CreatePopUp(new Vector3(0, 4), UnityEngine.Random.Range(0, 1000).ToString());
         }
         prefab.transform.forward = target.forward;
     }
 
     public void CreatePopUp(Vector3 position, string text)
     {
-        var popup = Instantiate(prefab, position, Quaternion.LookRotation(prefab.transform.forward));
-        var temp = popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        temp.text = text;
+        try
+        {
+            var popup = Instantiate(prefab, position, Quaternion.LookRotation(prefab.transform.forward));
+            var temp = popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            temp.text = text;
 
-        Destroy(popup, 1f);
+            Destroy(popup, 1f);
+        }
+        catch (Exception) { }
     }
 }

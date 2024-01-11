@@ -25,7 +25,8 @@ public class Idle : State
     }
     public override void Enter()
     {
-        enemy.Agent.isStopped = true;
+        //if (!enemy.SimulationEnabled)
+        //    enemy.Agent.isStopped = true;
         
     }
     public override void Exit()

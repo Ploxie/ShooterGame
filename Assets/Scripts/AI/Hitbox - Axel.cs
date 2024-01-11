@@ -13,6 +13,9 @@ public class Hitbox : MonoBehaviour
     private List<Assets.Scripts.Entity.Character> hitTargets;
     private bool isMelee = false;
 
+    public bool SimulationEnabled;
+    public SimulationHerald Herald;
+
     public void SetMelee()
     {
         isMelee = true;
@@ -31,6 +34,9 @@ public class Hitbox : MonoBehaviour
             {
                 hitTargets.Add(target);
                 target.OnHit(Damage, null, Effect);
+
+                if (SimulationEnabled)
+                    Herald.RegisterDamage(DamageRecipient.Player, Damage);
             }
         }
     }

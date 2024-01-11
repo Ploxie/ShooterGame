@@ -1,0 +1,18 @@
+DATA BEGIN
+Combination: Pistol-None-None
+BaseBulletDamage: 10
+TotalBaseBulletDamage: 10
+CombinedBulletDamage: 10
+TotalCombinedBulletDamage: 10
+CombinedBulletDamageLifetime: 10
+TotalCombinedBulletDamageLifetime: 10
+TheoreticalDamagePerSecond: 30
+BulletSpeed: 20
+FireRate: 3
+BulletsPerSecond: 3
+BulletsPerMinute: 180
+DamagePerSecond: 0
+DamageTakenPerSecond: 100
+DamageDealtToTakenRatio: 0
+DATA END
+

@@ -96,14 +96,12 @@ namespace Assets.Scripts.Entity
         {
             playEffect(effect);
             statusEffects[effect.GetType()] = effect;
-            Debug.Log("Status Effect Added: " + effect.GetType());
         }
 
         private void RemoveStatusEffect(StatusEffect effect)
         {
             stopEffect(effect);
             statusEffects.Remove(effect.GetType());
-            Debug.Log("Status Effect Removed: " + effect.GetType());
         }
 
         private void playEffect(StatusEffect effectPlay)

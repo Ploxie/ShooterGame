@@ -14,10 +14,11 @@ public class MeleeDeath : Death
     public override void Enter()
     {
         base.Enter();
-        enemy.Agent.isStopped = true;
+        if (!enemyMelee.SimulationEnabled)
+            enemy.Agent.isStopped = true;
         enemy.Animator.SetTrigger("Die");
         enemyMelee.DE.Effect.Play();
-        AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathMelee, enemyMelee.transform.position);
+        //AudioFmodManager.instance.PlayOneShot(FmodEvents.instance.deathMelee, enemyMelee.transform.position);
         enemyMelee.DE.StartCoroutine(enemyMelee.DE.DissolveRoutine());
 
     }

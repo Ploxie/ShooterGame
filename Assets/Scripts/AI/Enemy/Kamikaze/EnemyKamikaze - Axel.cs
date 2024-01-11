@@ -25,6 +25,12 @@ public class EnemyKamikaze : Enemy
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();
 
+        if (SimulationEnabled)
+        {
+            ExplosionDamageHitBox.SimulationEnabled = true;
+            ExplosionDamageHitBox.Herald = Herald;
+        }
+
         ExplosionDamageHitBox.Damage = Damage;
         ExplosionDamageHitBox.Effect = StatusEffect;
     }
@@ -41,7 +47,8 @@ public class EnemyKamikaze : Enemy
         explosionVFX.SetActive(true);
         healthBarVisual.SetActive(false);
         model.SetActive(false);
-        Agent.isStopped = true;
+        if (!SimulationEnabled)
+            Agent.isStopped = true;
         Health.SetDead();
     }
 

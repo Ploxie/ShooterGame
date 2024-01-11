@@ -8,12 +8,12 @@ namespace Assets.Scripts.Entity
 {
     public class BlackHoleData
     {
-        public float AttractRange = 10;
-        public float RangeIncrements = 2;
-        public float Duration = 1.0f;
-        public float TickCount = 1.0f; // How many times the black hole will attract per second
-        public float PullStrength = 100;
-        public float PullStrengthIncrements = 50;
+        public float AttractRange;
+        public float RangeIncrements;
+        public float Duration;
+        public float TickCount; // How many times the black hole will attract per second
+        public float PullStrength;
+        public float PullStrengthIncrements;
     }
 
     public class BlackHoleProjectile : Projectile
@@ -22,8 +22,7 @@ namespace Assets.Scripts.Entity
 
         public BlackHoleProjectile()
         {
-            Data = new BlackHoleData();
-            File.WriteAllText($"{PROJECTILE_DATA_PATH}/BlackHole.json", JsonConvert.SerializeObject(Data, Formatting.Indented));
+            Data = JsonConvert.DeserializeObject<BlackHoleData>(File.ReadAllText($"{PROJECTILE_DATA_PATH}/BlackHole.json"));
         }
 
         protected override void OnWallCollision(Collision collision)
