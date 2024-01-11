@@ -48,7 +48,7 @@ namespace Assets.Scripts.Entity
 
             DamageReceivedEffect damageReceivedEffect = Character.GetStatusEffect<DamageReceivedEffect>();
             if(damageReceivedEffect != null)
-                damageMultiplier = damageReceivedEffect.DamageMultiplier;
+                damageMultiplier = damageReceivedEffect.Data.DamageMultiplier;
 
             totalAmount *= damageMultiplier;
             CurrentHealth = Math.Clamp(CurrentHealth - totalAmount, 0.0f, MaxHealth);

@@ -56,14 +56,14 @@ namespace Assets.Scripts.Entity
                 tickTimerStart = Utils.GetUnixMillis();
                 RadiationEffect radiationEffect = GetStatusEffect<RadiationEffect>();
                 if (radiationEffect != null)
-                    Health.TakeDamage(radiationEffect.Damage);
+                    Health.TakeDamage(radiationEffect.Data.Damage);
             }
 
             // Ice 
             {
                 IceEffect iceEffect = GetStatusEffect<IceEffect>();
                 if (iceEffect != null)
-                    finalMovementSpeed *= iceEffect.MovementSpeedMultiplier;
+                    finalMovementSpeed *= iceEffect.Data.MovementSpeedMultiplier;
             }
             // Stun
             {
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Entity
             {
                 DebilitationEffect debilitationEffect = GetStatusEffect<DebilitationEffect>();
                 if (debilitationEffect != null)
-                    damageMultiplier = debilitationEffect.DamageMultiplier;
+                    damageMultiplier = debilitationEffect.Data.DamageMultiplier;
                     
             }
 
@@ -85,9 +85,9 @@ namespace Assets.Scripts.Entity
             for (int i = statusEffects.Count - 1; i >= 0; i--)
             {
                 StatusEffect effect = statusEffects.ElementAt(i).Value;
-                effect.Duration -= Time.deltaTime;
+                effect.SetDuration(effect.GetDuration() - Time.deltaTime);
 
-                if (effect.Duration <= 0.0f)
+                if (effect.GetDuration() <= 0.0f)
                     RemoveStatusEffect(effect);
             }
         }

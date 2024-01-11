@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,26 +8,34 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
-    public abstract class Weapon : Module
+    public class WeaponData
     {
 
-        [field: SerializeField] public float Damage { get; protected set; }
-        public float ProjectileSpeed { get; protected set; }
-        public float Range { get; protected set; }
-        public float FireRate { get; set; }
+        [field: SerializeField][JsonProperty] public float Damage { get; set; }
+        [JsonProperty] public float ProjectileSpeed { get; set; }
+        [JsonProperty] public float Range { get; set; }
+        [JsonProperty] public float FireRate { get; set; }
+        [JsonProperty] public float ReloadTime { get; set; }
+        [JsonProperty] public int MaxAmmo { get; set; }
+        [JsonProperty] public float[] LaunchAngles { get; set; } = new float[] { 0.0f };
+        [JsonProperty] public float AngleDeviation { get; set; }
+
+        [JsonProperty] public float ShakeIntensity { get; set; }
+        [JsonProperty] public float ShakeFrequency { get; set; }
+        [JsonProperty] public float ShakeDuration { get; set; }
+    }
+
+
+    [JsonObject(MemberSerialization.OptIn)]
+    public abstract class Weapon : Module
+    {
+        public const string WEAPON_DATA_PATH = "GameData/Weapons";
 
         public float DefaultFireRate { get; set; }
-        public float ReloadTime { get; protected set; }
-        public int MaxAmmo { get; protected set; }
         public int CurrentAmmo { get; protected set; }
-        public float[] LaunchAngles { get; set; } = new float[] { 0.0f };
-        public float AngleDeviation { get; set; }
-
-        public float ShakeIntensity { get; set; }
-        public float ShakeFrequency { get; set; }
-        public float ShakeDuration  { get; set; }
-
         protected float LastShootTime { get; set; }
+
+        public WeaponData Data { get; protected set; }
 
         public Weapon()
         {
@@ -36,15 +45,15 @@ namespace Assets.Scripts.Entity
         public bool CanShoot()
         {
             float timeSinceLastShot = (Time.time - LastShootTime);
-            float cooldownTime = 1.0f / FireRate;
+            float cooldownTime = 1.0f / Data.FireRate;
             return timeSinceLastShot >= cooldownTime;
         }
 
         public Projectile ShootProjectile(Projectile projectile)
         {
-            projectile.Damage = Damage;
-            projectile.Speed = ProjectileSpeed;
-            projectile.Range = Range;
+            projectile.Damage = Data.Damage;
+            projectile.Speed = Data.ProjectileSpeed;
+            projectile.Range = Data.Range;
 
             LastShootTime = Time.time;
 
@@ -59,7 +68,7 @@ namespace Assets.Scripts.Entity
         }
         public void MultiplyDamage(float multiplier)
         {
-            Damage *= multiplier;
+            Data.Damage *= multiplier;
         }
     }
 }

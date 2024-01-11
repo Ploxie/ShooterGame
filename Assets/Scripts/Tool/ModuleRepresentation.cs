@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ModuleType
+{
+    Weapon,
+    Effect,
+    Bullet
+}
+
 public enum WeaponID
 {
     None,

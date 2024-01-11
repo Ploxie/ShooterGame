@@ -40,11 +40,11 @@ namespace Assets.Scripts.Entity
                 GunVisual.PlaySound();
             float damageMultiplier = 1.0f;
 
-            EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(Weapon.ShakeIntensity, Weapon.ShakeFrequency, Weapon.ShakeDuration));
+            EventManager.GetInstance().TriggerEvent(new ScreenShakeEvent(Weapon.Data.ShakeIntensity, Weapon.Data.ShakeFrequency, Weapon.Data.ShakeDuration));
 
             DebilitationEffect debilitationEffect = Parent.GetStatusEffect<DebilitationEffect>();
             if (debilitationEffect != null)
-                damageMultiplier = debilitationEffect.DamageMultiplier;
+                damageMultiplier = debilitationEffect.Data.DamageMultiplier;
 
             if (gameObject.tag == "Player")
             {
@@ -55,9 +55,9 @@ namespace Assets.Scripts.Entity
                 }
             }
 
-            foreach(float launchAngle in Weapon.LaunchAngles)
+            foreach(float launchAngle in Weapon.Data.LaunchAngles)
             {
-                float angleDeviation = UnityEngine.Random.Range(launchAngle - Weapon.AngleDeviation, launchAngle + Weapon.AngleDeviation);
+                float angleDeviation = UnityEngine.Random.Range(launchAngle - Weapon.Data.AngleDeviation, launchAngle + Weapon.Data.AngleDeviation);
                 Vector3 rotatedFireDirection = Quaternion.AngleAxis(angleDeviation, Vector3.up) * transform.rotation * Vector3.forward;
 
                 Vector3 barrelPosition = GunVisual != null ? GunVisual.GetBarrelPosition() : transform.position;

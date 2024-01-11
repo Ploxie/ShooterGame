@@ -1,0 +1,8 @@
+{
+  "AttractRange": 10.0,
+  "RangeIncrements": 2.0,
+  "Duration": 1.0,
+  "TickCount": 1.0,
+  "PullStrength": 100.0,
+  "PullStrengthIncrements": 50.0
+}

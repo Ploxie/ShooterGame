@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +19,7 @@ namespace Assets.Scripts.Entity
             Icon = Resources.Load<Sprite>("Sprites/Modules/Weapon/t_50Pistol");
             Description = "The pistol is a reliable weapon in a pinch, but not the thing to take along if you expect any serious challenge.";
 
-            Damage = 10.0f;
-            ProjectileSpeed = 20.0f;
-            Range = 30.0f;
-
-            FireRate = 3.0f;
-            DefaultFireRate = FireRate;
-            ReloadTime = 1.0f;
-            MaxAmmo = 10;
-            CurrentAmmo = MaxAmmo;
-
-            ShakeIntensity = 3.0f;
-            ShakeFrequency = 0.5f;
-            ShakeDuration  = 0.2f;
+            Data = JsonConvert.DeserializeObject<WeaponData>(File.ReadAllText($"{WEAPON_DATA_PATH}/Pistol.json"));
         }
 
     }

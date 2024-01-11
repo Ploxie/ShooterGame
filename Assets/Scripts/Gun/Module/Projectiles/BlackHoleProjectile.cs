@@ -1,17 +1,30 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
+using System.IO;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Entity
 {
+    public class BlackHoleData
+    {
+        public float AttractRange = 10;
+        public float RangeIncrements = 2;
+        public float Duration = 1.0f;
+        public float TickCount = 1.0f; // How many times the black hole will attract per second
+        public float PullStrength = 100;
+        public float PullStrengthIncrements = 50;
+    }
+
     public class BlackHoleProjectile : Projectile
     {
-        public const float AttractRange = 10;
-        public const float RangeIncrements = 2;
-        public const float Duration = 1.0f;
-        public const float TickCount = 1.0f; // How many times the black hole will attract per second
-        public const float PullStrength = 100;
-        public const float PullStrengthIncrements = 50;
+        public BlackHoleData Data;
+
+        public BlackHoleProjectile()
+        {
+            Data = new BlackHoleData();
+            File.WriteAllText($"{PROJECTILE_DATA_PATH}/BlackHole.json", JsonConvert.SerializeObject(Data, Formatting.Indented));
+        }
 
         protected override void OnWallCollision(Collision collision)
         {
@@ -46,24 +59,23 @@ namespace Assets.Scripts.Entity
         private IEnumerator Attract()
         {
             Speed = 0.0f;
-            for(float time = 0.0f; time < Duration; time += 1.0f / TickCount)
+            for(float time = 0.0f; time < Data.Duration; time += 1.0f / Data.TickCount)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, AttractRange);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, Data.AttractRange);
                 foreach (Collider collider in colliders)
                 {
                     if (collider.TryGetComponent(out Character character) && !character.CompareTag(tag))
                     {
                         Vector3 direction = (transform.position - character.transform.position);                       
-                        float strength = (direction.magnitude / AttractRange);
+                        float strength = (direction.magnitude / Data.AttractRange);
                         direction.y = 0.0f;
                         character.Rigidbody.velocity = direction * 2.5f;//.AddRelativeForce(direction / direction.magnitude);
                     }
                 }
-                Debug.Log("PULLING");
-                yield return new WaitForSeconds(1.0f / TickCount);
+
+                yield return new WaitForSeconds(1.0f / Data.TickCount);
             }
 
-            Debug.Log("DESTROY");
             Destroy(gameObject);
         }
 

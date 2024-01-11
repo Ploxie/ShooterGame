@@ -1,0 +1,15 @@
+{
+  "Damage": 5.0,
+  "ProjectileSpeed": 20.0,
+  "Range": 20.0,
+  "FireRate": 20.0,
+  "ReloadTime": 2.0,
+  "MaxAmmo": 20,
+  "LaunchAngles": [
+    0.0
+  ],
+  "AngleDeviation": 10.0,
+  "ShakeIntensity": 3.0,
+  "ShakeFrequency": 0.5,
+  "ShakeDuration": 0.2
+}

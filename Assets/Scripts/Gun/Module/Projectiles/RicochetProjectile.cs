@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,15 +9,25 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
+    public class RicochetData
+    {
+        public int MaxBounceCount;
+    }
+
     public class RicochetProjectile : Projectile
     {
-
-        public int BounceCount { get; set; } = 4;
+        public RicochetData Data;
         public int Bounces { get; set; }
+
+        public RicochetProjectile()
+        {
+            Data = JsonConvert.DeserializeObject<RicochetData>(File.ReadAllText($"{PROJECTILE_DATA_PATH}/Ricochet.json"));
+        }
+
 
         protected override void OnWallCollision(Collision collision)
         {
-            if(Bounces >= BounceCount)
+            if(Bounces >= Data.MaxBounceCount)
             {
                 Destroy(gameObject);
                 return;

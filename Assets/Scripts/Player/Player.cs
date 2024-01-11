@@ -272,7 +272,7 @@ namespace Assets.Scripts.Entity
                     fireRateIncreased = true;
                     for (int i = 0; i < weaponCount; i++)
                     {
-                        weaponModules.Cycle().FireRate *= fireRateMultiplier;
+                        weaponModules.Cycle().Data.FireRate *= fireRateMultiplier;
                     }
                 }
 
@@ -283,7 +283,7 @@ namespace Assets.Scripts.Entity
                     fireRateIncreased = false;
                     for (int i = 0; i < weaponCount; i++)
                     {
-                        weaponModules.Cycle().FireRate = weaponModules.Peek().DefaultFireRate;
+                        weaponModules.Cycle().Data.FireRate = weaponModules.Peek().DefaultFireRate;
                     }
                 }
             }

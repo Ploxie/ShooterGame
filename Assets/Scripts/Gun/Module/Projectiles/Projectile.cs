@@ -9,9 +9,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.Entity
 {
+    public class ProjectileData
+    {
+
+    }
+
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
+        public const string PROJECTILE_DATA_PATH = "GameData/Projectiles";
+
         public float Damage { get; set; }
         public float Speed { get; set; }
         public float Range { get; set; }

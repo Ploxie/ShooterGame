@@ -1,18 +1,25 @@
-﻿using System.Collections;
-using Unity.VisualScripting;
+﻿using Newtonsoft.Json;
+using System.IO;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Entity
 {
+    public class ClusterData
+    {
+        public int ProjectileCount;
+    }
+
     public class ClusterProjectile : Projectile
     {
-
-        public const int DISTANCE_FROM_CENTER = 1;
-        public const int PROJECTILE_COUNT = 30;
-        public const int PROJECTILE_COUNT_INCREMENT = 1;
+        public ClusterData Data;
 
         private bool HasExploded;
+
+        public ClusterProjectile()
+        {
+            Data = JsonConvert.DeserializeObject<ClusterData>(File.ReadAllText($"{PROJECTILE_DATA_PATH}/Cluster.json"));
+        }
 
         protected override void OnWallCollision(Collision collision)
         {
@@ -39,7 +46,7 @@ namespace Assets.Scripts.Entity
 
             float angleDeviation = Random.Range(0, 360);
 
-            float placementInterval = 360.0f / PROJECTILE_COUNT;
+            float placementInterval = 360.0f / Data.ProjectileCount;
             for (float i = 0; i < 360; i += placementInterval)
             {
                 Vector3 direction = Quaternion.AngleAxis(i + angleDeviation, Vector3.up) * Vector3.forward;

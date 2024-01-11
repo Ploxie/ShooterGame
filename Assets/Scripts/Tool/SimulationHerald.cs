@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct CollectedData
 {
@@ -55,6 +57,10 @@ public class SimulationHerald : MonoBehaviour
     public Gun Gun;
     public AnimatorController AnimationController;
 
+    private HashSet<WeaponID> disabledWeapons;
+    private HashSet<StatusID> disabledEffects;
+    private HashSet<EffectID> disabledBullets;
+
     private int weaponID;
     private int statusID;
     private int effectID;
@@ -70,6 +76,10 @@ public class SimulationHerald : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        disabledWeapons = new HashSet<WeaponID>();
+        disabledEffects = new HashSet<StatusID>();
+        disabledBullets = new HashSet<EffectID>();
+
         MissPercentage = PlayerPrefs.GetFloat("MissPercentage");
         MissPercentage = Mathf.Round(MissPercentage * 100);
         MissPercentage /= 100;
@@ -92,11 +102,50 @@ public class SimulationHerald : MonoBehaviour
         spawnedEnemies.Add(enemy);
     }
 
+    public void ToggleModule(ModuleType type, int moduleID)
+    {
+        switch (type)
+        {
+            case ModuleType.Weapon:
+                WeaponID castWeaponID = (WeaponID)moduleID;
+                
+                if (disabledWeapons.Contains(castWeaponID))
+                    disabledWeapons.Remove(castWeaponID);
+                else
+                    disabledWeapons.Add(castWeaponID);
+
+                break;
+            case ModuleType.Effect:
+                StatusID castEffectID = (StatusID)moduleID;
+                
+                if (disabledEffects.Contains(castEffectID))
+                    disabledEffects.Remove(castEffectID);
+                else
+                    disabledEffects.Add(castEffectID);
+
+                break;
+            case ModuleType.Bullet:
+                EffectID castBulletID = (EffectID)moduleID;
+
+                if (disabledBullets.Contains(castBulletID))
+                    disabledBullets.Remove(castBulletID);
+                else
+                    disabledBullets.Add(castBulletID);
+                break;
+            default:
+                return;
+        }
+    }
+
+
     //Do not refactor me, i swear to god 
     //Cubic time complexity isnt a concern here because N is small.
     //-Hampus
     public void RunSimulations()
     {
+        if (simulating)
+            return;
+
         simulating = true;
         weaponID = 1;
         statusID = 0;
@@ -127,25 +176,43 @@ public class SimulationHerald : MonoBehaviour
         ProjectileEffect effectModule = ModuleRepresentation.CreateEffect((EffectID)effectID);
 
         CollectedData data = new CollectedData();
-        data.BaseBulletDamage = weaponModule.Damage;
-        data.TotalBaseBulletDamage = data.BaseBulletDamage * weaponModule.LaunchAngles.Length;
+        data.BaseBulletDamage = weaponModule.Data.Damage;
+        data.TotalBaseBulletDamage = data.BaseBulletDamage * weaponModule.Data.LaunchAngles.Length;
 
-        if ((StatusID)statusID == StatusID.Radiation)
+        StatusID castStatusID = (StatusID)statusID;
+        if (castStatusID == StatusID.Radiation)
         {
             RadiationEffect radiation = (RadiationEffect)statusModule;
-            data.CombinedBulletDamage = data.BaseBulletDamage + radiation.Damage;
-            data.TotalCombinedBulletDamage = data.CombinedBulletDamage * weaponModule.LaunchAngles.Length;
+            data.CombinedBulletDamage = data.BaseBulletDamage + radiation.Data.Damage;
+            data.TotalCombinedBulletDamage = data.CombinedBulletDamage * weaponModule.Data.LaunchAngles.Length;
 
-            data.CombinedBulletDamageLifetime = data.BaseBulletDamage + radiation.Damage * radiation.Duration;
-            data.TotalCombinedBulletDamageLifetime = data.CombinedBulletDamageLifetime * weaponModule.LaunchAngles.Length;
+            data.CombinedBulletDamageLifetime = data.CombinedBulletDamage * radiation.Data.Duration;
+            data.TotalCombinedBulletDamageLifetime = data.CombinedBulletDamageLifetime * weaponModule.Data.LaunchAngles.Length;
+        }
+        else if (castStatusID == StatusID.DamageReceived)
+        {
+            DamageReceivedEffect damageReceived = (DamageReceivedEffect)statusModule;
+            data.CombinedBulletDamage = data.BaseBulletDamage * damageReceived.Data.DamageMultiplier;
+            data.TotalCombinedBulletDamage = data.CombinedBulletDamage * weaponModule.Data.LaunchAngles.Length;
+
+            data.CombinedBulletDamageLifetime = data.CombinedBulletDamage * damageReceived.Data.Duration;
+            data.TotalCombinedBulletDamageLifetime = data.CombinedBulletDamageLifetime * weaponModule.Data.LaunchAngles.Length;
+        }
+        else
+        {
+            data.CombinedBulletDamage = data.BaseBulletDamage;
+            data.TotalCombinedBulletDamage = data.CombinedBulletDamage * weaponModule.Data.LaunchAngles.Length;
+
+            data.CombinedBulletDamageLifetime = data.CombinedBulletDamage;
+            data.TotalCombinedBulletDamageLifetime = data.CombinedBulletDamageLifetime;
         }
 
-        data.TheoreticalDamagePerSecond = data.TotalCombinedBulletDamage * weaponModule.FireRate;
+        data.TheoreticalDamagePerSecond = data.TotalCombinedBulletDamage * weaponModule.Data.FireRate;
 
-        data.BulletSpeed = weaponModule.ProjectileSpeed;
-        data.FireRate = weaponModule.FireRate;
+        data.BulletSpeed = weaponModule.Data.ProjectileSpeed;
+        data.FireRate = weaponModule.Data.FireRate;
 
-        data.BulletsPerSecond = weaponModule.FireRate * weaponModule.LaunchAngles.Length;
+        data.BulletsPerSecond = weaponModule.Data.FireRate * weaponModule.Data.LaunchAngles.Length;
         data.BulletsPerMinute = data.BulletsPerSecond * 60;
 
         data.DamagePerSecond = damageAccumulator / (simTime / 1000d);
@@ -160,8 +227,8 @@ public class SimulationHerald : MonoBehaviour
                     data.DamageTakenPerSecond += melee.Damage;
                     break;
                 case EnemyRanged ranged:
-                    data.DamageTakenPerSecond += ranged.Gun.Weapon.Damage * ranged.Gun.Weapon.LaunchAngles.Length * 
-                        ranged.Gun.Weapon.FireRate;
+                    data.DamageTakenPerSecond += ranged.Gun.Weapon.Data.Damage * ranged.Gun.Weapon.Data.LaunchAngles.Length * 
+                        ranged.Gun.Weapon.Data.FireRate;
                     break;
             }
         }
@@ -237,6 +304,9 @@ public class SimulationHerald : MonoBehaviour
                 effectID++;
             }
 
+            if (disabledWeapons.Contains((WeaponID)weaponID) || disabledEffects.Contains((StatusID)statusID) || disabledBullets.Contains((EffectID)effectID))
+                return;
+
             Gun.ApplyModule(ModuleRepresentation.CreateWeapon((WeaponID)weaponID));
             Gun.ApplyModule(ModuleRepresentation.CreateStatus((StatusID)statusID));
             Gun.ApplyModule(ModuleRepresentation.CreateEffect((EffectID)effectID));
@@ -245,7 +315,7 @@ public class SimulationHerald : MonoBehaviour
 
             simTime = Utils.GetUnixMillis();
         }
-
+            
         Gun.Shoot();
     }
 }
