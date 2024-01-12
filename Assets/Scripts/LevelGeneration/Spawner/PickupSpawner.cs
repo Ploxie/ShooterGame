@@ -44,7 +44,7 @@ namespace Assets.Scripts.LevelGeneration
             {
                 CartridgeType.Pistol => new PistolWeapon(),
                 CartridgeType.SMG => new SMGWeapon(),
-                CartridgeType.Shotgun => new SMGWeapon(),
+                CartridgeType.Shotgun => new ShotgunWeapon(),
                 CartridgeType.Sniper => new SniperWeapon(),
                 CartridgeType.Assault_Rifle => new AssaultRifleWeapon(),
                 CartridgeType.Debilitation => new DebilitationEffect(),

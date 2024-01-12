@@ -15,6 +15,7 @@ public class EnemyRanged : Enemy
         Gun = GetComponent<Gun>();
         Module = Module.CreateRandomModule();
         Gun.ApplyModule(Module);
+        score = 7;
     }
 
     protected override void Update()

@@ -218,7 +218,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &5916244122740199480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +235,8 @@ MonoBehaviour:
   CurrentMovementSpeed: 0
   isSpecial: 0
   weakness: 0
+  VFXGraph: {fileID: 0}
+  SimulationEnabled: 0
   waveSpawner: {fileID: 0}
   StateMachine:
     states:
@@ -299,8 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2412471bca197e34c82b8777d432f411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 10
-  <MaxHealth>k__BackingField: 10
+  <CurrentHealth>k__BackingField: 400
+  <MaxHealth>k__BackingField: 400
   <HealthRegen>k__BackingField: 0
 --- !u!54 &4041793284713522686
 Rigidbody:

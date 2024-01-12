@@ -33,6 +33,7 @@ public class MeleeIdle : Idle
 
     public override void Exit()
     {
+        EventManager.GetInstance().TriggerEvent(new EnemyEnterCombatEvent());
     }
 
     public override void Update()

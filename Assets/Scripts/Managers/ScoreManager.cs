@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
     {
         EventManager.GetInstance().AddListener<ScoreChangedEvent>(OnScoreChanged);
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "LevelGenererationTestScene")
+        if (currentScene.name == "Tutorial" || currentScene.name == "GameplayLoop")
             score = 0;
     }
 
