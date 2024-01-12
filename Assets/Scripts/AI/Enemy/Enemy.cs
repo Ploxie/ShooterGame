@@ -19,6 +19,8 @@ namespace Assets.Scripts.Entity
         public NavMeshAgent Agent { get; protected set; }
         public Player Player { get; private set; }
 
+        protected int score = 0;
+
         private PowerUpPickUp powerUpPickUp;
         private Key key;
         private Material material;
@@ -68,6 +70,8 @@ namespace Assets.Scripts.Entity
 
         protected virtual void OnDeath()
         {
+            EventManager.GetInstance().TriggerEvent(new ScoreChangedEvent(score));
+
             Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             if (isSpecial)
             {

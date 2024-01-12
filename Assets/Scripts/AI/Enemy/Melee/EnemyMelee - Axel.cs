@@ -36,6 +36,8 @@ public class EnemyMelee : Enemy
         jumpDamageHitBox.SetMelee();
         Effect = Module.CreateRandomStatusEffectModule();
         slash = Resources.Load<GameObject>("Prefabs/VFX/Slash");
+        score = 15;
+        StateMachine.SetState(typeof(MeleeIdle));
 
         meleeDamageHitBox.Effect = Effect;
         jumpDamageHitBox.Effect = Effect;

@@ -13,6 +13,7 @@ public class EnemyKamikaze : Enemy
     [SerializeField] private GameObject healthBarVisual;
     [SerializeField] public DissolveEffect DE;
 
+
     public bool HasRoared { get; private set; } = false;
 
     private Assets.Scripts.Entity.StatusEffect StatusEffect { get; set; }
@@ -24,6 +25,8 @@ public class EnemyKamikaze : Enemy
         DE.Effect.Stop();
         Agent.speed = CurrentMovementSpeed;
         StatusEffect = Module.CreateRandomStatusEffectModule();
+
+        score = 10;
 
         ExplosionDamageHitBox.Damage = Damage;
         ExplosionDamageHitBox.Effect = StatusEffect;

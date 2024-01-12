@@ -111,25 +111,25 @@ namespace Assets.Scripts.Entity
             StatusEffect value;
             if (effectPlay.GetType() == typeof(RadiationEffect))
             {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.green);
+                VFXGraph.VFXGraph.gameObject.SetActive(true);
+                //VFXGraph.circleObject.SetActive(true);
+                //VFXGraph.setColour(Color.green);
                 //VFXGraph.VFXGraph.SendEvent("OnRadiationStop");
                 VFXGraph.VFXGraph.SendEvent("OnRadiationPlay");
             }
             if (effectPlay.GetType() == typeof(StunEffect))
             {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.yellow);
+                VFXGraph.VFXGraph.gameObject.SetActive(true);
+                //VFXGraph.circleObject.SetActive(true);
+                //VFXGraph.setColour(Color.yellow);
                 //VFXGraph.VFXGraph.SendEvent("OnHazardStop");
                 VFXGraph.VFXGraph.SendEvent("OnHazardPlay");
             }
             if (effectPlay.GetType() == typeof(IceEffect))
             {
-                VFXGraph.gameObject.SetActive(true);
-                VFXGraph.circleObject.SetActive(true);
-                VFXGraph.setColour(Color.blue);
+                VFXGraph.VFXGraph.gameObject.SetActive(true);
+                //VFXGraph.circleObject.SetActive(true);
+                //VFXGraph.setColour(Color.blue);
                 //VFXGraph.VFXGraph.SendEvent("OnIceStop");
                 VFXGraph.VFXGraph.SendEvent("OnIcePlay");
             }
